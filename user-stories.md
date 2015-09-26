@@ -1,6 +1,6 @@
 # USER STORIES
 
-### "As a <role>, I want <goal/desire> so that <benefit>"
+> `As a <role>, I want <goal/desire> so that <benefit>`
 
 * As a user, I want to be able to search for names of those who are in the cemetary to find what plot they are located in.
 
