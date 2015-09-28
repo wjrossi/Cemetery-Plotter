@@ -3,18 +3,9 @@
 ## NOTES
 > `As a <role>, I want <goal/desire> so that <benefit>`
 Let's say the user in our case is the manager of the cemetery.
-Cut an unranked story and paste it into a position in the ranked section.
 Add a reason why it belongs at that ranking when you do it.
 The reason might be about how important the feature is for the cemetery manager and how it impacts the development of the software.
 If you change a ranking, make sure you move the reason too.
-
-## UNRANKED 
-* As a user, I want to be able to list all the vacant plots for when we need to find a location for a new burial.
-* As a user, I want the price to be attached on each plot, so I can easily manage the price.
-* As a user, I want to be able to pay with credit cards in the system, so I do not have to wait in line.
-* As a user, I want a plot comparison function, so I can compare the price, location and other stuffs.
-* As a user, I want to be able to attach a picture of each site so that I can have a visual reference.
-* As a user, I want to be able to get an automatic notification when certain rates (for example 90%) of the plots have been occupied so that I can make plans to use new areas. 
 
 ## RANKED
 ### Highest Priority First
@@ -33,15 +24,15 @@ If you change a ranking, make sure you move the reason too.
   * If each plot has associated information, then we will want to be able to change and update that information.
 7. As a user, I want to be able to view a visual representation of the plots in each section of the cemetery so that I can quickly determine who is interred in a specific location. 
   * This feature is probably very important in the long run, but difficult to implement, and not immediately necessary for use.
-8. 
-  * 
-9. 
-  * 
-10. 
-  * 
-11. 
-  * 
-12. 
-  * 
-13. 
-  * 
+8. As a user, I want to be able to list all the vacant plots for when we need to find a location for a new purchase or burial.
+  * This well help the manager sell to his customers and make plans about the cemetery's land usage.
+9. As a user, I want the price to be attached on each plot, so I can easily manage the price.
+  * A good piece of information to have in the system.  Not all plots will have prices.  Should be fairly simple to include.
+10. As a user, I want to be able to attach a picture of each site so that I can have a visual reference.
+  * Helpful for the manager to show prospective buyers or workers who need to find it out in the field.
+11. As a user, I want to be able to pay with credit cards in the system, so payments from customers can be automated.
+  * Simplifies automatic payments from the customer for the manager.  Lower priority because there is probably already another system in place for making payments.
+12. As a user, I want a plot comparison function, so I can compare the price, location and other stuffs.
+  * Let's say this reports helpful statistics and metrics for the utilization of the cemetery and it's business.  This will be a helpful feature, but not necessary for functioning and depends on more basic data being implemented and available.
+13. As a user, I want to be able to get an automatic notification when certain rates (for example 90%) of the plots have been occupied so that I can make plans to use new areas. 
+  * Another type of report for the mangager.  Very useful for maintaining the cemetery but not critcally important.
