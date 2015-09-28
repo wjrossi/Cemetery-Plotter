@@ -12,3 +12,5 @@
 * As a user, I want to be able to attach a picture of each site so that I can have a visual reference.
 * As a user, I want to be able to view a visual representation of the plots in each section of the cemetery so that I can quickly determine who is interred in a specific location.
 * As a user, I want to be able to update the status of a plot and add, remove, or modify it's associated information so that I can keep accurate records.
+* As a manager, I want to be able to get all the information of a specific peroson by searching the location of the plot he is located in. 
+* As a manager, I want to be able to get an automatic notice when certain rates(for example 90%) of the plots have been occupied. 
