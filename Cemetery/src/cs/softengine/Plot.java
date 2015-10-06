@@ -1,15 +1,18 @@
 package cs.softengine;
+import java.util.Date;
 
 /**
  * A plot
  */
 public class Plot {
-    // class variables: person, interredperson, purchaserperson, etc...
-    // location, section it belongs too... what else?
 
-    /**
-     *
-     */
+    Person interredPerson;
+    Person contactPerson;
+    Date burialDate;
+    boolean isVacant;
+    Section section;
+
+
     public Plot() {
 
     }

@@ -1,5 +1,4 @@
 package cs.softengine;
-
 import java.util.ArrayList;
 
 /**
