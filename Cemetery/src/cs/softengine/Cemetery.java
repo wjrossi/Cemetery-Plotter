@@ -1,16 +1,18 @@
 package cs.softengine;
 
+import java.util.ArrayList;
+
 /**
  * A cemetery
  */
 public class Cemetery {
-    // class variables go here
+    private ArrayList<Section> sections;
 
     /**
      * Constructs a cemetery
      */
     public Cemetery() {
-
+        sections = new ArrayList<>();
     }
 
     /**
@@ -27,6 +29,7 @@ public class Cemetery {
      */
     public void load(String file) {
         // do stuff
+        // sections = new ArrayList<>(size); // based on file data
     }
 
     /**
