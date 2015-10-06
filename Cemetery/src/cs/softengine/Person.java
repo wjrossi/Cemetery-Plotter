@@ -3,7 +3,7 @@ package cs.softengine;
 /**
  * A person.  Includes personal information like name and address.
  */
-public class Person {
+public class Person implements Comparable<Person> {
     private String fname;
     private String lname;
     private String address1;
@@ -152,5 +152,29 @@ public class Person {
      */
     public String getPhone() {
         return phone;
+    }
+
+    /**
+     * Compare a person to another person
+     * @param p a person
+     * @return  < 0 if p is less than this person
+     *            0 if p is equal to this person
+     *          > 0 if p is greater than this person
+     */
+    @Override
+    public int compareTo(Person p) throws NullPointerException {
+        // how do we compare people? we need a unique identifier
+        // this will come in handy when we are searching for plots or people
+        return 0;
+    }
+
+    /**
+     * Person equals person
+     * @param p a person
+     * @return true if they are the same person
+     */
+    public boolean equals(Person p) throws NullPointerException {
+        // how do we know if they are the same person? name isn't enough.
+        return compareTo(p) == 0;
     }
 }

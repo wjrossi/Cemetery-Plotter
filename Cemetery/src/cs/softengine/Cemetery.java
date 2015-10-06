@@ -19,7 +19,7 @@ public class Cemetery {
      * @param file cemetery file
      */
     public Cemetery(String file) {
-
+        load(file);
     }
 
     /**
@@ -36,5 +36,21 @@ public class Cemetery {
      */
     public void save() {
         // do stuff
+    }
+
+    /**
+     * Set the sections in the cemetery
+     * @param sections of the cemetery
+     */
+    public void setSections(ArrayList<Section> sections) {
+        this.sections = sections;
+    }
+
+    /**
+     * Get ArrayList of sections in the cemetery
+     * @return sections
+     */
+    public ArrayList<Section> getSections() {
+        return sections;
     }
 }

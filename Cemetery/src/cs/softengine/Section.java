@@ -5,8 +5,8 @@ import java.util.ArrayList;
 /**
  * A section of a cemetery
  */
-public class Section {
-    private ArrayList<Plot> plots; // TEMPORARY?? data structure for a section
+public class Section implements Comparable<Section> {
+    private ArrayList<Plot> plots; // (TEMPORARY) data structure for a section... do we want a hashtable or hashmap?
     private String name; // name of the section
     private int size; // the number of plots
 
@@ -90,5 +90,28 @@ public class Section {
      */
     public void setSection(ArrayList<Plot> plots) {
         this.plots = plots;
+    }
+
+    /**
+     * Compare a section to another section
+     * @param s a section
+     * @return  < 0 if s is less than this section
+     *            0 if s is equal to this section
+     *          > 0 if s is greater than this section
+     */
+    @Override
+    public int compareTo(Section s) throws NullPointerException {
+        // compare by section name using string's compareTo method
+        return 0;
+    }
+
+    /**
+     * Section equals section
+     * @param s a section
+     * @return true if they are the same person
+     */
+    public boolean equals(Section s) throws NullPointerException {
+        // how do we know if they are the same person. name isn't enough.
+        return compareTo(s) == 0;
     }
 }

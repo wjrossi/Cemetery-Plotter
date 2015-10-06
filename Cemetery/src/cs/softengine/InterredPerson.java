@@ -5,4 +5,11 @@ package cs.softengine;
  */
 public class InterredPerson extends Person {
     private Plot plot;
+
+    /**
+     * Constructs an interred person
+     */
+    public InterredPerson() {
+
+    }
 }
