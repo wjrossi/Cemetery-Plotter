@@ -11,6 +11,7 @@ public class Person {
     private String city;
     private String state;
     private String zip;
+    private String phone;
 
     /**
      * Constructs a person.
@@ -137,4 +138,19 @@ public class Person {
         return zip;
     }
 
+    /**
+     * Set phone number
+     * @param phone phone number
+     */
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    /**
+     * Get phone number
+     * @return phone number
+     */
+    public String getPhone() {
+        return phone;
+    }
 }

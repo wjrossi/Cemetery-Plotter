@@ -1,18 +1,20 @@
 package cs.softengine;
+
 import java.util.Date;
 
 /**
  * A plot
  */
 public class Plot {
-
+    Section section;
     Person interredPerson;
     Person contactPerson;
     Date burialDate;
     boolean isVacant;
-    Section section;
 
-
+    /**
+     * Constructs a plot
+     */
     public Plot() {
 
     }

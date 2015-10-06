@@ -14,7 +14,7 @@ public class Section {
      * Constructs a new, empty section.
      */
     public Section() {
-        plots = new ArrayList<Plot>();
+        plots = new ArrayList<>();
     }
 
     /**
@@ -23,7 +23,7 @@ public class Section {
     public Section(String name, int size) {
         this.name = name;
         this.size = size;
-        plots = new ArrayList<Plot>(size);
+        plots = new ArrayList<>(size);
     }
 
     /**
