@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * A section of a cemetery
  */
 public class Section {
-    private ArrayList<Plot> section; // TEMPORARY?? data structure for a section
+    private ArrayList<Plot> plots; // TEMPORARY?? data structure for a section
     private String name; // name of the section
     private int size; // the number of plots
 
@@ -14,7 +14,7 @@ public class Section {
      * Constructs a new, empty section.
      */
     public Section() {
-        section = new ArrayList<>();
+        plots = new ArrayList<>();
     }
 
     /**
@@ -23,7 +23,7 @@ public class Section {
     public Section(String name, int size) {
         this.name = name;
         this.size = size;
-        section = new ArrayList<>(size);
+        plots = new ArrayList<>(size);
     }
 
     /**
@@ -32,7 +32,7 @@ public class Section {
      * @return success/failure
      */
     public boolean add(Plot plot) {
-        return section.add(plot);
+        return plots.add(plot);
     }
 
     /**
@@ -41,7 +41,7 @@ public class Section {
      * @return succes/failure
      */
     public boolean remove(Plot plot) {
-        return section.remove(plot);
+        return plots.remove(plot);
     }
 
     /**
@@ -80,15 +80,15 @@ public class Section {
      * Get the plots in this section
      * @return ArrayList of plots in this section
      */
-    public ArrayList<Plot> getSection() {
-        return section;
+    public ArrayList<Plot> getPlots() {
+        return plots;
     }
 
     /**
      * Set the ArrayList of plots in this section
-     * @param section the new ArrayList of plots in this section
+     * @param plots the new ArrayList of plots in this section
      */
-    public void setSection(ArrayList<Plot> section) {
-        this.section = section;
+    public void setSection(ArrayList<Plot> plots) {
+        this.plots = plots;
     }
 }
