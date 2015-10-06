@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 /.workspace.xml
+=======
+.idea/workspace.xml
+>>>>>>> cc054ddaabc717d42dd5f52f7fbca74f96d601e8
