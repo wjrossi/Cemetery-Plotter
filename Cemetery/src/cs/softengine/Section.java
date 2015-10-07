@@ -14,7 +14,7 @@ public class Section implements Comparable<Section> {
      * Constructs a new, empty section.
      */
     public Section() {
-        plots = new ArrayList<>();
+        plots = new ArrayList<Plot>();
     }
 
     /**
@@ -23,7 +23,7 @@ public class Section implements Comparable<Section> {
     public Section(String name, int size) {
         this.name = name;
         this.size = size;
-        plots = new ArrayList<>(size);
+        plots = new ArrayList<Plot>(size);
     }
 
     /**

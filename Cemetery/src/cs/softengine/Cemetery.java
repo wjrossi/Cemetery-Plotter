@@ -11,7 +11,7 @@ public class Cemetery {
      * Constructs a cemetery
      */
     public Cemetery() {
-        sections = new ArrayList<>();
+        sections = new ArrayList<Section>();
     }
 
     /**
