@@ -28,20 +28,21 @@ public class Section implements Comparable<Section> {
 
     /**
      * Add a plot to this section
-     * @param plot the new plot
+     * @param p the new plot
      * @return success/failure
      */
-    public boolean add(Plot plot) {
-        return plots.add(plot);
+    public boolean add(Plot p) {
+        return p != null && plots.add(p);
     }
 
     /**
      * Remove a plot from this section
-     * @param plot the old plot
+     * @param p the old plot
      * @return succes/failure
      */
-    public boolean remove(Plot plot) {
-        return plots.remove(plot);
+    public boolean remove(Plot p) {
+        return p != null && plots.remove(p);
+
     }
 
     /**
@@ -58,6 +59,7 @@ public class Section implements Comparable<Section> {
      */
     public void setSize(int size) {
         this.size = size;
+        // resize plots?
     }
 
     /**

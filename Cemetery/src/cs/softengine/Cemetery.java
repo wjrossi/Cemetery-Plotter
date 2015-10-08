@@ -39,6 +39,27 @@ public class Cemetery {
     }
 
     /**
+     * Add a section to the cemetery
+     * @param s the new section
+     * @return success/failure
+     */
+    public boolean add(Section s) {
+        return s != null && sections.add(s);
+
+    }
+
+    /**
+     * Remove a section from the cemetery
+     * @param s the old section
+     * @return succes/failure
+     */
+    public boolean remove(Section s) {
+        return s != null && sections.remove(s);
+
+    }
+
+
+    /**
      * Set the sections in the cemetery
      * @param s of the cemetery
      */
