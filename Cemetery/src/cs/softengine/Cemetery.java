@@ -40,10 +40,10 @@ public class Cemetery {
 
     /**
      * Set the sections in the cemetery
-     * @param sections of the cemetery
+     * @param s of the cemetery
      */
-    public void setSections(ArrayList<Section> sections) {
-        this.sections = sections;
+    public void setSections(ArrayList<Section> s) {
+        sections = s;
     }
 
     /**
@@ -52,5 +52,33 @@ public class Cemetery {
      */
     public ArrayList<Section> getSections() {
         return sections;
+    }
+
+    /**
+     * Get a section
+     * @param s section
+     * @return section of the cemetery, null if it does not exist
+     */
+    public Section get(Section s) {
+        return null; // TODO
+    }
+
+    /**
+     * Get a plot
+     * @param p plot
+     * @return plot, null if it does not exist
+     */
+    public Plot get(Plot p) {
+        return null; // TODO
+    }
+
+    /**
+     * Get a person
+     * @param p person
+     * @return person, null if they do not exist
+     */
+    public Person get(Person p) {
+        return null; // TODO
+        // should this return a list of possible results or will that be in some other findPerson method somewhere?
     }
 }
