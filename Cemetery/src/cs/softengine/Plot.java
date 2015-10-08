@@ -16,7 +16,7 @@ public class Plot implements Comparable<Plot> {
      * Constructs a plot
      */
     public Plot() {
-
+        // TODO
     }
 
     /**
@@ -28,18 +28,28 @@ public class Plot implements Comparable<Plot> {
      */
     @Override
     public int compareTo(Plot p) throws NullPointerException {
-        // how do we compare plots? we need a unique identifier
+        // how do we compare plots? we need a unique identifier TODO
         // this will come in handy when we are searching for plots or people
         return 0;
     }
 
     /**
      * Plot equals plot
-     * @param p a plot
+     * @param o a plot object
      * @return true if they are the same plot
      */
-    public boolean equals(Plot p) throws NullPointerException {
-        // how do we know if they are the same plot?
+    public boolean equals(Object o) throws NullPointerException {
+        // how do we know if they are the same plot? TODO
+        if (o == null) {
+            return false;
+        }
+
+        if (getClass() != o.getClass()) {
+            return false;
+        }
+
+        final Plot p = (Plot) o;
+
         return compareTo(p) == 0;
     }
 }

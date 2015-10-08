@@ -12,6 +12,6 @@ public class PurchaserPerson extends Person {
      * Constructs a purchaser
      */
     public PurchaserPerson() {
-
+        // TODO
     }
 }

@@ -8,21 +8,23 @@ import java.util.ArrayList;
 public class Section implements Comparable<Section> {
     private ArrayList<Plot> plots; // (TEMPORARY) data structure for a section... do we want a hashtable or hashmap?
     private String name; // name of the section
-    private int size; // the number of plots
 
     /**
      * Constructs a new, empty section.
+     * @param name of this section
      */
-    public Section() {
+    public Section(String name) {
+        this.name = name;
         plots = new ArrayList<Plot>();
     }
 
     /**
      * Constructs a new section with a name and specified number of plots
+     * @param name of this section
+     * @param size number of plots
      */
     public Section(String name, int size) {
         this.name = name;
-        this.size = size;
         plots = new ArrayList<Plot>(size);
     }
 
@@ -36,13 +38,22 @@ public class Section implements Comparable<Section> {
     }
 
     /**
+     * Get a plot
+     * @param p plot
+     * @return plot, null if it does not exist
+     */
+    public Plot get(Plot p) {
+        return null; // TODO
+    }
+
+
+    /**
      * Remove a plot from this section
      * @param p the old plot
      * @return succes/failure
      */
     public boolean remove(Plot p) {
         return p != null && plots.remove(p);
-
     }
 
     /**
@@ -50,16 +61,7 @@ public class Section implements Comparable<Section> {
      * @return the number of plots
      */
     public int getSize() {
-        return size;
-    }
-
-    /**
-     * Set the number of plots in this section
-     * @param size the new number of plots
-     */
-    public void setSize(int size) {
-        this.size = size;
-        // resize plots?
+        return plots.size();
     }
 
     /**
@@ -72,10 +74,10 @@ public class Section implements Comparable<Section> {
 
     /**
      * Set the name of this section
-     * @param name the new name of this section
+     * @param n the new name of this section
      */
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String n) {
+        name = n;
     }
 
     /**
@@ -88,10 +90,10 @@ public class Section implements Comparable<Section> {
 
     /**
      * Set the ArrayList of plots in this section
-     * @param plots the new ArrayList of plots in this section
+     * @param p the new ArrayList of plots in this section
      */
-    public void setSection(ArrayList<Plot> plots) {
-        this.plots = plots;
+    public void setPlots(ArrayList<Plot> p) {
+        plots = p;
     }
 
     /**
@@ -103,17 +105,27 @@ public class Section implements Comparable<Section> {
      */
     @Override
     public int compareTo(Section s) throws NullPointerException {
-        // compare by section name using string's compareTo method
+        // compare by section name using string's compareTo method TODO
         return 0;
     }
 
     /**
      * Section equals section
-     * @param s a section
+     * @param o a section objct
      * @return true if they are the same person
      */
-    public boolean equals(Section s) throws NullPointerException {
-        // how do we know if they are the same person. name isn't enough.
+    public boolean equals(Object o) throws NullPointerException {
+        // how do we know if they are the same person. name isn't enough. TODO
+        if (o == null) {
+            return false;
+        }
+
+        if (getClass() != o.getClass()) {
+            return false;
+        }
+
+        final Section s = (Section) o;
+
         return compareTo(s) == 0;
     }
 }

@@ -1,9 +1,11 @@
 package cs.softengine;
 
+/**
+ * CemeteryPlotter utility for cemetery management.
+ */
 public class CemeteryPlotter {
-
     /**
-     * CemeteryPlotter utility
+     * Main
      * @param args n/a
      */
     public static void main(String [] args){

@@ -27,7 +27,7 @@ public class Cemetery {
      * @param file the file name
      */
     public void load(String file) {
-        // do stuff
+        // do stuff TODO
         // sections = new ArrayList<>(size); // based on file data
     }
 
@@ -35,7 +35,7 @@ public class Cemetery {
      * Save cemetery data
      */
     public void save() {
-        // do stuff
+        // do stuff TODO
     }
 
     /**
@@ -58,13 +58,13 @@ public class Cemetery {
 
     }
 
-
     /**
-     * Set the sections in the cemetery
-     * @param s of the cemetery
+     * Get a section
+     * @param s section
+     * @return section of the cemetery, null if it does not exist
      */
-    public void setSections(ArrayList<Section> s) {
-        sections = s;
+    public Section get(Section s) {
+        return null; // TODO
     }
 
     /**
@@ -76,30 +76,10 @@ public class Cemetery {
     }
 
     /**
-     * Get a section
-     * @param s section
-     * @return section of the cemetery, null if it does not exist
+     * Set the sections in the cemetery
+     * @param s of the cemetery
      */
-    public Section get(Section s) {
-        return null; // TODO
-    }
-
-    /**
-     * Get a plot
-     * @param p plot
-     * @return plot, null if it does not exist
-     */
-    public Plot get(Plot p) {
-        return null; // TODO
-    }
-
-    /**
-     * Get a person
-     * @param p person
-     * @return person, null if they do not exist
-     */
-    public Person get(Person p) {
-        return null; // TODO
-        // should this return a list of possible results or will that be in some other findPerson method somewhere?
+    public void setSections(ArrayList<Section> s) {
+        sections = s;
     }
 }
