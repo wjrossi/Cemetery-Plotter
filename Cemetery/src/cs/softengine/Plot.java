@@ -1,5 +1,7 @@
 package cs.softengine;
 
+import com.sun.xml.internal.bind.v2.TODO;
+
 import java.util.Date;
 
 /**
@@ -16,16 +18,38 @@ public class Plot implements Comparable<Plot> {
     boolean ready; // is the plot ready for use or not ready
 
     // we need some sort of unique identifier for a plot
-
+    int identifier;
     /**
-     * Constructs a plot
+     * Constructs an empty plot
      */
     public Plot() {
-        // TODO
+
+        section = null;
+        interred = new Person();
+        owner = new Person();
+        burial = new Date();
+        purchased = new Date();
+        moneyDue = 0;
+        vacant = true;
+        ready = true;
+
     }
 
     // TODO add methods
 
+    /**
+     * Get a plot
+     * @param p a person
+     * @return Plot, null if
+     */
+    public Plot get(Person p){
+        // TODO
+        return null;
+    }
+
+    public void set(Person p){
+        // TODO
+    }
     /**
      * Compare a plot to another plot
      * @param p a plot
