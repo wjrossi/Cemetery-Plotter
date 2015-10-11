@@ -1,5 +1,7 @@
 package cs.softengine;
 
+import com.sun.xml.internal.bind.v2.TODO;
+
 import java.util.Date;
 
 /**
@@ -41,11 +43,12 @@ public class Plot implements Comparable<Plot> {
      * @return Plot, null if
      */
     public Plot get(Person p){
-
+        // TODO
+        return null;
     }
 
     public void set(Person p){
-
+        // TODO
     }
     /**
      * Compare a plot to another plot
