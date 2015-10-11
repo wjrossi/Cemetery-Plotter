@@ -1,5 +1,6 @@
 package cs.softengine;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -18,13 +19,26 @@ public class Person implements Comparable<Person> {
     public Date died;
 
     // need a plot
+    public Plot plot;
     // need list of owned plots
+    public ArrayList<Plot> ownedPlots;
 
     /**
      * Constructs a person.
      */
     public Person() {
-        //add new person to people TODO
+        //add new empty person to people
+        System.out.println("Default constructor: Empty person.");
+        fname = "";
+        lname = "";
+        address1 = "";
+        address2 = "";
+        city = "";
+        state = "";
+        zip = "";
+        phone = "";
+        born = new Date();
+        died = new Date();
     }
 
     /* other constructors

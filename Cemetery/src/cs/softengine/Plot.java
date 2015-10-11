@@ -18,12 +18,12 @@ public class Plot implements Comparable<Plot> {
     boolean ready; // is the plot ready for use or not ready
 
     // we need some sort of unique identifier for a plot
-    int identifier;
+    // int identifier;
     /**
      * Constructs an empty plot
      */
     public Plot() {
-
+        System.out.println("Default constructor: Empty plot.");
         section = null;
         interred = new Person();
         owner = new Person();
@@ -34,6 +34,8 @@ public class Plot implements Comparable<Plot> {
         ready = true;
 
     }
+
+    // TODO add constructor for plot with provided info
 
     // TODO add methods
 
