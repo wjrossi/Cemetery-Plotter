@@ -9,7 +9,8 @@ public class CemeteryPlotter {
      * @param args n/a
      */
     public static void main(String [] args){
-        Cemetery cemetery = new Cemetery(); // initialize cemetery
+        String defaultFile = "cemetery.db"; // the default file for saving and loading cemetery data
+        Cemetery cemetery = new Cemetery(defaultFile); // initialize cemetery with default file
 
         // do stuff like cemetery.load(data) ??
 

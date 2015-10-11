@@ -2,6 +2,8 @@ package cs.softengine;
 
 import java.util.ArrayList;
 
+// We probably don't need this.  Could all be in Person.
+
 /**
  * A purchaser of a plot. Includes information about what plots they purchased/own.
  */
