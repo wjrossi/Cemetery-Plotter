@@ -108,7 +108,6 @@ public class Cemetery {
      */
     public boolean add(Section s) {
         return s != null && sections.add(s);
-
     }
 
     /**
@@ -118,7 +117,6 @@ public class Cemetery {
      */
     public boolean remove(Section s) {
         return s != null && sections.remove(s);
-
     }
 
     /**
@@ -127,7 +125,7 @@ public class Cemetery {
      * @return section of the cemetery, null if it does not exist
      */
     public Section get(Section s) {
-        return null; // TODO
+        return sections.get(sections.indexOf(s));
     }
 
     /**
