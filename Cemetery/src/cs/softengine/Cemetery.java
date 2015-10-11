@@ -8,7 +8,6 @@ import java.util.ArrayList;
  */
 public class Cemetery {
     private ArrayList<Section> sections; // probably change these to hashmaps later
-    private ArrayList<Person> people;
 
     /**
      * Constructs a cemetery

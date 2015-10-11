@@ -8,10 +8,10 @@ import java.util.Date;
 public class Plot implements Comparable<Plot> {
     String section; // residing section name
     Person interred; // interred person
-    Person contact; // contact person
-    Person purchaser; // purchaser/owner
+    Person owner; // contact person, also person fiscally responsible for plot
     Date burial; // burial date
     Date purchased; // purchase date
+    float moneyDue; // if not 0, person owes this much
     boolean vacant; // is the plot vacant/not vacant
     boolean ready; // is the plot ready for use or not ready
 
