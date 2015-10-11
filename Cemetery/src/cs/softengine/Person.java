@@ -6,16 +6,16 @@ import java.util.Date;
  * A person.  Includes personal information like name and address.
  */
 public class Person implements Comparable<Person> {
-    private String fname;
-    private String lname;
-    private String address1;
-    private String address2;
-    private String city;
-    private String state;
-    private String zip;
-    private String phone;
-    private Date born;
-    private Date died;
+    public String fname;
+    public String lname;
+    public String address1;
+    public String address2;
+    public String city;
+    public String state;
+    public String zip;
+    public String phone;
+    public Date born;
+    public Date died;
 
     // need a plot
     // need list of owned plots
