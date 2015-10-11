@@ -1,11 +1,14 @@
 package cs.softengine;
+
+import java.io.*;
 import java.util.ArrayList;
 
 /**
  * A cemetery
  */
 public class Cemetery {
-    private ArrayList<Section> sections;
+    private ArrayList<Section> sections; // probably change these to hashmaps later
+    private ArrayList<Person> people;
 
     /**
      * Constructs a cemetery
@@ -19,16 +22,77 @@ public class Cemetery {
      * @param file cemetery file
      */
     public Cemetery(String file) {
-        load(file);
+        try {
+            load(file);
+        } catch (IOException e) {
+            //
+        }
     }
 
     /**
      * Read cemetery data from a file
      * @param file the file name
+     * @throws IOException
      */
-    public void load(String file) {
-        // do stuff TODO
-        // sections = new ArrayList<>(size); // based on file data
+    public void load(String file) throws IOException {
+        BufferedReader buffer;
+        String line;
+
+        buffer = new BufferedReader(new FileReader(file));
+
+        while ((line = buffer.readLine().trim()) != null) {
+            if (line.equals("#SECTIONS")) {
+                int size; // number of sections in cemetery
+                line = buffer.readLine().trim();
+                size = Integer.parseInt(line);
+                sections = new ArrayList<Section>(size);
+            } else if (line.equals("#SECTION")) {
+                loadSection(buffer);
+            } else if (line.equals("#PLOT")) {
+                loadPlot(buffer);
+            }
+        }
+
+        buffer.close();
+    }
+
+    /**
+     * Read section data from file
+     * @param buffer of cemetery file
+     * @throws IOException
+     */
+    private void loadSection(BufferedReader buffer) throws IOException {
+        String line;
+        String name; // name of new section
+        int size; // number of plots in new section
+
+        line = buffer.readLine().trim();
+        name = line;
+
+        line = buffer.readLine().trim();
+        size = Integer.parseInt(line);
+
+        Section s = new Section(name, size);
+
+        sections.add(s); // add new section to list of sections
+    }
+
+    /**
+     * Reads plot data from file
+     * @param buffer of cemetery file
+     * @throws IOException
+     */
+    private void loadPlot(BufferedReader buffer) throws IOException {
+        // TODO in progress
+    }
+
+    /**
+     * Reads a person's data from file
+     * @param buffer of cemetery file
+     * @throws IOException
+     */
+    private void loadPerson(BufferedReader buffer) throws IOException {
+        // TODO in progress
     }
 
     /**

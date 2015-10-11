@@ -6,11 +6,16 @@ import java.util.Date;
  * A plot
  */
 public class Plot implements Comparable<Plot> {
-    Section section;
-    Person interredPerson;
-    Person contactPerson;
-    Date burialDate;
-    boolean isVacant;
+    String section; // residing section name
+    Person interred; // interred person
+    Person contact; // contact person
+    Person purchaser; // purchaser/owner
+    Date burial; // burial date
+    Date purchased; // purchase date
+    boolean vacant; // is the plot vacant/not vacant
+    boolean ready; // is the plot ready for use or not ready
+
+    // we need some sort of unique identifier for a plot
 
     /**
      * Constructs a plot
@@ -18,6 +23,8 @@ public class Plot implements Comparable<Plot> {
     public Plot() {
         // TODO
     }
+
+    // TODO add methods
 
     /**
      * Compare a plot to another plot
@@ -39,7 +46,6 @@ public class Plot implements Comparable<Plot> {
      * @return true if they are the same plot
      */
     public boolean equals(Object o) throws NullPointerException {
-        // how do we know if they are the same plot? TODO
         if (o == null) {
             return false;
         }
@@ -51,5 +57,13 @@ public class Plot implements Comparable<Plot> {
         final Plot p = (Plot) o;
 
         return compareTo(p) == 0;
+    }
+
+    /**
+     * Write plot to string (for saving)
+     * @return plot data
+     */
+    public String toString() {
+        return null; // TODO
     }
 }

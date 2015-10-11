@@ -7,6 +7,7 @@ import java.util.ArrayList;
  */
 public class Section implements Comparable<Section> {
     private ArrayList<Plot> plots; // (TEMPORARY) data structure for a section... do we want a hashtable or hashmap?
+    // need list of interred people and list of all people belonging to this section
     private String name; // name of the section
 
     /**
@@ -105,6 +106,8 @@ public class Section implements Comparable<Section> {
     @Override
     public int compareTo(Section s) throws NullPointerException {
         // compare by section name using string's compareTo method TODO
+        // how do we know if they are the same person. name isn't enough.
+
         return 0;
     }
 
@@ -114,7 +117,6 @@ public class Section implements Comparable<Section> {
      * @return true if they are the same person
      */
     public boolean equals(Object o) throws NullPointerException {
-        // how do we know if they are the same person. name isn't enough. TODO
         if (o == null) {
             return false;
         }
@@ -126,5 +128,13 @@ public class Section implements Comparable<Section> {
         final Section s = (Section) o;
 
         return compareTo(s) == 0;
+    }
+
+    /**
+     * Write this section to a string (for saving)
+     * @return section name and size
+     */
+    public String toString() {
+        return null; // TODO
     }
 }

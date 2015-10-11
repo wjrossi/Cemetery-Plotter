@@ -1,12 +1,11 @@
 package cs.softengine;
 
-import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * A person.  Includes personal information like name and address.
  */
 public class Person implements Comparable<Person> {
-    private ArrayList<Person> people;
     private String fname;
     private String lname;
     private String address1;
@@ -15,6 +14,11 @@ public class Person implements Comparable<Person> {
     private String state;
     private String zip;
     private String phone;
+    private Date born;
+    private Date died;
+
+    // need a plot
+    // need list of owned plots
 
     /**
      * Constructs a person.
@@ -37,22 +41,6 @@ public class Person implements Comparable<Person> {
     public Person get(Person p) {
         return null; // TODO
         // should this return a list of possible results or will that be in some other findPerson method somewhere?
-    }
-
-    /**
-     * Get ArrayList of people in the cemetery
-     * @return people
-     */
-    public ArrayList<Person> getPeople() {
-        return people;
-    }
-
-    /**
-     * Set the people in the cemetery
-     * @param p people in the cemetery
-     */
-    public void setPeople(ArrayList<Person> p) {
-        people = p;
     }
 
     /**
@@ -193,6 +181,7 @@ public class Person implements Comparable<Person> {
     @Override
     public int compareTo(Person p) throws NullPointerException {
         // how do we compare people? we need a unique identifier TODO
+        // how do we know if they are the same person? name isn't enough.
         // this will come in handy when we are searching for plots or people
         return 0;
     }
@@ -203,7 +192,6 @@ public class Person implements Comparable<Person> {
      * @return true if they are the same person
      */
     public boolean equals(Object o) throws NullPointerException {
-        // how do we know if they are the same person? name isn't enough.
         if (o == null) {
             return false;
         }
@@ -215,5 +203,13 @@ public class Person implements Comparable<Person> {
         final Person p = (Person) o;
 
         return compareTo(p) == 0;
+    }
+
+    /**
+     * Write this person to a string (for saving)
+     * @return all person info
+     */
+    public String toString() {
+        return null; // TODO
     }
 }
