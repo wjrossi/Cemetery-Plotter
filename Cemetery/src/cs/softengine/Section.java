@@ -44,7 +44,7 @@ public class Section implements Comparable<Section> {
      * @return plot, null if it does not exist
      */
     public Plot get(Plot p) {
-        return null; // TODO
+        return plots.get(plots.indexOf(p));
     }
 
     /**
