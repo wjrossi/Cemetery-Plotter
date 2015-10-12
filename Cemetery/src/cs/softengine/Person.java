@@ -1,5 +1,7 @@
 package cs.softengine;
 
+import java.util.ArrayList;
+
 /**
  * A person. Includes personal information like name and address.
  */
@@ -12,6 +14,8 @@ public class Person implements Comparable<Person> {
     public String state;
     public String zip;
     public String phone;
+    public ArrayList<Integer> plots; // list of plotID's owned by this person
+
 
     /**
      * Constructs a person.
@@ -238,8 +242,13 @@ public class Person implements Comparable<Person> {
      * @return all person info
      */
     public String toString() {
-        return "Name: " + fname + " " + lname + "\n" +
-                "Address: " + address1 + " ," + address2 + "\n" + "         " +
-                city + " ," + state + " ," + zip + "\n" + "Phone number: " + phone;
+        return fname + "\n"
+                + lname + "\n"
+                + address1 + "\n"
+                + address2 + "\n"
+                + city + "\n"
+                + state  + "\n"
+                + zip + "\n"
+                + phone  + "\n";
     }
 }

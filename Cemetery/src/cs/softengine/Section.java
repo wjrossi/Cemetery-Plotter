@@ -131,9 +131,6 @@ public class Section implements Comparable<Section> {
      * @return section name and size
      */
     public String toString() {
-        return  "Section Name:\t" + this.getName() + "\n" +
-                "Plots in this section:\t" + this.getPlots()+"\n" +
-                "Plot size:\t"+ this.getSize()+"\n";
-        // TODO
+        return name + "\n" + plots.size() + "\n";
     }
 }

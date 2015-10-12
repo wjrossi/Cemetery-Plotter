@@ -8,7 +8,7 @@ import java.util.Date;
 public class Plot implements Comparable<Plot> {
     public String section; // residing section name
     public int id; // plot identifier number
-    public Person interred; // interred person
+    public InterredPerson interred; // interred person
     public Person owner; // contact person, also person fiscally responsible for plot
     public Date burial; // burial date
     public Date purchased; // purchase date
@@ -85,7 +85,7 @@ public class Plot implements Comparable<Plot> {
      * Set interred person
      * @param p interred person, null if unknown
      */
-    public void setInterred(Person p) {
+    public void setInterred(InterredPerson p) {
         interred = p;
     }
 
@@ -229,11 +229,14 @@ public class Plot implements Comparable<Plot> {
      * @return plot data
      */
     public String toString() {
-        return "#Plot\n" + "Section:\t" +this.getSection()+ "\n" +"ID:\t" + this.getID()+ "\n"+
-                "Interred:\t" +this.getInterred()+ "\n" + "Owner:\t" + this.getOwner()+ "\n" +
-                "Burial:\t" + this.getBurialDate()+ "\n" + "Purchased:\t" + this.getPurchasedDate() + "\n" +
-                "Vacant:\t" + this.isVacant() + "\n" + "Ready:\t" + this.isReady() + "\n" +
-                "Money Due:\t" + this.getMoneyDue() + "\n";
-        
+        return section + "\n"
+                + id  + "\n"
+                + interred + "\n"
+                + owner + "\n"
+                + burial + "\n"
+                + purchased + "\n"
+                + vacant + "\n"
+                + ready + "\n"
+                + moneyDue + "\n";
     }
 }

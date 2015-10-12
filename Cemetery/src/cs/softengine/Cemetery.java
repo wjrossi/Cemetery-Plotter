@@ -8,6 +8,7 @@ import java.util.ArrayList;
  */
 public class Cemetery {
     public ArrayList<Section> sections; // TODO probably change these to hashmaps later in a refactoring
+    public ArrayList<Plot> plots; // list of all plots in the cemetery
     public ArrayList<Person> people; // list of all people in the cemetery
     public ArrayList<InterredPerson> interredPeople; // list of all interred people in the cemetery
 
@@ -86,23 +87,7 @@ public class Cemetery {
      * @throws IOException
      */
     private void loadPlot(BufferedReader buffer) throws IOException {
-        // TODO in progress
-        String line;
-        String section;
-        int id;
-
-        line = buffer.readLine().trim();
-        section = line;
-
-        line = buffer.readLine().trim();
-        id = Integer.parseInt(line);
-
-        Plot p = new Plot(section, id);
-        for (Section tmp : sections) {
-            if (tmp.getName() == section) {
-                tmp.add(p);
-            }
-        }
+        // TODO in progress by mike
     }
 
     /**
@@ -111,30 +96,14 @@ public class Cemetery {
      * @throws IOException
      */
     private void loadPerson(BufferedReader buffer) throws IOException {
-        // TODO in progress
-        String line;
-        String fname;
-        String lname;
-        String phone;
-
-        line = buffer.readLine().trim();
-        fname = line;
-
-        line = buffer.readLine().trim();
-        lname = line;
-
-        line = buffer.readLine().trim();
-        phone = line;
-
-        Person p = new Person(fname, lname, phone);
-        people.add(p);
+        // TODO in progress by mike
     }
 
     /**
      * Save cemetery data
      */
     public void save() {
-        // do stuff TODO
+        // TODO in progress by mike
     }
 
     /**
@@ -178,5 +147,16 @@ public class Cemetery {
      */
     public void setSections(ArrayList<Section> s) {
         sections = s;
+    }
+
+    /**
+     * Write this cemetery to a string (for saving)
+     * @return section name and size
+     */
+    public String toString() {
+        return sections.size() + "\n"
+                + plots.size() + "\n"
+                + interredPeople.size() + "\n"
+                + people.size() + "\n";
     }
 }

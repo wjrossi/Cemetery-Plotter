@@ -33,6 +33,36 @@ public class InterredPerson extends Person implements Comparable<Person> {
         this.plotID = plotID;
         this.born = born;
         this.died = died;
+        fname = "";
+        lname = "";
+        address1 = "";
+        address2 = "";
+        city = "";
+        state = "";
+        zip = "";
+        phone = "";
+    }
+
+    /**
+     * Construct a new interred person
+     * @param interredID unique number
+     * @param plotID unique number
+     * @param born may be null
+     * @param died may be null
+     */
+    public InterredPerson(int interredID, int plotID, Date born, Date died, String fname, String lname) {
+        this.interredID = interredID;
+        this.plotID = plotID;
+        this.born = born;
+        this.died = died;
+        this.fname = fname;
+        this.lname = lname;
+        address1 = "";
+        address2 = "";
+        city = "";
+        state = "";
+        zip = "";
+        phone = "";
     }
 
     /**
@@ -134,5 +164,24 @@ public class InterredPerson extends Person implements Comparable<Person> {
         final Person p = (Person) o;
 
         return compareTo(p) == 0;
+    }
+
+    /**
+     * Write this person to a string (for saving)
+     * @return all person info
+     */
+    public String toString() {
+        return interredID + "\n"
+                + plotID + "\n"
+                + born + "\n"
+                + died + "\n"
+                + fname + "\n"
+                + lname + "\n"
+                + address1 + "\n"
+                + address2 + "\n"
+                + city + "\n"
+                + state  + "\n"
+                + zip + "\n"
+                + phone  + "\n";
     }
 }
