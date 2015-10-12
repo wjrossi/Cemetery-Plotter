@@ -42,6 +42,24 @@ public class Plot implements Comparable<Plot> {
     }
 
     /**
+     * Constructs a plot
+     * @param section name
+     * @param id number
+     */
+    public Plot(String section, int id, InterredPerson interred, Person owner, Date burial, Date purchased,
+                boolean vacant, boolean ready, int moneyDue) {
+        this.section = section;
+        this.id = id;
+        this.interred = interred;
+        this.owner = owner;
+        this.burial = burial;
+        this.purchased = purchased;
+        this.vacant = vacant;
+        this.ready = ready;
+        this.moneyDue = moneyDue;
+    }
+
+    /**
      * Get plot ID number
      * @return id number
      */
@@ -229,7 +247,8 @@ public class Plot implements Comparable<Plot> {
      * @return plot data
      */
     public String toString() {
-        return section + "\n"
+        return "<PLOT>\n"
+                + section + "\n"
                 + id  + "\n"
                 + interred + "\n"
                 + owner + "\n"
@@ -237,6 +256,8 @@ public class Plot implements Comparable<Plot> {
                 + purchased + "\n"
                 + vacant + "\n"
                 + ready + "\n"
-                + moneyDue + "\n";
+                + moneyDue + "\n"
+                + "</PLOT>\n";
+
     }
 }

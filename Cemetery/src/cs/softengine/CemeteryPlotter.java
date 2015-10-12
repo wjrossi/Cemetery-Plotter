@@ -1,5 +1,7 @@
 package cs.softengine;
 
+import java.io.IOException;
+
 /**
  * CemeteryPlotter utility for cemetery management.
  */
@@ -19,7 +21,13 @@ public class CemeteryPlotter {
         } catch (RuntimeException e) {
             // catch some errors??
         } finally {
-            cemetery.save(); // clean-up and save data
+            try {
+                cemetery.save(defaultFile); // clean-up and save data
+            } catch (IOException e) {
+                // catch some errors
+            } finally {
+                // don't exit? did it save?
+            }
         }
     }
 

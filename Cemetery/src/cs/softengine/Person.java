@@ -242,13 +242,15 @@ public class Person implements Comparable<Person> {
      * @return all person info
      */
     public String toString() {
-        return fname + "\n"
+        return "<PERSON>\n"
+                + fname + "\n"
                 + lname + "\n"
                 + address1 + "\n"
                 + address2 + "\n"
                 + city + "\n"
                 + state  + "\n"
                 + zip + "\n"
-                + phone  + "\n";
+                + phone  + "\n"
+                + "</PERSON>";
     }
 }
