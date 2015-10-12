@@ -10,6 +10,7 @@ public class Cemetery {
     public ArrayList<Section> sections; // TODO probably change these to hashmaps later in a refactoring
     public ArrayList<Person> people; // list of all people in the cemetery
     public ArrayList<InterredPerson> interredPeople; // list of all interred people in the cemetery
+    public ArrayList<Plot> plots; // list of all plot in the cemetery
 
     /**
      * Constructs a cemetery
@@ -87,6 +88,20 @@ public class Cemetery {
      */
     private void loadPlot(BufferedReader buffer) throws IOException {
         // TODO in progress
+        String line;
+        String section;
+        int id;
+
+        line = buffer.readLine().trim();
+        section = line;
+
+        line = buffer.readLine().trim();
+        id = Integer.parseInt(line);
+
+        Plot p = new Plot(section, id);
+
+        plots.add(p);
+
     }
 
     /**
@@ -96,6 +111,22 @@ public class Cemetery {
      */
     private void loadPerson(BufferedReader buffer) throws IOException {
         // TODO in progress
+        String line;
+        String fname;
+        String lname;
+        String phone;
+
+        line = buffer.readLine().trim();
+        fname = line;
+
+        line = buffer.readLine().trim();
+        lname = line;
+
+        line = buffer.readLine().trim();
+        phone = line;
+
+        Person p = new Person(fname, lname, phone);
+        people.add(p);
     }
 
     /**
