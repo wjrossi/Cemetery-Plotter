@@ -1,3 +1,4 @@
 .idea/workspace.xml
 out/production/Cemetery/cs/softengine/*.class
 out/production/Cemetery/tests/*.class
+.idea/uiDesigner.xml
