@@ -344,6 +344,30 @@ public class Cemetery {
     }
 
     /**
+     * Get list of all plots in cemetery
+     * @return plots
+     */
+    public ArrayList<Plot> getPlots() {
+        return plots;
+    }
+
+    /**
+     * Get list of all interred people in cemetery
+     * @return interred people
+     */
+    public ArrayList<InterredPerson> getInterredPeople() {
+        return interredPeople;
+    }
+
+    /**
+     * Get list of all (non-interred) people in cemetery
+     * @return people
+     */
+    public ArrayList<Person> getPeople() {
+        return people;
+    }
+
+    /**
      * Write this cemetery to a string (for saving)
      * @return section name and size
      */
