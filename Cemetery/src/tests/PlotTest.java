@@ -64,7 +64,7 @@ public class PlotTest {
         p.interred.state = "PA";
         p.interred.zip = "15213";
         p.interred.phone = "4120000000";
-        assertEquals("-1\n" +
+        assertEquals("Interred person should be:\n-1\n" +
                 "-1\n" +
                 "null\n" +
                 "null\n" +
@@ -76,7 +76,7 @@ public class PlotTest {
                 "PA\n" +
                 "15213\n" +
                 "4120000000, but is " +
-                p.getInterred().toString(), p.getInterred().toString(), "-1\n" +
+                p.getInterred().toString(), p.getInterred().toString(), "<INTERREDPERSON>\n-1\n" +
                 "-1\n" +
                 "null\n" +
                 "null\n" +
@@ -87,7 +87,8 @@ public class PlotTest {
                 "Pittsburgh\n" +
                 "PA\n" +
                 "15213\n" +
-                "4120000000\n");
+                "4120000000\n" +
+                "</INTERREDPERSON>\n");
     }
 
     /* Tests that Plot.getOwner() correctly gets the owner variable
@@ -105,7 +106,7 @@ public class PlotTest {
         p.owner.state = "PA";
         p.owner.zip = "15213";
         p.owner.phone = "4120000000";
-        assertEquals("Bill\n" +
+        assertEquals("Owner should be:\nBill\n" +
                 "Laboon\n" +
                 "address1\n" +
                 "address2\n" +
@@ -113,14 +114,15 @@ public class PlotTest {
                 "PA\n" +
                 "15213\n" +
                 "4120000000, but is" +
-                p.getOwner().toString(), p.getOwner().toString(), "Bill\n" +
+                p.getOwner().toString(), p.getOwner().toString(), "<PERSON>\nBill\n" +
                 "Laboon\n" +
                 "address1\n" +
                 "address2\n" +
                 "Pittsburgh\n" +
                 "PA\n" +
                 "15213\n" +
-                "4120000000\n");
+                "4120000000\n" +
+                "</PERSON>\n");
     }
 
     /* Tests that Plot.getBurialDate() correctly gets the burial variable
