@@ -74,11 +74,15 @@ public class Cemetery {
     private void loadCemetery(BufferedReader buffer) throws IOException {
         String line;
         int numSections; // number of sections in cemetery
+        int numPlots; // number of plots in the cemetery
         int numInterred; // number of interred people in cemetery
         int numPeople; // number of (non-interred) people
 
         line = buffer.readLine().trim();
         numSections = Integer.parseInt(line);
+
+        line = buffer.readLine().trim();
+        numPlots = Integer.parseInt(line);
 
         line = buffer.readLine().trim();
         numInterred = Integer.parseInt(line);
@@ -87,6 +91,7 @@ public class Cemetery {
         numPeople = Integer.parseInt(line);
 
         sections = new ArrayList<Section>(numSections);
+        plots = new ArrayList<Plot>(numPlots);
         interredPeople = new ArrayList<InterredPerson>(numInterred);
         people = new ArrayList<Person>(numPeople);
     }
@@ -166,7 +171,11 @@ public class Cemetery {
         ready = Boolean.parseBoolean(line);
 
         line = buffer.readLine().trim();
-        moneyDue = Integer.parseInt(line);
+        if (line.isEmpty())
+            moneyDue = 0;
+        else {
+            moneyDue = Integer.parseInt(line);
+        }
 
         Plot p = new Plot(section, id, interred, owner, burial, purchased, vacant, ready, moneyDue);
 
@@ -180,6 +189,7 @@ public class Cemetery {
      * @throws IOException
      */
     private Person loadPerson(BufferedReader buffer) throws IOException {
+        String line;
         Person p;
 
         String fname;
@@ -199,6 +209,8 @@ public class Cemetery {
         state = buffer.readLine().trim();
         zip = buffer.readLine().trim();
         phone = buffer.readLine().trim();
+
+        line = buffer.readLine().trim();
 
         p = new Person(fname, lname, address1, address2, city, state, zip, phone);
 
@@ -261,6 +273,8 @@ public class Cemetery {
         state = buffer.readLine().trim();
         zip = buffer.readLine().trim();
         phone = buffer.readLine().trim();
+
+        line = buffer.readLine().trim();
 
         ip = new InterredPerson(interredID, plotID, born, died,
                 fname, lname, address1, address2, city, state, zip, phone);
