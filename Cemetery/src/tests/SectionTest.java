@@ -28,4 +28,13 @@ public class SectionTest {
         s = new Section("section1");
         assertEquals("section name must return 'section1', but returned " + s.getName(), s.getName(), "section1");
     }
+
+    /* Tests that Person.getFirstName() returns the correct
+        value.
+     */
+    @Test
+    public void testGetSize() throws Exception {
+        s = new Section("section1", 10);
+        assertEquals("section size must return 10, but returned " + s.getSize(), s.getSize(), "section1");
+    }
 }
