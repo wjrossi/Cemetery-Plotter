@@ -234,17 +234,6 @@ public class Plot implements Comparable<Plot> {
                 "Burial:\t" + this.getBurialDate()+ "\n" + "Purchased:\t" + this.getPurchasedDate() + "\n" +
                 "Vacant:\t" + this.isVacant() + "\n" + "Ready:\t" + this.isReady() + "\n" +
                 "Money Due:\t" + this.getMoneyDue() + "\n";
-
-        /*
-         section = null;
-        id = -1;
-        interred = null;
-        owner = null;
-        burial = null;
-        purchased = null;
-        vacant = true;
-        ready = true;
-        moneyDue = 0;
-         */
+        
     }
 }
