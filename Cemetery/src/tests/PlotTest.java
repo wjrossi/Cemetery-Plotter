@@ -48,14 +48,14 @@ public class PlotTest {
     }
 
 
-    // TODO fix this test please, p.interred must be an InterredPerson
+
     /* Tests that Plot.getInterred() correctly gets the interred variable
          of the Plot class.
      */
-/*    @Test
+   @Test
     public void testGetInterred() throws Exception {
         p = new Plot();
-        p.interred = new Person();
+        p.interred = new InterredPerson();
         p.interred.fname = "Bill";
         p.interred.lname = "Laboon";
         p.interred.address1 = "address1";
@@ -64,15 +64,31 @@ public class PlotTest {
         p.interred.state = "PA";
         p.interred.zip = "15213";
         p.interred.phone = "4120000000";
-        assertEquals("Interred must be '\"Name: Bill Laboon\\n\" +\n" +
-                "                \"Address: address1 ,address2\\n\" +\n" +
-                "                \"         Pittsburgh ,PA ,15213\\n\" +\n" +
-                "                \"Phone number: 4120000000\"', but is " +
-                p.getInterred().toString(), p.getInterred().toString(), "Name: Bill Laboon\n" +
-                "Address: address1 ,address2\n" +
-                "         Pittsburgh ,PA ,15213\n" +
-                "Phone number: 4120000000");
-    }*/
+        assertEquals("-1\n" +
+                "-1\n" +
+                "null\n" +
+                "null\n" +
+                "Bill\n" +
+                "Laboon\n" +
+                "address1\n" +
+                "address2\n" +
+                "Pittsburgh\n" +
+                "PA\n" +
+                "15213\n" +
+                "4120000000, but is " +
+                p.getInterred().toString(), p.getInterred().toString(), "-1\n" +
+                "-1\n" +
+                "null\n" +
+                "null\n" +
+                "Bill\n" +
+                "Laboon\n" +
+                "address1\n" +
+                "address2\n" +
+                "Pittsburgh\n" +
+                "PA\n" +
+                "15213\n" +
+                "4120000000\n");
+    }
 
     /* Tests that Plot.getOwner() correctly gets the owner variable
          of the Plot class.
@@ -89,14 +105,22 @@ public class PlotTest {
         p.owner.state = "PA";
         p.owner.zip = "15213";
         p.owner.phone = "4120000000";
-        assertEquals("Interred must be '\"Name: Bill Laboon\\n\" +\n" +
-                "                \"Address: address1 ,address2\\n\" +\n" +
-                "                \"         Pittsburgh ,PA ,15213\\n\" +\n" +
-                "                \"Phone number: 4120000000\"', but is " +
-                p.getOwner().toString(), p.getOwner().toString(), "Name: Bill Laboon\n" +
-                "Address: address1 ,address2\n" +
-                "         Pittsburgh ,PA ,15213\n" +
-                "Phone number: 4120000000");
+        assertEquals("Bill\n" +
+                "Laboon\n" +
+                "address1\n" +
+                "address2\n" +
+                "Pittsburgh\n" +
+                "PA\n" +
+                "15213\n" +
+                "4120000000, but is" +
+                p.getOwner().toString(), p.getOwner().toString(), "Bill\n" +
+                "Laboon\n" +
+                "address1\n" +
+                "address2\n" +
+                "Pittsburgh\n" +
+                "PA\n" +
+                "15213\n" +
+                "4120000000\n");
     }
 
     /* Tests that Plot.getBurialDate() correctly gets the burial variable
