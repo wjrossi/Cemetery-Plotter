@@ -15,8 +15,6 @@ public class CemeteryPlotter {
         String defaultFile = "cemetery.db"; // the default file for saving and loading cemetery data
         Cemetery cemetery = new Cemetery(defaultFile); // initialize cemetery with default file
 
-        // do stuff like cemetery.load(data) ??
-
         try {
             run(cemetery);
         } catch (RuntimeException e) {
