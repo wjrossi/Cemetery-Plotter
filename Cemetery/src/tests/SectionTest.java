@@ -15,7 +15,7 @@ public class SectionTest {
      */
     @Test
     public void testSetName() throws Exception {
-        s = new Section("");
+        s = new Section("Laboon", 0);
         s.setName("section1");
         assertEquals("section name must be 'section1', but is " + s.name, s.name, "section1");
     }
@@ -25,7 +25,7 @@ public class SectionTest {
      */
     @Test
     public void testGetName() throws Exception {
-        s = new Section("section1");
+        s = new Section("section1", 0);
         assertEquals("section name must return 'section1', but returned " + s.getName(), s.getName(), "section1");
     }
 
@@ -34,7 +34,7 @@ public class SectionTest {
      */
     @Test
     public void testGetSize() throws Exception {
-        s = new Section("section1");
+        s = new Section("section1", 0);
         assertEquals("section size must return 0," + "but returned " + s.getSize(), s.getSize(), 0);
     }
 
