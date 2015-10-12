@@ -1,6 +1,6 @@
 <CEMETERY>
 16
-1
+2
 1
 1
 </CEMETERY>
@@ -26,14 +26,7 @@ PA
 
 </INTERREDPERSON>
 <PERSON>
-
-
-
-
-
-
-
-
+null
 </PERSON>
 null
 null
@@ -49,18 +42,7 @@ AA
 AA
 32
 <INTERREDPERSON>
--1
--1
 null
-null
-
-
-
-
-
-
-
-
 </INTERREDPERSON>
 <PERSON>
 John
