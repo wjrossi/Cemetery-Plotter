@@ -36,8 +36,9 @@ public class SectionTest {
      */
     @Test
     public void testGetSize() throws Exception {
-        s = new Section("section1", 0);
-        assertEquals("section size must return 0," + "but returned " + s.getSize(), s.getSize(), 0);
+        s = new Section("section1", 1);
+        s.add(new Plot(s.getName(), 0));
+        assertEquals("section size must return 1," + "but returned " + s.getSize(), s.getSize(), 1);
     }
 
     /*
