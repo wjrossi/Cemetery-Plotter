@@ -10,8 +10,8 @@ public class Plot implements Comparable<Plot> {
     public int id; // plot identifier number
     public InterredPerson interred; // interred person
     public Person owner; // contact person, also person fiscally responsible for plot
-    public Date burial; // burial date
-    public Date purchased; // purchase date
+    public int burial; // burial date
+    public int purchased; // purchase date
     public boolean vacant; // is the plot vacant/not vacant
     public boolean ready; // is the plot ready for use or not ready
     public int moneyDue; // if not 0, person owes this much IN CENTS (for accuracy)
@@ -24,8 +24,8 @@ public class Plot implements Comparable<Plot> {
         id = -1;
         interred = null;
         owner = null;
-        burial = null;
-        purchased = null;
+        burial = 0;
+        purchased = 0;
         vacant = true;
         ready = true;
         moneyDue = 0;
@@ -109,7 +109,7 @@ public class Plot implements Comparable<Plot> {
      * Get burial date
      * @return burial date, null if unknown
      */
-    public Date getBurialDate() {
+    public int getBurialDate() {
         return burial;
     }
 
@@ -117,7 +117,7 @@ public class Plot implements Comparable<Plot> {
      * Set burial date
      * @param d burial date, null if unknown
      */
-    public void setBurialDate(Date d) {
+    public void setBurialDate(int d) {
         burial = d;
     }
 
@@ -125,7 +125,7 @@ public class Plot implements Comparable<Plot> {
      * Get purchase date
      * @return purchase date, null if unknown
      */
-    public Date getPurchasedDate() {
+    public int getPurchasedDate() {
         return purchased;
     }
 
@@ -133,7 +133,7 @@ public class Plot implements Comparable<Plot> {
      * Set purchase date
      * @param d purchase date, null if unknown
      */
-    public void setPurchasedDate(Date d) {
+    public void setPurchasedDate(int d) {
         purchased = d;
     }
 

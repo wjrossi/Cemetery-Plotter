@@ -105,7 +105,7 @@ public class PlotTest {
     @Test
     public void testGetBurialDate() throws Exception {
         p = new Plot();
-        p.burial = new Date(000000);
+        p.burial = 20000101;
         assertEquals("Burial must be 20000101, but is " + p.getBurialDate(), p.getBurialDate(), 20000101);
     }
 
@@ -116,7 +116,7 @@ public class PlotTest {
     @Test
     public void testGetPurchasedDate() throws Exception {
         p = new Plot();
-        p.purchased = new Date();
+        p.purchased = 20000101;
         assertEquals("Purchased must be 20000101, but is " + p.getPurchasedDate(), p.getPurchasedDate(), 20000101);
     }
 
