@@ -1,7 +1,5 @@
 package cs.softengine;
 
-import java.util.ArrayList;
-
 /**
  * A person.  Includes personal information like name and address.
  */
