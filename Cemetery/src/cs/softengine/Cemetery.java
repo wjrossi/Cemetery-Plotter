@@ -20,6 +20,7 @@ public class Cemetery {
      */
     public Cemetery() {
         sections = new ArrayList<Section>();
+        plots = new ArrayList<Plot>();
         interredPeople = new ArrayList<InterredPerson>();
         people = new ArrayList<Person>();
     }
