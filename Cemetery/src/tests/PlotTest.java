@@ -4,15 +4,11 @@ import cs.softengine.Person;
 import cs.softengine.Plot;
 import cs.softengine.Person;
 import org.junit.Test;
-<<<<<<< HEAD
+
 
 import java.util.Calendar;
 import java.util.Date;
 
-||||||| merged common ancestors
-=======
-
->>>>>>> origin/master
 import static org.junit.Assert.*;
 /**
  * Created by jiajiedang on 10/11/15.
@@ -40,7 +36,7 @@ public class PlotTest {
         assertEquals("ID must be 1, but is " + p.getID(), p.getID(), 1);
     }
 
-<<<<<<< HEAD
+
     /* Tests that Plot.getSection() correctly gets the section variable
          of the Plot class.
      */
@@ -152,8 +148,7 @@ public class PlotTest {
         p.moneyDue = 100;
         assertEquals("MoneyDue must be '100', but is " + p.getMoneyDue(), p.getMoneyDue(), 100);
     }
-||||||| merged common ancestors
-=======
+
     /* Tests that Plot.setSection() correctly sets the section
         variable of the Plot class.
      */
@@ -216,6 +211,6 @@ public class PlotTest {
         assertEquals("Plot money due must be 100, but is " + p.moneyDue, p.moneyDue, 100);
     }
 
->>>>>>> origin/master
+
 
 }
