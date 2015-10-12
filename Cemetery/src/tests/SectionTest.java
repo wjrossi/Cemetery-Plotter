@@ -14,9 +14,18 @@ public class SectionTest {
         variable of the Person class.
      */
     @Test
-    public void testSetFirstName() throws Exception {
-        s = new Section();
+    public void testSetName() throws Exception {
+        s = new Section("");
         s.setName("section1");
         assertEquals("section name must be 'section1', but is " + s.name, s.name, "section1");
+    }
+
+    /* Tests that Person.getFirstName() returns the correct
+        value.
+     */
+    @Test
+    public void testGetName() throws Exception {
+        s = new Section("section1");
+        assertEquals("section name must return 'section1', but returned " + s.getName(), s.getName(), "section1");
     }
 }
