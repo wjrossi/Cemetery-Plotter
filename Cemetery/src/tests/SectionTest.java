@@ -35,6 +35,6 @@ public class SectionTest {
     @Test
     public void testGetSize() throws Exception {
         s = new Section("section1", 10);
-        assertEquals("section size must return 10, but returned " + s.getSize(), s.getSize(), "section1");
+        assertEquals("section size must return "10", but returned " + s.getSize(), s.getSize(), "10");
     }
 }
