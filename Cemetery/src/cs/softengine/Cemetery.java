@@ -10,7 +10,6 @@ public class Cemetery {
     public ArrayList<Section> sections; // TODO probably change these to hashmaps later in a refactoring
     public ArrayList<Person> people; // list of all people in the cemetery
     public ArrayList<InterredPerson> interredPeople; // list of all interred people in the cemetery
-    public ArrayList<Plot> plots; // list of all plot in the cemetery
 
     /**
      * Constructs a cemetery
@@ -99,9 +98,11 @@ public class Cemetery {
         id = Integer.parseInt(line);
 
         Plot p = new Plot(section, id);
-
-        plots.add(p);
-
+        for (Section tmp : sections) {
+            if (tmp.getName() == section) {
+                tmp.add(p);
+            }
+        }
     }
 
     /**
