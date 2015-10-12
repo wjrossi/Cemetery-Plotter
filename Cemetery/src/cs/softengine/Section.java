@@ -108,10 +108,7 @@ public class Section implements Comparable<Section> {
      */
     @Override
     public int compareTo(Section s) throws NullPointerException {
-        // compare by section name using string's compareTo method TODO
-        // how do we know if they are the same person. name isn't enough.
-
-        return 0;
+        return name.toUpperCase().compareTo(s.getName().toUpperCase());
     }
 
     /**

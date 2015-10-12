@@ -1,7 +1,7 @@
 package cs.softengine;
 
 /**
- * A person.  Includes personal information like name and address.
+ * A person. Includes personal information like name and address.
  */
 public class Person implements Comparable<Person> {
     public String fname;
@@ -192,10 +192,10 @@ public class Person implements Comparable<Person> {
 
         int compare;
 
-        compare = lname.compareTo(p.getLastName());
+        compare = lname.toUpperCase().compareTo(p.getLastName().toUpperCase());
 
         if (compare == 0) { // same last name, compare by first name
-            compare = fname.compareTo(p.getFirstName());
+            compare = fname.toUpperCase().compareTo(p.getFirstName().toUpperCase());
 
             if (compare == 0) { // same first name, compare by phone
                 compare = phone.compareTo(p.getPhone());

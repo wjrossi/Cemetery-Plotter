@@ -16,7 +16,7 @@ public class CemeteryPlotter {
 
         try {
             run();
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             // catch some errors??
         } finally {
             cemetery.save(); // clean-up and save data
@@ -26,7 +26,7 @@ public class CemeteryPlotter {
     /**
      * Run CemeteryPlotter
      */
-    public static void run() throws Exception {
+    public static void run() throws RuntimeException {
         // eventually we will make the gui and show it by calling this
         // for now, use command line..
 
