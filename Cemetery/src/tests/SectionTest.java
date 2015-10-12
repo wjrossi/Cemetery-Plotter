@@ -10,8 +10,8 @@ import static org.junit.Assert.*;
 public class SectionTest {
     Section s;
 
-    /* Tests that Person.setFirstName() correctly sets the fname
-        variable of the Person class.
+    /* Tests that Section.setName() correctly sets the name
+        variable of the Section class.
      */
     @Test
     public void testSetName() throws Exception {
@@ -20,7 +20,7 @@ public class SectionTest {
         assertEquals("section name must be 'section1', but is " + s.name, s.name, "section1");
     }
 
-    /* Tests that Person.getFirstName() returns the correct
+    /* Tests that Section.getName() returns the correct
         value.
      */
     @Test
@@ -29,7 +29,7 @@ public class SectionTest {
         assertEquals("section name must return 'section1', but returned " + s.getName(), s.getName(), "section1");
     }
 
-    /* Tests that Person.getSize() returns the correct
+    /* Tests that Section.getSize() returns the correct
         value.
      */
     @Test
