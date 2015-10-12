@@ -26,9 +26,9 @@ public class Plot implements Comparable<Plot> {
         owner = null;
         burial = null;
         purchased = null;
-        moneyDue = 0;
         vacant = true;
         ready = true;
+        moneyDue = 0;
     }
 
     /**
@@ -229,6 +229,22 @@ public class Plot implements Comparable<Plot> {
      * @return plot data
      */
     public String toString() {
-        return null; // TODO
+        return "#Plot\n" + "Section:\t" +this.getSection()+ "\n" +"ID:\t" + this.getID()+ "\n"+
+                "Interred:\t" +this.getInterred()+ "\n" + "Owner:\t" + this.getOwner()+ "\n" +
+                "Burial:\t" + this.getBurialDate()+ "\n" + "Purchased:\t" + this.getPurchasedDate() + "\n" +
+                "Vacant:\t" + this.isVacant() + "\n" + "Ready:\t" + this.isReady() + "\n" +
+                "Money Due:\t" + this.getMoneyDue() + "\n";
+
+        /*
+         section = null;
+        id = -1;
+        interred = null;
+        owner = null;
+        burial = null;
+        purchased = null;
+        vacant = true;
+        ready = true;
+        moneyDue = 0;
+         */
     }
 }
