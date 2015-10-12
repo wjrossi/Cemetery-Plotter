@@ -230,7 +230,7 @@ public class Person implements Comparable<Person> {
      */
     public String toString() {
         return "Name: " + fname + " " + lname + "\n" +
-                "Address: " + address1 + " " + address2 + " " +
-                city + " " + state + " " + zip + "\n" + "Phone number: " + phone + "\n";
+                "Address: " + address1 + " ," + address2 + "\n" + "         " +
+                city + " ," + state + " ," + zip + "\n" + "Phone number: " + phone + "\n";
     }
 }
