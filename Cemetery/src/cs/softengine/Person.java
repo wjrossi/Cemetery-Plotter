@@ -47,6 +47,35 @@ public class Person implements Comparable<Person> {
     }
     */
 
+    /*
+     * Constructs a person using his fist name, last name, born date and died date.
+     */
+    public Person(String fname, String lname, Date born, Date died) {
+        System.out.println("Customize constructor: person with fname, lname, born date and died date");
+        this.fname = fname;
+        this.lname = lname;
+        this.born = born;
+        this.died = died;
+    }
+
+
+    /*
+     * Constructs a person using all needed information
+     */
+    public Person(String fname, String lname, String address1, String address2, String city, String state, String zip, String phone, Date born, Date died) {
+        System.out.println("Customize constructor: person with all needed inforamtion");
+        this.fname = fname;
+        this.lname = lname;
+        this.address1 = address1;
+        this.address2 = address2;
+        this.city = city;
+        this.state = state;
+        this.zip = zip;
+        this.phone = phone;
+        this.born = born;
+        this.died = died;
+    }
+
     /**
      * Get a person
      * @param p person
