@@ -1,7 +1,5 @@
 package cs.softengine;
 
-import com.sun.xml.internal.bind.v2.TODO;
-
 import java.util.Date;
 
 /**
@@ -24,10 +22,10 @@ public class Plot implements Comparable<Plot> {
     public Plot() {
         section = null;
         id = -1;
-        interred = new Person();
-        owner = new Person();
-        burial = new Date();
-        purchased = new Date();
+        interred = null;
+        owner = null;
+        burial = null;
+        purchased = null;
         moneyDue = 0;
         vacant = true;
         ready = true;
@@ -77,7 +75,7 @@ public class Plot implements Comparable<Plot> {
 
     /**
      * Get interred person
-     * @return interred person
+     * @return interred person, null if unknown
      */
     public Person getInterred() {
         return interred;
@@ -85,7 +83,7 @@ public class Plot implements Comparable<Plot> {
 
     /**
      * Set interred person
-     * @param p interred person
+     * @param p interred person, null if unknown
      */
     public void setInterred(Person p) {
         interred = p;
@@ -93,7 +91,7 @@ public class Plot implements Comparable<Plot> {
 
     /**
      * Get owner of plot
-     * @return owner of plot
+     * @return owner of plot, null if unknown
      */
     public Person getOwner() {
         return owner;
@@ -101,7 +99,7 @@ public class Plot implements Comparable<Plot> {
 
     /**
      * Set owner of plot
-     * @param p owner of plot
+     * @param p owner of plot, null if unknown
      */
     public void setOwner(Person p) {
         owner = p;
@@ -109,7 +107,7 @@ public class Plot implements Comparable<Plot> {
 
     /**
      * Get burial date
-     * @return burial date
+     * @return burial date, null if unknown
      */
     public Date getBurialDate() {
         return burial;
@@ -117,7 +115,7 @@ public class Plot implements Comparable<Plot> {
 
     /**
      * Set burial date
-     * @param d burial date
+     * @param d burial date, null if unknown
      */
     public void setBurialDate(Date d) {
         burial = d;
@@ -125,7 +123,7 @@ public class Plot implements Comparable<Plot> {
 
     /**
      * Get purchase date
-     * @return purchase date
+     * @return purchase date, null if unknown
      */
     public Date getPurchasedDate() {
         return purchased;
@@ -133,7 +131,7 @@ public class Plot implements Comparable<Plot> {
 
     /**
      * Set purchase date
-     * @param d purchase date
+     * @param d purchase date, null if unknown
      */
     public void setPurchasedDate(Date d) {
         purchased = d;

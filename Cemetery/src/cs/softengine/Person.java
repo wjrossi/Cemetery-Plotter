@@ -29,12 +29,6 @@ public class Person implements Comparable<Person> {
         phone = "";
     }
 
-    /* other constructors
-    public Person(???) {
-        TODO
-    }
-    */
-
     /**
      * Constructs a person using his fist name, last name.
      *
@@ -48,7 +42,6 @@ public class Person implements Comparable<Person> {
      * Constructs a person using all needed information
      */
     public Person(String fname, String lname, String address1, String address2, String city, String state, String zip, String phone) {
-        System.out.println("Customize constructor: person with all needed inforamtion");
         this.fname = fname;
         this.lname = lname;
         this.address1 = address1;
@@ -57,16 +50,6 @@ public class Person implements Comparable<Person> {
         this.state = state;
         this.zip = zip;
         this.phone = phone;
-    }
-
-    /**
-     * Get a person
-     * @param p person
-     * @return person, null if they do not exist
-     */
-    public Person get(Person p) {
-        return null; // TODO
-        // should this return a list of possible results or will that be in some other findPerson method somewhere?
     }
 
     /**
