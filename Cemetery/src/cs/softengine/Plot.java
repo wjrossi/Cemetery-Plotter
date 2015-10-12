@@ -247,17 +247,58 @@ public class Plot implements Comparable<Plot> {
      * @return plot data
      */
     public String toString() {
-        return "<PLOT>\n"
-                + section + "\n"
-                + id  + "\n"
-                + interred + "\n"
-                + owner + "\n"
-                + burial + "\n"
-                + purchased + "\n"
-                + vacant + "\n"
-                + ready + "\n"
-                + moneyDue + "\n"
-                + "</PLOT>\n";
+        String result;
 
+        if (interred == null && owner != null) {
+            result = "<PLOT>\n"
+                    + section + "\n"
+                    + id  + "\n"
+                    + "<INTERREDPERSON>\nnull\n</INTERREDPERSON>\n"
+                    + owner
+                    + burial + "\n"
+                    + purchased + "\n"
+                    + vacant + "\n"
+                    + ready + "\n"
+                    + moneyDue + "\n"
+                    + "</PLOT>\n";
+        } else if (interred != null && owner == null) {
+            result = "<PLOT>\n"
+                    + section + "\n"
+                    + id  + "\n"
+                    + interred
+                    + "<PERSON>\nnull\n</PERSON>\n"
+                    + burial + "\n"
+                    + purchased + "\n"
+                    + vacant + "\n"
+                    + ready + "\n"
+                    + moneyDue + "\n"
+                    + "</PLOT>\n";
+        } else if (interred == null && owner == null) {
+            result = "<PLOT>\n"
+                    + section + "\n"
+                    + id  + "\n"
+                    + "<INTERREDPERSON>\nnull\n</INTERREDPERSON>\n"
+                    + "<PERSON>\nnull\n</PERSON>\n"
+                    + burial + "\n"
+                    + purchased + "\n"
+                    + vacant + "\n"
+                    + ready + "\n"
+                    + moneyDue + "\n"
+                    + "</PLOT>\n";
+        } else {
+            result = "<PLOT>\n"
+                    + section + "\n"
+                    + id  + "\n"
+                    + interred
+                    + owner
+                    + burial + "\n"
+                    + purchased + "\n"
+                    + vacant + "\n"
+                    + ready + "\n"
+                    + moneyDue + "\n"
+                    + "</PLOT>\n";
+        }
+
+        return result;
     }
 }

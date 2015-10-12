@@ -251,6 +251,6 @@ public class Person implements Comparable<Person> {
                 + state  + "\n"
                 + zip + "\n"
                 + phone  + "\n"
-                + "</PERSON>";
+                + "</PERSON>\n";
     }
 }

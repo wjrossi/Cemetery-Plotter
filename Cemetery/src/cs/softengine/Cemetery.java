@@ -49,7 +49,8 @@ public class Cemetery {
 
         buffer = new BufferedReader(new FileReader(file));
 
-        while ((line = buffer.readLine().trim()) != null) {
+        while ((line = buffer.readLine()) != null) {
+            line = line.trim();
             switch (line) {
                 case "<CEMETERY>":
                     loadCemetery(buffer);
@@ -201,20 +202,27 @@ public class Cemetery {
         String zip;
         String phone;
 
-        fname = buffer.readLine().trim();
-        lname = buffer.readLine().trim();
-        address1 = buffer.readLine().trim();
-        address2 = buffer.readLine().trim();
-        city = buffer.readLine().trim();
-        state = buffer.readLine().trim();
-        zip = buffer.readLine().trim();
-        phone = buffer.readLine().trim();
-
         line = buffer.readLine().trim();
 
-        p = new Person(fname, lname, address1, address2, city, state, zip, phone);
+        if (line.equals("null")) {
+            p = null;
+            line = buffer.readLine().trim();
+        } else {
+            fname = line;
+            lname = buffer.readLine().trim();
+            address1 = buffer.readLine().trim();
+            address2 = buffer.readLine().trim();
+            city = buffer.readLine().trim();
+            state = buffer.readLine().trim();
+            zip = buffer.readLine().trim();
+            phone = buffer.readLine().trim();
 
-        people.add(p);
+            line = buffer.readLine().trim();
+
+            p = new Person(fname, lname, address1, address2, city, state, zip, phone);
+
+            people.add(p);
+        }
 
         return p;
     }
@@ -246,40 +254,46 @@ public class Cemetery {
         sdf = new SimpleDateFormat("YYYY-MM-DD");
 
         line = buffer.readLine().trim();
-        interredID = Integer.parseInt(line);
 
-        line = buffer.readLine().trim();
-        plotID = Integer.parseInt(line);
+        if (line.equals("null")) {
+            ip = null;
+            line = buffer.readLine().trim();
+        } else {
+            interredID = Integer.parseInt(line);
 
-        line = buffer.readLine().trim();
-        try {
-            born = sdf.parse(line);
-        } catch (ParseException e) {
-            born = null;
+            line = buffer.readLine().trim();
+            plotID = Integer.parseInt(line);
+
+            line = buffer.readLine().trim();
+            try {
+                born = sdf.parse(line);
+            } catch (ParseException e) {
+                born = null;
+            }
+
+            line = buffer.readLine().trim();
+            try {
+                died = sdf.parse(line);
+            } catch (ParseException e) {
+                died = null;
+            }
+
+            fname = buffer.readLine().trim();
+            lname = buffer.readLine().trim();
+            address1 = buffer.readLine().trim();
+            address2 = buffer.readLine().trim();
+            city = buffer.readLine().trim();
+            state = buffer.readLine().trim();
+            zip = buffer.readLine().trim();
+            phone = buffer.readLine().trim();
+
+            line = buffer.readLine().trim();
+
+            ip = new InterredPerson(interredID, plotID, born, died,
+                    fname, lname, address1, address2, city, state, zip, phone);
+
+            interredPeople.add(ip);
         }
-
-        line = buffer.readLine().trim();
-        try {
-            died = sdf.parse(line);
-        } catch (ParseException e) {
-            died = null;
-        }
-
-        fname = buffer.readLine().trim();
-        lname = buffer.readLine().trim();
-        address1 = buffer.readLine().trim();
-        address2 = buffer.readLine().trim();
-        city = buffer.readLine().trim();
-        state = buffer.readLine().trim();
-        zip = buffer.readLine().trim();
-        phone = buffer.readLine().trim();
-
-        line = buffer.readLine().trim();
-
-        ip = new InterredPerson(interredID, plotID, born, died,
-                fname, lname, address1, address2, city, state, zip, phone);
-
-        interredPeople.add(ip);
 
         return ip;
     }
@@ -293,25 +307,26 @@ public class Cemetery {
         File newFile;
         String line;
 
-        // rename old file
         oldFile = new File(file);
-        oldFile.renameTo(new File(file + ".old"));
-        oldFile.deleteOnExit();
+        newFile = new File(file + ".new");
 
-        // open new file
-        newFile = new File(file);
         buffer = new PrintWriter(new FileWriter(newFile));
 
-        buffer.println(this); // write cemetery data
+        buffer.print(this); // write cemetery data
 
         for (Section s : sections) {
-            buffer.println(s); // write section data
+            buffer.print(s); // write section data
             for (Plot p : s.getPlots()) {
-                buffer.println(p); // write plot data
+                buffer.print(p); // write plot data
             }
         }
 
         buffer.close();
+
+        if (newFile.exists()) {
+            oldFile.delete();
+            newFile.renameTo(new File(file));
+        }
     }
 
     /**
@@ -391,6 +406,6 @@ public class Cemetery {
                 + plots.size() + "\n"
                 + interredPeople.size() + "\n"
                 + people.size() + "\n"
-                + "</CEMETERY>";
+                + "</CEMETERY>\n";
     }
 }

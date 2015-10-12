@@ -134,6 +134,6 @@ public class Section implements Comparable<Section> {
         return "<SECTION>\n"
                 + name + "\n"
                 + plots.size() + "\n"
-                + "</SECTION>";
+                + "</SECTION>\n";
     }
 }
