@@ -103,4 +103,14 @@ public class PlotTest {
         assertEquals("Ready must be -1, but is " + p.isReady(), p.isReady(), "-1");
     }
 
+    /* Tests that Plot.getMoneyDue() correctly gets the moneyDue variable
+        of the Plot class.
+    */
+    @Test
+    public void testGetMoneyDue() throws Exception {
+        p = new Plot();
+        p.moneyDue = 100;
+        assertEquals("MoneyDue must be 100, but is " + p.getMoneyDue(), p.getMoneyDue(), "100");
+    }
+
 }
