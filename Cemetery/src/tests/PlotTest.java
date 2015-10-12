@@ -129,8 +129,8 @@ public class PlotTest {
     @Test
     public void testGetBurialDate() throws Exception {
         p = new Plot();
-        p.burial = 20000101;
-        assertEquals("Burial must be 20000101, but is " + p.getBurialDate(), p.getBurialDate(), 20000101);
+        p.burial = null;
+        assertEquals("Burial must be 'null', but is " + p.getBurialDate(), p.getBurialDate(), null);
     }
 
 
@@ -140,8 +140,8 @@ public class PlotTest {
     @Test
     public void testGetPurchasedDate() throws Exception {
         p = new Plot();
-        p.purchased = 20000101;
-        assertEquals("Purchased must be 20000101, but is " + p.getPurchasedDate(), p.getPurchasedDate(), 20000101);
+        p.purchased = null;
+        assertEquals("Purchased must be 'null', but is " + p.getPurchasedDate(), p.getPurchasedDate(), null);
     }
 
 
