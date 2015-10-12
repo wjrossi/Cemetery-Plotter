@@ -36,6 +36,15 @@ public class Person implements Comparable<Person> {
     }
 
     /**
+     * Constructs a person using his fist name, last name and phone number.
+     */
+    public Person(String fname, String lname, String phone) {
+        this.fname = fname;
+        this.lname = lname;
+        this.phone = phone;
+    }
+
+    /**
      * Constructs a person using all needed information
      */
     public Person(String fname, String lname, String address1, String address2, String city, String state, String zip, String phone) {
