@@ -229,6 +229,6 @@ public class Person implements Comparable<Person> {
      * @return all person info
      */
     public String toString() {
-        return null; // TODO
+        return "Name: " + fname + " " + lname + "\n" + "Address: " + address1 + " " + address2 + " " + city + " " + state + " " + zip + "\n" + "Phone number: " + phone;
     }
 }
