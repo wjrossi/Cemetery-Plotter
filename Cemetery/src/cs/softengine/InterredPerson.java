@@ -1,21 +1,101 @@
 package cs.softengine;
 
+import java.util.Date;
+
 /**
  * A person interred in a plot.  Includes information about their plot.
  */
 public class InterredPerson extends Person {
-    /*
-    private Plot plot;
-    probably don't want this extra object because a person will belong to a plot
-    but we need some way to get the plot from the person
-    */
-
-    int interredId;   //cem associates numerical id with all of their interred persons
+    int interredID; // id number for the interred person
+    int plotID; // id number of the plot in which this person is interred
+    Date born;
+    Date died;
 
     /**
-     * Constructs an interred person
+     * Construct a new, empty interred perosn
      */
     public InterredPerson() {
-        // TODO
+        interredID = -1;
+        plotID = -1;
+        born = null;
+        died = null;
+    }
+
+    /**
+     * Construct a new interred person
+     * @param interredID unique number
+     * @param plotID unique number
+     * @param born may be null
+     * @param died may be null
+     */
+    public InterredPerson(int interredID, int plotID, Date born, Date died) {
+        this.interredID = interredID;
+        this.plotID = plotID;
+        this.born = born;
+        this.died = died;
+    }
+
+    /**
+     * Get plot id nubmer
+     * @return plot id number
+     */
+    public int getPlotID() {
+        return plotID;
+    }
+
+    /**
+     * Set plot id number
+     * @param id plot id number
+     */
+    public void setPlotID(int id) {
+        plotID = id;
+    }
+
+    /**
+     * Get interred id number
+     * @return interred id number
+     */
+    public int getInterredID() {
+        return interredID;
+    }
+
+    /**
+     * Set interred id number
+     * @param id interred id number
+     */
+    public void setInterredID(int id) {
+        interredID = id;
+    }
+
+    /**
+     * Get date born
+     * @return date born, null if unknown
+     */
+    public Date getBornDate() {
+        return born;
+    }
+
+    /**
+     * Set date born
+     * @param d date born, null if unknown
+     */
+    public void setBornDate(Date d) {
+        born = d;
+    }
+
+    /**
+     * Get died date
+     * @return died date, null if unknown
+     */
+    public Date getDiedDate() {
+        return died;
+    }
+
+    /**
+     * Set date died
+     * @param d date died, null if unknown
+     */
+    public void setDiedDate(Date d) {
+        died = d;
     }
 }

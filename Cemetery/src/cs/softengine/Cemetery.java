@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * A cemetery
  */
 public class Cemetery {
-    private ArrayList<Section> sections; // probably change these to hashmaps later
+    ArrayList<Section> sections; // probably change these to hashmaps later
 
     /**
      * Constructs a cemetery

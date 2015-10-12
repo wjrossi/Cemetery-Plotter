@@ -1,34 +1,24 @@
 package cs.softengine;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * A person.  Includes personal information like name and address.
  */
 public class Person implements Comparable<Person> {
-    public String fname;
-    public String lname;
-    public String address1;
-    public String address2;
-    public String city;
-    public String state;
-    public String zip;
-    public String phone;
-    public Date born;
-    public Date died;
-
-    // need a plot
-    public Plot plot;
-    // need list of owned plots
-    public ArrayList<Plot> ownedPlots;
+    String fname;
+    String lname;
+    String address1;
+    String address2;
+    String city;
+    String state;
+    String zip;
+    String phone;
 
     /**
      * Constructs a person.
      */
     public Person() {
-        //add new empty person to people
-        System.out.println("Default constructor: Empty person.");
         fname = "";
         lname = "";
         address1 = "";
@@ -37,8 +27,6 @@ public class Person implements Comparable<Person> {
         state = "";
         zip = "";
         phone = "";
-        born = new Date();
-        died = new Date();
     }
 
     /* other constructors
@@ -47,22 +35,19 @@ public class Person implements Comparable<Person> {
     }
     */
 
-    /*
-     * Constructs a person using his fist name, last name, born date and died date.
+    /**
+     * Constructs a person using his fist name, last name.
+     *
      */
-    public Person(String fname, String lname, Date born, Date died) {
-        System.out.println("Customize constructor: person with fname, lname, born date and died date");
+    public Person(String fname, String lname) {
         this.fname = fname;
         this.lname = lname;
-        this.born = born;
-        this.died = died;
     }
 
-
-    /*
+    /**
      * Constructs a person using all needed information
      */
-    public Person(String fname, String lname, String address1, String address2, String city, String state, String zip, String phone, Date born, Date died) {
+    public Person(String fname, String lname, String address1, String address2, String city, String state, String zip, String phone) {
         System.out.println("Customize constructor: person with all needed inforamtion");
         this.fname = fname;
         this.lname = lname;
@@ -72,8 +57,6 @@ public class Person implements Comparable<Person> {
         this.state = state;
         this.zip = zip;
         this.phone = phone;
-        this.born = born;
-        this.died = died;
     }
 
     /**
@@ -236,7 +219,7 @@ public class Person implements Comparable<Person> {
      */
     public boolean equals(Object o) throws NullPointerException {
         if (o == null) {
-            return false;
+            throw new NullPointerException();
         }
 
         if (getClass() != o.getClass()) {
