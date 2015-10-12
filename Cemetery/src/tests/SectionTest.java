@@ -29,7 +29,7 @@ public class SectionTest {
         assertEquals("section name must return 'section1', but returned " + s.getName(), s.getName(), "section1");
     }
 
-    /* Tests that Person.getFirstName() returns the correct
+    /* Tests that Person.getSize() returns the correct
         value.
      */
     @Test
