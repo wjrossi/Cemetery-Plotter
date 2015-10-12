@@ -180,8 +180,31 @@ public class Cemetery {
      * @throws IOException
      */
     private Person loadPerson(BufferedReader buffer) throws IOException {
-        // TODO in progress by mike
-        return null;
+        Person p;
+
+        String fname;
+        String lname;
+        String address1;
+        String address2;
+        String city;
+        String state;
+        String zip;
+        String phone;
+
+        fname = buffer.readLine().trim();
+        lname = buffer.readLine().trim();
+        address1 = buffer.readLine().trim();
+        address2 = buffer.readLine().trim();
+        city = buffer.readLine().trim();
+        state = buffer.readLine().trim();
+        zip = buffer.readLine().trim();
+        phone = buffer.readLine().trim();
+
+        p = new Person(fname, lname, address1, address2, city, state, zip, phone);
+
+        people.add(p);
+
+        return p;
     }
 
     /**
@@ -190,15 +213,67 @@ public class Cemetery {
      * @throws IOException
      */
     private InterredPerson loadInterredPerson(BufferedReader buffer) throws IOException {
-        // TODO in progress by mike
-        return null;
+        String line;
+        InterredPerson ip;
+
+        SimpleDateFormat sdf;
+
+        int interredID; // id number for the interred person
+        int plotID; // id number of the plot in which this person is interred
+        Date born;
+        Date died;
+        String fname;
+        String lname;
+        String address1;
+        String address2;
+        String city;
+        String state;
+        String zip;
+        String phone;
+
+        sdf = new SimpleDateFormat("YYYY-MM-DD");
+
+        line = buffer.readLine().trim();
+        interredID = Integer.parseInt(line);
+
+        line = buffer.readLine().trim();
+        plotID = Integer.parseInt(line);
+
+        line = buffer.readLine().trim();
+        try {
+            born = sdf.parse(line);
+        } catch (ParseException e) {
+            born = null;
+        }
+
+        line = buffer.readLine().trim();
+        try {
+            died = sdf.parse(line);
+        } catch (ParseException e) {
+            died = null;
+        }
+
+        fname = buffer.readLine().trim();
+        lname = buffer.readLine().trim();
+        address1 = buffer.readLine().trim();
+        address2 = buffer.readLine().trim();
+        city = buffer.readLine().trim();
+        state = buffer.readLine().trim();
+        zip = buffer.readLine().trim();
+        phone = buffer.readLine().trim();
+
+        ip = new InterredPerson(interredID, plotID, born, died,
+                fname, lname, address1, address2, city, state, zip, phone);
+
+        interredPeople.add(ip);
+
+        return ip;
     }
 
     /**
      * Save cemetery data
      */
     public void save(String file) throws IOException {
-        // TODO in progress by mike
         PrintWriter buffer;
         File oldFile;
         File newFile;
