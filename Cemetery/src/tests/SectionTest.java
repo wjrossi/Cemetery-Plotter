@@ -57,12 +57,25 @@ public class SectionTest {
     public void testRemovePlots() throws Exception {
         s = new Section("A", 0);
         Plot mockPlot = Mockito.mock(Plot.class);
-        s.add(mockPlot);
 
         //Verify that the plot has been added
         assertTrue("Could not add plot " + mockPlot.getID(), s.add(mockPlot));
         //Now remove the plot
         assertTrue("Could not remove plot " + mockPlot.getID(), s.remove(mockPlot));
+    }
+
+    /*
+        Tests that the toString() method is working correctly.
+     */
+    @Test
+    public void testToString() throws Exception {
+        s = new Section("SectionName", 0);
+        String testStr = "<SECTION>\n"
+                + "SectionName" + "\n"
+                + "0" + "\n"
+                + "</SECTION>\n";
+        assertEquals("Section string should be " + testStr + " but is " + s.toString(), s.toString(), testStr);
+
     }
 
 

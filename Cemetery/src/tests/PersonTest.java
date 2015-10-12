@@ -163,4 +163,24 @@ public class PersonTest {
         p = new Person("Bill", "Laboon", "1234 Laboon Place", "4567 Bill Street", "Laboontown", "Maine", "1337", "555-555-5555");
         assertEquals("getPhone must return '555-555-5555', but returned " + p.getPhone(), p.getPhone(), "555-555-5555");
     }
+
+    /*
+        Tests that the toString() method is working correctly.
+     */
+    @Test
+    public void testToString() throws Exception {
+        p = new Person("Bill", "Laboon", "1234 Laboon Place", "4567 Bill Street", "Laboontown", "Maine", "1337", "555-555-5555");
+        String testStr = "<PERSON>\n"
+                + "Bill" + "\n"
+                + "Laboon" + "\n"
+                + "1234 Laboon Place" + "\n"
+                + "4567 Bill Street" + "\n"
+                + "Laboontown" + "\n"
+                + "Maine"  + "\n"
+                + "1337" + "\n"
+                + "555-555-5555"  + "\n"
+                + "</PERSON>\n";
+
+        assertEquals("Person string should be " + testStr + " but is " + p.toString(), p.toString(), testStr);
+    }
 }
