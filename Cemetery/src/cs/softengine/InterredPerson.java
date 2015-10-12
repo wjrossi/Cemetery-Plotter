@@ -6,10 +6,10 @@ import java.util.Date;
  * A person interred in a plot.  Includes information about their plot.
  */
 public class InterredPerson extends Person {
-    int interredID; // id number for the interred person
-    int plotID; // id number of the plot in which this person is interred
-    Date born;
-    Date died;
+    public int interredID; // id number for the interred person
+    public int plotID; // id number of the plot in which this person is interred
+    public Date born;
+    public Date died;
 
     /**
      * Construct a new, empty interred perosn

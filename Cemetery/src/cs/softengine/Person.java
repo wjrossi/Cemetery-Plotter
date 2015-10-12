@@ -4,14 +4,14 @@ package cs.softengine;
  * A person.  Includes personal information like name and address.
  */
 public class Person implements Comparable<Person> {
-    String fname;
-    String lname;
-    String address1;
-    String address2;
-    String city;
-    String state;
-    String zip;
-    String phone;
+    public String fname;
+    public String lname;
+    public String address1;
+    public String address2;
+    public String city;
+    public String state;
+    public String zip;
+    public String phone;
 
     /**
      * Constructs a person.
@@ -29,7 +29,6 @@ public class Person implements Comparable<Person> {
 
     /**
      * Constructs a person using his fist name, last name.
-     *
      */
     public Person(String fname, String lname) {
         this.fname = fname;
@@ -179,7 +178,7 @@ public class Person implements Comparable<Person> {
     }
 
     /**
-     * Compare a person to another person
+     * Compare a person to another person based on last name, first name, and phone
      * @param p a person
      * @return  < 0 if p is less than this person
      *            0 if p is equal to this person
@@ -187,10 +186,23 @@ public class Person implements Comparable<Person> {
      */
     @Override
     public int compareTo(Person p) throws NullPointerException {
-        // how do we compare people? we need a unique identifier TODO
-        // how do we know if they are the same person? name isn't enough.
-        // this will come in handy when we are searching for plots or people
-        return 0;
+        if (p == null) {
+            throw new NullPointerException();
+        }
+
+        int compare;
+
+        compare = lname.compareTo(p.getLastName());
+
+        if (compare == 0) { // same last name, compare by first name
+            compare = fname.compareTo(p.getFirstName());
+
+            if (compare == 0) { // same first name, compare by phone
+                compare = phone.compareTo(p.getPhone());
+            }
+        }
+
+        return compare;
     }
 
     /**
