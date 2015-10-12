@@ -131,6 +131,9 @@ public class Section implements Comparable<Section> {
      * @return section name and size
      */
     public String toString() {
-        return name + "\n" + plots.size() + "\n";
+        return "<SECTION>\n"
+                + name + "\n"
+                + plots.size() + "\n"
+                + "</SECTION>\n";
     }
 }

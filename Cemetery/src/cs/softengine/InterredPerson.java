@@ -44,7 +44,7 @@ public class InterredPerson extends Person implements Comparable<Person> {
     }
 
     /**
-     * Construct a new interred person
+     * Construct a new interred person with fname and lnamme
      * @param interredID unique number
      * @param plotID unique number
      * @param born may be null
@@ -63,6 +63,29 @@ public class InterredPerson extends Person implements Comparable<Person> {
         state = "";
         zip = "";
         phone = "";
+    }
+
+    /**
+     * Construct a new interred person with all details
+     * @param interredID unique number
+     * @param plotID unique number
+     * @param born may be null
+     * @param died may be null
+     */
+    public InterredPerson(int interredID, int plotID, Date born, Date died, String fname, String lname,
+                          String address1, String address2, String city, String state, String zip, String phone) {
+        this.interredID = interredID;
+        this.plotID = plotID;
+        this.born = born;
+        this.died = died;
+        this.fname = fname;
+        this.lname = lname;
+        this.address1 = address1;
+        this.address2 = address2;
+        this.city = city;
+        this.state = state;
+        this.zip = zip;
+        this.phone = phone;
     }
 
     /**
@@ -171,7 +194,8 @@ public class InterredPerson extends Person implements Comparable<Person> {
      * @return all person info
      */
     public String toString() {
-        return interredID + "\n"
+        return "<INTERREDPERSON>\n"
+                + interredID + "\n"
                 + plotID + "\n"
                 + born + "\n"
                 + died + "\n"
@@ -182,6 +206,7 @@ public class InterredPerson extends Person implements Comparable<Person> {
                 + city + "\n"
                 + state  + "\n"
                 + zip + "\n"
-                + phone  + "\n";
+                + phone  + "\n"
+                + "</INTERREDPERSON>\n";
     }
 }
