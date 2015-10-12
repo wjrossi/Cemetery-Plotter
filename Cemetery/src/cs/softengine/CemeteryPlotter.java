@@ -33,7 +33,7 @@ public class CemeteryPlotter {
     /**
      * Run CemeteryPlotter
      */
-    public static void run(Cemetery c) throws RuntimeException {
+    private static void run(Cemetery c) throws RuntimeException {
         // eventually we will make the gui and show it by calling this
         // for now, use command line..
 
