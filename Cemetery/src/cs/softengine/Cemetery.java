@@ -7,13 +7,17 @@ import java.util.ArrayList;
  * A cemetery
  */
 public class Cemetery {
-    public ArrayList<Section> sections; // probably change these to hashmaps later
+    public ArrayList<Section> sections; // TODO probably change these to hashmaps later in a refactoring
+    public ArrayList<Person> people; // list of all people in the cemetery
+    public ArrayList<InterredPerson> interredPeople; // list of all interred people in the cemetery
 
     /**
      * Constructs a cemetery
      */
     public Cemetery() {
         sections = new ArrayList<Section>();
+        people = new ArrayList<Person>();
+        interredPeople = new ArrayList<InterredPerson>();
     }
 
     /**
@@ -24,7 +28,7 @@ public class Cemetery {
         try {
             load(file);
         } catch (IOException e) {
-            //
+            // show some kind of error to user
         }
     }
 

@@ -6,11 +6,9 @@ import java.util.ArrayList;
  * A section of a cemetery
  */
 public class Section implements Comparable<Section> {
-    private ArrayList<Plot> plots; // (TEMPORARY) data structure for a section... do we want a hashtable or hashmap?
-    // need list of interred people and list of all people belonging to this section
-    private String name; // name of the section
-    // private ArrayList<Person> person;
-    // private ArrayList<Person> interredPerson;
+    public String name; // name of the section
+    public ArrayList<Plot> plots; // (TEMPORARY) data structure for a section... do we want a hashtable or hashmap?
+
     /**
      * Constructs a new, empty section.
      * @param name of this section
@@ -18,8 +16,6 @@ public class Section implements Comparable<Section> {
     public Section(String name) {
         this.name = name;
         plots = new ArrayList<Plot>();
-       // person = new ArrayList<Person>();
-       // interredPerson = new ArrayList<Person>();
     }
 
     /**
