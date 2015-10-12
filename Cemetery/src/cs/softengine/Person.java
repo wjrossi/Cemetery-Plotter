@@ -16,19 +16,19 @@ public class Person implements Comparable<Person> {
     public String phone;
     public ArrayList<Integer> plots; // list of plotID's owned by this person
 
-
     /**
      * Constructs a person.
      */
     public Person() {
-        fname = "";
-        lname = "";
-        address1 = "";
-        address2 = "";
-        city = "";
-        state = "";
-        zip = "";
-        phone = "";
+        this.fname = "";
+        this.lname = "";
+        this.address1 = "";
+        this.address2 = "";
+        this.city = "";
+        this.state = "";
+        this.zip = "";
+        this.phone = "";
+        this.plots = new ArrayList<Integer>();
     }
 
     /**
@@ -37,6 +37,13 @@ public class Person implements Comparable<Person> {
     public Person(String fname, String lname) {
         this.fname = fname;
         this.lname = lname;
+        this.address1 = "";
+        this.address2 = "";
+        this.city = "";
+        this.state = "";
+        this.zip = "";
+        this.phone = "";
+        this.plots = new ArrayList<Integer>();
     }
 
     /**
@@ -45,7 +52,13 @@ public class Person implements Comparable<Person> {
     public Person(String fname, String lname, String phone) {
         this.fname = fname;
         this.lname = lname;
+        this.address1 = "";
+        this.address2 = "";
+        this.city = "";
+        this.state = "";
+        this.zip = "";
         this.phone = phone;
+        this.plots = new ArrayList<Integer>();
     }
 
     /**
@@ -60,6 +73,7 @@ public class Person implements Comparable<Person> {
         this.state = state;
         this.zip = zip;
         this.phone = phone;
+        this.plots = new ArrayList<Integer>();
     }
 
     /**
@@ -188,6 +202,42 @@ public class Person implements Comparable<Person> {
      */
     public String getPhone() {
         return phone;
+    }
+
+    /**
+     * Get list of plots owned by this person
+     * @return owned plots
+     */
+    public ArrayList<Integer> getOwnedPlots() {
+        return plots;
+    }
+
+    /**
+     * Set list of plots owned by this person
+     * @param p list of plots
+     */
+    public void setOwnedPlots(ArrayList<Integer> p) {
+        plots = p;
+    }
+
+    /**
+     * Add a plot owned by this person
+     * @param plotID plot id number
+     * @return true, if successful
+     *         false, if unsuccessful
+     */
+    public boolean addOwnedPlot(int plotID) {
+        return plots.add(plotID);
+    }
+
+    /**
+     * Remove a plot owned by this person
+     * @param plotID plot id number
+     * @return true, if successful
+     *         false, if unsuccessful
+     */
+    public boolean removeOwnedPlot(int plotID) {
+        return plots.remove(plotID) != null;
     }
 
     /**

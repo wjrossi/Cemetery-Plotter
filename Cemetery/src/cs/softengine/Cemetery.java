@@ -178,6 +178,10 @@ public class Cemetery {
 
         Plot p = new Plot(section, id, interred, owner, burial, purchased, vacant, ready, moneyDue);
 
+        if (p.getOwner() != null) {
+            p.getOwner().addOwnedPlot(p.getID());
+        }
+
         plots.add(p);
         sections.get(sections.indexOf(new Section(section))).add(p); // this is why we need hashmap probably
     }
