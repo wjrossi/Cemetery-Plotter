@@ -44,13 +44,12 @@ public class Cemetery {
      */
     public void load(String file) throws IOException {
         BufferedReader buffer;
-        String line;
+        String temp;
 
         buffer = new BufferedReader(new FileReader(file));
 
-        while ((line = buffer.readLine()) != null) {
-            line = line.trim();
-            switch (line) {
+        while ((temp = buffer.readLine()) != null) {
+            switch (temp.trim()) {
                 case "<CEMETERY>":
                     loadCemetery(buffer);
                     break;
@@ -72,23 +71,15 @@ public class Cemetery {
      * @throws IOException
      */
     private void loadCemetery(BufferedReader buffer) throws IOException {
-        String line;
         int numSections; // number of sections in cemetery
         int numPlots; // number of plots in the cemetery
         int numInterred; // number of interred people in cemetery
         int numPeople; // number of (non-interred) people
 
-        line = buffer.readLine().trim();
-        numSections = Integer.parseInt(line);
-
-        line = buffer.readLine().trim();
-        numPlots = Integer.parseInt(line);
-
-        line = buffer.readLine().trim();
-        numInterred = Integer.parseInt(line);
-
-        line = buffer.readLine().trim();
-        numPeople = Integer.parseInt(line);
+        numSections = Integer.parseInt(buffer.readLine().trim());
+        numPlots = Integer.parseInt(buffer.readLine().trim());
+        numInterred = Integer.parseInt(buffer.readLine().trim());
+        numPeople = Integer.parseInt(buffer.readLine().trim());
 
         sections = new ArrayList<Section>(numSections);
         plots = new ArrayList<Plot>(numPlots);
@@ -102,15 +93,11 @@ public class Cemetery {
      * @throws IOException
      */
     private void loadSection(BufferedReader buffer) throws IOException {
-        String line;
         String name; // name of new section
         int size; // number of plots in new section
 
-        line = buffer.readLine().trim();
-        name = line;
-
-        line = buffer.readLine().trim();
-        size = Integer.parseInt(line);
+        name = buffer.readLine().trim();
+        size = Integer.parseInt(buffer.readLine().trim());
 
         Section s = new Section(name, size);
 
@@ -123,7 +110,6 @@ public class Cemetery {
      * @throws IOException
      */
     private void loadPlot(BufferedReader buffer) throws IOException {
-        String line;
         SimpleDateFormat sdf;
 
         String section; // residing section name
@@ -138,43 +124,34 @@ public class Cemetery {
 
         sdf = new SimpleDateFormat("YYYY-MM-DD");
 
-        line = buffer.readLine().trim();
-        section = line;
+        section = buffer.readLine().trim();
+        id = Integer.parseInt(buffer.readLine().trim());
 
-        line = buffer.readLine().trim();
-        id = Integer.parseInt(line);
+        buffer.readLine().trim(); // read empty line
+        interred = loadInterredPerson(buffer); // load an interred person belonging to this plot
 
-        line = buffer.readLine().trim();
-        interred = loadInterredPerson(buffer);
+        buffer.readLine().trim(); // read empty line
+        owner = loadPerson(buffer); // load an owner belonging to this plot
 
-        line = buffer.readLine().trim();
-        owner = loadPerson(buffer);
-
-        line = buffer.readLine().trim();
-        try {
-            burial = sdf.parse(line);
+        try { // load a burial date
+            burial = sdf.parse(buffer.readLine().trim());
         } catch (ParseException e) {
             burial = null;
         }
 
-        line = buffer.readLine().trim();
-        try {
-            purchased = sdf.parse(line);
+        try { // load a purchased date
+            purchased = sdf.parse(buffer.readLine().trim());
         } catch (ParseException e) {
             purchased = null;
         }
 
-        line = buffer.readLine().trim();
-        vacant = Boolean.parseBoolean(line);
+        vacant = Boolean.parseBoolean(buffer.readLine().trim());
+        ready = Boolean.parseBoolean(buffer.readLine().trim());
 
-        line = buffer.readLine().trim();
-        ready = Boolean.parseBoolean(line);
-
-        line = buffer.readLine().trim();
-        if (line.isEmpty())
+        try { // load money due
+            moneyDue = Integer.parseInt(buffer.readLine().trim());
+        } catch (NumberFormatException e) {
             moneyDue = 0;
-        else {
-            moneyDue = Integer.parseInt(line);
         }
 
         Plot p = new Plot(section, id, interred, owner, burial, purchased, vacant, ready, moneyDue);
@@ -193,7 +170,6 @@ public class Cemetery {
      * @throws IOException
      */
     private Person loadPerson(BufferedReader buffer) throws IOException {
-        String line;
         Person p;
 
         String fname;
@@ -205,13 +181,15 @@ public class Cemetery {
         String zip;
         String phone;
 
-        line = buffer.readLine().trim();
+        String temp;
 
-        if (line.equals("null")) {
+        temp = buffer.readLine().trim();
+
+        if (temp.equals("null")) {
             p = null;
-            line = buffer.readLine().trim();
+            buffer.readLine().trim(); // read empty line
         } else {
-            fname = line;
+            fname = temp;
             lname = buffer.readLine().trim();
             address1 = buffer.readLine().trim();
             address2 = buffer.readLine().trim();
@@ -220,7 +198,7 @@ public class Cemetery {
             zip = buffer.readLine().trim();
             phone = buffer.readLine().trim();
 
-            line = buffer.readLine().trim();
+            buffer.readLine().trim(); // read empty line
 
             p = new Person(fname, lname, address1, address2, city, state, zip, phone);
 
@@ -236,11 +214,8 @@ public class Cemetery {
      * @throws IOException
      */
     private InterredPerson loadInterredPerson(BufferedReader buffer) throws IOException {
-        String line;
         InterredPerson ip;
-
         SimpleDateFormat sdf;
-
         int interredID; // id number for the interred person
         int plotID; // id number of the plot in which this person is interred
         Date born;
@@ -254,29 +229,27 @@ public class Cemetery {
         String zip;
         String phone;
 
+        String temp;
+
         sdf = new SimpleDateFormat("YYYY-MM-DD");
 
-        line = buffer.readLine().trim();
+        temp = buffer.readLine().trim();
 
-        if (line.equals("null")) {
+        if (temp.equals("null")) {
             ip = null;
-            line = buffer.readLine().trim();
+            buffer.readLine().trim();
         } else {
-            interredID = Integer.parseInt(line);
+            interredID = Integer.parseInt(temp);
+            plotID = Integer.parseInt(buffer.readLine().trim());
 
-            line = buffer.readLine().trim();
-            plotID = Integer.parseInt(line);
-
-            line = buffer.readLine().trim();
             try {
-                born = sdf.parse(line);
+                born = sdf.parse(buffer.readLine().trim());
             } catch (ParseException e) {
                 born = null;
             }
 
-            line = buffer.readLine().trim();
             try {
-                died = sdf.parse(line);
+                died = sdf.parse(buffer.readLine().trim());
             } catch (ParseException e) {
                 died = null;
             }
@@ -290,7 +263,7 @@ public class Cemetery {
             zip = buffer.readLine().trim();
             phone = buffer.readLine().trim();
 
-            line = buffer.readLine().trim();
+            buffer.readLine().trim();
 
             ip = new InterredPerson(interredID, plotID, born, died,
                     fname, lname, address1, address2, city, state, zip, phone);
