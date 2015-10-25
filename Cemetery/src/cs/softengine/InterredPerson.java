@@ -10,6 +10,8 @@ import java.util.Date;
 public class InterredPerson implements Comparable<InterredPerson> {
     private int interredID; // id number for the interred person
     private int plotID; // id number of the plot in which this person is interred
+    private Date born;
+    private Date died;
     private String fname;
     private String lname;
     private String address1;
@@ -18,17 +20,12 @@ public class InterredPerson implements Comparable<InterredPerson> {
     private String state;
     private String zip;
     private String phone;
-    private Date born;
-    private Date died;
 
     /**
      * Construct a new, empty interred person
      */
     public InterredPerson() {
-        this.interredID = -1;
-        this.plotID = -1;
-        this.born = null;
-        this.died = null;
+        this(-1, -1, null, null, "", "", "", "", "", "", "", "");
     }
 
     /**
@@ -39,18 +36,7 @@ public class InterredPerson implements Comparable<InterredPerson> {
      * @param died may be null
      */
     public InterredPerson(int interredID, int plotID, Date born, Date died) {
-        this.interredID = interredID;
-        this.plotID = plotID;
-        this.born = born;
-        this.died = died;
-        this.fname = "";
-        this.lname = "";
-        this.address1 = "";
-        this.address2 = "";
-        this.city = "";
-        this.state = "";
-        this.zip = "";
-        this.phone = "";
+        this(interredID, plotID, born, died, "", "", "", "", "", "", "", "");
     }
 
     /**
@@ -61,18 +47,7 @@ public class InterredPerson implements Comparable<InterredPerson> {
      * @param died may be null
      */
     public InterredPerson(int interredID, int plotID, Date born, Date died, String fname, String lname) {
-        this.interredID = interredID;
-        this.plotID = plotID;
-        this.born = born;
-        this.died = died;
-        this.fname = fname;
-        this.lname = lname;
-        this.address1 = "";
-        this.address2 = "";
-        this.city = "";
-        this.state = "";
-        this.zip = "";
-        this.phone = "";
+        this(interredID, plotID, born, died, fname, lname, "", "", "", "", "", "");
     }
 
     /**

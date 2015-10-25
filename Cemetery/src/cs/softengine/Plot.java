@@ -22,15 +22,7 @@ public class Plot implements Comparable<Plot> {
      * Constructs an empty plot
      */
     public Plot() {
-        section = null;
-        id = -1;
-        interred = null;
-        owner = null;
-        burial = null;
-        purchased = null;
-        vacant = true;
-        ready = true;
-        moneyDue = 0;
+        this(null, -1, null, null, null, null, true, false, 0);
     }
 
     /**
@@ -39,8 +31,7 @@ public class Plot implements Comparable<Plot> {
      * @param id number
      */
     public Plot(String section, int id) {
-        this.section = section;
-        this.id = id;
+        this(section, id, null, null, null, null, true, false, 0);
     }
 
     /**

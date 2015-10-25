@@ -17,48 +17,24 @@ public class Person implements Comparable<Person> {
     private ArrayList<Integer> plots; // list of plotID's owned by this person
 
     /**
-     * Constructs a person.
+     * Constructs a new, empty person.
      */
     public Person() {
-        this.fname = "";
-        this.lname = "";
-        this.address1 = "";
-        this.address2 = "";
-        this.city = "";
-        this.state = "";
-        this.zip = "";
-        this.phone = "";
-        this.plots = new ArrayList<Integer>();
+        this("", "", "", "", "", "", "", "");
     }
 
     /**
      * Constructs a person using his fist name, last name.
      */
     public Person(String fname, String lname) {
-        this.fname = fname;
-        this.lname = lname;
-        this.address1 = "";
-        this.address2 = "";
-        this.city = "";
-        this.state = "";
-        this.zip = "";
-        this.phone = "";
-        this.plots = new ArrayList<Integer>();
+        this(fname, lname, "", "", "", "", "", "");
     }
 
     /**
      * Constructs a person using his fist name, last name and phone number.
      */
     public Person(String fname, String lname, String phone) {
-        this.fname = fname;
-        this.lname = lname;
-        this.address1 = "";
-        this.address2 = "";
-        this.city = "";
-        this.state = "";
-        this.zip = "";
-        this.phone = phone;
-        this.plots = new ArrayList<Integer>();
+        this(fname, lname, "", "", "", "", "", phone);
     }
 
     /**
