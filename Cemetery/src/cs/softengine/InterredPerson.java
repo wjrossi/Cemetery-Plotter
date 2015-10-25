@@ -7,7 +7,7 @@ import java.util.Date;
 /**
  * A person interred in a plot.  Includes information about their plot.
  */
-public class InterredPerson extends Person implements Comparable<Person> {
+public class InterredPerson implements Comparable<InterredPerson> {
     private int interredID; // id number for the interred person
     private int plotID; // id number of the plot in which this person is interred
     private String fname;
@@ -292,20 +292,18 @@ public class InterredPerson extends Person implements Comparable<Person> {
 
     /**
      * Compare an interred person to another interred person based on their interredID
-     * @param p a person
+     * @param p an interred person
      * @return  < 0 if p is less than this interredID
      *            0 if p is equal to this interredID
      *          > 0 if p is greater than this interredID
      */
     @Override
-    public int compareTo(Person p) throws NullPointerException {
+    public int compareTo(InterredPerson p) throws NullPointerException {
         if (p == null) {
             throw new NullPointerException();
         }
 
-        InterredPerson ip = (InterredPerson) p;
-
-        return ip.getInterredID() - interredID;
+        return p.getInterredID() - interredID;
     }
 
     /**
@@ -322,7 +320,7 @@ public class InterredPerson extends Person implements Comparable<Person> {
             return false;
         }
 
-        final Person p = (Person) o;
+        final InterredPerson p = (InterredPerson) o;
 
         return compareTo(p) == 0;
     }

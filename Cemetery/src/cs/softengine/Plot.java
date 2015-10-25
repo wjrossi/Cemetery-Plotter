@@ -97,7 +97,7 @@ public class Plot implements Comparable<Plot> {
      * Get interred person
      * @return interred person, null if unknown
      */
-    public Person getInterred() {
+    public InterredPerson getInterred() {
         return interred;
     }
 
@@ -251,55 +251,26 @@ public class Plot implements Comparable<Plot> {
     public String toString() {
         String result;
 
-        if (interred == null && owner != null) {
-            result = "<PLOT>\n"
-                    + section + "\n"
-                    + id  + "\n"
-                    + "<INTERREDPERSON>\nnull\n</INTERREDPERSON>\n"
-                    + owner
-                    + burial + "\n"
-                    + purchased + "\n"
-                    + vacant + "\n"
-                    + ready + "\n"
-                    + moneyDue + "\n"
-                    + "</PLOT>\n";
-        } else if (interred != null && owner == null) {
-            result = "<PLOT>\n"
-                    + section + "\n"
-                    + id  + "\n"
-                    + interred
-                    + "<PERSON>\nnull\n</PERSON>\n"
-                    + burial + "\n"
-                    + purchased + "\n"
-                    + vacant + "\n"
-                    + ready + "\n"
-                    + moneyDue + "\n"
-                    + "</PLOT>\n";
-        } else if (interred == null && owner == null) {
-            result = "<PLOT>\n"
-                    + section + "\n"
-                    + id  + "\n"
-                    + "<INTERREDPERSON>\nnull\n</INTERREDPERSON>\n"
-                    + "<PERSON>\nnull\n</PERSON>\n"
-                    + burial + "\n"
-                    + purchased + "\n"
-                    + vacant + "\n"
-                    + ready + "\n"
-                    + moneyDue + "\n"
-                    + "</PLOT>\n";
-        } else {
-            result = "<PLOT>\n"
-                    + section + "\n"
-                    + id  + "\n"
-                    + interred
-                    + owner
-                    + burial + "\n"
-                    + purchased + "\n"
-                    + vacant + "\n"
-                    + ready + "\n"
-                    + moneyDue + "\n"
-                    + "</PLOT>\n";
-        }
+        result = "<PLOT>\n"
+                + section + "\n"
+                + id + "\n";
+
+        if (interred == null)
+            result += "<INTERREDPERSON>\nnull\n</INTERREDPERSON>\n";
+        else
+            result += interred;
+
+        if (owner == null)
+            result += "<PERSON>\nnull\n</PERSON>\n";
+        else
+            result += owner;
+
+        result += burial + "\n"
+                + purchased + "\n"
+                + vacant + "\n"
+                + ready + "\n"
+                + moneyDue + "\n"
+                + "</PLOT>\n";
 
         return result;
     }
