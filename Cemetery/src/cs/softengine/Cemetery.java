@@ -10,10 +10,10 @@ import java.util.Date;
  * A cemetery
  */
 public class Cemetery {
-    public ArrayList<Section> sections; // TODO probably change these to hashmaps later in a refactoring
-    public ArrayList<Plot> plots; // list of all plots in the cemetery
-    public ArrayList<InterredPerson> interredPeople; // list of all interred people in the cemetery
-    public ArrayList<Person> people; // list of all (non-interred) people in the cemetery
+    private ArrayList<Section> sections; // TODO probably change these to hashmaps later in a refactoring
+    private ArrayList<Plot> plots; // list of all plots in the cemetery
+    private ArrayList<InterredPerson> interredPeople; // list of all interred people in the cemetery
+    private ArrayList<Person> people; // list of all (non-interred) people in the cemetery
 
     /**
      * Constructs a cemetery

@@ -1,7 +1,7 @@
 package tests;
 
 /**
- * Tests Cemetery
+ * Tests for Cemetery
  */
 public class CemeteryTest {
     // ???

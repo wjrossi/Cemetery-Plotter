@@ -8,19 +8,27 @@ import java.util.Date;
  * A person interred in a plot.  Includes information about their plot.
  */
 public class InterredPerson extends Person implements Comparable<Person> {
-    public int interredID; // id number for the interred person
-    public int plotID; // id number of the plot in which this person is interred
-    public Date born;
-    public Date died;
+    private int interredID; // id number for the interred person
+    private int plotID; // id number of the plot in which this person is interred
+    private String fname;
+    private String lname;
+    private String address1;
+    private String address2;
+    private String city;
+    private String state;
+    private String zip;
+    private String phone;
+    private Date born;
+    private Date died;
 
     /**
      * Construct a new, empty interred person
      */
     public InterredPerson() {
-        interredID = -1;
-        plotID = -1;
-        born = null;
-        died = null;
+        this.interredID = -1;
+        this.plotID = -1;
+        this.born = null;
+        this.died = null;
     }
 
     /**
@@ -35,14 +43,14 @@ public class InterredPerson extends Person implements Comparable<Person> {
         this.plotID = plotID;
         this.born = born;
         this.died = died;
-        fname = "";
-        lname = "";
-        address1 = "";
-        address2 = "";
-        city = "";
-        state = "";
-        zip = "";
-        phone = "";
+        this.fname = "";
+        this.lname = "";
+        this.address1 = "";
+        this.address2 = "";
+        this.city = "";
+        this.state = "";
+        this.zip = "";
+        this.phone = "";
     }
 
     /**
@@ -59,12 +67,12 @@ public class InterredPerson extends Person implements Comparable<Person> {
         this.died = died;
         this.fname = fname;
         this.lname = lname;
-        address1 = "";
-        address2 = "";
-        city = "";
-        state = "";
-        zip = "";
-        phone = "";
+        this.address1 = "";
+        this.address2 = "";
+        this.city = "";
+        this.state = "";
+        this.zip = "";
+        this.phone = "";
     }
 
     /**
@@ -152,6 +160,134 @@ public class InterredPerson extends Person implements Comparable<Person> {
      */
     public void setDiedDate(Date d) {
         died = d;
+    }
+
+    /**
+     * Set first name
+     * @param fname first name
+     */
+    public void setFirstName(String fname) {
+        this.fname = fname;
+    }
+
+    /**
+     * Get first name
+     * @return first name
+     */
+    public String getFirstName() {
+        return fname;
+    }
+
+    /**
+     * Set last name
+     * @param lname last name
+     */
+    public void setLastName(String lname) {
+        this.lname = lname;
+    }
+
+    /**
+     * Get last name
+     * @return lname last name
+     */
+    public String getLastName() {
+        return lname;
+    }
+
+    /**
+     * Set address line 1
+     * @param address1 address line 1
+     */
+    public void setAddress1(String address1) {
+        this.address1 = address1;
+    }
+
+    /**
+     * Get address line 1
+     * @return address1
+     */
+    public String getAddress1() {
+        return address1;
+    }
+
+    /**
+     * Set address line 2
+     * @param address2 address line 2
+     */
+    public void setAddress2(String address2) {
+        this.address2 = address2;
+    }
+
+    /**
+     * Get address line 2
+     * @return address2 address line 2
+     */
+    public String getAddress2() {
+        return address2;
+    }
+
+    /**
+     * Set the city
+     * @param city city
+     */
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    /**
+     * Get the city
+     * @return city
+     */
+    public String getCity() {
+        return city;
+    }
+
+    /**
+     * Set the state
+     * @param state state
+     */
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    /**
+     * Get state
+     * @return state
+     */
+    public String getState() {
+        return state;
+    }
+
+    /**
+     * Set zip code
+     * @param zip zip code
+     */
+    public void setZip(String zip) {
+        this.zip = zip;
+    }
+
+    /**
+     * Get zip code
+     * @return zip code
+     */
+    public String getZip() {
+        return zip;
+    }
+
+    /**
+     * Set phone number
+     * @param phone phone number
+     */
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    /**
+     * Get phone number
+     * @return phone number
+     */
+    public String getPhone() {
+        return phone;
     }
 
     /**

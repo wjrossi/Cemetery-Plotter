@@ -7,23 +7,23 @@ import org.mockito.Mockito;
 import static org.junit.Assert.*;
 
 /**
- * Created by jiajiedang on 10/11/15.
+ * Tests for Section
  */
 public class SectionTest {
     Section s;
 
-    /* Tests that Section.setName() correctly sets the name
-        variable of the Section class.
+    /**
+     * Tests that Section.setName() correctly sets the name variable of the Section class.
      */
     @Test
     public void testSetName() throws Exception {
         s = new Section("Laboon", 0);
         s.setName("section1");
-        assertEquals("section name must be 'section1', but is " + s.name, s.name, "section1");
+        assertEquals("section name must be 'section1', but is " + s.getName(), s.getName(), "section1");
     }
 
-    /* Tests that Section.getName() returns the correct
-        value.
+    /**
+     * Tests that Section.getName() returns the correct value.
      */
     @Test
     public void testGetName() throws Exception {
@@ -31,8 +31,8 @@ public class SectionTest {
         assertEquals("section name must return 'section1', but returned " + s.getName(), s.getName(), "section1");
     }
 
-    /* Tests that Section.getSize() returns the correct
-        value.
+    /**
+     * Tests that Section.getSize() returns the correct value.
      */
     @Test
     public void testGetSize() throws Exception {
@@ -41,8 +41,8 @@ public class SectionTest {
         assertEquals("section size must return 1," + "but returned " + s.getSize(), s.getSize(), 1);
     }
 
-    /*
-        Tests that you can add plots to a section using Section.add(Plot p).
+    /**
+     * Tests that you can add plots to a section using Section.add(Plot p).
      */
     @Test
     public void testAddPlots() throws Exception {
@@ -51,8 +51,8 @@ public class SectionTest {
         assertTrue("Could not add plot " + mockPlot.getID(), s.add(mockPlot));
     }
 
-    /*
-        Tests that you can successfully remove plots from a section using Section.remove(Plot p).
+    /**
+     * Tests that you can successfully remove plots from a section using Section.remove(Plot p).
      */
     @Test
     public void testRemovePlots() throws Exception {
@@ -65,8 +65,8 @@ public class SectionTest {
         assertTrue("Could not remove plot " + mockPlot.getID(), s.remove(mockPlot));
     }
 
-    /*
-        Tests that the toString() method is working correctly.
+    /**
+     * Tests that the toString() method is working correctly.
      */
     @Test
     public void testToString() throws Exception {
@@ -76,8 +76,5 @@ public class SectionTest {
                 + "0" + "\n"
                 + "</SECTION>\n";
         assertEquals("Section string should be " + testStr + " but is " + s.toString(), s.toString(), testStr);
-
     }
-
-
 }

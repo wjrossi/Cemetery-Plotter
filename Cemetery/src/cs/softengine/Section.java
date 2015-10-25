@@ -6,8 +6,8 @@ import java.util.ArrayList;
  * A section of a cemetery
  */
 public class Section implements Comparable<Section> {
-    public String name; // name of the section
-    public ArrayList<Plot> plots; // (TEMPORARY) data structure for a section... do we want a hashtable or hashmap?
+    private String name; // name of the section
+    private ArrayList<Plot> plots; // (TEMPORARY) data structure for a section... do we want a hashtable or hashmap?
 
     /**
      * Constructs a new, empty section.

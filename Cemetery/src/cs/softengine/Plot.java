@@ -8,15 +8,15 @@ import java.util.Date;
  * A plot
  */
 public class Plot implements Comparable<Plot> {
-    public String section; // residing section name
-    public int id; // plot identifier number
-    public InterredPerson interred; // interred person
-    public Person owner; // contact person, also person fiscally responsible for plot
-    public Date burial; // burial date
-    public Date purchased; // purchase date
-    public boolean vacant; // is the plot vacant/not vacant
-    public boolean ready; // is the plot ready for use or not ready
-    public int moneyDue; // if not 0, person owes this much IN CENTS (for accuracy)
+    private String section; // residing section name
+    private int id; // plot identifier number
+    private InterredPerson interred; // interred person
+    private Person owner; // contact person, also person fiscally responsible for plot
+    private Date burial; // burial date
+    private Date purchased; // purchase date
+    private boolean vacant; // is the plot vacant/not vacant
+    private boolean ready; // is the plot ready for use or not ready
+    private int moneyDue; // if not 0, person owes this much IN CENTS (for accuracy)
 
     /**
      * Constructs an empty plot

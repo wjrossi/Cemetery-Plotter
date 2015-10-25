@@ -6,15 +6,15 @@ import java.util.ArrayList;
  * A person. Includes personal information like name and address.
  */
 public class Person implements Comparable<Person> {
-    public String fname;
-    public String lname;
-    public String address1;
-    public String address2;
-    public String city;
-    public String state;
-    public String zip;
-    public String phone;
-    public ArrayList<Integer> plots; // list of plotID's owned by this person
+    private String fname;
+    private String lname;
+    private String address1;
+    private String address2;
+    private String city;
+    private String state;
+    private String zip;
+    private String phone;
+    private ArrayList<Integer> plots; // list of plotID's owned by this person
 
     /**
      * Constructs a person.
