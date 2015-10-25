@@ -1,6 +1,7 @@
 package cs.softengine;
 
 import javax.swing.*;
+import javax.swing.border.*;
 import java.awt.*;
 import java.awt.event.*;
 
@@ -8,21 +9,21 @@ import java.awt.event.*;
  * Content pane containing editable information on a plot owner
  */
 public class CemeteryPlotterOwner implements ActionListener, ItemListener {
-    private JPanel panel;
+    private JPanel ownerPanel;
 
     /**
      * Constructs a content pane for a plot owner info
      */
     public CemeteryPlotterOwner() {
-        panel = createOwnerPanel();
+        ownerPanel = createOwnerPanel();
     }
 
     /**
      * Get plot owner info panel
-     * @return panel
+     * @return ownerPanel
      */
     public JPanel getPanel() {
-        return panel;
+        return ownerPanel;
     }
 
     /**
@@ -30,11 +31,21 @@ public class CemeteryPlotterOwner implements ActionListener, ItemListener {
      * @return panel
      */
     private JPanel createOwnerPanel() {
-        JPanel owner;
+        JPanel panel;
+        Border etchedBorder;
+        TitledBorder titledBorder;
 
-        owner = new JPanel();
+        panel = new JPanel(new BorderLayout());
 
-        return owner;
+        // create an raised, etched, titled border
+        etchedBorder = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
+        titledBorder = BorderFactory.createTitledBorder(etchedBorder, "Owner");
+        titledBorder.setTitleJustification(TitledBorder.LEFT);
+        panel.setBorder(titledBorder);
+
+        // add things to panel
+
+        return panel;
     }
 
     /**

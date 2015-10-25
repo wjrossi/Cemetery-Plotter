@@ -1,6 +1,7 @@
 package cs.softengine;
 
 import javax.swing.*;
+import javax.swing.border.*;
 import java.awt.*;
 import java.awt.event.*;
 
@@ -8,21 +9,21 @@ import java.awt.event.*;
  * Content pane for plot info
  */
 public class CemeteryPlotterPlot implements ActionListener, ItemListener {
-    private JPanel panel;
+    private JPanel plotPanel;
 
     /**
      * Constructs a content pane for plot info
      */
     public CemeteryPlotterPlot() {
-        panel = createPlotPanel();
+        plotPanel = createPlotPanel();
     }
 
     /**
      * Get plot info panel
-     * @return panel
+     * @return plotPanel
      */
     public JPanel getPanel() {
-        return panel;
+        return plotPanel;
     }
 
     /**
@@ -30,11 +31,21 @@ public class CemeteryPlotterPlot implements ActionListener, ItemListener {
      * @return panel
      */
     private JPanel createPlotPanel() {
-        JPanel plot;
+        JPanel panel;
+        Border etchedBorder;
+        TitledBorder titledBorder;
 
-        plot = new JPanel();
+        panel = new JPanel(new BorderLayout());
 
-        return plot;
+        // create an raised, etched, titled border
+        etchedBorder = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
+        titledBorder = BorderFactory.createTitledBorder(etchedBorder, "Plot");
+        titledBorder.setTitleJustification(TitledBorder.LEFT);
+        panel.setBorder(titledBorder);
+
+        // add things to panel
+
+        return panel;
     }
 
     /**

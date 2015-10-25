@@ -1,5 +1,6 @@
 package cs.softengine;
 
+import javax.imageio.plugins.jpeg.JPEGHuffmanTable;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -9,26 +10,6 @@ import java.awt.event.*;
  */
 public class CemeteryPlotterFrame {
     // class variables go here
-
-    /**
-     * Create main content pane
-     * @return container
-     */
-    public Container createContentPane() { // TODO this is stuff from a demo
-        // create the content-pane-to-be
-        JPanel contentPane = new JPanel(new BorderLayout());
-        contentPane.setOpaque(true);
-
-        // create a scrolled text area
-        JTextArea output = new JTextArea(5, 30);
-        output.setEditable(false);
-        JScrollPane scrollPane = new JScrollPane(output);
-
-        // add the text area to the content pane
-        contentPane.add(scrollPane, BorderLayout.CENTER);
-
-        return contentPane;
-    }
 
     /**
      * Create the GUI and show it. Invoked from the event-dispatching thread.
@@ -42,16 +23,41 @@ public class CemeteryPlotterFrame {
         }
 
         // create and set up the window
-        JFrame frame = new JFrame("Cemetery Plotter v0.0.1");
+        JFrame frame = new JFrame("Cemetery Plotter v0.0.2");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         // create and set up the menu bar
         CemeteryPlotterMenu cemeteryPlotterMenu = new CemeteryPlotterMenu();
         frame.setJMenuBar(cemeteryPlotterMenu.getMenuBar());
 
-        // create and set up the content panes
-        CemeteryPlotterFrame cpf = new CemeteryPlotterFrame();
-        frame.setContentPane(cpf.createContentPane());
+        // create empty panes for layout
+        JPanel leftPanel = new JPanel(new BorderLayout());
+        JPanel centerPanel = new JPanel(new BorderLayout());
+        JPanel rightPanel = new JPanel(new BorderLayout());
+
+        // create and set up content panels
+        CemeteryPlotterSections cemeteryPlotterSections = new CemeteryPlotterSections();
+        CemeteryPlotterPlots cemeteryPlotterPlots = new CemeteryPlotterPlots();
+        CemeteryPlotterPlot cemeteryPlotterPlot = new CemeteryPlotterPlot();
+        CemeteryPlotterInterredPerson cemeteryPlotterInterredPerson = new CemeteryPlotterInterredPerson();
+        CemeteryPlotterOwner cemeteryPlotterOwner = new CemeteryPlotterOwner();
+        CemeteryPlotterPeople cemeteryPlotterPeople = new CemeteryPlotterPeople();
+
+        // add content panels to panes
+        // left panel
+        leftPanel.add(cemeteryPlotterSections.getPanel(), BorderLayout.PAGE_START);
+        leftPanel.add(cemeteryPlotterPlots.getPanel(), BorderLayout.PAGE_END);
+
+        // center panel
+        // TODO create grid for center
+
+        // right panel
+        rightPanel.add(cemeteryPlotterPeople.getPanel(), BorderLayout.CENTER);
+
+        // add layout panes to frame
+        frame.add(leftPanel, BorderLayout.LINE_START);
+        frame.add(centerPanel, BorderLayout.CENTER);
+        frame.add(rightPanel, BorderLayout.LINE_END);
 
         // display the window.
         frame.pack();

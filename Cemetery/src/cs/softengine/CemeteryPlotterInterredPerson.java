@@ -1,6 +1,7 @@
 package cs.softengine;
 
 import javax.swing.*;
+import javax.swing.border.*;
 import java.awt.*;
 import java.awt.event.*;
 
@@ -8,21 +9,21 @@ import java.awt.event.*;
  * Content pane containing editable information of an interred person
  */
 public class CemeteryPlotterInterredPerson implements ActionListener, ItemListener {
-    private JPanel panel;
+    private JPanel interredPanel;
 
     /**
      * Constructs a content pane for an interred person info
      */
     public CemeteryPlotterInterredPerson() {
-        panel = createInterredPersonPanel();
+        interredPanel = createInterredPersonPanel();
     }
 
     /**
      * Get interred person info panel
-     * @return panel
+     * @return interredPanel
      */
     public JPanel getPanel() {
-        return panel;
+        return interredPanel;
     }
 
     /**
@@ -30,11 +31,21 @@ public class CemeteryPlotterInterredPerson implements ActionListener, ItemListen
      * @return panel
      */
     private JPanel createInterredPersonPanel() {
-        JPanel interredPerson;
+        JPanel panel;
+        Border etchedBorder;
+        TitledBorder titledBorder;
 
-        interredPerson = new JPanel();
+        panel = new JPanel(new BorderLayout());
 
-        return interredPerson;
+        // create an raised, etched, titled border
+        etchedBorder = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
+        titledBorder = BorderFactory.createTitledBorder(etchedBorder, "Interred");
+        titledBorder.setTitleJustification(TitledBorder.LEFT);
+        panel.setBorder(titledBorder);
+
+        // add things to panel
+
+        return panel;
     }
 
     /**

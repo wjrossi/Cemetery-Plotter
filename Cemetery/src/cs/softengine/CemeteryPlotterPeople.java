@@ -1,6 +1,7 @@
 package cs.softengine;
 
 import javax.swing.*;
+import javax.swing.border.*;
 import java.awt.*;
 import java.awt.event.*;
 
@@ -8,21 +9,21 @@ import java.awt.event.*;
  * Content pane allowing for the searching and listing of people in the cemetery
  */
 public class CemeteryPlotterPeople {
-    private JPanel panel;
+    private JPanel peoplePanel;
 
     /**
      * Constructs a content pane for searching and listing of people
      */
     public CemeteryPlotterPeople() {
-        panel = createPeoplePanel();
+        peoplePanel = createPeoplePanel();
     }
 
     /**
      * Get people panel
-     * @return panel
+     * @return peoplePanel
      */
     public JPanel getPanel() {
-        return panel;
+        return peoplePanel;
     }
 
     /**
@@ -30,11 +31,21 @@ public class CemeteryPlotterPeople {
      * @return panel
      */
     private JPanel createPeoplePanel() {
-        JPanel people;
+        JPanel panel;
+        Border etchedBorder;
+        TitledBorder titledBorder;
 
-        people = new JPanel();
+        panel = new JPanel(new BorderLayout());
 
-        return people;
+        // create an raised, etched, titled border
+        etchedBorder = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
+        titledBorder = BorderFactory.createTitledBorder(etchedBorder, "People");
+        titledBorder.setTitleJustification(TitledBorder.LEFT);
+        panel.setBorder(titledBorder);
+
+        // add things to panel
+
+        return panel;
     }
 
     /**

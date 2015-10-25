@@ -1,6 +1,7 @@
 package cs.softengine;
 
 import javax.swing.*;
+import javax.swing.border.*;
 import java.awt.*;
 import java.awt.event.*;
 
@@ -8,21 +9,21 @@ import java.awt.event.*;
  * Content pane for selecting section(s) of the cemetery
  */
 public class CemeteryPlotterSections implements ActionListener, ItemListener {
-    private JPanel panel;
+    private JPanel sectionsPanel;
 
     /**
      * Constructs a content pane for selecting section(s)
      */
     public CemeteryPlotterSections() {
-        panel = createSectionsPanel();
+        sectionsPanel = createSectionsPanel();
     }
 
     /**
      * Get section panel
-     * @return panel
+     * @return sectionsPanel
      */
     public JPanel getPanel() {
-        return panel;
+        return sectionsPanel;
     }
 
     /**
@@ -30,11 +31,21 @@ public class CemeteryPlotterSections implements ActionListener, ItemListener {
      * @return panel
      */
     private JPanel createSectionsPanel() {
-        JPanel sections;
+        JPanel panel;
+        Border etchedBorder;
+        TitledBorder titledBorder;
 
-        sections = new JPanel();
+        panel = new JPanel(new BorderLayout());
 
-        return sections;
+        // create an raised, etched, titled border
+        etchedBorder = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
+        titledBorder = BorderFactory.createTitledBorder(etchedBorder, "Sections");
+        titledBorder.setTitleJustification(TitledBorder.LEFT);
+        panel.setBorder(titledBorder);
+
+        // add things to panel
+
+        return panel;
     }
 
     /**

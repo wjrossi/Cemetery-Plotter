@@ -86,6 +86,8 @@ public class CemeteryPlotterMenu implements ActionListener, ItemListener {
     public void actionPerformed(ActionEvent e) {
         JMenuItem source = (JMenuItem) (e.getSource());
         System.out.println("Action event detected... Event source: " + source.getText());
+
+        // launch file dialogs or save etc...
     }
 
     /**
