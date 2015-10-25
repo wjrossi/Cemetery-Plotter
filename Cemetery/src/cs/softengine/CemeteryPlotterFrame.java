@@ -2,6 +2,7 @@ package cs.softengine;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 
 /**
  * The main GUI window for Cemetery Plotter
@@ -16,26 +17,41 @@ public class CemeteryPlotterFrame {
     private JMenuBar createMenuBar() {
         JMenuBar menuBar;
         JMenu menuFile;
-        JMenuItem fileOpen, fileSave, fileSaveAs;
+        JMenuItem fileOpen, fileSave, fileSaveAs, fileQuit;
 
         // create the entire menu bar
         menuBar = new JMenuBar();
 
         // add a file menu on the menu bar
         menuFile = new JMenu("File");
+        menuFile.setMnemonic(KeyEvent.VK_F);
         menuBar.add(menuFile);
 
         // add items to the file menu
         fileOpen = new JMenuItem("Open");
+        fileOpen.setMnemonic(KeyEvent.VK_O);
+        fileOpen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.META_MASK));
         menuFile.add(fileOpen);
 
         menuFile.addSeparator();
 
         fileSave = new JMenuItem("Save");
+        fileSave.setMnemonic(KeyEvent.VK_S);
+        fileSave.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.META_MASK));
         menuFile.add(fileSave);
 
         fileSaveAs = new JMenuItem("Save As");
+        fileSaveAs.setMnemonic(KeyEvent.VK_A);
+        fileSaveAs.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.SHIFT_MASK | InputEvent.META_MASK));
         menuFile.add(fileSaveAs);
+
+        menuFile.addSeparator();
+
+        fileQuit = new JMenuItem("Quit");
+        fileQuit.setMnemonic(KeyEvent.VK_Q);
+        fileQuit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, InputEvent.META_MASK));
+
+        menuFile.add(fileQuit);
 
         return menuBar;
     }
@@ -65,7 +81,11 @@ public class CemeteryPlotterFrame {
      */
     private static void createAndShowGUI() {
         // get the good GUI elements
-        JFrame.setDefaultLookAndFeelDecorated(true);
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            JFrame.setDefaultLookAndFeelDecorated(true);
+        }
 
         // create and set up the window
         JFrame frame = new JFrame("Cemetery Plotter v0.0.1");
