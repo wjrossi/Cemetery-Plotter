@@ -45,15 +45,16 @@ public class CemeteryPlotterFrame {
         JFrame frame = new JFrame("Cemetery Plotter v0.0.1");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        // create and set up the content pane
+        // create and set up the menu bar
+        CemeteryPlotterMenu cemeteryPlotterMenu = new CemeteryPlotterMenu();
+        frame.setJMenuBar(cemeteryPlotterMenu.getMenuBar());
+
+        // create and set up the content panes
         CemeteryPlotterFrame cpf = new CemeteryPlotterFrame();
-        CemeteryPlotterMenu menu = new CemeteryPlotterMenu();
-        frame.setJMenuBar(menu.getMenuBar());
         frame.setContentPane(cpf.createContentPane());
 
         // display the window.
         frame.pack();
-        //frame.setSize(450, 260);
         frame.setVisible(true);
     }
 

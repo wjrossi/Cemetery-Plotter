@@ -7,27 +7,27 @@ import java.awt.event.*;
 /**
  * Cemetery Plotter Menu GUI Element
  */
-public class CemeteryPlotterMenu implements ActionListener {
-    private JMenuBar menuBar;
+public class CemeteryPlotterMenu implements ActionListener, ItemListener {
+    private JMenuBar menu;
 
     /**
-     * Construct a menu bar object
+     * Constructs a menu bar object
      */
     public CemeteryPlotterMenu() {
-        menuBar = createMenuBar();
+        menu = createMenuBar();
     }
 
     /**
-     * Get menu bar
+     * Gets menu bar
      * @return menuBar
      */
     public JMenuBar getMenuBar() {
-        return menuBar;
+        return menu;
     }
 
     /**
      * Create the main menu bar
-     * @return JMenuBar
+     * @return menuBar
      */
     private JMenuBar createMenuBar() {
         JMenuBar menuBar;
@@ -86,5 +86,13 @@ public class CemeteryPlotterMenu implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         JMenuItem source = (JMenuItem) (e.getSource());
         System.out.println("Action event detected... Event source: " + source.getText());
+    }
+
+    /**
+     * Item state listener for menu bar
+     * @param e
+     */
+    public void itemStateChanged(ItemEvent e) {
+        //
     }
 }
