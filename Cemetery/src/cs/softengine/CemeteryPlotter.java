@@ -36,7 +36,6 @@ public class CemeteryPlotter {
     private static void run(Cemetery c) throws RuntimeException {
         // eventually we will make the gui and show it by calling this
         // for now, use command line..
-
         System.out.println("CemeteryPlotter");
 
         ArrayList<Section> sections = c.getSections();
@@ -46,25 +45,20 @@ public class CemeteryPlotter {
 
         for (Section s : sections) {
             System.out.println("Section:\n" + s);
-            for (Plot p : s.getPlots()) {
+            for (Plot p : s.getPlots())
                 System.out.println("Plot in " + s.getName() + "\n" + p);
-            }
         }
 
-        for (Section s : sections) {
+        for (Section s : sections)
             System.out.println("Section:\n" + s);
-        }
 
-        for (Plot p : plots) {
+        for (Plot p : plots)
             System.out.println("Plot:\n" + p);
-        }
 
-        for (InterredPerson ip : interredPeople) {
+        for (InterredPerson ip : interredPeople)
             System.out.println("InterredPerson:\n" + ip);
-        }
 
-        for (Person p : people) {
+        for (Person p : people)
             System.out.println("Person:\n" + p);
-        }
     }
 }

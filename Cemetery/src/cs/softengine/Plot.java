@@ -218,9 +218,8 @@ public class Plot implements Comparable<Plot> {
      */
     @Override
     public int compareTo(Plot p) throws NullPointerException {
-        if (p == null) {
+        if (p == null)
             throw new NullPointerException();
-        }
 
         return p.getID() - id;
     }
@@ -231,13 +230,11 @@ public class Plot implements Comparable<Plot> {
      * @return true if they are the same plot
      */
     public boolean equals(Object o) throws NullPointerException {
-        if (o == null) {
+        if (o == null)
             throw new NullPointerException();
-        }
 
-        if (getClass() != o.getClass()) {
+        if (getClass() != o.getClass())
             return false;
-        }
 
         final Plot p = (Plot) o;
 

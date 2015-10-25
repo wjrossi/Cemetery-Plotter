@@ -249,9 +249,8 @@ public class Person implements Comparable<Person> {
      */
     @Override
     public int compareTo(Person p) throws NullPointerException {
-        if (p == null) {
+        if (p == null)
             throw new NullPointerException();
-        }
 
         int compare;
 
@@ -260,9 +259,8 @@ public class Person implements Comparable<Person> {
         if (compare == 0) { // same last name, compare by first name
             compare = fname.toUpperCase().compareTo(p.getFirstName().toUpperCase());
 
-            if (compare == 0) { // same first name, compare by phone
+            if (compare == 0) // same first name, compare by phone
                 compare = phone.compareTo(p.getPhone());
-            }
         }
 
         return compare;
@@ -274,13 +272,11 @@ public class Person implements Comparable<Person> {
      * @return true if they are the same person
      */
     public boolean equals(Object o) throws NullPointerException {
-        if (o == null) {
+        if (o == null)
             throw new NullPointerException();
-        }
 
-        if (getClass() != o.getClass()) {
+        if (getClass() != o.getClass())
             return false;
-        }
 
         final Person p = (Person) o;
 

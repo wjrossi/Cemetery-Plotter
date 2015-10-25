@@ -113,13 +113,11 @@ public class Section implements Comparable<Section> {
      * @return true if they are the same person
      */
     public boolean equals(Object o) throws NullPointerException {
-        if (o == null) {
+        if (o == null)
             return false;
-        }
 
-        if (getClass() != o.getClass()) {
+        if (getClass() != o.getClass())
             return false;
-        }
 
         final Section s = (Section) o;
 

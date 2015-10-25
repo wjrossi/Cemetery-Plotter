@@ -299,9 +299,8 @@ public class InterredPerson implements Comparable<InterredPerson> {
      */
     @Override
     public int compareTo(InterredPerson p) throws NullPointerException {
-        if (p == null) {
+        if (p == null)
             throw new NullPointerException();
-        }
 
         return p.getInterredID() - interredID;
     }
@@ -312,13 +311,11 @@ public class InterredPerson implements Comparable<InterredPerson> {
      * @return true if they are the same interred person
      */
     public boolean equals(Object o) throws NullPointerException {
-        if (o == null) {
+        if (o == null)
             throw new NullPointerException();
-        }
 
-        if (getClass() != o.getClass()) {
+        if (getClass() != o.getClass())
             return false;
-        }
 
         final InterredPerson p = (InterredPerson) o;
 
