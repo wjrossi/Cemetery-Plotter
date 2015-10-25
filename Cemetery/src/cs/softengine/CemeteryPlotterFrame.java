@@ -11,52 +11,6 @@ public class CemeteryPlotterFrame {
     // class variables go here
 
     /**
-     * Create the main menu bar
-     * @return JMenuBar
-     */
-    private JMenuBar createMenuBar() {
-        JMenuBar menuBar;
-        JMenu menuFile;
-        JMenuItem fileOpen, fileSave, fileSaveAs, fileQuit;
-
-        // create the entire menu bar
-        menuBar = new JMenuBar();
-
-        // add a file menu on the menu bar
-        menuFile = new JMenu("File");
-        menuFile.setMnemonic(KeyEvent.VK_F);
-        menuBar.add(menuFile);
-
-        // add items to the file menu
-        fileOpen = new JMenuItem("Open");
-        fileOpen.setMnemonic(KeyEvent.VK_O);
-        fileOpen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.META_MASK));
-        menuFile.add(fileOpen);
-
-        menuFile.addSeparator();
-
-        fileSave = new JMenuItem("Save");
-        fileSave.setMnemonic(KeyEvent.VK_S);
-        fileSave.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.META_MASK));
-        menuFile.add(fileSave);
-
-        fileSaveAs = new JMenuItem("Save As");
-        fileSaveAs.setMnemonic(KeyEvent.VK_A);
-        fileSaveAs.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.SHIFT_MASK | InputEvent.META_MASK));
-        menuFile.add(fileSaveAs);
-
-        menuFile.addSeparator();
-
-        fileQuit = new JMenuItem("Quit");
-        fileQuit.setMnemonic(KeyEvent.VK_Q);
-        fileQuit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, InputEvent.META_MASK));
-
-        menuFile.add(fileQuit);
-
-        return menuBar;
-    }
-
-    /**
      * Create main content pane
      * @return container
      */
@@ -70,7 +24,7 @@ public class CemeteryPlotterFrame {
         output.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(output);
 
-        //Add the text area to the content pane
+        // add the text area to the content pane
         contentPane.add(scrollPane, BorderLayout.CENTER);
 
         return contentPane;
@@ -93,7 +47,8 @@ public class CemeteryPlotterFrame {
 
         // create and set up the content pane
         CemeteryPlotterFrame cpf = new CemeteryPlotterFrame();
-        frame.setJMenuBar(cpf.createMenuBar());
+        CemeteryPlotterMenu menu = new CemeteryPlotterMenu();
+        frame.setJMenuBar(menu.getMenuBar());
         frame.setContentPane(cpf.createContentPane());
 
         // display the window.
