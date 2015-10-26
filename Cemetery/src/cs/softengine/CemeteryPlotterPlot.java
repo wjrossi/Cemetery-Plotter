@@ -24,7 +24,7 @@ public class CemeteryPlotterPlot implements ActionListener, ItemListener {
      */
     public CemeteryPlotterPlot() {
         editable = new ArrayList<JComponent>();
-        sdf = new SimpleDateFormat("MM/DD/YYYY");
+        sdf = new SimpleDateFormat("MM/dd/yyyy");
         nf = NumberFormat.getCurrencyInstance();
         plotPanel = createPlotPanel();
     }

@@ -20,7 +20,7 @@ public class InterredPerson implements Comparable<InterredPerson> {
     private String state;
     private String zip;
     private String phone;
-    private SimpleDateFormat sdf = new SimpleDateFormat("MM/DD/YYYY");
+    private SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 
     /**
      * Construct a new, empty interred person

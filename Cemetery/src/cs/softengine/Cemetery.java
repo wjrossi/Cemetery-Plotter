@@ -14,7 +14,8 @@ public class Cemetery {
     private ArrayList<Plot> plots; // list of all plots in the cemetery
     private ArrayList<InterredPerson> interredPeople; // list of all interred people in the cemetery
     private ArrayList<Person> people; // list of all (non-interred) people in the cemetery
-    private SimpleDateFormat sdf = new SimpleDateFormat("MM/DD/YYYY");
+    private SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+
 
     /**
      * Constructs a singleton cemetery

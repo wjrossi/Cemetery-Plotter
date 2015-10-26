@@ -22,7 +22,7 @@ public class CemeteryPlotterInterredPerson implements ActionListener, ItemListen
      */
     public CemeteryPlotterInterredPerson() {
         editable = new ArrayList<JComponent>();
-        sdf = new SimpleDateFormat("MM/DD/YYYY");
+        sdf = new SimpleDateFormat("MM/dd/yyyy");
         interredPanel = createInterredPersonPanel();
     }
 
