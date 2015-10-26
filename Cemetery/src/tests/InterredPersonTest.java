@@ -247,4 +247,26 @@ public class InterredPersonTest {
         i = new InterredPerson(9999, 5678, bornDate, diedDate, "Bill", "Laboon", "1234 Laboon Place", "4567 Bill Street", "Laboontown", "Maine", "1337", "555-555-5555");
         assertEquals("getPhone must return '555-555-5555', but returned " + i.getPhone(), i.getPhone(), "555-555-5555");
     }
+
+    /**
+     * Tests that InterredPerson.compareTo() is working correctly.
+     */
+    @Test
+    public void testCompareTo() {
+        i = new InterredPerson(1234, 5678, null, null);
+        InterredPerson i2 = new InterredPerson(5678, 1234, null, null);
+
+        assertNotEquals("These two people should not be considered the same.", i.compareTo(i2), 0);
+    }
+
+    /**
+     * Tests that InterredPerson.equals() is working correctly.
+     */
+    @Test
+    public void testEquals() {
+        i = new InterredPerson(1234, 5678, null, null);
+        InterredPerson i2 = new InterredPerson(5678, 1234, null, null);
+
+        assertTrue("These people should be considered the same, but are not.", i.equals(i2));
+    }
 }
