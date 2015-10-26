@@ -1,0 +1,6 @@
+<CEMETERY>
+1
+<SECTION>
+2
+<PLOT>
+3

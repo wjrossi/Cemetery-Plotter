@@ -44,7 +44,7 @@ public class Cemetery {
      * @param file the file name
      * @throws IOException
      */
-    public void load(File file) throws IOException {
+    private void load(File file) throws IOException {
         BufferedReader buffer;
         String temp;
 
@@ -324,7 +324,7 @@ public class Cemetery {
     public void setSections(ArrayList<Section> s) {
         sections = s;
     }
-    
+
     /**
      * Get list of all plots in cemetery
      * @return plots

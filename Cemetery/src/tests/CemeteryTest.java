@@ -25,23 +25,19 @@ public class CemeteryTest {
     ArrayList<Person> people;
 
 
-    /*
-     * Tests that Cemetery.load(File file) correctly read cemetery data from a file to Cemetery class.
-     */
-    @Test
-    public void testLoad() throws IOException{
-        //todo
-        BufferedReader mockB = Mockito.mock(BufferedReader.class);
-        File mockF = Mockito.mock(File.class);
-        c = new Cemetery(mockF );
-    }
-    
+
+
     /*
      * Tests that Cemetery.save(File file) correctly Save cemetery data to file.
      */
     @Test
     public void testSave() throws IOException{
         //todo
+        File f = new File("testFile.txt");
+        // File file = Mockito.mock(File.class);
+        c = new Cemetery();
+        c.save(f);
+
     }
 
     /*
