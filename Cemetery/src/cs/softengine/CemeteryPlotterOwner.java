@@ -35,7 +35,7 @@ public class CemeteryPlotterOwner implements ActionListener, ItemListener {
         Border etchedBorder;
         TitledBorder titledBorder;
 
-        panel = new JPanel(new BorderLayout());
+        panel = new JPanel(new BorderLayout(), true);
 
         // create an raised, etched, titled border
         etchedBorder = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
@@ -50,7 +50,7 @@ public class CemeteryPlotterOwner implements ActionListener, ItemListener {
 
     /**
      * Action listener for plot owner info content pane
-     * @param e
+     * @param e action event
      */
     public void actionPerformed(ActionEvent e) {
         //
@@ -58,7 +58,7 @@ public class CemeteryPlotterOwner implements ActionListener, ItemListener {
 
     /**
      * Item state listener for plot owner info content pane
-     * @param e
+     * @param e item event
      */
     public void itemStateChanged(ItemEvent e) {
         //

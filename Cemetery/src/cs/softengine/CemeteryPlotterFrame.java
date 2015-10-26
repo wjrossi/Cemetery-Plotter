@@ -31,9 +31,9 @@ public class CemeteryPlotterFrame {
         frame.setJMenuBar(cemeteryPlotterMenu.getMenuBar());
 
         // create empty panes for layout
-        JPanel leftPanel = new JPanel(new BorderLayout());
-        JPanel centerPanel = new JPanel(new BorderLayout());
-        JPanel rightPanel = new JPanel(new BorderLayout());
+        JPanel leftPanel = new JPanel(true);
+        JPanel centerPanel = new JPanel(true);
+        JPanel rightPanel = new JPanel(new BorderLayout(), true);
 
         // create and set up content panels
         CemeteryPlotterSections cemeteryPlotterSections = new CemeteryPlotterSections();
@@ -45,11 +45,15 @@ public class CemeteryPlotterFrame {
 
         // add content panels to panes
         // left panel
-        leftPanel.add(cemeteryPlotterSections.getPanel(), BorderLayout.PAGE_START);
-        leftPanel.add(cemeteryPlotterPlots.getPanel(), BorderLayout.PAGE_END);
+        leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.PAGE_AXIS));
+        leftPanel.add(cemeteryPlotterSections.getPanel());
+        leftPanel.add(cemeteryPlotterPlots.getPanel());
 
         // center panel
-        // TODO create grid for center
+        centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.LINE_AXIS));
+        centerPanel.add(cemeteryPlotterPlot.getPanel());
+        centerPanel.add(cemeteryPlotterInterredPerson.getPanel());
+        centerPanel.add(cemeteryPlotterOwner.getPanel());
 
         // right panel
         rightPanel.add(cemeteryPlotterPeople.getPanel(), BorderLayout.CENTER);
@@ -70,10 +74,6 @@ public class CemeteryPlotterFrame {
      * @param args ignored
      */
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                createAndShowGUI();
-            }
-        });
+        SwingUtilities.invokeLater(() -> createAndShowGUI());
     }
 }

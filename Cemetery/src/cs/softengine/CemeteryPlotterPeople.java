@@ -35,7 +35,7 @@ public class CemeteryPlotterPeople {
         Border etchedBorder;
         TitledBorder titledBorder;
 
-        panel = new JPanel(new BorderLayout());
+        panel = new JPanel(new BorderLayout(), true);
 
         // create an raised, etched, titled border
         etchedBorder = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
@@ -50,7 +50,7 @@ public class CemeteryPlotterPeople {
 
     /**
      * Action listener for people content pane
-     * @param e
+     * @param e action event
      */
     public void actionPerformed(ActionEvent e) {
         //
@@ -58,7 +58,7 @@ public class CemeteryPlotterPeople {
 
     /**
      * Item state listener for people content pane
-     * @param e
+     * @param e item event
      */
     public void itemStateChanged(ItemEvent e) {
         //
