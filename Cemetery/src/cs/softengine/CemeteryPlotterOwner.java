@@ -86,9 +86,9 @@ public class CemeteryPlotterOwner implements ActionListener, ItemListener {
         plotsList.setPrototypeCellValue("999999");
 
         // create add and remove plot buttons and text field
+        JTextField addPlotField = new JTextField(1);
         JButton addPlotButton = new JButton("Add Plot");
         JButton removePlotButton = new JButton("Remove Plot(s)");
-        JTextField removePlotField = new JTextField();
 
         // create sub-panels
         JPanel namePanel = new JPanel();
@@ -97,6 +97,8 @@ public class CemeteryPlotterOwner implements ActionListener, ItemListener {
         JPanel address2Panel = new JPanel();
         JPanel address3Panel = new JPanel();
         JPanel phonePanel = new JPanel();
+        JPanel ownedPanel = new JPanel();
+        JPanel ownedButtonsPanel = new JPanel();
 
         namePanel.setLayout(new BoxLayout(namePanel, BoxLayout.LINE_AXIS));
         addressPanel.setLayout(new BoxLayout(addressPanel, BoxLayout.PAGE_AXIS));
@@ -104,6 +106,8 @@ public class CemeteryPlotterOwner implements ActionListener, ItemListener {
         address2Panel.setLayout(new BoxLayout(address2Panel, BoxLayout.LINE_AXIS));
         address3Panel.setLayout(new BoxLayout(address3Panel, BoxLayout.LINE_AXIS));
         phonePanel.setLayout(new BoxLayout(phonePanel, BoxLayout.LINE_AXIS));
+        ownedPanel.setLayout(new BoxLayout(ownedPanel, BoxLayout.PAGE_AXIS));
+        ownedButtonsPanel.setLayout(new BoxLayout(ownedButtonsPanel, BoxLayout.LINE_AXIS));
 
         // add items to sub-panels
         namePanel.add(fnameLabel);
@@ -131,12 +135,20 @@ public class CemeteryPlotterOwner implements ActionListener, ItemListener {
         phonePanel.add(phoneLabel);
         phonePanel.add(phoneField);
 
+        ownedButtonsPanel.add(addPlotButton);
+        ownedButtonsPanel.add(removePlotButton);
+
+        ownedPanel.add(plotsListScrollPane);
+        ownedPanel.add(addPlotField);
+        ownedPanel.add(ownedButtonsPanel);
+
         // add sub-panels to main panel
         JPanel fieldsPanel = new JPanel();
         fieldsPanel.setLayout(new BoxLayout(fieldsPanel, BoxLayout.PAGE_AXIS));
         fieldsPanel.add(namePanel);
         fieldsPanel.add(addressPanel);
         fieldsPanel.add(phonePanel);
+        fieldsPanel.add(ownedPanel);
 
         panel.add(editButton, BorderLayout.PAGE_END);
         panel.add(fieldsPanel, BorderLayout.PAGE_START);
@@ -152,8 +164,8 @@ public class CemeteryPlotterOwner implements ActionListener, ItemListener {
         editable.add(phoneField);
         editable.add(plotsList);
         editable.add(addPlotButton);
+        editable.add(addPlotField);
         editable.add(removePlotButton);
-        editable.add(removePlotField);
 
         return panel;
     }
