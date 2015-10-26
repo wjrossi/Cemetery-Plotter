@@ -87,14 +87,15 @@ public class CemeteryPlotterPeople {
         panel.add(searchPanel, BorderLayout.PAGE_START);
 
         // create list of sections
-        JList<String> sectionList = new JList<String>();
-        JScrollPane sectionListScrollPane = new JScrollPane(sectionList);
-        sectionList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        sectionList.setLayoutOrientation(JList.VERTICAL);
-        sectionList.setPrototypeCellValue("Firstname Lastname");
+        JList<String> peopleList = new JList<String>();
+        JScrollPane peopleListScrollPane = new JScrollPane(peopleList);
+        peopleListScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        peopleList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        peopleList.setLayoutOrientation(JList.VERTICAL);
+        peopleList.setPrototypeCellValue("Firstname Lastname");
 
         // add list to main panel
-        panel.add(sectionListScrollPane, BorderLayout.CENTER);
+        panel.add(peopleListScrollPane, BorderLayout.CENTER);
 
         return panel;
     }

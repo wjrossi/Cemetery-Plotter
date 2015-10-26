@@ -12,6 +12,7 @@ import java.net.URL;
  */
 public class CemeteryPlotterMap implements ActionListener, ItemListener {
     private JPanel mapPanel;
+    private JEditorPane mapPane;
 
     /**
      * Constructs a content pane for map
@@ -44,20 +45,11 @@ public class CemeteryPlotterMap implements ActionListener, ItemListener {
         // add things to panel
 
         // create map pane
-        JEditorPane mapPane = new JEditorPane();
+        mapPane = new JEditorPane();
         mapPane.setEditable(false);
         JScrollPane mapScrollPane = new JScrollPane(mapPane);
         mapScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         mapScrollPane.setPreferredSize(new Dimension(640, 480));
-
-        // load URL into map pane
-        URL mapURL;
-        try {
-            mapURL = new URL("http://bethshalompgh.org/"); // super temporary!! may want to do this after loading gui!!
-            mapPane.setPage(mapURL);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         // add map scroll pane to main panel
         panel.add(mapScrollPane, BorderLayout.CENTER);
@@ -73,6 +65,19 @@ public class CemeteryPlotterMap implements ActionListener, ItemListener {
         panel.add(mapControls, BorderLayout.PAGE_END);
 
         return panel;
+    }
+
+    /**
+     * Load URL in map pane after other GUI elements
+     */
+    public void loadMap() {
+        URL mapURL;
+        try {
+            mapURL = new URL("http://bethshalompgh.org/"); // super temporary!! may want to do this after loading gui!!
+            mapPane.setPage(mapURL);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

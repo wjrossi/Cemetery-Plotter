@@ -57,6 +57,7 @@ public class CemeteryPlotterSections implements ActionListener, ItemListener {
         // create list of sections
         JList<String> sectionList = new JList<String>();
         JScrollPane sectionListScrollPane = new JScrollPane(sectionList);
+        sectionListScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         sectionList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         sectionList.setLayoutOrientation(JList.VERTICAL);
         sectionList.setPrototypeCellValue("ABCDEFGH");

@@ -9,7 +9,13 @@ import java.awt.event.*;
  * The main GUI window for Cemetery Plotter
  */
 public class CemeteryPlotterFrame {
-    // class variables go here
+    private static CemeteryPlotterSections cemeteryPlotterSections;
+    private static CemeteryPlotterPlots cemeteryPlotterPlots;
+    private static CemeteryPlotterPlot cemeteryPlotterPlot;
+    private static CemeteryPlotterInterredPerson cemeteryPlotterInterredPerson;
+    private static CemeteryPlotterOwner cemeteryPlotterOwner;
+    private static CemeteryPlotterPeople cemeteryPlotterPeople;
+    private static CemeteryPlotterMap cemeteryPlotterMap;
 
     /**
      * Create the GUI and show it. Invoked from the event-dispatching thread.
@@ -38,13 +44,13 @@ public class CemeteryPlotterFrame {
         JPanel rightPanel = new JPanel(new BorderLayout(), true);
 
         // create and set up content panels
-        CemeteryPlotterSections cemeteryPlotterSections = new CemeteryPlotterSections();
-        CemeteryPlotterPlots cemeteryPlotterPlots = new CemeteryPlotterPlots();
-        CemeteryPlotterPlot cemeteryPlotterPlot = new CemeteryPlotterPlot();
-        CemeteryPlotterInterredPerson cemeteryPlotterInterredPerson = new CemeteryPlotterInterredPerson();
-        CemeteryPlotterOwner cemeteryPlotterOwner = new CemeteryPlotterOwner();
-        CemeteryPlotterPeople cemeteryPlotterPeople = new CemeteryPlotterPeople();
-        CemeteryPlotterMap cemeteryPlotterMap = new CemeteryPlotterMap();
+        cemeteryPlotterSections = new CemeteryPlotterSections();
+        cemeteryPlotterPlots = new CemeteryPlotterPlots();
+        cemeteryPlotterPlot = new CemeteryPlotterPlot();
+        cemeteryPlotterInterredPerson = new CemeteryPlotterInterredPerson();
+        cemeteryPlotterOwner = new CemeteryPlotterOwner();
+        cemeteryPlotterPeople = new CemeteryPlotterPeople();
+        cemeteryPlotterMap = new CemeteryPlotterMap();
 
         // add content panels to panes
         // left panel
@@ -76,6 +82,9 @@ public class CemeteryPlotterFrame {
         // display the window.
         frame.pack();
         frame.setVisible(true);
+
+        // load map URL
+        cemeteryPlotterMap.loadMap();
     }
 
     /**
