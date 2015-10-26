@@ -14,6 +14,7 @@ public class Cemetery {
     private ArrayList<Plot> plots; // list of all plots in the cemetery
     private ArrayList<InterredPerson> interredPeople; // list of all interred people in the cemetery
     private ArrayList<Person> people; // list of all (non-interred) people in the cemetery
+    private SimpleDateFormat sdf = new SimpleDateFormat("MM/DD/YYYY");
 
     /**
      * Constructs a cemetery
@@ -110,8 +111,6 @@ public class Cemetery {
      * @throws IOException
      */
     private void loadPlot(BufferedReader buffer) throws IOException {
-        SimpleDateFormat sdf;
-
         String section; // residing section name
         int id; // plot identifier number
         InterredPerson interred; // interred person
@@ -121,8 +120,6 @@ public class Cemetery {
         boolean vacant; // is the plot vacant/not vacant
         boolean ready; // is the plot ready for use or not ready
         int moneyDue; // if not 0, person owes this much IN CENTS (for accuracy)
-
-        sdf = new SimpleDateFormat("YYYY-MM-DD");
 
         section = buffer.readLine().trim();
         id = Integer.parseInt(buffer.readLine().trim());
@@ -222,7 +219,7 @@ public class Cemetery {
 
         String temp;
 
-        sdf = new SimpleDateFormat("YYYY-MM-DD");
+        sdf = new SimpleDateFormat("MM/DD/YYYY");
 
         temp = buffer.readLine().trim();
 
