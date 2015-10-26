@@ -19,12 +19,12 @@ public class CemeteryPlotter {
         try {
             run(cemetery);
         } catch (RuntimeException e) {
-            // catch some errors??
+            throw new RuntimeException(e);
         } finally {
             try {
                 cemetery.save(defaultFile); // clean-up and save data
             } catch (IOException e) {
-                // catch some errors
+                throw new RuntimeException(e);
             } finally {
                 // don't exit? did it save?
             }
