@@ -6,6 +6,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -30,48 +31,11 @@ public class CemeteryTest {
     @Test
     public void testLoad() throws IOException{
         //todo
+        BufferedReader mockB = Mockito.mock(BufferedReader.class);
+        File mockF = Mockito.mock(File.class);
+        c = new Cemetery(mockF );
     }
-
-    /*
-     * Tests that Cemetery.loadCemetery(BufferedReader buffer) correctly read cemetery data from a file to Cemetery class.
-     */
-    @Test
-    public void testLoadCemetery() throws IOException{
-        //todo
-    }
-
-    /*
-     * Tests that Cemetery.loadSection(BufferedReader buffer) correctly read section data from file to Cemetery class.
-     */
-    @Test
-    public void testLoadSection() throws IOException{
-        //todo
-    }
-
-    /*
-     * Tests that Cemetery.loadPlot(BufferedReader buffer) correctly reads plot data from file to Cemetery class.
-     */
-    @Test
-    public void testLoadPlot() throws IOException{
-        //todo
-    }
-
-    /*
-     * Tests that Cemetery.loadPerson(BufferedReader buffer) correctly reads a person's data from file to Cemetery class.
-     */
-    @Test
-    public void testLoadPerson() throws IOException{
-        //todo
-    }
-
-    /*
-     * Tests that Cemetery.loadInterredPerson(BufferedReader buffer) correctly reads an interred person's data from a file to Cemetery class.
-     */
-    @Test
-    public void testLoadInterredPerson() throws IOException{
-        //todo
-    }
-
+    
     /*
      * Tests that Cemetery.save(File file) correctly Save cemetery data to file.
      */
