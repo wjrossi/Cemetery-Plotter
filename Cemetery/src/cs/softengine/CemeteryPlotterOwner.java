@@ -50,8 +50,6 @@ public class CemeteryPlotterOwner implements ActionListener, ItemListener {
         JLabel stateLabel = new JLabel("State:");
         JLabel zipLabel = new JLabel("Zip:");
         JLabel phoneLabel = new JLabel("Phone:");
-        JLabel bornDateLabel = new JLabel("Date of Birth (MM/DD/YYYY):");
-        JLabel diedDateLabel = new JLabel("Date of Death (MM/DD/YYYY):");
 
         // create text fields
         JTextField fnameField = new JTextField();
