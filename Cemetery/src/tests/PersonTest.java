@@ -268,7 +268,7 @@ public class PersonTest {
         p = new Person("Bill", "Laboon", "1234 Laboon Place", "4567 Bill Street", "Laboontown", "Maine", "1337", "555-555-5555");
         Person p2 = new Person("Bill", "Laboon", "1234 Different Place", "4567 Different Street", "Differentown", "Rhode Island", "7331", "555-555-CATS");
 
-        assertNotEquals("Bill Laboon and Bill Laboon have the same name, but are not the same person!", p.compareTo(p2));
+        assertNotEquals("Bill Laboon and Bill Laboon have the same name, but are not the same person!", p.compareTo(p2), 0);
     }
 
     /**
