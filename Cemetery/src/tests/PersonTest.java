@@ -3,6 +3,8 @@ package tests;
 import cs.softengine.Person;
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.Assert.*;
 
 /**
@@ -181,5 +183,57 @@ public class PersonTest {
                 + "</PERSON>\n";
 
         assertEquals("Person string should be " + testStr + " but is " + p.toString(), p.toString(), testStr);
+    }
+
+    /**
+     * Tests that Person.setOwnedPlot() correctly sets the plots variable of the Person class, and Person.getOwnedPlots() returns the correct values.
+     * NOTE: this test assumes that the ArrayList constructor works correctly (because it does and that's not the focus of this test).
+     */
+    @Test
+    public void testSetOwnedPlot() {
+        p = new Person();
+        ArrayList<Integer> plots = new ArrayList<Integer>();
+
+        //Set the 'plots' variable
+        p.setOwnedPlots(plots);
+
+        //Verify that the 'plots' variable has been set for this Person
+        assertEquals("getOwnedPlots should return " + plots + ", but returned " + p.getOwnedPlots(), p.getOwnedPlots(), plots);
+    }
+
+    /**
+     * Tests that Person.addOwnedPlots() correctly adds plots to the 'plots' ArrayList of a Person object.
+     * NOTE: this test assumes that the ArrayList constructor works correctly (because it does and that's not the focus of this test).
+     */
+    @Test
+    public void testAddOwnedPlot() {
+        p = new Person();
+        ArrayList<Integer> plots = new ArrayList<Integer>();
+
+        //Set the 'plots' variable
+        p.setOwnedPlots(plots);
+
+        //Verify that the plot has been added.
+        assertTrue("Failed to add the plot!", p.addOwnedPlot(1));
+
+        //Verify that the plot added was the correct plot.
+        assertEquals("Added plot should be " + plots.get(0).toString() + ", but is " + p.getOwnedPlots().get(0).toString(), p.getOwnedPlots().get(0).toString(), plots.get(0).toString());
+    }
+
+    /**
+     * Tests that Person.removeOwnedPlot() correctly removes plots from the 'plots' ArrayList of a Person object.
+     * NOTE: this test assumes that the ArrayList consctructor and add method works correctly (becase they do and that's not the focus of this test).
+     */
+    @Test
+    public void testRemoveOwnedPlot() {
+        p = new Person();
+        ArrayList<Integer> plots = new ArrayList<Integer>();
+        plots.add(1);
+
+        //Set the 'plots' variable
+        p.setOwnedPlots(plots);
+
+        //Verify that the plot was removed
+        assertTrue("Failed to remove the plot!", p.removeOwnedPlot(1));
     }
 }
