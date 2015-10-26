@@ -87,7 +87,7 @@ public class CemeteryPlotterPeople {
         panel.add(searchPanel, BorderLayout.PAGE_START);
 
         // create list of sections
-        JList<String> peopleList = new JList<String>();
+        JList<String> peopleList = new JList<>();
         JScrollPane peopleListScrollPane = new JScrollPane(peopleList);
         peopleListScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         peopleList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
