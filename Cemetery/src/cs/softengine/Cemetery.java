@@ -17,13 +17,13 @@ public class Cemetery {
     private SimpleDateFormat sdf = new SimpleDateFormat("MM/DD/YYYY");
 
     /**
-     * Constructs a cemetery
+     * Constructs a singleton cemetery
      */
     public Cemetery() {
-        sections = new ArrayList<Section>();
-        plots = new ArrayList<Plot>();
-        interredPeople = new ArrayList<InterredPerson>();
-        people = new ArrayList<Person>();
+        sections = new ArrayList<>();
+        plots = new ArrayList<>();
+        interredPeople = new ArrayList<>();
+        people = new ArrayList<>();
     }
 
     /**
@@ -34,7 +34,8 @@ public class Cemetery {
         try {
             load(file);
         } catch (IOException e) {
-            // show some kind of error to user
+            System.err.println("Unable to read input file. Exiting.");
+            System.exit(1);
         }
     }
 
@@ -48,7 +49,6 @@ public class Cemetery {
         String temp;
 
         buffer = new BufferedReader(new FileReader(file));
-
         while ((temp = buffer.readLine()) != null) {
             switch (temp.trim()) {
                 case "<CEMETERY>":
@@ -76,16 +76,15 @@ public class Cemetery {
         int numPlots; // number of plots in the cemetery
         int numInterred; // number of interred people in cemetery
         int numPeople; // number of (non-interred) people
-
         numSections = Integer.parseInt(buffer.readLine().trim());
         numPlots = Integer.parseInt(buffer.readLine().trim());
         numInterred = Integer.parseInt(buffer.readLine().trim());
         numPeople = Integer.parseInt(buffer.readLine().trim());
 
-        sections = new ArrayList<Section>(numSections);
-        plots = new ArrayList<Plot>(numPlots);
-        interredPeople = new ArrayList<InterredPerson>(numInterred);
-        people = new ArrayList<Person>(numPeople);
+        sections = new ArrayList<>(numSections);
+        plots = new ArrayList<>(numPlots);
+        interredPeople = new ArrayList<>(numInterred);
+        people = new ArrayList<>(numPeople);
     }
 
     /**
@@ -94,15 +93,12 @@ public class Cemetery {
      * @throws IOException
      */
     private void loadSection(BufferedReader buffer) throws IOException {
-        String name; // name of new section
+        String secName; // name of new section
         int size; // number of plots in new section
 
-        name = buffer.readLine().trim();
+        secName = buffer.readLine().trim();
         size = Integer.parseInt(buffer.readLine().trim());
-
-        Section s = new Section(name, size);
-
-        sections.add(s); // add new section to list of sections
+        sections.add(new Section(secName, size)); // add new section to list of sections
     }
 
     /**
@@ -153,9 +149,7 @@ public class Cemetery {
 
         Plot p = new Plot(section, id, interred, owner, burial, purchased, vacant, ready, moneyDue);
 
-        if (p.getOwner() != null) {
-            p.getOwner().addOwnedPlot(p.getID());
-        }
+        if (p.getOwner() != null) p.getOwner().addOwnedPlot(p.getID());
 
         plots.add(p);
         sections.get(sections.indexOf(new Section(section))).add(p); // this is why we need hashmap probably
@@ -194,7 +188,6 @@ public class Cemetery {
             buffer.readLine().trim(); // read empty line
 
             p = new Person(fname, lname, address1, address2, city, state, zip, phone);
-
             people.add(p);
         }
 
@@ -218,9 +211,7 @@ public class Cemetery {
         String phone;
 
         String temp;
-
         sdf = new SimpleDateFormat("MM/DD/YYYY");
-
         temp = buffer.readLine().trim();
 
         if (temp.equals("null")) {
@@ -268,7 +259,6 @@ public class Cemetery {
     public void save(File file) throws IOException {
         PrintWriter buffer;
         File oldFile, newFile;
-        String line;
 
         oldFile = file;
         newFile = new File(file.getName() + ".new");
