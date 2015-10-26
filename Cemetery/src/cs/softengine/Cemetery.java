@@ -325,6 +325,7 @@ public class Cemetery {
         sections = s;
     }
 
+
     /**
      * Get list of all plots in cemetery
      * @return plots
