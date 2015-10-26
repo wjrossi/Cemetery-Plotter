@@ -53,7 +53,7 @@ public class CemeteryPlotterMap implements ActionListener, ItemListener {
         // load URL into map pane
         URL mapURL;
         try {
-            mapURL = new URL("http://bethshalompgh.org/"); // super temporary!!
+            mapURL = new URL("http://bethshalompgh.org/"); // super temporary!! may want to do this after loading gui!!
             mapPane.setPage(mapURL);
         } catch (IOException e) {
             e.printStackTrace();

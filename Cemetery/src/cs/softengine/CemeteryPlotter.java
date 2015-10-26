@@ -1,6 +1,7 @@
 package cs.softengine;
 
 import java.io.IOException;
+import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -12,7 +13,7 @@ public class CemeteryPlotter {
      * @param args n/a
      */
     public static void main(String [] args){
-        String defaultFile = "cemetery.db"; // the default file for saving and loading cemetery data
+        File defaultFile = new File("cemetery.db"); // the default file for saving and loading cemetery data
         Cemetery cemetery = new Cemetery(defaultFile); // initialize cemetery with default file
 
         try {

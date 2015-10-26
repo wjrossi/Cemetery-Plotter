@@ -29,7 +29,7 @@ public class Cemetery {
      * Construct a cemetery from a file
      * @param file cemetery file
      */
-    public Cemetery(String file) {
+    public Cemetery(File file) {
         try {
             load(file);
         } catch (IOException e) {
@@ -42,7 +42,7 @@ public class Cemetery {
      * @param file the file name
      * @throws IOException
      */
-    public void load(String file) throws IOException {
+    public void load(File file) throws IOException {
         BufferedReader buffer;
         String temp;
 
@@ -172,13 +172,9 @@ public class Cemetery {
     private Person loadPerson(BufferedReader buffer) throws IOException {
         Person p;
 
-        String fname;
-        String lname;
-        String address1;
-        String address2;
-        String city;
-        String state;
-        String zip;
+        String fname,lname;
+        String address1, address2;
+        String city, state, zip;
         String phone;
 
         String temp;
@@ -218,15 +214,10 @@ public class Cemetery {
         SimpleDateFormat sdf;
         int interredID; // id number for the interred person
         int plotID; // id number of the plot in which this person is interred
-        Date born;
-        Date died;
-        String fname;
-        String lname;
-        String address1;
-        String address2;
-        String city;
-        String state;
-        String zip;
+        Date born, died;
+        String fname, lname;
+        String address1, address2;
+        String city, state, zip;
         String phone;
 
         String temp;
@@ -277,14 +268,13 @@ public class Cemetery {
     /**
      * Save cemetery data
      */
-    public void save(String file) throws IOException {
+    public void save(File file) throws IOException {
         PrintWriter buffer;
-        File oldFile;
-        File newFile;
+        File oldFile, newFile;
         String line;
 
-        oldFile = new File(file);
-        newFile = new File(file + ".new");
+        oldFile = file;
+        newFile = new File(file.getName() + ".new");
 
         buffer = new PrintWriter(new FileWriter(newFile));
 
@@ -301,7 +291,7 @@ public class Cemetery {
 
         if (newFile.exists()) {
             oldFile.delete();
-            newFile.renameTo(new File(file));
+            newFile.renameTo(file);
         }
     }
 
