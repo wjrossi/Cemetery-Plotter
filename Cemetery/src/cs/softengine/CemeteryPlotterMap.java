@@ -49,7 +49,7 @@ public class CemeteryPlotterMap implements ActionListener, ItemListener {
         mapPane.setEditable(false);
         JScrollPane mapScrollPane = new JScrollPane(mapPane);
         mapScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        mapScrollPane.setPreferredSize(new Dimension(640, 480));
+        //mapScrollPane.setPreferredSize(new Dimension(320, 240));
 
         // add map scroll pane to main panel
         panel.add(mapScrollPane, BorderLayout.CENTER);
