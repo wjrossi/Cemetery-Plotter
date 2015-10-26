@@ -70,14 +70,14 @@ public class CemeteryPlotterPeople {
         searchButtonGroup.add(interredPeopleRadioButton);
         searchButtonGroup.add(ownersRadioButton);
 
-        // create searchadio button panel and add radio buttons to panel
+        // create search radio button panel and add radio buttons to panel
         JPanel searchRadioButtonPanel = new JPanel();
         searchRadioButtonPanel.setLayout(new BoxLayout(searchRadioButtonPanel, BoxLayout.LINE_AXIS));
         searchRadioButtonPanel.add(allRadioButton);
         searchRadioButtonPanel.add(interredPeopleRadioButton);
         searchRadioButtonPanel.add(ownersRadioButton);
 
-        // add searchTop panel, search by combo box, and search button group to search panel
+        // add search field, searchCenter panel and search radio button panel to overall search panel
         JPanel searchPanel = new JPanel(new BorderLayout());
         searchPanel.add(searchField, BorderLayout.PAGE_START);
         searchPanel.add(searchCenter, BorderLayout.CENTER);
