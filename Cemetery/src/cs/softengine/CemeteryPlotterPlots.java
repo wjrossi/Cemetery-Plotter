@@ -42,7 +42,7 @@ public class CemeteryPlotterPlots implements ActionListener, ItemListener {
         // add things to main panel
 
         // create search text field
-        JTextField searchField = new JTextField();
+        JTextField searchField = new JTextField(8);
         JButton searchButton = new JButton("Go");
 
         // add search text field and button to search panel

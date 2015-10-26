@@ -46,30 +46,30 @@ public class CemeteryPlotterInterredPerson implements ActionListener, ItemListen
         // add things to panel
 
         // create labels
-        JLabel interredIDLabel = new JLabel("Interred ID#:");
-        JLabel plotIDLabel = new JLabel("Plot ID#:");
-        JLabel fnameLabel = new JLabel("First Name:");
-        JLabel lnameLabel = new JLabel("Last Name:");
+        JLabel interredIDLabel = new JLabel("InterredID:");
+        JLabel plotIDLabel = new JLabel("PlotID:");
+        JLabel fnameLabel = new JLabel("First:");
+        JLabel lnameLabel = new JLabel("Last:");
         JLabel address1Label = new JLabel("Address 1:");
         JLabel address2Label = new JLabel("Address 2:");
         JLabel cityLabel = new JLabel("City:");
         JLabel stateLabel = new JLabel("State:");
         JLabel zipLabel = new JLabel("Zip:");
         JLabel phoneLabel = new JLabel("Phone:");
-        JLabel bornDateLabel = new JLabel("Date of Birth (MM/DD/YYYY):");
-        JLabel diedDateLabel = new JLabel("Date of Death (MM/DD/YYYY):");
+        JLabel bornDateLabel = new JLabel("Born (MM/DD/YYYY):");
+        JLabel diedDateLabel = new JLabel("Died (MM/DD/YYYY):");
 
         // create text fields
-        JTextField interredIDField = new JTextField();
-        JTextField plotIDField = new JTextField();
-        JTextField fnameField = new JTextField();
-        JTextField lnameField = new JTextField();
-        JTextField address1Field = new JTextField();
-        JTextField address2Field = new JTextField();
-        JTextField cityField = new JTextField();
-        JTextField stateField = new JTextField();
-        JTextField zipField = new JTextField();
-        JTextField phoneField = new JTextField();
+        JTextField interredIDField = new JTextField(4);
+        JTextField plotIDField = new JTextField(4);
+        JTextField fnameField = new JTextField(8);
+        JTextField lnameField = new JTextField(8);
+        JTextField address1Field = new JTextField(16);
+        JTextField address2Field = new JTextField(16);
+        JTextField cityField = new JTextField(8);
+        JTextField stateField = new JTextField(1);
+        JTextField zipField = new JTextField(2);
+        JTextField phoneField = new JTextField(8);
         JFormattedTextField bornDateField = new JFormattedTextField(sdf);
         JFormattedTextField diedDateField = new JFormattedTextField(sdf);
 
@@ -91,14 +91,24 @@ public class CemeteryPlotterInterredPerson implements ActionListener, ItemListen
         JButton editButton = new JButton("Edit"); // when clicked will unlock text fields and allow changes
 
         // create sub-panels
+        JPanel namePanel = new JPanel();
+        namePanel.setLayout(new BoxLayout(namePanel, BoxLayout.LINE_AXIS));
 
 
         // add items to sub-panels
+        namePanel.add(fnameLabel);
+        namePanel.add(fnameField);
+        namePanel.add(lnameLabel);
+        namePanel.add(lnameField);
 
 
         // add sub-panels to main panel
+        JPanel fieldsPanel = new JPanel();
+        fieldsPanel.setLayout(new BoxLayout(fieldsPanel, BoxLayout.PAGE_AXIS));
+        fieldsPanel.add(namePanel);
 
 
+        panel.add(fieldsPanel, BorderLayout.PAGE_START);
 
         return panel;
     }

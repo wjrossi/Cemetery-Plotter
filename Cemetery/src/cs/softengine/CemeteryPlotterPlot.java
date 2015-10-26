@@ -55,8 +55,8 @@ public class CemeteryPlotterPlot implements ActionListener, ItemListener {
         JLabel moneyDueLabel = new JLabel("Amount Owed:");
 
         // create text fields
-        JTextField sectionField = new JTextField();
-        JTextField plotIDField = new JTextField();
+        JTextField sectionField = new JTextField(8);
+        JTextField plotIDField = new JTextField(8);
         JFormattedTextField burialDateField = new JFormattedTextField(sdf);
         JFormattedTextField purchasedDateField = new JFormattedTextField(sdf);
         JFormattedTextField moneyDueField = new JFormattedTextField(nf);
@@ -77,9 +77,7 @@ public class CemeteryPlotterPlot implements ActionListener, ItemListener {
 
         // create sub-panels
 
-
         // add items to sub-panels
-
 
         // add sub-panels to main panel
 

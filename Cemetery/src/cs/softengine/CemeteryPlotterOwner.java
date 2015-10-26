@@ -42,8 +42,8 @@ public class CemeteryPlotterOwner implements ActionListener, ItemListener {
         // add things to panel
 
         // create labels
-        JLabel fnameLabel = new JLabel("First Name:");
-        JLabel lnameLabel = new JLabel("Last Name:");
+        JLabel fnameLabel = new JLabel("First:");
+        JLabel lnameLabel = new JLabel("Last:");
         JLabel address1Label = new JLabel("Address 1:");
         JLabel address2Label = new JLabel("Address 2:");
         JLabel cityLabel = new JLabel("City:");
@@ -52,14 +52,14 @@ public class CemeteryPlotterOwner implements ActionListener, ItemListener {
         JLabel phoneLabel = new JLabel("Phone:");
 
         // create text fields
-        JTextField fnameField = new JTextField();
-        JTextField lnameField = new JTextField();
-        JTextField address1Field = new JTextField();
-        JTextField address2Field = new JTextField();
-        JTextField cityField = new JTextField();
-        JTextField stateField = new JTextField();
-        JTextField zipField = new JTextField();
-        JTextField phoneField = new JTextField();
+        JTextField fnameField = new JTextField(8);
+        JTextField lnameField = new JTextField(8);
+        JTextField address1Field = new JTextField(16);
+        JTextField address2Field = new JTextField(16);
+        JTextField cityField = new JTextField(8);
+        JTextField stateField = new JTextField(1);
+        JTextField zipField = new JTextField(2);
+        JTextField phoneField = new JTextField(8);
 
         // join labels to text fields
         fnameLabel.setLabelFor(fnameField);
