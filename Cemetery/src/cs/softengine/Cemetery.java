@@ -324,8 +324,7 @@ public class Cemetery {
     public void setSections(ArrayList<Section> s) {
         sections = s;
     }
-
-
+    
     /**
      * Get list of all plots in cemetery
      * @return plots
