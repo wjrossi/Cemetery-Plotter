@@ -75,7 +75,6 @@ public class CemeteryPlotterPlot implements ActionListener, ItemListener {
         // create edit button
         JButton editButton = new JButton("Edit"); // when clicked will unlock text fields and allow changes
 
-
         // create sub-panels
 
 

@@ -54,13 +54,13 @@ public class CemeteryPlotterPlots implements ActionListener, ItemListener {
         // add search panel to main panel
         panel.add(searchPanel, BorderLayout.PAGE_START);
 
-        // create list of sections
+        // create list of plots
         JList<String> plotsList = new JList<String>();
         JScrollPane plotsListScrollPane = new JScrollPane(plotsList);
         plotsListScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         plotsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         plotsList.setLayoutOrientation(JList.VERTICAL);
-        plotsList.setPrototypeCellValue("ABCDEFGH");
+        plotsList.setPrototypeCellValue("999999");
 
         // add list to main panel
         panel.add(plotsListScrollPane, BorderLayout.CENTER);
