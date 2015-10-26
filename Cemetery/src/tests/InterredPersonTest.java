@@ -265,7 +265,7 @@ public class InterredPersonTest {
     @Test
     public void testEquals() {
         i = new InterredPerson(1234, 5678, null, null);
-        InterredPerson i2 = new InterredPerson(5678, 1234, null, null);
+        InterredPerson i2 = new InterredPerson(1234, 5678, null, null);
 
         assertTrue("These people should be considered the same, but are not.", i.equals(i2));
     }
