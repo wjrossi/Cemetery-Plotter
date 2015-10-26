@@ -77,6 +77,9 @@ public class CemeteryPlotterInterredPerson implements ActionListener, ItemListen
         JFormattedTextField bornDateField = new JFormattedTextField(sdf);
         JFormattedTextField diedDateField = new JFormattedTextField(sdf);
 
+        bornDateField.setColumns(10);
+        diedDateField.setColumns(10);
+
         // join labels to text fields
         interredIDLabel.setLabelFor(interredIDField);
         plotIDLabel.setLabelFor(plotIDField);

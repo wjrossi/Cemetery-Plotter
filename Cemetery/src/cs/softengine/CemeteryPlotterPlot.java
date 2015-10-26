@@ -54,9 +54,9 @@ public class CemeteryPlotterPlot implements ActionListener, ItemListener {
 
         // create labels
         JLabel sectionLabel = new JLabel("Section:");
-        JLabel plotIDLabel = new JLabel("Plot ID#:");
-        JLabel burialDateLabel = new JLabel("Burial Date:");
-        JLabel purchasedDateLabel = new JLabel("Purchased Date:");
+        JLabel plotIDLabel = new JLabel("PlotID:");
+        JLabel burialDateLabel = new JLabel("Burial (MM/DD/YYYY):");
+        JLabel purchasedDateLabel = new JLabel("Purchased (MM/DD/YYYY):");
         JLabel moneyDueLabel = new JLabel("Amount Owed:");
 
         // create text fields
@@ -66,6 +66,10 @@ public class CemeteryPlotterPlot implements ActionListener, ItemListener {
         JFormattedTextField purchasedDateField = new JFormattedTextField(sdf);
         JFormattedTextField moneyDueField = new JFormattedTextField(nf);
 
+        burialDateField.setColumns(10);
+        purchasedDateField.setColumns(10);
+        moneyDueField.setColumns(8);
+
         // set labels to text fields
         sectionLabel.setLabelFor(sectionField);
         plotIDLabel.setLabelFor(plotIDField);
@@ -74,8 +78,8 @@ public class CemeteryPlotterPlot implements ActionListener, ItemListener {
         moneyDueLabel.setLabelFor(moneyDueField);
 
         // create status check boxes
-        JCheckBox vacantCheckBox = new JCheckBox("Vacant:", false);
-        JCheckBox readyCheckBox = new JCheckBox("Ready:", false);
+        JCheckBox vacantCheckBox = new JCheckBox("Vacant", false);
+        JCheckBox readyCheckBox = new JCheckBox("Ready", false);
 
         // create edit button
         JButton editButton = new JButton("Edit"); // when clicked will unlock text fields and allow changes
