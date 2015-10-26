@@ -222,7 +222,7 @@ public class PersonTest {
 
     /**
      * Tests that Person.removeOwnedPlot() correctly removes plots from the 'plots' ArrayList of a Person object.
-     * NOTE: this test assumes that the ArrayList consctructor and add method works correctly (becase they do and that's not the focus of this test).
+     * NOTE: this test assumes that the ArrayList constructor and add method works correctly (becase they do and that's not the focus of this test).
      */
     @Test
     public void testRemoveOwnedPlot() {
