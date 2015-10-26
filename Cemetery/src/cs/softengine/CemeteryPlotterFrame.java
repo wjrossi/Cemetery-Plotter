@@ -32,7 +32,9 @@ public class CemeteryPlotterFrame {
 
         // create empty panes for layout
         JPanel leftPanel = new JPanel(true);
-        JPanel centerPanel = new JPanel(true);
+        JSplitPane centerPanel = new JSplitPane(JSplitPane.VERTICAL_SPLIT, true);
+        JPanel centerTopPanel = new JPanel(true);
+        JPanel centerBottomPanel = new JPanel(new BorderLayout(), true);
         JPanel rightPanel = new JPanel(new BorderLayout(), true);
 
         // create and set up content panels
@@ -42,6 +44,7 @@ public class CemeteryPlotterFrame {
         CemeteryPlotterInterredPerson cemeteryPlotterInterredPerson = new CemeteryPlotterInterredPerson();
         CemeteryPlotterOwner cemeteryPlotterOwner = new CemeteryPlotterOwner();
         CemeteryPlotterPeople cemeteryPlotterPeople = new CemeteryPlotterPeople();
+        CemeteryPlotterMap cemeteryPlotterMap = new CemeteryPlotterMap();
 
         // add content panels to panes
         // left panel
@@ -49,11 +52,18 @@ public class CemeteryPlotterFrame {
         leftPanel.add(cemeteryPlotterSections.getPanel());
         leftPanel.add(cemeteryPlotterPlots.getPanel());
 
-        // center panel
-        centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.LINE_AXIS));
-        centerPanel.add(cemeteryPlotterPlot.getPanel());
-        centerPanel.add(cemeteryPlotterInterredPerson.getPanel());
-        centerPanel.add(cemeteryPlotterOwner.getPanel());
+        // center top panel
+        centerTopPanel.setLayout(new BoxLayout(centerTopPanel, BoxLayout.LINE_AXIS));
+        centerTopPanel.add(cemeteryPlotterPlot.getPanel());
+        centerTopPanel.add(cemeteryPlotterInterredPerson.getPanel());
+        centerTopPanel.add(cemeteryPlotterOwner.getPanel());
+
+        // center bottom panel
+        centerBottomPanel.add(cemeteryPlotterMap.getPanel(), BorderLayout.CENTER);
+
+        // center combined panel
+        centerPanel.setTopComponent(centerTopPanel);
+        centerPanel.setBottomComponent(centerBottomPanel);
 
         // right panel
         rightPanel.add(cemeteryPlotterPeople.getPanel(), BorderLayout.CENTER);
