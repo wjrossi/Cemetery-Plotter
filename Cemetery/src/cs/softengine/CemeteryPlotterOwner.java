@@ -60,9 +60,9 @@ public class CemeteryPlotterOwner implements ActionListener, ItemListener {
         JTextField address1Field = new JTextField(12);
         JTextField address2Field = new JTextField(12);
         JTextField cityField = new JTextField(8);
-        JTextField stateField = new JTextField(1);
-        JTextField zipField = new JTextField(2);
-        JTextField phoneField = new JTextField(8);
+        JTextField stateField = new JTextField(2);
+        JTextField zipField = new JTextField(5);
+        JTextField phoneField = new JTextField(10);
 
         // join labels to text fields
         fnameLabel.setLabelFor(fnameField);
@@ -86,7 +86,7 @@ public class CemeteryPlotterOwner implements ActionListener, ItemListener {
         plotsList.setPrototypeCellValue("999999");
 
         // create add and remove plot buttons and text field
-        JTextField addPlotField = new JTextField(1);
+        JTextField addPlotField = new JTextField(4);
         JButton addPlotButton = new JButton("Add Plot");
         JButton removePlotButton = new JButton("Remove Plot(s)");
 
@@ -150,8 +150,8 @@ public class CemeteryPlotterOwner implements ActionListener, ItemListener {
         fieldsPanel.add(phonePanel);
         fieldsPanel.add(ownedPanel);
 
-        panel.add(editButton, BorderLayout.PAGE_END);
         panel.add(fieldsPanel, BorderLayout.PAGE_START);
+        panel.add(editButton, BorderLayout.PAGE_END);
 
         // add editable components to list for easy enable/disable
         editable.add(fnameField);

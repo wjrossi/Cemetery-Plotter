@@ -64,16 +64,16 @@ public class CemeteryPlotterInterredPerson implements ActionListener, ItemListen
         JLabel diedDateLabel = new JLabel("Died (MM/DD/YYYY):");
 
         // create text fields
-        JTextField interredIDField = new JTextField(4);
+        JTextField interredIDField = new JTextField(6);
         JTextField plotIDField = new JTextField(4);
         JTextField fnameField = new JTextField(8);
         JTextField lnameField = new JTextField(8);
         JTextField address1Field = new JTextField(12);
         JTextField address2Field = new JTextField(12);
         JTextField cityField = new JTextField(8);
-        JTextField stateField = new JTextField(1);
-        JTextField zipField = new JTextField(2);
-        JTextField phoneField = new JTextField(8);
+        JTextField stateField = new JTextField(2);
+        JTextField zipField = new JTextField(5);
+        JTextField phoneField = new JTextField(10);
         JFormattedTextField bornDateField = new JFormattedTextField(sdf);
         JFormattedTextField diedDateField = new JFormattedTextField(sdf);
 
@@ -162,8 +162,8 @@ public class CemeteryPlotterInterredPerson implements ActionListener, ItemListen
         fieldsPanel.add(bornDatePanel);
         fieldsPanel.add(diedDatePanel);
 
-        panel.add(editButton, BorderLayout.PAGE_END);
         panel.add(fieldsPanel, BorderLayout.PAGE_START);
+        panel.add(editButton, BorderLayout.PAGE_END);
 
         // add editable components to list for easy enable/disable
         editable.add(interredIDField);
