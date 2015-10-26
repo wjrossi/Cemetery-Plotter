@@ -27,7 +27,5 @@ public class DropboxClient {
      * @return boolean if file saved successfully or not
      */
     public boolean saveFile(File file){ return true;}
-
-
 }
 
