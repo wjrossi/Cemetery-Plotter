@@ -17,6 +17,7 @@ public class Plot implements Comparable<Plot> {
     private boolean vacant; // is the plot vacant/not vacant
     private boolean ready; // is the plot ready for use or not ready
     private int moneyDue; // if not 0, person owes this much IN CENTS (for accuracy)
+    private SimpleDateFormat sdf = new SimpleDateFormat("MM/DD/YYYY");
 
     /**
      * Constructs an empty plot

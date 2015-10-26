@@ -1,5 +1,6 @@
 package cs.softengine;
 
+import javax.imageio.plugins.jpeg.JPEGHuffmanTable;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -8,73 +9,13 @@ import java.awt.event.*;
  * The main GUI window for Cemetery Plotter
  */
 public class CemeteryPlotterFrame {
-    // class variables go here
-
-    /**
-     * Create the main menu bar
-     * @return JMenuBar
-     */
-    private JMenuBar createMenuBar() {
-        JMenuBar menuBar;
-        JMenu menuFile;
-        JMenuItem fileOpen, fileSave, fileSaveAs, fileQuit;
-
-        // create the entire menu bar
-        menuBar = new JMenuBar();
-
-        // add a file menu on the menu bar
-        menuFile = new JMenu("File");
-        menuFile.setMnemonic(KeyEvent.VK_F);
-        menuBar.add(menuFile);
-
-        // add items to the file menu
-        fileOpen = new JMenuItem("Open");
-        fileOpen.setMnemonic(KeyEvent.VK_O);
-        fileOpen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.META_MASK));
-        menuFile.add(fileOpen);
-
-        menuFile.addSeparator();
-
-        fileSave = new JMenuItem("Save");
-        fileSave.setMnemonic(KeyEvent.VK_S);
-        fileSave.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.META_MASK));
-        menuFile.add(fileSave);
-
-        fileSaveAs = new JMenuItem("Save As");
-        fileSaveAs.setMnemonic(KeyEvent.VK_A);
-        fileSaveAs.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.SHIFT_MASK | InputEvent.META_MASK));
-        menuFile.add(fileSaveAs);
-
-        menuFile.addSeparator();
-
-        fileQuit = new JMenuItem("Quit");
-        fileQuit.setMnemonic(KeyEvent.VK_Q);
-        fileQuit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, InputEvent.META_MASK));
-
-        menuFile.add(fileQuit);
-
-        return menuBar;
-    }
-
-    /**
-     * Create main content pane
-     * @return container
-     */
-    public Container createContentPane() { // TODO this is stuff from a demo
-        // create the content-pane-to-be
-        JPanel contentPane = new JPanel(new BorderLayout());
-        contentPane.setOpaque(true);
-
-        // create a scrolled text area
-        JTextArea output = new JTextArea(5, 30);
-        output.setEditable(false);
-        JScrollPane scrollPane = new JScrollPane(output);
-
-        //Add the text area to the content pane
-        contentPane.add(scrollPane, BorderLayout.CENTER);
-
-        return contentPane;
-    }
+    private static CemeteryPlotterSections cemeteryPlotterSections;
+    private static CemeteryPlotterPlots cemeteryPlotterPlots;
+    private static CemeteryPlotterPlot cemeteryPlotterPlot;
+    private static CemeteryPlotterInterredPerson cemeteryPlotterInterredPerson;
+    private static CemeteryPlotterOwner cemeteryPlotterOwner;
+    private static CemeteryPlotterPeople cemeteryPlotterPeople;
+    private static CemeteryPlotterMap cemeteryPlotterMap;
 
     /**
      * Create the GUI and show it. Invoked from the event-dispatching thread.
@@ -88,18 +29,62 @@ public class CemeteryPlotterFrame {
         }
 
         // create and set up the window
-        JFrame frame = new JFrame("Cemetery Plotter v0.0.1");
+        JFrame frame = new JFrame("Cemetery Plotter v0.0.2");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        // create and set up the content pane
-        CemeteryPlotterFrame cpf = new CemeteryPlotterFrame();
-        frame.setJMenuBar(cpf.createMenuBar());
-        frame.setContentPane(cpf.createContentPane());
+        // create and set up the menu bar
+        CemeteryPlotterMenu cemeteryPlotterMenu = new CemeteryPlotterMenu();
+        frame.setJMenuBar(cemeteryPlotterMenu.getMenuBar());
+
+        // create empty panes for layout
+        JPanel leftPanel = new JPanel(true);
+        JSplitPane centerPanel = new JSplitPane(JSplitPane.VERTICAL_SPLIT, true);
+        JPanel centerTopPanel = new JPanel(true);
+        JPanel centerBottomPanel = new JPanel(new BorderLayout(), true);
+        JPanel rightPanel = new JPanel(new BorderLayout(), true);
+
+        // create and set up content panels
+        cemeteryPlotterSections = new CemeteryPlotterSections();
+        cemeteryPlotterPlots = new CemeteryPlotterPlots();
+        cemeteryPlotterPlot = new CemeteryPlotterPlot();
+        cemeteryPlotterInterredPerson = new CemeteryPlotterInterredPerson();
+        cemeteryPlotterOwner = new CemeteryPlotterOwner();
+        cemeteryPlotterPeople = new CemeteryPlotterPeople();
+        cemeteryPlotterMap = new CemeteryPlotterMap();
+
+        // add content panels to panes
+        // left panel
+        leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.PAGE_AXIS));
+        leftPanel.add(cemeteryPlotterSections.getPanel());
+        leftPanel.add(cemeteryPlotterPlots.getPanel());
+
+        // center top panel
+        centerTopPanel.setLayout(new BoxLayout(centerTopPanel, BoxLayout.LINE_AXIS));
+        centerTopPanel.add(cemeteryPlotterPlot.getPanel());
+        centerTopPanel.add(cemeteryPlotterInterredPerson.getPanel());
+        centerTopPanel.add(cemeteryPlotterOwner.getPanel());
+
+        // center bottom panel
+        centerBottomPanel.add(cemeteryPlotterMap.getPanel(), BorderLayout.CENTER);
+
+        // center combined panel
+        centerPanel.setTopComponent(centerTopPanel);
+        centerPanel.setBottomComponent(centerBottomPanel);
+
+        // right panel
+        rightPanel.add(cemeteryPlotterPeople.getPanel(), BorderLayout.CENTER);
+
+        // add layout panes to frame
+        frame.add(leftPanel, BorderLayout.LINE_START);
+        frame.add(centerPanel, BorderLayout.CENTER);
+        frame.add(rightPanel, BorderLayout.LINE_END);
 
         // display the window.
         frame.pack();
-        //frame.setSize(450, 260);
         frame.setVisible(true);
+
+        // load map URL
+        cemeteryPlotterMap.loadMap();
     }
 
     /**
@@ -108,10 +93,6 @@ public class CemeteryPlotterFrame {
      * @param args ignored
      */
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                createAndShowGUI();
-            }
-        });
+        SwingUtilities.invokeLater(() -> createAndShowGUI());
     }
 }

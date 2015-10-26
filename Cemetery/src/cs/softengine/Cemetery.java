@@ -14,6 +14,7 @@ public class Cemetery {
     private ArrayList<Plot> plots; // list of all plots in the cemetery
     private ArrayList<InterredPerson> interredPeople; // list of all interred people in the cemetery
     private ArrayList<Person> people; // list of all (non-interred) people in the cemetery
+    private SimpleDateFormat sdf = new SimpleDateFormat("MM/DD/YYYY");
 
     /**
      * Constructs a cemetery
@@ -29,7 +30,7 @@ public class Cemetery {
      * Construct a cemetery from a file
      * @param file cemetery file
      */
-    public Cemetery(String file) {
+    public Cemetery(File file) {
         try {
             load(file);
         } catch (IOException e) {
@@ -42,7 +43,7 @@ public class Cemetery {
      * @param file the file name
      * @throws IOException
      */
-    public void load(String file) throws IOException {
+    public void load(File file) throws IOException {
         BufferedReader buffer;
         String temp;
 
@@ -110,8 +111,6 @@ public class Cemetery {
      * @throws IOException
      */
     private void loadPlot(BufferedReader buffer) throws IOException {
-        SimpleDateFormat sdf;
-
         String section; // residing section name
         int id; // plot identifier number
         InterredPerson interred; // interred person
@@ -121,8 +120,6 @@ public class Cemetery {
         boolean vacant; // is the plot vacant/not vacant
         boolean ready; // is the plot ready for use or not ready
         int moneyDue; // if not 0, person owes this much IN CENTS (for accuracy)
-
-        sdf = new SimpleDateFormat("YYYY-MM-DD");
 
         section = buffer.readLine().trim();
         id = Integer.parseInt(buffer.readLine().trim());
@@ -172,13 +169,9 @@ public class Cemetery {
     private Person loadPerson(BufferedReader buffer) throws IOException {
         Person p;
 
-        String fname;
-        String lname;
-        String address1;
-        String address2;
-        String city;
-        String state;
-        String zip;
+        String fname,lname;
+        String address1, address2;
+        String city, state, zip;
         String phone;
 
         String temp;
@@ -218,20 +211,15 @@ public class Cemetery {
         SimpleDateFormat sdf;
         int interredID; // id number for the interred person
         int plotID; // id number of the plot in which this person is interred
-        Date born;
-        Date died;
-        String fname;
-        String lname;
-        String address1;
-        String address2;
-        String city;
-        String state;
-        String zip;
+        Date born, died;
+        String fname, lname;
+        String address1, address2;
+        String city, state, zip;
         String phone;
 
         String temp;
 
-        sdf = new SimpleDateFormat("YYYY-MM-DD");
+        sdf = new SimpleDateFormat("MM/DD/YYYY");
 
         temp = buffer.readLine().trim();
 
@@ -277,14 +265,13 @@ public class Cemetery {
     /**
      * Save cemetery data
      */
-    public void save(String file) throws IOException {
+    public void save(File file) throws IOException {
         PrintWriter buffer;
-        File oldFile;
-        File newFile;
+        File oldFile, newFile;
         String line;
 
-        oldFile = new File(file);
-        newFile = new File(file + ".new");
+        oldFile = file;
+        newFile = new File(file.getName() + ".new");
 
         buffer = new PrintWriter(new FileWriter(newFile));
 
@@ -301,7 +288,7 @@ public class Cemetery {
 
         if (newFile.exists()) {
             oldFile.delete();
-            newFile.renameTo(new File(file));
+            newFile.renameTo(file);
         }
     }
 
