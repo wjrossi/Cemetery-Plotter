@@ -1,6 +1,5 @@
 package cs.softengine;
 
-import javax.imageio.plugins.jpeg.JPEGHuffmanTable;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -29,7 +28,8 @@ public class CemeteryPlotterFrame {
         }
 
         // create and set up the window
-        JFrame frame = new JFrame("Cemetery Plotter v0.0.2");
+        JFrame frame = new JFrame("Cemetery Plotter v0.0.3");
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         // create and set up the menu bar
@@ -84,7 +84,11 @@ public class CemeteryPlotterFrame {
         frame.setVisible(true);
 
         // load map URL
+        /*
         cemeteryPlotterMap.loadMap();
+        DISABLED TILL WE NEED IT. SHOULD BE MOVED TO A DIFFERENT METHOD OR THREAD MAYBE?
+        LOCKS THINGS UP WHILE IT IS LOADING
+        */
     }
 
     /**
