@@ -31,19 +31,38 @@ public class CemeteryPlotterSections implements ActionListener, ItemListener {
      * @return panel
      */
     private JPanel createSectionsPanel() {
-        JPanel panel;
-        Border etchedBorder;
-        TitledBorder titledBorder;
-
-        panel = new JPanel(new BorderLayout(), true);
+        JPanel panel = new JPanel(new BorderLayout(), true);
 
         // create an raised, etched, titled border
-        etchedBorder = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
-        titledBorder = BorderFactory.createTitledBorder(etchedBorder, "Sections");
+        Border etchedBorder = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
+        TitledBorder titledBorder = BorderFactory.createTitledBorder(etchedBorder, "Sections");
         titledBorder.setTitleJustification(TitledBorder.LEFT);
         panel.setBorder(titledBorder);
 
-        // add things to panel
+        // add things to main panel
+
+        // create buttons
+        JButton selectAllButton = new JButton("Select All");
+        JButton selectNoneButton = new JButton("Select None");
+
+        // put buttons in a button panel
+        JPanel buttons = new JPanel();
+        buttons.setLayout(new BoxLayout(buttons, BoxLayout.LINE_AXIS));
+        buttons.add(selectAllButton);
+        buttons.add(selectNoneButton);
+
+        // add button panel to main panel
+        panel.add(buttons, BorderLayout.PAGE_START);
+
+        // create list of sections
+        JList<String> sectionList = new JList<String>();
+        JScrollPane sectionListScrollPane = new JScrollPane(sectionList);
+        sectionList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        sectionList.setLayoutOrientation(JList.VERTICAL);
+        sectionList.setPrototypeCellValue("ABCDEFGH");
+
+        // add list to main panel
+        panel.add(sectionListScrollPane, BorderLayout.CENTER);
 
         return panel;
     }

@@ -31,15 +31,11 @@ public class CemeteryPlotterPlot implements ActionListener, ItemListener {
      * @return panel
      */
     private JPanel createPlotPanel() {
-        JPanel panel;
-        Border etchedBorder;
-        TitledBorder titledBorder;
-
-        panel = new JPanel(new BorderLayout(), true);
+        JPanel panel = new JPanel(new BorderLayout(), true);
 
         // create an raised, etched, titled border
-        etchedBorder = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
-        titledBorder = BorderFactory.createTitledBorder(etchedBorder, "Plot");
+        Border etchedBorder = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
+        TitledBorder titledBorder = BorderFactory.createTitledBorder(etchedBorder, "Plot");
         titledBorder.setTitleJustification(TitledBorder.LEFT);
         panel.setBorder(titledBorder);
 

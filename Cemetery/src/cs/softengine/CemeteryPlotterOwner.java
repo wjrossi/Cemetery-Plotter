@@ -31,15 +31,11 @@ public class CemeteryPlotterOwner implements ActionListener, ItemListener {
      * @return panel
      */
     private JPanel createOwnerPanel() {
-        JPanel panel;
-        Border etchedBorder;
-        TitledBorder titledBorder;
-
-        panel = new JPanel(new BorderLayout(), true);
+        JPanel panel = new JPanel(new BorderLayout(), true);
 
         // create an raised, etched, titled border
-        etchedBorder = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
-        titledBorder = BorderFactory.createTitledBorder(etchedBorder, "Owner");
+        Border etchedBorder = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
+        TitledBorder titledBorder = BorderFactory.createTitledBorder(etchedBorder, "Owner");
         titledBorder.setTitleJustification(TitledBorder.LEFT);
         panel.setBorder(titledBorder);
 

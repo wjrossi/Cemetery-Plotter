@@ -31,19 +31,38 @@ public class CemeteryPlotterPlots implements ActionListener, ItemListener {
      * @return panel
      */
     private JPanel createPlotsPanel() {
-        JPanel panel;
-        Border etchedBorder;
-        TitledBorder titledBorder;
-
-        panel = new JPanel(new BorderLayout(), true);
+        JPanel panel = new JPanel(new BorderLayout(), true);
 
         // create an raised, etched, titled border
-        etchedBorder = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
-        titledBorder = BorderFactory.createTitledBorder(etchedBorder, "Plots");
+        Border etchedBorder = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
+        TitledBorder titledBorder = BorderFactory.createTitledBorder(etchedBorder, "Plots");
         titledBorder.setTitleJustification(TitledBorder.LEFT);
         panel.setBorder(titledBorder);
 
-        // add things to panel
+        // add things to main panel
+
+        // create search text field
+        JTextField searchField = new JTextField();
+        JButton searchButton = new JButton("Go");
+
+        // add search text field and button to search panel
+        JPanel searchPanel = new JPanel();
+        searchPanel.setLayout(new BoxLayout(searchPanel, BoxLayout.LINE_AXIS));
+        searchPanel.add(searchField);
+        searchPanel.add(searchButton);
+
+        // add search panel to main panel
+        panel.add(searchPanel, BorderLayout.PAGE_START);
+
+        // create list of sections
+        JList<String> plotsList = new JList<String>();
+        JScrollPane plotsListScrollPane = new JScrollPane(plotsList);
+        plotsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        plotsList.setLayoutOrientation(JList.VERTICAL);
+        plotsList.setPrototypeCellValue("ABCDEFGH");
+
+        // add list to main panel
+        panel.add(plotsListScrollPane, BorderLayout.CENTER);
 
         return panel;
     }

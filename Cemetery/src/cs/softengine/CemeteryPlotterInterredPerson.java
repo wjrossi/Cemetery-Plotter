@@ -31,15 +31,11 @@ public class CemeteryPlotterInterredPerson implements ActionListener, ItemListen
      * @return panel
      */
     private JPanel createInterredPersonPanel() {
-        JPanel panel;
-        Border etchedBorder;
-        TitledBorder titledBorder;
-
-        panel = new JPanel(new BorderLayout(), true);
+        JPanel panel = new JPanel(new BorderLayout(), true);
 
         // create an raised, etched, titled border
-        etchedBorder = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
-        titledBorder = BorderFactory.createTitledBorder(etchedBorder, "Interred");
+        Border etchedBorder = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
+        TitledBorder titledBorder = BorderFactory.createTitledBorder(etchedBorder, "Interred");
         titledBorder.setTitleJustification(TitledBorder.LEFT);
         panel.setBorder(titledBorder);
 
