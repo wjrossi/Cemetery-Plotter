@@ -64,8 +64,8 @@ public class CemeteryPlotterInterredPerson implements ActionListener, ItemListen
         JTextField plotIDField = new JTextField(4);
         JTextField fnameField = new JTextField(8);
         JTextField lnameField = new JTextField(8);
-        JTextField address1Field = new JTextField(16);
-        JTextField address2Field = new JTextField(16);
+        JTextField address1Field = new JTextField(12);
+        JTextField address2Field = new JTextField(12);
         JTextField cityField = new JTextField(8);
         JTextField stateField = new JTextField(1);
         JTextField zipField = new JTextField(2);
@@ -92,21 +92,66 @@ public class CemeteryPlotterInterredPerson implements ActionListener, ItemListen
 
         // create sub-panels
         JPanel namePanel = new JPanel();
-        namePanel.setLayout(new BoxLayout(namePanel, BoxLayout.LINE_AXIS));
+        JPanel addressPanel = new JPanel();
+        JPanel address1Panel = new JPanel();
+        JPanel address2Panel = new JPanel();
+        JPanel address3Panel = new JPanel();
+        JPanel phonePanel = new JPanel();
+        JPanel bornDatePanel = new JPanel();
+        JPanel diedDatePanel = new JPanel();
 
+        namePanel.setLayout(new BoxLayout(namePanel, BoxLayout.LINE_AXIS));
+        addressPanel.setLayout(new BoxLayout(addressPanel, BoxLayout.PAGE_AXIS));
+        address1Panel.setLayout(new BoxLayout(address1Panel, BoxLayout.LINE_AXIS));
+        address2Panel.setLayout(new BoxLayout(address2Panel, BoxLayout.LINE_AXIS));
+        address3Panel.setLayout(new BoxLayout(address3Panel, BoxLayout.LINE_AXIS));
+        phonePanel.setLayout(new BoxLayout(phonePanel, BoxLayout.LINE_AXIS));
+        bornDatePanel.setLayout(new BoxLayout(bornDatePanel, BoxLayout.LINE_AXIS));
+        diedDatePanel.setLayout(new BoxLayout(diedDatePanel, BoxLayout.LINE_AXIS));
 
         // add items to sub-panels
+
+        // forgot id panel
         namePanel.add(fnameLabel);
         namePanel.add(fnameField);
         namePanel.add(lnameLabel);
         namePanel.add(lnameField);
 
+        address1Panel.add(address1Label);
+        address1Panel.add(address1Field);
+
+        address2Panel.add(address2Label);
+        address2Panel.add(address2Field);
+
+        address3Panel.add(cityLabel);
+        address3Panel.add(cityField);
+        address3Panel.add(stateLabel);
+        address3Panel.add(stateField);
+        address3Panel.add(zipLabel);
+        address3Panel.add(zipField);
+
+        addressPanel.add(address1Panel);
+        addressPanel.add(address2Panel);
+        addressPanel.add(address3Panel);
+
+        phonePanel.add(phoneLabel);
+        phonePanel.add(phoneField);
+
+        bornDatePanel.add(bornDateLabel);
+        bornDatePanel.add(bornDateField);
+
+        diedDatePanel.add(diedDateLabel);
+        diedDatePanel.add(diedDateField);
 
         // add sub-panels to main panel
         JPanel fieldsPanel = new JPanel();
         fieldsPanel.setLayout(new BoxLayout(fieldsPanel, BoxLayout.PAGE_AXIS));
         fieldsPanel.add(namePanel);
-
+        fieldsPanel.add(addressPanel);
+        fieldsPanel.add(phonePanel);
+        fieldsPanel.add(bornDatePanel);
+        fieldsPanel.add(diedDatePanel);
+        fieldsPanel.add(editButton);
 
         panel.add(fieldsPanel, BorderLayout.PAGE_START);
 
