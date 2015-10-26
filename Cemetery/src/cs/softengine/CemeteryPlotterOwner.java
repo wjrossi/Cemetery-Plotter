@@ -4,17 +4,20 @@ import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 /**
  * Content pane containing editable information on a plot owner
  */
 public class CemeteryPlotterOwner implements ActionListener, ItemListener {
     private JPanel ownerPanel;
+    private ArrayList<JComponent> editable;
 
     /**
      * Constructs a content pane for a plot owner info
      */
     public CemeteryPlotterOwner() {
+        editable = new ArrayList<JComponent>();
         ownerPanel = createOwnerPanel();
     }
 
@@ -134,9 +137,23 @@ public class CemeteryPlotterOwner implements ActionListener, ItemListener {
         fieldsPanel.add(namePanel);
         fieldsPanel.add(addressPanel);
         fieldsPanel.add(phonePanel);
-        fieldsPanel.add(editButton);
 
+        panel.add(editButton, BorderLayout.PAGE_END);
         panel.add(fieldsPanel, BorderLayout.PAGE_START);
+
+        // add editable components to list for easy enable/disable
+        editable.add(fnameField);
+        editable.add(lnameField);
+        editable.add(address1Field);
+        editable.add(address2Field);
+        editable.add(cityField);
+        editable.add(stateField);
+        editable.add(zipField);
+        editable.add(phoneField);
+        editable.add(plotsList);
+        editable.add(addPlotButton);
+        editable.add(removePlotButton);
+        editable.add(removePlotField);
 
         return panel;
     }

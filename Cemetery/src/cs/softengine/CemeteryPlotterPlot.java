@@ -14,13 +14,15 @@ import java.util.Date;
  */
 public class CemeteryPlotterPlot implements ActionListener, ItemListener {
     private JPanel plotPanel;
-    private SimpleDateFormat sdf = new SimpleDateFormat("MM/DD/YYYY");
-    private NumberFormat nf = NumberFormat.getCurrencyInstance();
+    private SimpleDateFormat sdf;
+    private NumberFormat nf;
 
     /**
      * Constructs a content pane for plot info
      */
     public CemeteryPlotterPlot() {
+        sdf = new SimpleDateFormat("MM/DD/YYYY");
+        nf = NumberFormat.getCurrencyInstance();
         plotPanel = createPlotPanel();
     }
 

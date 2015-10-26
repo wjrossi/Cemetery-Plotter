@@ -6,6 +6,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -13,12 +14,15 @@ import java.util.Date;
  */
 public class CemeteryPlotterInterredPerson implements ActionListener, ItemListener {
     private JPanel interredPanel;
-    private SimpleDateFormat sdf = new SimpleDateFormat("MM/DD/YYYY");
+    private ArrayList<JComponent> editable;
+    private SimpleDateFormat sdf;
 
     /**
      * Constructs a content pane for an interred person info
      */
     public CemeteryPlotterInterredPerson() {
+        editable = new ArrayList<JComponent>();
+        sdf = new SimpleDateFormat("MM/DD/YYYY");
         interredPanel = createInterredPersonPanel();
     }
 
@@ -91,6 +95,7 @@ public class CemeteryPlotterInterredPerson implements ActionListener, ItemListen
         JButton editButton = new JButton("Edit"); // when clicked will unlock text fields and allow changes
 
         // create sub-panels
+        JPanel idPanel = new JPanel();
         JPanel namePanel = new JPanel();
         JPanel addressPanel = new JPanel();
         JPanel address1Panel = new JPanel();
@@ -100,6 +105,7 @@ public class CemeteryPlotterInterredPerson implements ActionListener, ItemListen
         JPanel bornDatePanel = new JPanel();
         JPanel diedDatePanel = new JPanel();
 
+        idPanel.setLayout(new BoxLayout(idPanel, BoxLayout.LINE_AXIS));
         namePanel.setLayout(new BoxLayout(namePanel, BoxLayout.LINE_AXIS));
         addressPanel.setLayout(new BoxLayout(addressPanel, BoxLayout.PAGE_AXIS));
         address1Panel.setLayout(new BoxLayout(address1Panel, BoxLayout.LINE_AXIS));
@@ -110,8 +116,11 @@ public class CemeteryPlotterInterredPerson implements ActionListener, ItemListen
         diedDatePanel.setLayout(new BoxLayout(diedDatePanel, BoxLayout.LINE_AXIS));
 
         // add items to sub-panels
+        idPanel.add(interredIDLabel);
+        idPanel.add(interredIDField);
+        idPanel.add(plotIDLabel);
+        idPanel.add(plotIDField);
 
-        // forgot id panel
         namePanel.add(fnameLabel);
         namePanel.add(fnameField);
         namePanel.add(lnameLabel);
@@ -146,14 +155,29 @@ public class CemeteryPlotterInterredPerson implements ActionListener, ItemListen
         // add sub-panels to main panel
         JPanel fieldsPanel = new JPanel();
         fieldsPanel.setLayout(new BoxLayout(fieldsPanel, BoxLayout.PAGE_AXIS));
+        fieldsPanel.add(idPanel);
         fieldsPanel.add(namePanel);
         fieldsPanel.add(addressPanel);
         fieldsPanel.add(phonePanel);
         fieldsPanel.add(bornDatePanel);
         fieldsPanel.add(diedDatePanel);
-        fieldsPanel.add(editButton);
 
+        panel.add(editButton, BorderLayout.PAGE_END);
         panel.add(fieldsPanel, BorderLayout.PAGE_START);
+
+        // add editable components to list for easy enable/disable
+        editable.add(interredIDField);
+        editable.add(plotIDField);
+        editable.add(fnameField);
+        editable.add(lnameField);
+        editable.add(address1Field);
+        editable.add(address2Field);
+        editable.add(cityField);
+        editable.add(stateField);
+        editable.add(zipField);
+        editable.add(phoneField);
+        editable.add(bornDateField);
+        editable.add(diedDateField);
 
         return panel;
     }
