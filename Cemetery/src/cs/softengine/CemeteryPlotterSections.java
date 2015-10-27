@@ -62,8 +62,17 @@ public class CemeteryPlotterSections implements ActionListener, ItemListener {
         sectionList.setLayoutOrientation(JList.VERTICAL);
         sectionList.setPrototypeCellValue("ABCDEFGH");
 
+        // create new and delete buttons
+        JButton newSectionButton = new JButton("New Section");
+        JButton deleteSectionButton = new JButton("Delete Section(s)");
+        JPanel sectionButtonsPanel = new JPanel();
+        sectionButtonsPanel.setLayout(new BoxLayout(sectionButtonsPanel, BoxLayout.LINE_AXIS));
+        sectionButtonsPanel.add(newSectionButton);
+        sectionButtonsPanel.add(deleteSectionButton);
+
         // add list to main panel
         panel.add(sectionListScrollPane, BorderLayout.CENTER);
+        panel.add(sectionButtonsPanel, BorderLayout.PAGE_END);
 
         return panel;
     }

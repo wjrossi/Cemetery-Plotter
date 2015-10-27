@@ -62,8 +62,17 @@ public class CemeteryPlotterPlots implements ActionListener, ItemListener {
         plotsList.setLayoutOrientation(JList.VERTICAL);
         plotsList.setPrototypeCellValue("999999");
 
+        // create new and delete buttons
+        JButton newPlotButton = new JButton("New Plot");
+        JButton deletePlotButton = new JButton("Delete Plot(s)");
+        JPanel plotsButtonsPanel = new JPanel();
+        plotsButtonsPanel.setLayout(new BoxLayout(plotsButtonsPanel, BoxLayout.LINE_AXIS));
+        plotsButtonsPanel.add(newPlotButton);
+        plotsButtonsPanel.add(deletePlotButton);
+
         // add list to main panel
         panel.add(plotsListScrollPane, BorderLayout.CENTER);
+        panel.add(plotsButtonsPanel, BorderLayout.PAGE_END);
 
         return panel;
     }
