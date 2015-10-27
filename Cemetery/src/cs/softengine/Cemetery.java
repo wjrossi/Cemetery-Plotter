@@ -202,7 +202,6 @@ public class Cemetery {
      */
     private InterredPerson loadInterredPerson(BufferedReader buffer) throws IOException {
         InterredPerson ip;
-        SimpleDateFormat sdf;
         int interredID; // id number for the interred person
         int plotID; // id number of the plot in which this person is interred
         Date born, died;
@@ -212,7 +211,7 @@ public class Cemetery {
         String phone;
 
         String temp;
-        sdf = new SimpleDateFormat("MM/DD/YYYY");
+
         temp = buffer.readLine().trim();
 
         if (temp.equals("null")) {
