@@ -32,6 +32,14 @@ public class CemeteryPlotter {
     }
 
     /**
+     * Get CemeteryPlotterFrame
+     * @return cemeteryPlotterFrame
+     */
+    public static CemeteryPlotterFrame getCemeteryPlotterFrame() {
+        return cemeteryPlotterFrame;
+    }
+
+    /**
      * Set the working file whenever user opens a file
      * @param file working file, null if you want to use defaultFile
      */

@@ -159,6 +159,8 @@ public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListen
             file = fileChooser.getSelectedFile();
         }
 
+        getCemeteryPlotterFrame().getFrame().setTitle("Cemetery Plotter (" + getWorkingFile() + ")");
+
         return file;
     }
 
@@ -183,6 +185,8 @@ public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListen
         if (result == JFileChooser.APPROVE_OPTION) {
             file = fileChooser.getSelectedFile();
         }
+
+        getCemeteryPlotterFrame().getFrame().setTitle("Cemetery Plotter (" + getWorkingFile() + ")");
 
         return file;
     }

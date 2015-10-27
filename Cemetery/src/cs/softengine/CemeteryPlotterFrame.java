@@ -8,6 +8,7 @@ import java.awt.event.*;
  * The main GUI window for Cemetery Plotter
  */
 public class CemeteryPlotterFrame extends CemeteryPlotter {
+    private JFrame frame;
     private CemeteryPlotterMenu cemeteryPlotterMenu;
     private CemeteryPlotterSections cemeteryPlotterSections;
     private CemeteryPlotterPlots cemeteryPlotterPlots;
@@ -38,7 +39,7 @@ public class CemeteryPlotterFrame extends CemeteryPlotter {
         }
 
         // create and set up the window
-        JFrame frame = new JFrame("Cemetery Plotter v0.0.3");
+        frame = new JFrame("Cemetery Plotter (" + getWorkingFile() + ")");
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
@@ -99,5 +100,13 @@ public class CemeteryPlotterFrame extends CemeteryPlotter {
         DISABLED TILL WE NEED IT. SHOULD BE MOVED TO A DIFFERENT METHOD OR THREAD MAYBE?
         LOCKS THINGS UP WHILE IT IS LOADING
         */
+    }
+
+    /**
+     * Get the frame
+     * @return frame
+     */
+    public JFrame getFrame() {
+        return frame;
     }
 }
