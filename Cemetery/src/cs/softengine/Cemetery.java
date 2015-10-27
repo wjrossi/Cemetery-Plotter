@@ -10,21 +10,20 @@ import java.util.Date;
  * A cemetery
  */
 public class Cemetery {
-    private ArrayList<Section> sections; // TODO probably change these to hashmaps later in a refactoring
+    private ArrayList<Section> sections; // list of all sections in the cemetery
     private ArrayList<Plot> plots; // list of all plots in the cemetery
     private ArrayList<InterredPerson> interredPeople; // list of all interred people in the cemetery
     private ArrayList<Person> people; // list of all (non-interred) people in the cemetery
     private SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 
-
     /**
      * Constructs a singleton cemetery
      */
     public Cemetery() {
-        sections = new ArrayList<>();
-        plots = new ArrayList<>();
-        interredPeople = new ArrayList<>();
-        people = new ArrayList<>();
+        sections = new ArrayList<Section>();
+        plots = new ArrayList<Plot>();
+        interredPeople = new ArrayList<InterredPerson>();
+        people = new ArrayList<Person>();
     }
 
     /**
@@ -82,10 +81,10 @@ public class Cemetery {
         numInterred = Integer.parseInt(buffer.readLine().trim());
         numPeople = Integer.parseInt(buffer.readLine().trim());
 
-        sections = new ArrayList<>(numSections);
-        plots = new ArrayList<>(numPlots);
-        interredPeople = new ArrayList<>(numInterred);
-        people = new ArrayList<>(numPeople);
+        sections = new ArrayList<Section>(numSections);
+        plots = new ArrayList<Plot>(numPlots);
+        interredPeople = new ArrayList<InterredPerson>(numInterred);
+        people = new ArrayList<Person>(numPeople);
     }
 
     /**
@@ -153,7 +152,8 @@ public class Cemetery {
         if (p.getOwner() != null) p.getOwner().addOwnedPlot(p.getID());
 
         plots.add(p);
-        sections.get(sections.indexOf(new Section(section))).add(p); // this is why we need hashmap probably
+
+        sections.get(sections.indexOf(new Section(section))).add(p);
     }
 
     /**
@@ -202,7 +202,6 @@ public class Cemetery {
      */
     private InterredPerson loadInterredPerson(BufferedReader buffer) throws IOException {
         InterredPerson ip;
-        SimpleDateFormat sdf;
         int interredID; // id number for the interred person
         int plotID; // id number of the plot in which this person is interred
         Date born, died;
@@ -212,7 +211,7 @@ public class Cemetery {
         String phone;
 
         String temp;
-        sdf = new SimpleDateFormat("MM/DD/YYYY");
+
         temp = buffer.readLine().trim();
 
         if (temp.equals("null")) {

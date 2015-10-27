@@ -213,7 +213,7 @@ public class Person implements Comparable<Person> {
      *         false, if unsuccessful
      */
     public boolean removeOwnedPlot(int plotID) {
-        return plots.remove(plotID) != null;
+        return plots.remove(new Integer(plotID));
     }
 
     /**
