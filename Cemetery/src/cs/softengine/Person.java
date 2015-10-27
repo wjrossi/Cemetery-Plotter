@@ -212,7 +212,9 @@ public class Person implements Comparable<Person> {
      * @return true, if successful
      *         false, if unsuccessful
      */
-    public boolean removeOwnedPlot(int plotID) { return plots.remove(new Integer(plotID)); }
+    public boolean removeOwnedPlot(int plotID) {
+        return plots.remove(new Integer(plotID));
+    }
 
     /**
      * Compare a person to another person based on last name, first name, and phone
