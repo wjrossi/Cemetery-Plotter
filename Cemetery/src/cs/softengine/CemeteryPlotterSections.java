@@ -8,7 +8,7 @@ import java.awt.event.*;
 /**
  * Content pane for selecting section(s) of the cemetery
  */
-public class CemeteryPlotterSections implements ActionListener, ItemListener {
+public class CemeteryPlotterSections extends CemeteryPlotter implements ActionListener, ItemListener {
     private JPanel sectionsPanel;
 
     /**

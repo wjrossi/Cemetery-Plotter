@@ -9,7 +9,7 @@ import java.util.ArrayList;
 /**
  * Content pane containing editable information on a plot owner
  */
-public class CemeteryPlotterOwner implements ActionListener, ItemListener {
+public class CemeteryPlotterOwner extends CemeteryPlotter implements ActionListener, ItemListener {
     private JPanel ownerPanel;
     private ArrayList<JComponent> editable;
 

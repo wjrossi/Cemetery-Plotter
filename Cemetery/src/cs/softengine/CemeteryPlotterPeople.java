@@ -8,7 +8,7 @@ import java.awt.event.*;
 /**
  * Content pane allowing for the searching and listing of people in the cemetery
  */
-public class CemeteryPlotterPeople {
+public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionListener, ItemListener {
     private JPanel peoplePanel;
 
     /**

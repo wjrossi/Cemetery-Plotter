@@ -12,7 +12,7 @@ import java.util.Date;
 /**
  * Content pane containing editable information of an interred person
  */
-public class CemeteryPlotterInterredPerson implements ActionListener, ItemListener {
+public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements ActionListener, ItemListener {
     private JPanel interredPanel;
     private ArrayList<JComponent> editable;
     private SimpleDateFormat sdf;

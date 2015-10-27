@@ -13,7 +13,7 @@ import java.util.Date;
 /**
  * Content pane for plot info
  */
-public class CemeteryPlotterPlot implements ActionListener, ItemListener {
+public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListener, ItemListener {
     private JPanel plotPanel;
     private ArrayList<JComponent> editable;
     private SimpleDateFormat sdf;

@@ -8,7 +8,7 @@ import java.awt.event.*;
 /**
  * Content pane for listing of plots belonging to selected section(s)
  */
-public class CemeteryPlotterPlots implements ActionListener, ItemListener {
+public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListener, ItemListener {
     private JPanel plotsPanel;
 
     /**

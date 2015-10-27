@@ -131,7 +131,8 @@ public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListen
                 } // else do nothing
                 break;
             case "QUIT":  // quit the program
-                // ??????
+                // probably show a dialog asking if you want to save & exit or exit without saving
+                // probably send some kind of window event about exiting
                 break;
         }
     }
