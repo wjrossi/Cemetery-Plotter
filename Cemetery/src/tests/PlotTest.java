@@ -235,4 +235,32 @@ public class PlotTest {
         p.setMoneyDue(100);
         assertEquals("Plot money due must be 100, but is " + p.getMoneyDue(), p.getMoneyDue(), 100);
     }
+
+    /**
+     * Tests that Plot.compareTo() is working correctly.
+     */
+    @Test
+    public void testCompareTo() {
+        p = new Plot();
+        Plot p2 = new Plot();
+
+        p.setID(1234);
+        p2.setID(5678);
+
+        assertNotEquals("These plots should not be considered equal.", p.compareTo(p2), 0);
+    }
+
+    /**
+     * Tests that the Plot.equals() method is working correctly.
+     */
+    @Test
+    public void testEquals() {
+        p = new Plot();
+        Plot p2 = new Plot();
+
+        p.setID(1234);
+        p2.setID(1234);
+
+        assertTrue("These plots should be considered equal, but are not.", p.equals(p2));
+    }
 }

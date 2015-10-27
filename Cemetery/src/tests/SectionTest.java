@@ -77,4 +77,26 @@ public class SectionTest {
                 + "</SECTION>\n";
         assertEquals("Section string should be " + testStr + " but is " + s.toString(), s.toString(), testStr);
     }
+
+    /**
+     * Tests that Section.compareTo() is working correctly.
+     */
+    @Test
+    public void testCompareTo() {
+        s = new Section("AA", 0);
+        Section s2 = new Section("AB", 0);
+
+        assertNotEquals("These sections should not be considered equal, but are.", s.compareTo(s2), 0);
+    }
+
+    /**
+     * Tests that Section.equals() method is working correctly.
+     */
+    @Test
+    public void testEquals() {
+        s = new Section("AA", 0);
+        Section s2 = new Section("AA", 0);
+
+        assertTrue("These sections should be considered equal, but are not.", s.equals(s2));
+    }
 }

@@ -3,6 +3,8 @@ package tests;
 import cs.softengine.Person;
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.Assert.*;
 
 /**
@@ -181,5 +183,102 @@ public class PersonTest {
                 + "</PERSON>\n";
 
         assertEquals("Person string should be " + testStr + " but is " + p.toString(), p.toString(), testStr);
+    }
+
+    /**
+     * Tests that Person.setOwnedPlot() correctly sets the plots variable of the Person class, and Person.getOwnedPlots() returns the correct values.
+     * NOTE: this test assumes that the ArrayList constructor works correctly (because it does and that's not the focus of this test).
+     */
+    @Test
+    public void testSetOwnedPlot() {
+        p = new Person();
+        ArrayList<Integer> plots = new ArrayList<Integer>();
+
+        //Set the 'plots' variable
+        p.setOwnedPlots(plots);
+
+        //Verify that the 'plots' variable has been set for this Person
+        assertEquals("getOwnedPlots should return " + plots + ", but returned " + p.getOwnedPlots(), p.getOwnedPlots(), plots);
+    }
+
+    /**
+     * Tests that Person.addOwnedPlots() correctly adds plots to the 'plots' ArrayList of a Person object.
+     * NOTE: this test assumes that the ArrayList constructor works correctly (because it does and that's not the focus of this test).
+     */
+    @Test
+    public void testAddOwnedPlot() {
+        p = new Person();
+        ArrayList<Integer> plots = new ArrayList<Integer>();
+
+        //Set the 'plots' variable
+        p.setOwnedPlots(plots);
+
+        //Verify that the plot has been added.
+        assertTrue("Failed to add the plot!", p.addOwnedPlot(1));
+
+        //Verify that the plot added was the correct plot.
+        assertEquals("Added plot should be " + plots.get(0).toString() + ", but is " + p.getOwnedPlots().get(0).toString(), p.getOwnedPlots().get(0).toString(), plots.get(0).toString());
+    }
+
+    /**
+     * Tests that Person.removeOwnedPlot() correctly removes plots from the 'plots' ArrayList of a Person object.
+     * NOTE: this test assumes that the ArrayList constructor and add method works correctly (becase they do and that's not the focus of this test).
+     */
+    @Test
+    public void testRemoveOwnedPlot() {
+        p = new Person();
+        ArrayList<Integer> plots = new ArrayList<Integer>();
+        plots.add(1);
+
+        //Set the 'plots' variable
+        p.setOwnedPlots(plots);
+
+        //Verify that the plot was removed
+        assertTrue("Failed to remove the plot!", p.removeOwnedPlot(1));
+    }
+
+    /**
+     * Tests that the Person.compareTo() method is working correctly for Persons with different last names.
+     */
+    @Test
+    public void testCompareToLastName() {
+        p = new Person("Bill", "Laboon");
+        Person p2 = new Person("Bill", "Catboon");
+
+        assertNotEquals("Bill Laboon and Bill Catboon should not be equal!", p.compareTo(p2), 0);
+    }
+
+    /**
+     * Tests that the Person.compareTo() method is working correctly for Persons with the same last name, but different first names.
+     */
+    @Test
+    public void testCompareToFirstName() {
+        p = new Person("Bill", "Laboon");
+        Person p2 = new Person("Cat", "Laboon");
+
+        assertNotEquals("Bill Laboon and Cat Laboon should not be equal!", p.compareTo(p2), 0);
+    }
+
+    /**
+     * Tests that the Person.compareTo() method is working correctly for Persons with the same name, but different phone numbers.
+     */
+
+    @Test
+    public void testCompareToPhone() {
+        p = new Person("Bill", "Laboon", "1234 Laboon Place", "4567 Bill Street", "Laboontown", "Maine", "1337", "555-555-5555");
+        Person p2 = new Person("Bill", "Laboon", "1234 Different Place", "4567 Different Street", "Differentown", "Rhode Island", "7331", "555-555-CATS");
+
+        assertNotEquals("Bill Laboon and Bill Laboon have the same name, but are not the same person!", p.compareTo(p2), 0);
+    }
+
+    /**
+     * Tests that the Person.equals() method is working correctly.
+     */
+    @Test
+    public void testEquals() {
+        p = new Person("Bill", "Laboon", "1234 Laboon Place", "4567 Bill Street", "Laboontown", "Maine", "1337", "555-555-5555");
+        Person p2 = new Person("Bill", "Laboon", "1234 Laboon Place", "4567 Bill Street", "Laboontown", "Maine", "1337", "555-555-5555");
+
+        assertTrue("These people should be considered equal, but are not.", p.equals(p2));
     }
 }
