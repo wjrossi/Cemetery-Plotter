@@ -7,19 +7,29 @@ import java.awt.event.*;
 /**
  * The main GUI window for Cemetery Plotter
  */
-public class CemeteryPlotterFrame {
-    private static CemeteryPlotterSections cemeteryPlotterSections;
-    private static CemeteryPlotterPlots cemeteryPlotterPlots;
-    private static CemeteryPlotterPlot cemeteryPlotterPlot;
-    private static CemeteryPlotterInterredPerson cemeteryPlotterInterredPerson;
-    private static CemeteryPlotterOwner cemeteryPlotterOwner;
-    private static CemeteryPlotterPeople cemeteryPlotterPeople;
-    private static CemeteryPlotterMap cemeteryPlotterMap;
+public class CemeteryPlotterFrame extends CemeteryPlotter {
+    private CemeteryPlotterMenu cemeteryPlotterMenu;
+    private CemeteryPlotterSections cemeteryPlotterSections;
+    private CemeteryPlotterPlots cemeteryPlotterPlots;
+    private CemeteryPlotterPlot cemeteryPlotterPlot;
+    private CemeteryPlotterInterredPerson cemeteryPlotterInterredPerson;
+    private CemeteryPlotterOwner cemeteryPlotterOwner;
+    private CemeteryPlotterPeople cemeteryPlotterPeople;
+    private CemeteryPlotterMap cemeteryPlotterMap;
+
+    /**
+     * Construct the CemeteryPlotterFrame by scheduling a job for the event-dispatching thread that
+     * creates and shows the application's GUI
+     */
+    public CemeteryPlotterFrame() {
+        // load GUI in separate thread
+        SwingUtilities.invokeLater(() -> createAndShowGUI());
+    }
 
     /**
      * Create the GUI and show it. Invoked from the event-dispatching thread.
      */
-    private static void createAndShowGUI() {
+    private void createAndShowGUI() {
         // get the good GUI elements
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -33,7 +43,7 @@ public class CemeteryPlotterFrame {
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         // create and set up the menu bar
-        CemeteryPlotterMenu cemeteryPlotterMenu = new CemeteryPlotterMenu();
+        cemeteryPlotterMenu = new CemeteryPlotterMenu();
         frame.setJMenuBar(cemeteryPlotterMenu.getMenuBar());
 
         // create empty panes for layout
@@ -89,14 +99,5 @@ public class CemeteryPlotterFrame {
         DISABLED TILL WE NEED IT. SHOULD BE MOVED TO A DIFFERENT METHOD OR THREAD MAYBE?
         LOCKS THINGS UP WHILE IT IS LOADING
         */
-    }
-
-    /**
-     * Schedule a job for the event-dispatching thread
-     * creating and showing the applications GUI
-     * @param args ignored
-     */
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> createAndShowGUI());
     }
 }

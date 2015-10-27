@@ -1,13 +1,16 @@
 package cs.softengine;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * Cemetery Plotter Menu GUI Element
  */
-public class CemeteryPlotterMenu implements ActionListener, ItemListener {
+public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListener, ItemListener {
     private JMenuBar menu;
 
     /**
@@ -84,10 +87,103 @@ public class CemeteryPlotterMenu implements ActionListener, ItemListener {
      * @param e
      */
     public void actionPerformed(ActionEvent e) {
+        String choice;
         JMenuItem source = (JMenuItem) (e.getSource());
-        System.out.println("Action event detected... Event source: " + source.getText());
 
-        // launch file dialogs or save etc...
+        choice = source.getText().toUpperCase();
+
+        switch (choice) {
+            case "OPEN": // open a file
+                File file = openFile();
+
+                if (file != null) {
+                    try {
+                        setWorkingFile(file); // set the working file to the selected file
+                        getCemetery().load(file); // open the file using the cemetery object's load(file) method
+                    } catch (IOException ex) {
+                        // major error, how do we handle it??
+                        System.err.println("Unable to read input file.");
+                        ex.printStackTrace();
+                    }
+                } // else do nothing
+                break;
+            case "SAVE": // save a file
+                try {
+                    getCemetery().save(getWorkingFile()); // save the working file
+                } catch (IOException ex) {
+                    // major error, how do we handle it
+                    System.err.println("Unable to save file.");
+                    ex.printStackTrace();
+                }
+                break;
+            case "SAVE AS":  // save as a user chosen file
+                file = saveAsFile();
+
+                if (file != null) {
+                    try {
+                        setWorkingFile(file); // set the working file to the selected file
+                        getCemetery().save(file); // open the file using the cemetery object's load(file) method
+                    } catch (IOException ex) {
+                        // major error, how do we handle it??
+                        System.err.println("Unable to read input file.");
+                        ex.printStackTrace();
+                    }
+                } // else do nothing
+                break;
+            case "QUIT":  // quit the program
+                // ??????
+                break;
+        }
+    }
+
+    /**
+     * Show file chooser dialog to open a cemetery db file
+     * @return file
+     */
+    private File openFile() {
+        JFileChooser fileChooser;
+        FileNameExtensionFilter fileFilter;
+        File file;
+        int result;
+
+        file = null;
+
+        fileChooser = new JFileChooser(getWorkingFile());
+        fileFilter = new FileNameExtensionFilter("Cemetery DB Files", "db");
+        fileChooser.setFileFilter(fileFilter);
+
+        result = fileChooser.showOpenDialog(menu.getParent());
+
+        if (result == JFileChooser.APPROVE_OPTION) {
+            file = fileChooser.getSelectedFile();
+        }
+
+        return file;
+    }
+
+    /**
+     * Show file chooser dialog to save a cemetery db file
+     * @return file
+     */
+    private File saveAsFile() {
+        JFileChooser fileChooser;
+        FileNameExtensionFilter fileFilter;
+        File file;
+        int result;
+
+        file = null;
+
+        fileChooser = new JFileChooser(getWorkingFile());
+        fileFilter = new FileNameExtensionFilter("Cemetery DB Files", "db");
+        fileChooser.setFileFilter(fileFilter);
+
+        result = fileChooser.showSaveDialog(menu.getParent());
+
+        if (result == JFileChooser.APPROVE_OPTION) {
+            file = fileChooser.getSelectedFile();
+        }
+
+        return file;
     }
 
     /**

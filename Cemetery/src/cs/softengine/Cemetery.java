@@ -35,6 +35,7 @@ public class Cemetery {
             load(file);
         } catch (IOException e) {
             System.err.println("Unable to read input file. Exiting.");
+            e.printStackTrace();
             System.exit(1);
         }
     }

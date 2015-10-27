@@ -1,65 +1,49 @@
 package cs.softengine;
 
-import java.io.IOException;
 import java.io.File;
-import java.util.ArrayList;
 
 /**
  * CemeteryPlotter utility for cemetery management.
  */
 public class CemeteryPlotter {
+    private static CemeteryPlotterFrame cemeteryPlotterFrame;
+    private static Cemetery cemetery;
+    private static File workingFile;
+
     /**
      * Main
      * @param args n/a
      */
-    public static void main(String [] args){
-        File defaultFile = new File("cemetery.db"); // the default file for saving and loading cemetery data
-        Cemetery cemetery = new Cemetery(defaultFile); // initialize cemetery with default file
+    public static void main(String[] args){
+        File defaultFile;
 
-        try {
-            run(cemetery);
-        } catch (RuntimeException e) {
-            throw new RuntimeException(e);
-        } finally {
-            try {
-                cemetery.save(defaultFile); // clean-up and save data
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            } finally {
-                // don't exit? did it save?
-            }
-        }
+        defaultFile = new File("cemetery.db"); // the default file for saving and loading cemetery data
+        workingFile = defaultFile; // set working file to default file
+        cemetery = new Cemetery(defaultFile); // initialize cemetery with default file
+        cemeteryPlotterFrame = new CemeteryPlotterFrame(); // create and initialize GUI
     }
 
     /**
-     * Run CemeteryPlotter
+     * Get the main cemetery object
+     * @return cemetery
      */
-    private static void run(Cemetery c) throws RuntimeException {
-        // eventually we will make the gui and show it by calling this
-        // for now, use command line..
-        System.out.println("CemeteryPlotter");
+    public static Cemetery getCemetery() {
+        return cemetery;
+    }
 
-        ArrayList<Section> sections = c.getSections();
-        ArrayList<Plot> plots = c.getPlots();
-        ArrayList<InterredPerson> interredPeople = c.getInterredPeople();
-        ArrayList<Person> people = c.getPeople();
+    /**
+     * Set the working file whenever user opens a file
+     * @param file working file, null if you want to use defaultFile
+     */
+    public static void setWorkingFile(File file) {
+        workingFile = file;
+    }
 
-        for (Section s : sections) {
-            System.out.println("Section:\n" + s);
-            for (Plot p : s.getPlots())
-                System.out.println("Plot in " + s.getName() + "\n" + p);
-        }
-
-        for (Section s : sections)
-            System.out.println("Section:\n" + s);
-
-        for (Plot p : plots)
-            System.out.println("Plot:\n" + p);
-
-        for (InterredPerson ip : interredPeople)
-            System.out.println("InterredPerson:\n" + ip);
-
-        for (Person p : people)
-            System.out.println("Person:\n" + p);
+    /**
+     * Get working file
+     * @return working file
+     */
+    public static File getWorkingFile() {
+        return workingFile;
     }
 }
