@@ -19,7 +19,7 @@ public class CemeteryTest {
     ArrayList<Section> sections;
     ArrayList<Plot> plots;
     ArrayList<InterredPerson> interredPeople;
-    ArrayList<Person> people;
+    ArrayList<Person> ownerPeople;
 
     /**
      * Tests that Cemetery.save(File file) correctly Save cemetery data to file.
@@ -125,16 +125,16 @@ public class CemeteryTest {
     }
 
     /**
-     * Tests that Cemetery.getPeople() correctly Get list of all (non-interred) people in Cemetery class.
+     * Tests that Cemetery.getOwnerPeople() correctly Get list of all (non-interred) people in Cemetery class.
      */
     @Test
-    public void testGetPeople() throws Exception{
+    public void testGetOwnerPeople() throws Exception{
         c = new Cemetery();
-        people = new ArrayList<Person>();
+        ownerPeople = new ArrayList<Person>();
         Person mockPerson = Mockito.mock(Person.class);
-        people.add(mockPerson);
+        ownerPeople.add(mockPerson);
 
-        assertEquals("people must be " + people + ", but returned " + c.getPeople(), c.getPeople().toString(), "[]");
+        assertEquals("people must be " + ownerPeople + ", but returned " + c.getOwnerPeople(), c.getOwnerPeople().toString(), "[]");
     }
 
     /**

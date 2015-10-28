@@ -7,13 +7,14 @@ import java.awt.event.*;
 
 /**
  * Content pane allowing for the searching and listing of people in the cemetery
+ * based on current selected section(s)
  */
 public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionListener, ItemListener {
     private JPanel peoplePanel;
     private JTextField searchField;
     private JComboBox<String> searchByBox;
     private JButton searchButton;
-    private JRadioButton allRadioButton;
+    private JRadioButton bothRadioButton;
     private JRadioButton interredPeopleRadioButton;
     private JRadioButton ownersRadioButton;
     private ButtonGroup searchButtonGroup;
@@ -69,22 +70,22 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
         searchCenter.add(searchButton);
 
         // create search radio buttons
-        allRadioButton = new JRadioButton("All", true);
         interredPeopleRadioButton = new JRadioButton("Interred", false);
         ownersRadioButton = new JRadioButton("Owners", false);
+        bothRadioButton = new JRadioButton("Both", true);
 
         // create search radio button group
         searchButtonGroup = new ButtonGroup();
-        searchButtonGroup.add(allRadioButton);
         searchButtonGroup.add(interredPeopleRadioButton);
         searchButtonGroup.add(ownersRadioButton);
+        searchButtonGroup.add(bothRadioButton);
 
         // create search radio button panel and add radio buttons to panel
         JPanel searchRadioButtonPanel = new JPanel();
         searchRadioButtonPanel.setLayout(new BoxLayout(searchRadioButtonPanel, BoxLayout.LINE_AXIS));
-        searchRadioButtonPanel.add(allRadioButton);
         searchRadioButtonPanel.add(interredPeopleRadioButton);
         searchRadioButtonPanel.add(ownersRadioButton);
+        searchRadioButtonPanel.add(bothRadioButton);
 
         // add search field, searchCenter panel and search radio button panel to overall search panel
         JPanel searchPanel = new JPanel(new BorderLayout());

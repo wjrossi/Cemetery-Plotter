@@ -13,7 +13,7 @@ public class Cemetery {
     private ArrayList<Section> sections; // list of all sections in the cemetery
     private ArrayList<Plot> plots; // list of all plots in the cemetery
     private ArrayList<InterredPerson> interredPeople; // list of all interred people in the cemetery
-    private ArrayList<Person> people; // list of all (non-interred) people in the cemetery
+    private ArrayList<Person> ownerPeople; // list of all plot owner people in the cemetery
     private SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 
     /**
@@ -23,7 +23,7 @@ public class Cemetery {
         sections = new ArrayList<Section>();
         plots = new ArrayList<Plot>();
         interredPeople = new ArrayList<InterredPerson>();
-        people = new ArrayList<Person>();
+        ownerPeople = new ArrayList<Person>();
     }
 
     /**
@@ -76,16 +76,16 @@ public class Cemetery {
         int numSections; // number of sections in cemetery
         int numPlots; // number of plots in the cemetery
         int numInterred; // number of interred people in cemetery
-        int numPeople; // number of (non-interred) people
+        int numOwners; // number of (non-interred) people
         numSections = Integer.parseInt(buffer.readLine().trim());
         numPlots = Integer.parseInt(buffer.readLine().trim());
         numInterred = Integer.parseInt(buffer.readLine().trim());
-        numPeople = Integer.parseInt(buffer.readLine().trim());
+        numOwners = Integer.parseInt(buffer.readLine().trim());
 
         sections = new ArrayList<Section>(numSections);
         plots = new ArrayList<Plot>(numPlots);
         interredPeople = new ArrayList<InterredPerson>(numInterred);
-        people = new ArrayList<Person>(numPeople);
+        ownerPeople = new ArrayList<Person>(numOwners);
     }
 
     /**
@@ -190,7 +190,7 @@ public class Cemetery {
             buffer.readLine().trim(); // read empty line
 
             p = new Person(fname, lname, address1, address2, city, state, zip, phone);
-            people.add(p);
+            ownerPeople.add(p);
         }
 
         return p;
@@ -346,11 +346,11 @@ public class Cemetery {
     }
 
     /**
-     * Get list of all (non-interred) people in cemetery
+     * Get list of all owner people in cemetery
      * @return people
      */
-    public ArrayList<Person> getPeople() {
-        return people;
+    public ArrayList<Person> getOwnerPeople() {
+        return ownerPeople;
     }
 
     /**
@@ -362,7 +362,7 @@ public class Cemetery {
                 + sections.size() + "\n"
                 + plots.size() + "\n"
                 + interredPeople.size() + "\n"
-                + people.size() + "\n"
+                + ownerPeople.size() + "\n"
                 + "</CEMETERY>\n";
     }
 }

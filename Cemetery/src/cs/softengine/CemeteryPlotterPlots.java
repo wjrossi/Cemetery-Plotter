@@ -11,7 +11,6 @@ import java.awt.event.*;
 public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListener, ItemListener {
     private JPanel plotsPanel;
     private JTextField searchField;
-    private JButton searchButton;
     private JList<String> plotsList;
     private JScrollPane plotsListScrollPane;
     private JButton newPlotButton;
@@ -47,15 +46,14 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
 
         // add things to main panel
 
-        // create search text field
+        // create search text field and button
         searchField = new JTextField(8);
-        searchButton = new JButton("Go");
+        searchField.setToolTipText("View or edit the specified plot");
 
         // add search text field and button to search panel
         JPanel searchPanel = new JPanel();
         searchPanel.setLayout(new BoxLayout(searchPanel, BoxLayout.LINE_AXIS));
         searchPanel.add(searchField);
-        searchPanel.add(searchButton);
 
         // add search panel to main panel
         panel.add(searchPanel, BorderLayout.PAGE_START);
@@ -68,9 +66,15 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
         plotsList.setLayoutOrientation(JList.VERTICAL);
         plotsList.setPrototypeCellValue("999999");
 
+        plotsList.setToolTipText("Select the plot you wish to view or edit");
+
         // create new and delete buttons
         newPlotButton = new JButton("New Plot");
         deletePlotButton = new JButton("Delete Plot(s)");
+
+        newPlotButton.setToolTipText("Add a new plot and view/edit its information");
+        deletePlotButton.setToolTipText("Permanently delete the selected plot from the cemetery");
+
         JPanel plotsButtonsPanel = new JPanel();
         plotsButtonsPanel.setLayout(new BoxLayout(plotsButtonsPanel, BoxLayout.LINE_AXIS));
         plotsButtonsPanel.add(newPlotButton);
