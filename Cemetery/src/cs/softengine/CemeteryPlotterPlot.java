@@ -65,9 +65,12 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
         // create labels
         JLabel sectionLabel = new JLabel("Section:");
         JLabel plotIDLabel = new JLabel("PlotID:");
-        JLabel burialDateLabel = new JLabel("Burial (MM/DD/YYYY):");
-        JLabel purchasedDateLabel = new JLabel("Purchased (MM/DD/YYYY):");
+        JLabel burialDateLabel = new JLabel("Date of Burial:");
+        JLabel purchasedDateLabel = new JLabel("Date of Purchase:");
         JLabel moneyDueLabel = new JLabel("Amount Owed:");
+
+        burialDateLabel.setToolTipText("MM/DD/YYYY");
+        purchasedDateLabel.setToolTipText("MM/DD/YYYY");
 
         // create text fields
         sectionField = new JTextField(6);
@@ -213,5 +216,19 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
      */
     public void itemStateChanged(ItemEvent e) {
         //
+    }
+
+    /**
+     * Get the data from cemetery about a plot and load it into the appropriate GUI elements
+     */
+    public void getPlotData() {
+        // figure out what plot data to fill in based on selected plot from CemeteryPlotterPlots
+    }
+
+    /**
+     * Set the data from the GUI into the plot in the cemetery
+     */
+    public void setPlotData() {
+        // write the plot data from the GUI fields into the right place in the data layer
     }
 }

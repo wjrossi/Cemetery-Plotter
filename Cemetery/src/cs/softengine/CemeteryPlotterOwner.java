@@ -251,4 +251,18 @@ public class CemeteryPlotterOwner extends CemeteryPlotter implements ActionListe
     public void itemStateChanged(ItemEvent e) {
         //
     }
+
+    /**
+     * Get the data from cemetery about a plot and load it into the appropriate GUI elements
+     */
+    public void getOwnerData() {
+        // figure out what owner data to fill in based on selected plot from CemeteryPlotterPlots
+    }
+
+    /**
+     * Set the data from the GUI into the owner Person in the cemetery
+     */
+    public void setOwnerData() {
+        // write the owner data from the GUI fields into the right place in the data layer
+    }
 }

@@ -2,9 +2,8 @@ package tests;
 
 import cs.softengine.*;
 import org.junit.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
-import java.io.BufferedReader;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,8 +17,8 @@ public class CemeteryTest {
     Cemetery c;
     ArrayList<Section> sections;
     ArrayList<Plot> plots;
-    ArrayList<InterredPerson> interredPeople;
-    ArrayList<Person> ownerPeople;
+    ArrayList<InterredPerson> interred;
+    ArrayList<Person> owners;
 
     /**
      * Tests that Cemetery.save(File file) correctly Save cemetery data to file.
@@ -112,29 +111,29 @@ public class CemeteryTest {
     }
 
     /**
-     * Tests that Cemetery.getInterredPeople() correctly Get list of all interred people in Cemetery class.
+     * Tests that Cemetery.getInterred() correctly Get list of all interred people in Cemetery class.
      */
     @Test
-    public void testGetInterredPeople() throws Exception{
+    public void testGetInterred() throws Exception{
         c = new Cemetery();
-        interredPeople = new ArrayList<InterredPerson>();
+        interred = new ArrayList<InterredPerson>();
         InterredPerson mockInterredPerson = Mockito.mock(InterredPerson.class);
-        interredPeople.add(mockInterredPerson);
+        interred.add(mockInterredPerson);
 
-        assertEquals("interredPeople must be " + interredPeople + ", but returned " + c.getInterredPeople(), c.getInterredPeople().toString(), "[]");
+        assertEquals("interredPeople must be " + interred + ", but returned " + c.getInterred(), c.getInterred().toString(), "[]");
     }
 
     /**
-     * Tests that Cemetery.getOwnerPeople() correctly Get list of all (non-interred) people in Cemetery class.
+     * Tests that Cemetery.getOwners() correctly Get list of all (non-interred) people in Cemetery class.
      */
     @Test
-    public void testGetOwnerPeople() throws Exception{
+    public void testGetOwners() throws Exception{
         c = new Cemetery();
-        ownerPeople = new ArrayList<Person>();
+        owners = new ArrayList<Person>();
         Person mockPerson = Mockito.mock(Person.class);
-        ownerPeople.add(mockPerson);
+        owners.add(mockPerson);
 
-        assertEquals("people must be " + ownerPeople + ", but returned " + c.getOwnerPeople(), c.getOwnerPeople().toString(), "[]");
+        assertEquals("people must be " + owners + ", but returned " + c.getOwners(), c.getOwners().toString(), "[]");
     }
 
     /**

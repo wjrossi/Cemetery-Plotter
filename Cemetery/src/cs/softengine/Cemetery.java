@@ -12,8 +12,8 @@ import java.util.Date;
 public class Cemetery {
     private ArrayList<Section> sections; // list of all sections in the cemetery
     private ArrayList<Plot> plots; // list of all plots in the cemetery
-    private ArrayList<InterredPerson> interredPeople; // list of all interred people in the cemetery
-    private ArrayList<Person> ownerPeople; // list of all plot owner people in the cemetery
+    private ArrayList<InterredPerson> interred; // list of all interred people in the cemetery
+    private ArrayList<Person> owners; // list of all plot owner people in the cemetery
     private SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 
     /**
@@ -22,8 +22,8 @@ public class Cemetery {
     public Cemetery() {
         sections = new ArrayList<Section>();
         plots = new ArrayList<Plot>();
-        interredPeople = new ArrayList<InterredPerson>();
-        ownerPeople = new ArrayList<Person>();
+        interred = new ArrayList<InterredPerson>();
+        owners = new ArrayList<Person>();
     }
 
     /**
@@ -84,8 +84,8 @@ public class Cemetery {
 
         sections = new ArrayList<Section>(numSections);
         plots = new ArrayList<Plot>(numPlots);
-        interredPeople = new ArrayList<InterredPerson>(numInterred);
-        ownerPeople = new ArrayList<Person>(numOwners);
+        interred = new ArrayList<InterredPerson>(numInterred);
+        owners = new ArrayList<Person>(numOwners);
     }
 
     /**
@@ -190,7 +190,7 @@ public class Cemetery {
             buffer.readLine().trim(); // read empty line
 
             p = new Person(fname, lname, address1, address2, city, state, zip, phone);
-            ownerPeople.add(p);
+            owners.add(p);
         }
 
         return p;
@@ -248,7 +248,7 @@ public class Cemetery {
             ip = new InterredPerson(interredID, plotID, born, died,
                     fname, lname, address1, address2, city, state, zip, phone);
 
-            interredPeople.add(ip);
+            interred.add(ip);
         }
 
         return ip;
@@ -341,16 +341,16 @@ public class Cemetery {
      * Get list of all interred people in cemetery
      * @return interred people
      */
-    public ArrayList<InterredPerson> getInterredPeople() {
-        return interredPeople;
+    public ArrayList<InterredPerson> getInterred() {
+        return interred;
     }
 
     /**
      * Get list of all owner people in cemetery
      * @return people
      */
-    public ArrayList<Person> getOwnerPeople() {
-        return ownerPeople;
+    public ArrayList<Person> getOwners() {
+        return owners;
     }
 
     /**
@@ -361,8 +361,8 @@ public class Cemetery {
         return "<CEMETERY>\n"
                 + sections.size() + "\n"
                 + plots.size() + "\n"
-                + interredPeople.size() + "\n"
-                + ownerPeople.size() + "\n"
+                + interred.size() + "\n"
+                + owners.size() + "\n"
                 + "</CEMETERY>\n";
     }
 }

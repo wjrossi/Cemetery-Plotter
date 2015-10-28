@@ -110,4 +110,11 @@ public class CemeteryPlotterSections extends CemeteryPlotter implements ActionLi
     public void getSectionsData() {
         // do stuff to list all the sections in the list
     }
+
+    /**
+     * Set the data from the GUI into the Cemetery and Section in the cemetery
+     */
+    public void setSectionsData() {
+        // write the sections data from the GUI fields into the right place in the data layer
+    }
 }

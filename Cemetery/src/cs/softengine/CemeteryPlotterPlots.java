@@ -109,4 +109,11 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
     public void getPlotsData() {
         // figure out which plots to put in the list (based on which sections are selected in CemeteryPlotterSections)
     }
+
+    /**
+     * Set the data from the GUI into the Cemetery, Section, and Plot in the cemetery
+     */
+    public void setPlotsData() {
+        // write the plot data from the GUI fields into the right place in the data layer
+    }
 }

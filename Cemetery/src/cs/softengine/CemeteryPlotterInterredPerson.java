@@ -75,8 +75,11 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
         JLabel stateLabel = new JLabel("State:");
         JLabel zipLabel = new JLabel("Zip:");
         JLabel phoneLabel = new JLabel("Phone:");
-        JLabel bornDateLabel = new JLabel("Born (MM/DD/YYYY):");
-        JLabel diedDateLabel = new JLabel("Died (MM/DD/YYYY):");
+        JLabel bornDateLabel = new JLabel("Date of Birth:");
+        JLabel diedDateLabel = new JLabel("Date of Death:");
+
+        bornDateLabel.setToolTipText("MM/DD/YYYY");
+        diedDateLabel.setToolTipText("MM/DD/YYYY");
 
         // create text fields
         interredIDField = new JTextField(6);
@@ -264,5 +267,19 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
      */
     public void itemStateChanged(ItemEvent e) {
         //
+    }
+
+    /**
+     * Get the data from cemetery about an interred person and load it into the appropriate GUI elements
+     */
+    public void getInterredData() {
+        // figure out what interred person data to fill in based on selected plot from CemeteryPlotterPlots
+    }
+
+    /**
+     * Set the data from the GUI into the interred person in the cemetery
+     */
+    public void setInterredData() {
+        // write the interred person data from the GUI fields into the right place in the data layer
     }
 }
