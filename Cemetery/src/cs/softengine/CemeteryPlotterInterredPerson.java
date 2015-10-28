@@ -182,7 +182,20 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
         editable.add(bornDateField);
         editable.add(diedDateField);
 
+        // disable editable fields until edit button is pressed
+        setFieldsEditable(false);
+
         return panel;
+    }
+
+    /**
+     * Enable or disable fields belonging to editable list
+     * @param isEditable new state of editable buttons
+     */
+    private void setFieldsEditable(boolean isEditable) {
+        for (JComponent c : editable) {
+            c.setEnabled(isEditable);
+        }
     }
 
     /**
