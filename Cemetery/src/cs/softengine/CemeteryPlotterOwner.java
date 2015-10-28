@@ -11,6 +11,22 @@ import java.util.ArrayList;
  */
 public class CemeteryPlotterOwner extends CemeteryPlotter implements ActionListener, ItemListener {
     private JPanel ownerPanel;
+    private JTextField fnameField;
+    private JTextField lnameField;
+    private JTextField address1Field;
+    private JTextField address2Field;
+    private JTextField cityField;
+    private JTextField stateField;
+    private JTextField zipField;
+    private JTextField phoneField;
+    private JList<String> plotsList;
+    private JScrollPane plotsListScrollPane;
+    private JTextField addPlotField;
+    private JButton addPlotButton;
+    private JButton removePlotButton;
+    private JButton editButton;
+    private JButton cancelButton;
+    private JButton updateButton;
     private ArrayList<JComponent> editable;
 
     /**
@@ -55,14 +71,14 @@ public class CemeteryPlotterOwner extends CemeteryPlotter implements ActionListe
         JLabel phoneLabel = new JLabel("Phone:");
 
         // create text fields
-        JTextField fnameField = new JTextField(8);
-        JTextField lnameField = new JTextField(8);
-        JTextField address1Field = new JTextField(12);
-        JTextField address2Field = new JTextField(12);
-        JTextField cityField = new JTextField(8);
-        JTextField stateField = new JTextField(2);
-        JTextField zipField = new JTextField(5);
-        JTextField phoneField = new JTextField(10);
+        fnameField = new JTextField(8);
+        lnameField = new JTextField(8);
+        address1Field = new JTextField(12);
+        address2Field = new JTextField(12);
+        cityField = new JTextField(8);
+        stateField = new JTextField(2);
+        zipField = new JTextField(5);
+        phoneField = new JTextField(10);
 
         // join labels to text fields
         fnameLabel.setLabelFor(fnameField);
@@ -74,21 +90,33 @@ public class CemeteryPlotterOwner extends CemeteryPlotter implements ActionListe
         zipLabel.setLabelFor(zipField);
         phoneLabel.setLabelFor(phoneField);
 
-        // create edit button
-        JButton editButton = new JButton("Edit"); // when clicked will unlock text fields and allow changes
+        // create edit, update, and cancel buttons
+        editButton = new JButton("Edit"); // when clicked will unlock text fields and allow changes
+        cancelButton = new JButton("Cancel");
+        updateButton = new JButton("Update");
+
+        editButton.setEnabled(false); // initial state will be reversed and update/cancel will be disabled
+
+        editButton.setActionCommand("edit");
+        updateButton.setActionCommand("update");
+        cancelButton.setActionCommand("cancel");
+
+        editButton.addActionListener(this);
+        updateButton.addActionListener(this);
+        cancelButton.addActionListener(this);
 
         // create list of plots owned by person
-        JList<String> plotsList = new JList<String>();
-        JScrollPane plotsListScrollPane = new JScrollPane(plotsList);
+        plotsList = new JList<String>();
+        plotsListScrollPane = new JScrollPane(plotsList);
         plotsListScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         plotsList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         plotsList.setLayoutOrientation(JList.VERTICAL);
         plotsList.setPrototypeCellValue("999999");
 
         // create add and remove plot buttons and text field
-        JTextField addPlotField = new JTextField(4);
-        JButton addPlotButton = new JButton("Add Plot");
-        JButton removePlotButton = new JButton("Remove Plot(s)");
+        addPlotField = new JTextField(4);
+        addPlotButton = new JButton("Add Plot");
+        removePlotButton = new JButton("Remove Plot(s)");
 
         // create sub-panels
         JPanel namePanel = new JPanel();
@@ -99,6 +127,7 @@ public class CemeteryPlotterOwner extends CemeteryPlotter implements ActionListe
         JPanel phonePanel = new JPanel();
         JPanel ownedPanel = new JPanel();
         JPanel ownedButtonsPanel = new JPanel();
+        JPanel editPanel = new JPanel();
 
         namePanel.setLayout(new BoxLayout(namePanel, BoxLayout.LINE_AXIS));
         addressPanel.setLayout(new BoxLayout(addressPanel, BoxLayout.PAGE_AXIS));
@@ -108,6 +137,7 @@ public class CemeteryPlotterOwner extends CemeteryPlotter implements ActionListe
         phonePanel.setLayout(new BoxLayout(phonePanel, BoxLayout.LINE_AXIS));
         ownedPanel.setLayout(new BoxLayout(ownedPanel, BoxLayout.PAGE_AXIS));
         ownedButtonsPanel.setLayout(new BoxLayout(ownedButtonsPanel, BoxLayout.LINE_AXIS));
+        editPanel.setLayout(new BoxLayout(editPanel, BoxLayout.LINE_AXIS));
 
         // add items to sub-panels
         namePanel.add(fnameLabel);
@@ -142,6 +172,10 @@ public class CemeteryPlotterOwner extends CemeteryPlotter implements ActionListe
         ownedPanel.add(addPlotField);
         ownedPanel.add(ownedButtonsPanel);
 
+        editPanel.add(editButton);
+        editPanel.add(cancelButton);
+        editPanel.add(updateButton);
+
         // add sub-panels to main panel
         JPanel fieldsPanel = new JPanel();
         fieldsPanel.setLayout(new BoxLayout(fieldsPanel, BoxLayout.PAGE_AXIS));
@@ -151,7 +185,7 @@ public class CemeteryPlotterOwner extends CemeteryPlotter implements ActionListe
         fieldsPanel.add(ownedPanel);
 
         panel.add(fieldsPanel, BorderLayout.PAGE_START);
-        panel.add(editButton, BorderLayout.PAGE_END);
+        panel.add(editPanel, BorderLayout.PAGE_END);
 
         // add editable components to list for easy enable/disable
         editable.add(fnameField);
@@ -166,29 +200,48 @@ public class CemeteryPlotterOwner extends CemeteryPlotter implements ActionListe
         editable.add(addPlotButton);
         editable.add(addPlotField);
         editable.add(removePlotButton);
+        editable.add(editButton);
+        editable.add(cancelButton);
+        editable.add(updateButton);
 
         // disable editable fields until edit button is pressed
-        setFieldsEditable(false);
+        setFieldsEditable();
 
         return panel;
     }
 
     /**
      * Enable or disable fields belonging to editable list
-     * @param isEditable new state of editable buttons
      */
-    private void setFieldsEditable(boolean isEditable) {
+    private void setFieldsEditable() {
         for (JComponent c : editable) {
-            c.setEnabled(isEditable);
+            c.setEnabled(!c.isEnabled());
         }
     }
 
     /**
-     * Action listener for plot owner info content pane
+     * Action listener for plot info content pane
      * @param e action event
      */
     public void actionPerformed(ActionEvent e) {
-        //
+        String action = e.getActionCommand().toLowerCase();
+
+        switch (action) {
+            case "edit":
+                setFieldsEditable();
+                cancelButton.requestFocus();
+                break;
+            case "update":
+                // write changes to plot using an additional method or call
+                setFieldsEditable();
+                editButton.requestFocus();
+                break;
+            case "cancel":
+                // revert changes by reloading info into fields
+                setFieldsEditable();
+                editButton.requestFocus();
+                break;
+        }
     }
 
     /**

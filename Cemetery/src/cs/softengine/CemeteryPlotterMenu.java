@@ -90,10 +90,10 @@ public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListen
         String choice;
         JMenuItem source = (JMenuItem) (e.getSource());
 
-        choice = source.getText().toUpperCase();
+        choice = source.getText().toLowerCase();
 
         switch (choice) {
-            case "OPEN": // open a file
+            case "open": // open a file
                 File file = openFile();
 
                 if (file != null) {
@@ -107,7 +107,7 @@ public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListen
                     }
                 } // else do nothing
                 break;
-            case "SAVE": // save a file
+            case "save": // save a file
                 try {
                     cemetery.save(workingFile); // save the working file
                 } catch (IOException ex) {
@@ -116,7 +116,7 @@ public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListen
                     ex.printStackTrace();
                 }
                 break;
-            case "SAVE AS":  // save as a user chosen file
+            case "save as":  // save as a user chosen file
                 file = saveAsFile();
 
                 if (file != null) {
@@ -130,7 +130,7 @@ public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListen
                     }
                 } // else do nothing
                 break;
-            case "QUIT":  // quit the program
+            case "quit":  // quit the program
                 // probably show a dialog asking if you want to save & exit or exit without saving
                 // probably send some kind of window event about exiting
                 break;
