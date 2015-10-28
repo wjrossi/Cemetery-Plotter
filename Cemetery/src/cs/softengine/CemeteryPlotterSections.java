@@ -17,6 +17,7 @@ public class CemeteryPlotterSections extends CemeteryPlotter implements ActionLi
     private JScrollPane sectionsListScrollPane;
     private JButton newSectionButton;
     private JButton deleteSectionButton;
+
     /**
      * Constructs a content pane for selecting section(s)
      */
@@ -120,5 +121,6 @@ public class CemeteryPlotterSections extends CemeteryPlotter implements ActionLi
      */
     public void setSectionsData() {
         // write the sections data from the GUI fields into the right place in the data layer
+        // used when a section is added or deleted
     }
 }
