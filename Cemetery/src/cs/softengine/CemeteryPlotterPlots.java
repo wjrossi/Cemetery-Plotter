@@ -10,6 +10,12 @@ import java.awt.event.*;
  */
 public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListener, ItemListener {
     private JPanel plotsPanel;
+    private JTextField searchField;
+    private JButton searchButton;
+    private JList<String> plotsList;
+    private JScrollPane plotsListScrollPane;
+    private JButton newPlotButton;
+    private JButton deletePlotButton;
 
     /**
      * Constructs a content pane for listing of plots belonging to selected section(s)
@@ -42,8 +48,8 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
         // add things to main panel
 
         // create search text field
-        JTextField searchField = new JTextField(8);
-        JButton searchButton = new JButton("Go");
+        searchField = new JTextField(8);
+        searchButton = new JButton("Go");
 
         // add search text field and button to search panel
         JPanel searchPanel = new JPanel();
@@ -55,16 +61,16 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
         panel.add(searchPanel, BorderLayout.PAGE_START);
 
         // create list of plots
-        JList<String> plotsList = new JList<String>();
-        JScrollPane plotsListScrollPane = new JScrollPane(plotsList);
+        plotsList = new JList<String>();
+        plotsListScrollPane = new JScrollPane(plotsList);
         plotsListScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         plotsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         plotsList.setLayoutOrientation(JList.VERTICAL);
         plotsList.setPrototypeCellValue("999999");
 
         // create new and delete buttons
-        JButton newPlotButton = new JButton("New Plot");
-        JButton deletePlotButton = new JButton("Delete Plot(s)");
+        newPlotButton = new JButton("New Plot");
+        deletePlotButton = new JButton("Delete Plot(s)");
         JPanel plotsButtonsPanel = new JPanel();
         plotsButtonsPanel.setLayout(new BoxLayout(plotsButtonsPanel, BoxLayout.LINE_AXIS));
         plotsButtonsPanel.add(newPlotButton);
@@ -91,5 +97,12 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
      */
     public void itemStateChanged(ItemEvent e) {
         //
+    }
+
+    /**
+     * Get the data from cemetery about plots and load it into the appropriate GUI elements
+     */
+    public void getPlotsData() {
+        // figure out which plots to put in the list (based on which sections are selected in CemeteryPlotterSections)
     }
 }

@@ -10,7 +10,12 @@ import java.awt.event.*;
  */
 public class CemeteryPlotterSections extends CemeteryPlotter implements ActionListener, ItemListener {
     private JPanel sectionsPanel;
-
+    private JButton selectAllButton;
+    private JButton selectNoneButton;
+    private JList<String> sectionList;
+    private JScrollPane sectionListScrollPane;
+    private JButton newSectionButton;
+    private JButton deleteSectionButton;
     /**
      * Constructs a content pane for selecting section(s)
      */
@@ -42,8 +47,8 @@ public class CemeteryPlotterSections extends CemeteryPlotter implements ActionLi
         // add things to main panel
 
         // create buttons
-        JButton selectAllButton = new JButton("Select All");
-        JButton selectNoneButton = new JButton("Select None");
+        selectAllButton = new JButton("Select All");
+        selectNoneButton = new JButton("Select None");
 
         // put buttons in a button panel
         JPanel buttons = new JPanel();
@@ -55,16 +60,16 @@ public class CemeteryPlotterSections extends CemeteryPlotter implements ActionLi
         panel.add(buttons, BorderLayout.PAGE_START);
 
         // create list of sections
-        JList<String> sectionList = new JList<String>();
-        JScrollPane sectionListScrollPane = new JScrollPane(sectionList);
+        sectionList = new JList<String>();
+        sectionListScrollPane = new JScrollPane(sectionList);
         sectionListScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         sectionList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         sectionList.setLayoutOrientation(JList.VERTICAL);
         sectionList.setPrototypeCellValue("ABCDEFGH");
 
         // create new and delete buttons
-        JButton newSectionButton = new JButton("New Section");
-        JButton deleteSectionButton = new JButton("Delete Section(s)");
+        newSectionButton = new JButton("New Section");
+        deleteSectionButton = new JButton("Delete Section(s)");
         JPanel sectionButtonsPanel = new JPanel();
         sectionButtonsPanel.setLayout(new BoxLayout(sectionButtonsPanel, BoxLayout.LINE_AXIS));
         sectionButtonsPanel.add(newSectionButton);
@@ -91,5 +96,12 @@ public class CemeteryPlotterSections extends CemeteryPlotter implements ActionLi
      */
     public void itemStateChanged(ItemEvent e) {
         //
+    }
+
+    /**
+     * Get the data from cemetery about sections and load it into the appropriate GUI elements
+     */
+    public void getSectionsData() {
+        // do stuff to list all the sections in the list
     }
 }

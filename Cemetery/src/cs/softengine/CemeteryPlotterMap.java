@@ -70,7 +70,7 @@ public class CemeteryPlotterMap extends CemeteryPlotter implements ActionListene
     /**
      * Load URL in map pane after other GUI elements
      */
-    public void loadMap() {
+    public void getMapData() {
         URL mapURL;
         try {
             mapURL = new URL("http://bethshalompgh.org/"); // super temporary!! may want to do this after loading gui!!

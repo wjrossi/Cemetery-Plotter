@@ -10,6 +10,15 @@ import java.awt.event.*;
  */
 public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionListener, ItemListener {
     private JPanel peoplePanel;
+    private JTextField searchField;
+    private JComboBox<String> searchByBox;
+    private JButton searchButton;
+    private JRadioButton allRadioButton;
+    private JRadioButton interredPeopleRadioButton;
+    private JRadioButton ownersRadioButton;
+    private ButtonGroup searchButtonGroup;
+    private JList<String> peopleList;
+    private JScrollPane peopleListScrollPane;
 
     /**
      * Constructs a content pane for searching and listing of people
@@ -42,16 +51,16 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
         // add things to panel
 
         // create search text field
-        JTextField searchField = new JTextField();
+        searchField = new JTextField();
 
         // create search by combo box
         String[] searchByBoxList = { "InterredID", "PlotID", "Name", "Phone",
                 "Date of Birth", "Date of Death", "Address", "City", "State", "Zip" };
-        JComboBox<String> searchByBox = new JComboBox<String>(searchByBoxList);
+        searchByBox = new JComboBox<String>(searchByBoxList);
         searchByBox.setEditable(false);
 
         // create search button
-        JButton searchButton = new JButton("Search By");
+        searchButton = new JButton("Search By");
 
         // add search by combo box and search by button to searchCenter panel
         JPanel searchCenter = new JPanel();
@@ -60,12 +69,12 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
         searchCenter.add(searchButton);
 
         // create search radio buttons
-        JRadioButton allRadioButton = new JRadioButton("All", true);
-        JRadioButton interredPeopleRadioButton = new JRadioButton("Interred", false);
-        JRadioButton ownersRadioButton = new JRadioButton("Owners", false);
+        allRadioButton = new JRadioButton("All", true);
+        interredPeopleRadioButton = new JRadioButton("Interred", false);
+        ownersRadioButton = new JRadioButton("Owners", false);
 
         // create search radio button group
-        ButtonGroup searchButtonGroup = new ButtonGroup();
+        searchButtonGroup = new ButtonGroup();
         searchButtonGroup.add(allRadioButton);
         searchButtonGroup.add(interredPeopleRadioButton);
         searchButtonGroup.add(ownersRadioButton);
@@ -87,8 +96,8 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
         panel.add(searchPanel, BorderLayout.PAGE_START);
 
         // create list of sections
-        JList<String> peopleList = new JList<>();
-        JScrollPane peopleListScrollPane = new JScrollPane(peopleList);
+        peopleList = new JList<>();
+        peopleListScrollPane = new JScrollPane(peopleList);
         peopleListScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         peopleList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         peopleList.setLayoutOrientation(JList.VERTICAL);
@@ -114,5 +123,13 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
      */
     public void itemStateChanged(ItemEvent e) {
         //
+    }
+
+    /**
+     * Get the data from cemetery about people and load it into the appropriate GUI elements
+     */
+    public void getPeopleData() {
+        // figure out which people to put in the list (based on selected radio buttons and search items, etc...)
+        // this may be a tough one
     }
 }

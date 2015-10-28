@@ -99,12 +99,8 @@ public class CemeteryPlotterFrame extends CemeteryPlotter {
         frame.pack();
         frame.setVisible(true);
 
-        // load map URL
-        /*
-        cemeteryPlotterMap.loadMap();
-        DISABLED TILL WE NEED IT. SHOULD BE MOVED TO A DIFFERENT METHOD OR THREAD MAYBE?
-        LOCKS THINGS UP WHILE IT IS LOADING
-        */
+        // get data from cemetery and populate GUI with it
+        getData();
     }
 
     /**
@@ -113,5 +109,15 @@ public class CemeteryPlotterFrame extends CemeteryPlotter {
      */
     public JFrame getFrame() {
         return frame;
+    }
+
+    /**
+     * Get data from cemetery to populate GUI
+     */
+    private void getData() {
+        cemeteryPlotterSections.getSectionsData();
+        cemeteryPlotterPlots.getPlotsData();
+        cemeteryPlotterPeople.getPeopleData();
+        //cemeteryPlotterMap.getMapData(); // disabled till we have something to put there
     }
 }
