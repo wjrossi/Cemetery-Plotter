@@ -12,8 +12,9 @@ public class CemeteryPlotterSections extends CemeteryPlotter implements ActionLi
     private JPanel sectionsPanel;
     private JButton selectAllButton;
     private JButton selectNoneButton;
-    private JList<String> sectionList;
-    private JScrollPane sectionListScrollPane;
+    private DefaultListModel<String> sectionsListModel;
+    private JList<String> sectionsList;
+    private JScrollPane sectionsListScrollPane;
     private JButton newSectionButton;
     private JButton deleteSectionButton;
     /**
@@ -60,14 +61,15 @@ public class CemeteryPlotterSections extends CemeteryPlotter implements ActionLi
         panel.add(buttons, BorderLayout.PAGE_START);
 
         // create list of sections
-        sectionList = new JList<String>();
-        sectionListScrollPane = new JScrollPane(sectionList);
-        sectionListScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        sectionList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        sectionList.setLayoutOrientation(JList.VERTICAL);
-        sectionList.setPrototypeCellValue("ABCDEFGH");
+        sectionsListModel = new DefaultListModel<String>();
+        sectionsList = new JList<String>(sectionsListModel);
+        sectionsListScrollPane = new JScrollPane(sectionsList);
+        sectionsListScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        sectionsList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        sectionsList.setLayoutOrientation(JList.VERTICAL);
+        sectionsList.setPrototypeCellValue("ABCDEFGH");
 
-        sectionList.setToolTipText("Select the section(s) to list their plots below");
+        sectionsList.setToolTipText("Select the section(s) to list their plots below");
 
         // create new and delete buttons
         newSectionButton = new JButton("New Section");
@@ -82,7 +84,7 @@ public class CemeteryPlotterSections extends CemeteryPlotter implements ActionLi
         sectionButtonsPanel.add(deleteSectionButton);
 
         // add list to main panel
-        panel.add(sectionListScrollPane, BorderLayout.CENTER);
+        panel.add(sectionsListScrollPane, BorderLayout.CENTER);
         panel.add(sectionButtonsPanel, BorderLayout.PAGE_END);
 
         return panel;
@@ -108,7 +110,9 @@ public class CemeteryPlotterSections extends CemeteryPlotter implements ActionLi
      * Get the data from cemetery about sections and load it into the appropriate GUI elements
      */
     public void getSectionsData() {
-        // do stuff to list all the sections in the list
+        for (Section s : cemetery.getSections()) {
+            sectionsListModel.addElement(s.getName());
+        }
     }
 
     /**
