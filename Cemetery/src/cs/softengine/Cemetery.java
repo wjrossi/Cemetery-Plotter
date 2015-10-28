@@ -258,6 +258,9 @@ public class Cemetery {
      * Save cemetery data
      */
     public void save(File file) throws IOException {
+        if (file == null)
+            throw new IOException("No file open to save");
+
         PrintWriter buffer;
         File oldFile, newFile;
 

@@ -25,7 +25,7 @@ public class CemeteryPlotterOwner extends CemeteryPlotter implements ActionListe
      * Get plot owner info panel
      * @return ownerPanel
      */
-    public JPanel getPanel() {
+    public JPanel getOwnerPanel() {
         return ownerPanel;
     }
 

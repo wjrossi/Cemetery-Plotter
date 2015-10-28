@@ -22,7 +22,7 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
      * Get people panel
      * @return peoplePanel
      */
-    public JPanel getPanel() {
+    public JPanel getPeoplePanel() {
         return peoplePanel;
     }
 

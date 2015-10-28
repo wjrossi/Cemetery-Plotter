@@ -22,7 +22,7 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
      * Get plots panel
      * @return plotsPanel
      */
-    public JPanel getPanel() {
+    public JPanel getPlotsPanel() {
         return plotsPanel;
     }
 

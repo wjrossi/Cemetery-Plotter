@@ -30,7 +30,7 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
      * Get interred person info panel
      * @return interredPanel
      */
-    public JPanel getPanel() {
+    public JPanel getInterredPanel() {
         return interredPanel;
     }
 

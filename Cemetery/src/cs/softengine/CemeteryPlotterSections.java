@@ -22,7 +22,7 @@ public class CemeteryPlotterSections extends CemeteryPlotter implements ActionLi
      * Get section panel
      * @return sectionsPanel
      */
-    public JPanel getPanel() {
+    public JPanel getSectionsPanel() {
         return sectionsPanel;
     }
 

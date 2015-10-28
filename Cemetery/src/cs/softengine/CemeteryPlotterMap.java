@@ -25,7 +25,7 @@ public class CemeteryPlotterMap extends CemeteryPlotter implements ActionListene
      * Get map panel
      * @return plotPanel
      */
-    public JPanel getPanel() {
+    public JPanel getMapPanel() {
         return mapPanel;
     }
 

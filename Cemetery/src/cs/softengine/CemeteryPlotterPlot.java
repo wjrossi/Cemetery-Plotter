@@ -33,7 +33,7 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
      * Get plot info panel
      * @return plotPanel
      */
-    public JPanel getPanel() {
+    public JPanel getPlotPanel() {
         return plotPanel;
     }
 

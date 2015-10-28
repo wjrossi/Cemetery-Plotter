@@ -98,8 +98,8 @@ public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListen
 
                 if (file != null) {
                     try {
-                        setWorkingFile(file); // set the working file to the selected file
-                        getCemetery().load(file); // open the file using the cemetery object's load(file) method
+                        workingFile = file; //setWorkingFile(file); // set the working file to the selected file
+                        cemetery.load(file); // open the file using the cemetery object's load(file) method
                     } catch (IOException ex) {
                         // major error, how do we handle it??
                         System.err.println("Unable to read input file.");
@@ -109,7 +109,7 @@ public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListen
                 break;
             case "SAVE": // save a file
                 try {
-                    getCemetery().save(getWorkingFile()); // save the working file
+                    cemetery.save(workingFile); // save the working file
                 } catch (IOException ex) {
                     // major error, how do we handle it
                     System.err.println("Unable to save file.");
@@ -121,8 +121,8 @@ public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListen
 
                 if (file != null) {
                     try {
-                        setWorkingFile(file); // set the working file to the selected file
-                        getCemetery().save(file); // open the file using the cemetery object's load(file) method
+                        workingFile = file; //setWorkingFile(file); // set the working file to the selected file
+                        cemetery.save(file); // open the file using the cemetery object's load(file) method
                     } catch (IOException ex) {
                         // major error, how do we handle it??
                         System.err.println("Unable to read input file.");
@@ -149,7 +149,7 @@ public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListen
 
         file = null;
 
-        fileChooser = new JFileChooser(getWorkingFile());
+        fileChooser = new JFileChooser(workingFile);
         fileFilter = new FileNameExtensionFilter("Cemetery DB Files", "db");
         fileChooser.setFileFilter(fileFilter);
 
@@ -157,9 +157,8 @@ public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListen
 
         if (result == JFileChooser.APPROVE_OPTION) {
             file = fileChooser.getSelectedFile();
+            cemeteryPlotterFrame.getFrame().setTitle("Cemetery Plotter (" + workingFile + ")");
         }
-
-        getCemeteryPlotterFrame().getFrame().setTitle("Cemetery Plotter (" + getWorkingFile() + ")");
 
         return file;
     }
@@ -176,7 +175,7 @@ public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListen
 
         file = null;
 
-        fileChooser = new JFileChooser(getWorkingFile());
+        fileChooser = new JFileChooser(workingFile);
         fileFilter = new FileNameExtensionFilter("Cemetery DB Files", "db");
         fileChooser.setFileFilter(fileFilter);
 
@@ -184,9 +183,8 @@ public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListen
 
         if (result == JFileChooser.APPROVE_OPTION) {
             file = fileChooser.getSelectedFile();
+            cemeteryPlotterFrame.getFrame().setTitle("Cemetery Plotter (" + workingFile + ")");
         }
-
-        getCemeteryPlotterFrame().getFrame().setTitle("Cemetery Plotter (" + getWorkingFile() + ")");
 
         return file;
     }

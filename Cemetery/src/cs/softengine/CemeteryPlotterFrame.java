@@ -8,15 +8,15 @@ import java.awt.event.*;
  * The main GUI window for Cemetery Plotter
  */
 public class CemeteryPlotterFrame extends CemeteryPlotter {
-    private JFrame frame;
-    private CemeteryPlotterMenu cemeteryPlotterMenu;
-    private CemeteryPlotterSections cemeteryPlotterSections;
-    private CemeteryPlotterPlots cemeteryPlotterPlots;
-    private CemeteryPlotterPlot cemeteryPlotterPlot;
-    private CemeteryPlotterInterredPerson cemeteryPlotterInterredPerson;
-    private CemeteryPlotterOwner cemeteryPlotterOwner;
-    private CemeteryPlotterPeople cemeteryPlotterPeople;
-    private CemeteryPlotterMap cemeteryPlotterMap;
+    JFrame frame;
+    CemeteryPlotterMenu cemeteryPlotterMenu;
+    CemeteryPlotterSections cemeteryPlotterSections;
+    CemeteryPlotterPlots cemeteryPlotterPlots;
+    CemeteryPlotterPlot cemeteryPlotterPlot;
+    CemeteryPlotterInterredPerson cemeteryPlotterInterredPerson;
+    CemeteryPlotterOwner cemeteryPlotterOwner;
+    CemeteryPlotterPeople cemeteryPlotterPeople;
+    CemeteryPlotterMap cemeteryPlotterMap;
 
     /**
      * Construct the CemeteryPlotterFrame by scheduling a job for the event-dispatching thread that
@@ -39,7 +39,12 @@ public class CemeteryPlotterFrame extends CemeteryPlotter {
         }
 
         // create and set up the window
-        frame = new JFrame("Cemetery Plotter (" + getWorkingFile() + ")");
+        String frameTitle = "Cemetery Plotter";
+
+        //if (workingFile != null)
+        //    frameTitle += " (" + workingFile + ")";
+
+        frame = new JFrame(frameTitle);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
@@ -66,24 +71,24 @@ public class CemeteryPlotterFrame extends CemeteryPlotter {
         // add content panels to panes
         // left panel
         leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.PAGE_AXIS));
-        leftPanel.add(cemeteryPlotterSections.getPanel());
-        leftPanel.add(cemeteryPlotterPlots.getPanel());
+        leftPanel.add(cemeteryPlotterSections.getSectionsPanel());
+        leftPanel.add(cemeteryPlotterPlots.getPlotsPanel());
 
         // center top panel
         centerTopPanel.setLayout(new BoxLayout(centerTopPanel, BoxLayout.LINE_AXIS));
-        centerTopPanel.add(cemeteryPlotterPlot.getPanel());
-        centerTopPanel.add(cemeteryPlotterInterredPerson.getPanel());
-        centerTopPanel.add(cemeteryPlotterOwner.getPanel());
+        centerTopPanel.add(cemeteryPlotterPlot.getPlotPanel());
+        centerTopPanel.add(cemeteryPlotterInterredPerson.getInterredPanel());
+        centerTopPanel.add(cemeteryPlotterOwner.getOwnerPanel());
 
         // center bottom panel
-        centerBottomPanel.add(cemeteryPlotterMap.getPanel(), BorderLayout.CENTER);
+        centerBottomPanel.add(cemeteryPlotterMap.getMapPanel(), BorderLayout.CENTER);
 
         // center combined panel
         centerPanel.setTopComponent(centerTopPanel);
         centerPanel.setBottomComponent(centerBottomPanel);
 
         // right panel
-        rightPanel.add(cemeteryPlotterPeople.getPanel(), BorderLayout.CENTER);
+        rightPanel.add(cemeteryPlotterPeople.getPeoplePanel(), BorderLayout.CENTER);
 
         // add layout panes to frame
         frame.add(leftPanel, BorderLayout.LINE_START);
