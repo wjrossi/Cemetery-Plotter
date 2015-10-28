@@ -11,6 +11,7 @@ import java.awt.event.*;
 public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListener, ItemListener {
     private JPanel plotsPanel;
     private JTextField searchField;
+    private DefaultListModel<String> plotsListModel;
     private JList<String> plotsList;
     private JScrollPane plotsListScrollPane;
     private JButton newPlotButton;
@@ -59,7 +60,8 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
         panel.add(searchPanel, BorderLayout.PAGE_START);
 
         // create list of plots
-        plotsList = new JList<String>();
+        plotsListModel = new DefaultListModel<String>();
+        plotsList = new JList<String>(plotsListModel);
         plotsListScrollPane = new JScrollPane(plotsList);
         plotsListScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         plotsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);

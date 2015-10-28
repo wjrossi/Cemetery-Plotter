@@ -18,6 +18,7 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
     private JRadioButton interredPeopleRadioButton;
     private JRadioButton ownersRadioButton;
     private ButtonGroup searchButtonGroup;
+    private DefaultListModel<String> peopleListModel;
     private JList<String> peopleList;
     private JScrollPane peopleListScrollPane;
 
@@ -97,7 +98,8 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
         panel.add(searchPanel, BorderLayout.PAGE_START);
 
         // create list of sections
-        peopleList = new JList<>();
+        peopleListModel = new DefaultListModel<String>();
+        peopleList = new JList<String>(peopleListModel);
         peopleListScrollPane = new JScrollPane(peopleList);
         peopleListScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         peopleList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -130,7 +132,7 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
      * Get the data from cemetery about people and load it into the appropriate GUI elements
      */
     public void getPeopleData() {
-        // figure out which people to put in the list (based on selected radio buttons and search items, etc...)
+        // figure out which people to put in the list (based on selected sections and radio buttons and search items, etc...)
         // this may be a tough one
     }
 }
