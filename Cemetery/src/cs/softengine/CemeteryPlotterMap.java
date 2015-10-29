@@ -59,7 +59,7 @@ public class CemeteryPlotterMap extends CemeteryPlotter implements ActionListene
         mapControls.setLayout(new BoxLayout(mapControls, BoxLayout.LINE_AXIS));
 
         // add buttons to map control panel
-        // ??
+        // TODO
 
         //add map controls to main panel
         panel.add(mapControls, BorderLayout.PAGE_END);
@@ -72,7 +72,7 @@ public class CemeteryPlotterMap extends CemeteryPlotter implements ActionListene
      */
     public void getMapData() {
         URL mapURL;
-        try {
+        try { // TODO what do we put in the map and how
             mapURL = new URL("http://bethshalompgh.org/"); // super temporary!! may want to do this after loading gui!!
             mapPane.setPage(mapURL);
         } catch (IOException e) {

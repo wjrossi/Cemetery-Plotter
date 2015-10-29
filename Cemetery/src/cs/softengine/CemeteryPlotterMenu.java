@@ -98,9 +98,9 @@ public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListen
 
                 if (file != null) {
                     try {
-                        workingFile = file; //setWorkingFile(file); // set the working file to the selected file
+                        workingFile = file; // set the working file to the selected file
                         cemetery.load(file); // open the file using the cemetery object's load(file) method
-                    } catch (IOException ex) {
+                    } catch (IOException ex) { // TODO show error dialogs
                         // major error, how do we handle it??
                         System.err.println("Unable to read input file.");
                         ex.printStackTrace();
@@ -110,7 +110,7 @@ public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListen
             case "save": // save a file
                 try {
                     cemetery.save(workingFile); // save the working file
-                } catch (IOException ex) {
+                } catch (IOException ex) { // TODO show error dialogs
                     // major error, how do we handle it
                     System.err.println("Unable to save file.");
                     ex.printStackTrace();
@@ -123,16 +123,17 @@ public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListen
                     try {
                         workingFile = file; //setWorkingFile(file); // set the working file to the selected file
                         cemetery.save(file); // open the file using the cemetery object's load(file) method
-                    } catch (IOException ex) {
+                    } catch (IOException ex) { // TODO show error dialogs?
                         // major error, how do we handle it??
                         System.err.println("Unable to read input file.");
                         ex.printStackTrace();
                     }
                 } // else do nothing
                 break;
-            case "quit":  // quit the program
+            case "quit":  // quit the program // TODO figure this one out
                 // probably show a dialog asking if you want to save & exit or exit without saving
-                // probably send some kind of window event about exiting
+                // probably send some kind of window event about exiting that gets handled in CemeteryPlotterFrame listener
+                // might have to get that listener from CemeteryPlotterFrame and add it to the Quit menuitem in this file
                 break;
         }
     }

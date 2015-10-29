@@ -116,7 +116,7 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
      * Action listener for people content pane
      * @param e action event
      */
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e) { // TODO add action listeners first for buttons and lists and stuff
         //
     }
 
@@ -131,8 +131,8 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
     /**
      * Get the data from cemetery about people and load it into the appropriate GUI elements
      */
-    public void getPeopleData() {
+    public void getPeopleData() { // TODO
         // figure out which people to put in the list (based on selected sections and radio buttons and search items, etc...)
-        // this may be a tough one
+        // this may be a tough one!!
     }
 }

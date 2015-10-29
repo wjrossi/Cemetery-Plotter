@@ -93,7 +93,7 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
      * Action listener for plots content pane
      * @param e action event
      */
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e) { // TODO add action listeners and stuff first
         //
     }
 
@@ -108,14 +108,14 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
     /**
      * Get the data from cemetery about plots and load it into the appropriate GUI elements
      */
-    public void getPlotsData() {
+    public void getPlotsData() { // TODO
         // figure out which plots to put in the list (based on which sections are selected in CemeteryPlotterSections)
     }
 
     /**
      * Set the data from the GUI into the Cemetery, Section, and Plot in the cemetery
      */
-    public void setPlotsData() {
+    public void setPlotsData() { // TODO on add and delete plot(s) probably
         // write the plot data from the GUI fields into the right place in the data layer
     }
 }

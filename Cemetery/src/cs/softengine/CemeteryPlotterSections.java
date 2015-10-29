@@ -52,6 +52,12 @@ public class CemeteryPlotterSections extends CemeteryPlotter implements ActionLi
         selectAllButton = new JButton("Select All");
         selectNoneButton = new JButton("Select None");
 
+        selectAllButton.setActionCommand("select all");
+        selectNoneButton.setActionCommand("select none");
+
+        selectAllButton.addActionListener(this);
+        selectNoneButton.addActionListener(this);
+
         // put buttons in a button panel
         JPanel buttons = new JPanel();
         buttons.setLayout(new BoxLayout(buttons, BoxLayout.LINE_AXIS));
@@ -79,6 +85,12 @@ public class CemeteryPlotterSections extends CemeteryPlotter implements ActionLi
         newSectionButton.setToolTipText("Create and add a new section to the cemetery");
         deleteSectionButton.setToolTipText("Permanently delete the selected section(s) from the cemetery");
 
+        newSectionButton.setActionCommand("new section");
+        deleteSectionButton.setActionCommand("delete section");
+
+        newSectionButton.addActionListener(this);
+        deleteSectionButton.addActionListener(this);
+
         JPanel sectionButtonsPanel = new JPanel();
         sectionButtonsPanel.setLayout(new BoxLayout(sectionButtonsPanel, BoxLayout.LINE_AXIS));
         sectionButtonsPanel.add(newSectionButton);
@@ -96,7 +108,25 @@ public class CemeteryPlotterSections extends CemeteryPlotter implements ActionLi
      * @param e action event
      */
     public void actionPerformed(ActionEvent e) {
-        //
+        String action = e.getActionCommand().toLowerCase();
+
+        switch (action) {
+            case "select all": // TODO
+                // select anything in the list/listmodel
+                break;
+            case "select none": // TODO
+                // deselect all things in the list/listmodel
+                break;
+            case "new section": // TODO
+                // add a new section to the cemetery and list/listmodel
+                break;
+            case "delete section": // TODO
+                // delete selected section(s) from the cemetery and list/listmodel
+                // what should happen to the plots in that section, if there are any?
+                // a) delete them too?
+                // b) put them in some kind of "blank" section?
+                break;
+        }
     }
 
     /**
@@ -119,7 +149,7 @@ public class CemeteryPlotterSections extends CemeteryPlotter implements ActionLi
     /**
      * Set the data from the GUI into the Cemetery and Section in the cemetery
      */
-    public void setSectionsData() {
+    public void setSectionsData() { // TODO on new or delete section(s) probably
         // write the sections data from the GUI fields into the right place in the data layer
         // used when a section is added or deleted
     }

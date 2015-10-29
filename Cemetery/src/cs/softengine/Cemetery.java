@@ -32,8 +32,9 @@ public class Cemetery {
      */
     public Cemetery(File file) {
         try {
-            load(file);
-        } catch (IOException e) {
+            // TODO decompress file, then decrypt file
+            load(file); // load the plain-text file
+        } catch (IOException e) { // TODO show error dialogs
             System.err.println("Unable to read input file. Exiting.");
             e.printStackTrace();
             System.exit(1);
@@ -286,7 +287,9 @@ public class Cemetery {
 
         buffer.close();
 
-        if (newFile.exists()) {
+        // TODO encrypt newFile, then compress newFile
+
+        if (newFile.exists()) { // delete temporary file if overwriting and rename it to original file name
             oldFile.delete();
             newFile.renameTo(file);
         }
