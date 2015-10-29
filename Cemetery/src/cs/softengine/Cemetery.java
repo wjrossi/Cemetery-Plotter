@@ -48,6 +48,7 @@ public class Cemetery {
     public void load(File file) throws IOException {
         BufferedReader buffer;
         String temp;
+        Section section = null; // current section for quick loading of plots
 
         buffer = new BufferedReader(new FileReader(file));
         while ((temp = buffer.readLine()) != null) {
@@ -56,10 +57,10 @@ public class Cemetery {
                     loadCemetery(buffer);
                     break;
                 case "<SECTION>":
-                    loadSection(buffer);
+                    section = loadSection(buffer);
                     break;
                 case "<PLOT>":
-                    loadPlot(buffer);
+                    loadPlot(buffer, section);
                     break;
             }
         }
@@ -93,13 +94,19 @@ public class Cemetery {
      * @param buffer of cemetery file
      * @throws IOException
      */
-    private void loadSection(BufferedReader buffer) throws IOException {
-        String secName; // name of new section
+    private Section loadSection(BufferedReader buffer) throws IOException {
+        Section section; // new section
+        String name; // name of new section
         int size; // number of plots in new section
 
-        secName = buffer.readLine().trim();
+        name = buffer.readLine().trim();
         size = Integer.parseInt(buffer.readLine().trim());
-        sections.add(new Section(secName, size)); // add new section to list of sections
+
+        section = new Section(name, size);
+
+        sections.add(section); // add new section to list of sections
+
+        return section;
     }
 
     /**
@@ -107,8 +114,8 @@ public class Cemetery {
      * @param buffer of cemetery file
      * @throws IOException
      */
-    private void loadPlot(BufferedReader buffer) throws IOException {
-        String section; // residing section name
+    private void loadPlot(BufferedReader buffer, Section section) throws IOException {
+        String sectionName; // residing section name
         int id; // plot identifier number
         InterredPerson interred; // interred person
         Person owner; // contact person, also person fiscally responsible for plot
@@ -118,7 +125,7 @@ public class Cemetery {
         boolean ready; // is the plot ready for use or not ready
         int moneyDue; // if not 0, person owes this much IN CENTS (for accuracy)
 
-        section = buffer.readLine().trim();
+        sectionName = buffer.readLine().trim();
         id = Integer.parseInt(buffer.readLine().trim());
 
         buffer.readLine().trim(); // read empty line
@@ -148,13 +155,12 @@ public class Cemetery {
             moneyDue = 0;
         }
 
-        Plot p = new Plot(section, id, interred, owner, burial, purchased, vacant, ready, moneyDue);
+        Plot p = new Plot(sectionName, id, interred, owner, burial, purchased, vacant, ready, moneyDue);
 
         if (p.getOwner() != null) p.getOwner().addOwnedPlot(p.getID());
 
         plots.add(p);
-
-        sections.get(sections.indexOf(new Section(section))).add(p);
+        section.add(p);
     }
 
     /**
