@@ -13,6 +13,7 @@ public class CemeteryPlotterSections extends CemeteryPlotter implements ActionLi
     private JButton selectAllButton;
     private JButton selectNoneButton;
     private DefaultListModel<String> sectionsListModel;
+    private DefaultListSelectionModel sectionsListSelectionModel;
     private JList<String> sectionsList;
     private JScrollPane sectionsListScrollPane;
     private JButton newSectionButton;
@@ -70,6 +71,7 @@ public class CemeteryPlotterSections extends CemeteryPlotter implements ActionLi
         // create list of sections
         sectionsListModel = new DefaultListModel<String>();
         sectionsList = new JList<String>(sectionsListModel);
+        sectionsListSelectionModel = (DefaultListSelectionModel) sectionsList.getSelectionModel();
         sectionsListScrollPane = new JScrollPane(sectionsList);
         sectionsListScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         sectionsList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
@@ -113,9 +115,13 @@ public class CemeteryPlotterSections extends CemeteryPlotter implements ActionLi
         switch (action) {
             case "select all": // TODO
                 // select anything in the list/listmodel
+                sectionsListSelectionModel.setSelectionInterval(0, sectionsListModel.size());
+                // currently will highlight all items, this should trigger something in CemeteryPlotterPlots i guess
                 break;
             case "select none": // TODO
                 // deselect all things in the list/listmodel
+                sectionsListSelectionModel.clearSelection();
+                // currently un-highlights all items, this should also trigger something in CemeteryPlotterPlots i guess
                 break;
             case "new section": // TODO
                 // add a new section to the cemetery and list/listmodel
