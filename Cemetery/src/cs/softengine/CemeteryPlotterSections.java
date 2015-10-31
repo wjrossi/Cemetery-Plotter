@@ -2,6 +2,7 @@ package cs.softengine;
 
 import javax.swing.*;
 import javax.swing.border.*;
+import javax.swing.event.*;
 import java.awt.*;
 import java.awt.event.*;
 
@@ -72,6 +73,7 @@ public class CemeteryPlotterSections extends CemeteryPlotter implements ActionLi
         sectionsListModel = new DefaultListModel<String>();
         sectionsList = new JList<String>(sectionsListModel);
         sectionsListSelectionModel = (DefaultListSelectionModel) sectionsList.getSelectionModel();
+        sectionsListSelectionModel.addListSelectionListener(new SectionsListSelectionHandler());
         sectionsListScrollPane = new JScrollPane(sectionsList);
         sectionsListScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         sectionsList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
@@ -115,7 +117,7 @@ public class CemeteryPlotterSections extends CemeteryPlotter implements ActionLi
         switch (action) {
             case "select all": // TODO
                 // select anything in the list/listmodel
-                sectionsListSelectionModel.setSelectionInterval(0, sectionsListModel.size());
+                sectionsListSelectionModel.setSelectionInterval(0, sectionsListModel.size()-1);
                 // currently will highlight all items, this should trigger something in CemeteryPlotterPlots i guess
                 break;
             case "select none": // TODO
@@ -158,5 +160,29 @@ public class CemeteryPlotterSections extends CemeteryPlotter implements ActionLi
     public void setSectionsData() { // TODO on new or delete section(s) probably
         // write the sections data from the GUI fields into the right place in the data layer
         // used when a section is added or deleted
+    }
+
+    class SectionsListSelectionHandler implements ListSelectionListener {
+        public void valueChanged(ListSelectionEvent e) {
+            ListSelectionModel lsm = (ListSelectionModel) e.getSource();
+
+            int firstIndex = e.getFirstIndex();
+            int lastIndex = e.getLastIndex();
+            boolean isAdjusting = e.getValueIsAdjusting();
+
+            cemeteryPlotterFrame.cemeteryPlotterPlots.clearPlotsList();
+
+            if (!lsm.isSelectionEmpty() && !isAdjusting) { // find out which indexes are selected.
+                int min = lsm.getMinSelectionIndex();
+                int max = lsm.getMaxSelectionIndex();
+
+                for (int index = min; index <= max; index++) {
+                    if (lsm.isSelectedIndex(index)) {
+                        // then list the plots and the people
+                        cemeteryPlotterFrame.cemeteryPlotterPlots.getPlotsData(sectionsListModel.get(index));
+                    }
+                }
+            }
+        }
     }
 }

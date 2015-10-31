@@ -12,6 +12,7 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
     private JPanel plotsPanel;
     private JTextField searchField;
     private DefaultListModel<String> plotsListModel;
+    private DefaultListSelectionModel plotsListSelectionModel;
     private JList<String> plotsList;
     private JScrollPane plotsListScrollPane;
     private JButton newPlotButton;
@@ -62,6 +63,7 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
         // create list of plots
         plotsListModel = new DefaultListModel<String>();
         plotsList = new JList<String>(plotsListModel);
+        plotsListSelectionModel = (DefaultListSelectionModel) plotsList.getSelectionModel();
         plotsListScrollPane = new JScrollPane(plotsList);
         plotsListScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         plotsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -108,8 +110,13 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
     /**
      * Get the data from cemetery about plots and load it into the appropriate GUI elements
      */
-    public void getPlotsData() { // TODO
+    public void getPlotsData(String section) { // TODO
         // figure out which plots to put in the list (based on which sections are selected in CemeteryPlotterSections)
+        Section s = cemetery.get(new Section(section));
+
+        for (Plot p : s.getPlots()) {
+            plotsListModel.addElement(Integer.toString(p.getID())); // messy
+        }
     }
 
     /**
@@ -117,5 +124,12 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
      */
     public void setPlotsData() { // TODO on add and delete plot(s) probably
         // write the plot data from the GUI fields into the right place in the data layer
+    }
+
+    /**
+     * Clear the plots list
+     */
+    public void clearPlotsList() {
+        plotsListModel.clear();
     }
 }

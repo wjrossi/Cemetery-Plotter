@@ -116,7 +116,7 @@ public class CemeteryPlotterFrame extends CemeteryPlotter {
      */
     private void getData() {
         cemeteryPlotterSections.getSectionsData();
-        cemeteryPlotterPlots.getPlotsData();
+        //cemeteryPlotterPlots.getPlotsData(); handled automatically by sections
         cemeteryPlotterPeople.getPeopleData();
         //cemeteryPlotterMap.getMapData(); // disabled till we have something to put there
     }
