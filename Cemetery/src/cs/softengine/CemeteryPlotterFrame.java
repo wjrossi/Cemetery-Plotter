@@ -8,7 +8,6 @@ import java.awt.event.*;
  * The main GUI window for Cemetery Plotter
  */
 public class CemeteryPlotterFrame extends CemeteryPlotter {
-    JFrame frame;
     CemeteryPlotterMenu cemeteryPlotterMenu;
     CemeteryPlotterSections cemeteryPlotterSections;
     CemeteryPlotterPlots cemeteryPlotterPlots;
@@ -17,6 +16,9 @@ public class CemeteryPlotterFrame extends CemeteryPlotter {
     CemeteryPlotterOwner cemeteryPlotterOwner;
     CemeteryPlotterPeople cemeteryPlotterPeople;
     CemeteryPlotterMap cemeteryPlotterMap;
+
+    private JFrame frame;
+
 
     /**
      * Construct the CemeteryPlotterFrame by scheduling a job for the event-dispatching thread that
@@ -117,7 +119,7 @@ public class CemeteryPlotterFrame extends CemeteryPlotter {
     private void getData() {
         cemeteryPlotterSections.getSectionsData();
         //cemeteryPlotterPlots.getPlotsData(); handled automatically by sections
-        cemeteryPlotterPeople.getPeopleData();
+        //cemeteryPlotterPeople.getPeopleData(); also handled automatically by sections probably
         //cemeteryPlotterMap.getMapData(); // disabled till we have something to put there
     }
 }

@@ -92,18 +92,17 @@ public class CemeteryPlotterOwner extends CemeteryPlotter implements ActionListe
 
         // create edit, update, and cancel buttons
         editButton = new JButton("Edit"); // when clicked will unlock text fields and allow changes
-        cancelButton = new JButton("Cancel");
-        updateButton = new JButton("Update");
-
+        editButton.setActionCommand("edit");
+        editButton.addActionListener(this);
         editButton.setEnabled(false); // initial state will be reversed and update/cancel will be disabled
 
-        editButton.setActionCommand("edit");
-        updateButton.setActionCommand("update");
+        cancelButton = new JButton("Cancel");
         cancelButton.setActionCommand("cancel");
-
-        editButton.addActionListener(this);
-        updateButton.addActionListener(this);
         cancelButton.addActionListener(this);
+
+        updateButton = new JButton("Update");
+        updateButton.setActionCommand("update");
+        updateButton.addActionListener(this);
 
         // create list of plots owned by person
         plotsList = new JList<String>();

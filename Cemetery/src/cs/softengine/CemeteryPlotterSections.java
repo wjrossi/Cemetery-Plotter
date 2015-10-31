@@ -52,12 +52,11 @@ public class CemeteryPlotterSections extends CemeteryPlotter implements ActionLi
 
         // create buttons
         selectAllButton = new JButton("Select All");
-        selectNoneButton = new JButton("Select None");
-
         selectAllButton.setActionCommand("select all");
-        selectNoneButton.setActionCommand("select none");
-
         selectAllButton.addActionListener(this);
+
+        selectNoneButton = new JButton("Select None");
+        selectNoneButton.setActionCommand("select none");
         selectNoneButton.addActionListener(this);
 
         // put buttons in a button panel
@@ -72,27 +71,27 @@ public class CemeteryPlotterSections extends CemeteryPlotter implements ActionLi
         // create list of sections
         sectionsListModel = new DefaultListModel<String>();
         sectionsList = new JList<String>(sectionsListModel);
+
         sectionsListSelectionModel = (DefaultListSelectionModel) sectionsList.getSelectionModel();
         sectionsListSelectionModel.addListSelectionListener(new SectionsListSelectionHandler());
+
         sectionsListScrollPane = new JScrollPane(sectionsList);
         sectionsListScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
         sectionsList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         sectionsList.setLayoutOrientation(JList.VERTICAL);
         sectionsList.setPrototypeCellValue("ABCDEFGH");
-
         sectionsList.setToolTipText("Select the section(s) to list their plots below");
 
         // create new and delete buttons
         newSectionButton = new JButton("New Section");
-        deleteSectionButton = new JButton("Delete Section(s)");
-
         newSectionButton.setToolTipText("Create and add a new section to the cemetery");
-        deleteSectionButton.setToolTipText("Permanently delete the selected section(s) from the cemetery");
-
         newSectionButton.setActionCommand("new section");
-        deleteSectionButton.setActionCommand("delete section");
-
         newSectionButton.addActionListener(this);
+
+        deleteSectionButton = new JButton("Delete Section(s)");
+        deleteSectionButton.setToolTipText("Permanently delete the selected section(s) from the cemetery");
+        deleteSectionButton.setActionCommand("delete section");
         deleteSectionButton.addActionListener(this);
 
         JPanel sectionButtonsPanel = new JPanel();
@@ -115,15 +114,11 @@ public class CemeteryPlotterSections extends CemeteryPlotter implements ActionLi
         String action = e.getActionCommand().toLowerCase();
 
         switch (action) {
-            case "select all": // TODO
-                // select anything in the list/listmodel
+            case "select all": // select anything in the list
                 sectionsListSelectionModel.setSelectionInterval(0, sectionsListModel.size()-1);
-                // currently will highlight all items, this should trigger something in CemeteryPlotterPlots i guess
                 break;
-            case "select none": // TODO
-                // deselect all things in the list/listmodel
+            case "select none": // deselect all things in the list
                 sectionsListSelectionModel.clearSelection();
-                // currently un-highlights all items, this should also trigger something in CemeteryPlotterPlots i guess
                 break;
             case "new section": // TODO
                 // add a new section to the cemetery and list/listmodel
@@ -178,8 +173,11 @@ public class CemeteryPlotterSections extends CemeteryPlotter implements ActionLi
 
                 for (int index = min; index <= max; index++) {
                     if (lsm.isSelectedIndex(index)) {
-                        // then list the plots and the people
+                        // list the plots and the people
                         cemeteryPlotterFrame.cemeteryPlotterPlots.getPlotsData(sectionsListModel.get(index));
+
+                        // list the people TODO
+                        //cemeteryPlotterFrame.cemeteryPlotterPeople.getPeopleData(sectionsListModel.get(index));
                     }
                 }
             }

@@ -63,20 +63,22 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
         // create list of plots
         plotsListModel = new DefaultListModel<String>();
         plotsList = new JList<String>(plotsListModel);
+
         plotsListSelectionModel = (DefaultListSelectionModel) plotsList.getSelectionModel();
+
         plotsListScrollPane = new JScrollPane(plotsList);
         plotsListScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
         plotsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         plotsList.setLayoutOrientation(JList.VERTICAL);
         plotsList.setPrototypeCellValue("999999");
-
         plotsList.setToolTipText("Select the plot you wish to view or edit");
 
         // create new and delete buttons
         newPlotButton = new JButton("New Plot");
-        deletePlotButton = new JButton("Delete Plot(s)");
-
         newPlotButton.setToolTipText("Add a new plot and view/edit its information");
+
+        deletePlotButton = new JButton("Delete Plot(s)");
         deletePlotButton.setToolTipText("Permanently delete the selected plot from the cemetery");
 
         JPanel plotsButtonsPanel = new JPanel();

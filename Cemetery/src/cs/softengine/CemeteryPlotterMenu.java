@@ -121,9 +121,9 @@ public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListen
 
                 if (file != null) {
                     try {
-                        workingFile = file; //setWorkingFile(file); // set the working file to the selected file
+                        workingFile = file; // set the working file to the selected file
                         cemetery.save(file); // open the file using the cemetery object's load(file) method
-                    } catch (IOException ex) { // TODO show error dialogs?
+                    } catch (IOException ex) { // TODO show error dialogs
                         // major error, how do we handle it??
                         System.err.println("Unable to read input file.");
                         ex.printStackTrace();
