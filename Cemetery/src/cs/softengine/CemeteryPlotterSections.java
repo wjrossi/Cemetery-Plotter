@@ -48,8 +48,6 @@ public class CemeteryPlotterSections extends CemeteryPlotter implements ActionLi
         titledBorder.setTitleJustification(TitledBorder.LEFT);
         panel.setBorder(titledBorder);
 
-        // add things to main panel
-
         // create buttons
         selectAllButton = new JButton("Select All");
         selectAllButton.setActionCommand("select all");
@@ -69,8 +67,8 @@ public class CemeteryPlotterSections extends CemeteryPlotter implements ActionLi
         panel.add(buttons, BorderLayout.PAGE_START);
 
         // create list of sections
-        sectionsListModel = new DefaultListModel<String>();
-        sectionsList = new JList<String>(sectionsListModel);
+        sectionsListModel = new DefaultListModel<>();
+        sectionsList = new JList<>(sectionsListModel);
 
         sectionsListSelectionModel = (DefaultListSelectionModel) sectionsList.getSelectionModel();
         sectionsListSelectionModel.addListSelectionListener(new SectionsListSelectionHandler());

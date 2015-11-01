@@ -33,7 +33,7 @@ public class CemeteryPlotterOwner extends CemeteryPlotter implements ActionListe
      * Constructs a content pane for a plot owner info
      */
     public CemeteryPlotterOwner() {
-        editable = new ArrayList<JComponent>();
+        editable = new ArrayList<>();
         ownerPanel = createOwnerPanel();
     }
 

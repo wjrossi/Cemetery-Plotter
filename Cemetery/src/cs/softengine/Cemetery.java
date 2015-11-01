@@ -20,10 +20,10 @@ public class Cemetery {
      * Constructs a singleton cemetery
      */
     public Cemetery() {
-        sections = new ArrayList<Section>();
-        plots = new ArrayList<Plot>();
-        interred = new ArrayList<InterredPerson>();
-        owners = new ArrayList<Person>();
+        sections = new ArrayList<>();
+        plots = new ArrayList<>();
+        interred = new ArrayList<>();
+        owners = new ArrayList<>();
     }
 
     /**
@@ -84,10 +84,10 @@ public class Cemetery {
         numInterred = Integer.parseInt(buffer.readLine().trim());
         numOwners = Integer.parseInt(buffer.readLine().trim());
 
-        sections = new ArrayList<Section>(numSections);
-        plots = new ArrayList<Plot>(numPlots);
-        interred = new ArrayList<InterredPerson>(numInterred);
-        owners = new ArrayList<Person>(numOwners);
+        sections = new ArrayList<>(numSections);
+        plots = new ArrayList<>(numPlots);
+        interred = new ArrayList<>(numInterred);
+        owners = new ArrayList<>(numOwners);
     }
 
     /**

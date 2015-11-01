@@ -36,7 +36,7 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
      * Constructs a content pane for an interred person info
      */
     public CemeteryPlotterInterredPerson() {
-        editable = new ArrayList<JComponent>();
+        editable = new ArrayList<>();
         sdf = new SimpleDateFormat("MM/dd/yyyy");
         interredPanel = createInterredPersonPanel();
     }
@@ -61,8 +61,6 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
         TitledBorder titledBorder = BorderFactory.createTitledBorder(etchedBorder, "Interred");
         titledBorder.setTitleJustification(TitledBorder.LEFT);
         panel.setBorder(titledBorder);
-
-        // add things to panel
 
         // create labels
         JLabel interredIDLabel = new JLabel("InterredID:");

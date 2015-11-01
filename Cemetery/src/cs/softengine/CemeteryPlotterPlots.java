@@ -61,8 +61,8 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
         panel.add(searchPanel, BorderLayout.PAGE_START);
 
         // create list of plots
-        plotsListModel = new DefaultListModel<String>();
-        plotsList = new JList<String>(plotsListModel);
+        plotsListModel = new DefaultListModel<>();
+        plotsList = new JList<>(plotsListModel);
 
         plotsListSelectionModel = (DefaultListSelectionModel) plotsList.getSelectionModel();
 

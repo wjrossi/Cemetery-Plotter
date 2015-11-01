@@ -58,7 +58,7 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
         // create search by combo box
         String[] searchByBoxList = { "InterredID", "PlotID", "Name", "Phone",
                 "Date of Birth", "Date of Death", "Address", "City", "State", "Zip" };
-        searchByBox = new JComboBox<String>(searchByBoxList);
+        searchByBox = new JComboBox<>(searchByBoxList);
         searchByBox.setEditable(false);
 
         // create search button
@@ -98,8 +98,8 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
         panel.add(searchPanel, BorderLayout.PAGE_START);
 
         // create list of sections
-        peopleListModel = new DefaultListModel<String>();
-        peopleList = new JList<String>(peopleListModel);
+        peopleListModel = new DefaultListModel<>();
+        peopleList = new JList<>(peopleListModel);
         peopleListScrollPane = new JScrollPane(peopleList);
         peopleListScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         peopleList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);

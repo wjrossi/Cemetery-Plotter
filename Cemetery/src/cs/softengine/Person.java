@@ -49,7 +49,7 @@ public class Person implements Comparable<Person> {
         this.state = state;
         this.zip = zip;
         this.phone = phone;
-        this.plots = new ArrayList<Integer>();
+        this.plots = new ArrayList<>();
     }
 
     /**

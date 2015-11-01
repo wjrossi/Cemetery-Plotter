@@ -33,7 +33,7 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
      * Constructs a content pane for plot info
      */
     public CemeteryPlotterPlot() {
-        editable = new ArrayList<JComponent>();
+        editable = new ArrayList<>();
         sdf = new SimpleDateFormat("MM/dd/yyyy");
         nf = NumberFormat.getCurrencyInstance();
         plotPanel = createPlotPanel();
@@ -59,8 +59,6 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
         TitledBorder titledBorder = BorderFactory.createTitledBorder(etchedBorder, "Plot");
         titledBorder.setTitleJustification(TitledBorder.LEFT);
         panel.setBorder(titledBorder);
-
-        // add things to panel
 
         // create labels
         JLabel sectionLabel = new JLabel("Section:");
