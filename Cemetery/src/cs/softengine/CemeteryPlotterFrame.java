@@ -8,17 +8,17 @@ import java.awt.event.*;
  * The main GUI window for Cemetery Plotter
  */
 public class CemeteryPlotterFrame extends CemeteryPlotter {
-    CemeteryPlotterMenu cemeteryPlotterMenu;
-    CemeteryPlotterSections cemeteryPlotterSections;
-    CemeteryPlotterPlots cemeteryPlotterPlots;
-    CemeteryPlotterPlot cemeteryPlotterPlot;
-    CemeteryPlotterInterredPerson cemeteryPlotterInterredPerson;
-    CemeteryPlotterOwner cemeteryPlotterOwner;
-    CemeteryPlotterPeople cemeteryPlotterPeople;
-    CemeteryPlotterMap cemeteryPlotterMap;
+    private JFrame frame; // this frame
 
-    private JFrame frame;
-
+    // CemeteryPlotterFrame elements, available to sub-classes
+    CemeteryPlotterMenu cemeteryPlotterMenu; // the menu bar object
+    CemeteryPlotterSections cemeteryPlotterSections; // the list of cemetery sections
+    CemeteryPlotterPlots cemeteryPlotterPlots; // the list of plots in the currently selected section(s)
+    CemeteryPlotterPlot cemeteryPlotterPlot; // the currently selected plot's info
+    CemeteryPlotterInterredPerson cemeteryPlotterInterredPerson; // the currently selected plot's interred person
+    CemeteryPlotterOwner cemeteryPlotterOwner; // the currently selected plot's owner
+    CemeteryPlotterPeople cemeteryPlotterPeople; // the list of people in the currently selected section(s)
+    CemeteryPlotterMap cemeteryPlotterMap; // the map of the cemetery
 
     /**
      * Construct the CemeteryPlotterFrame by scheduling a job for the event-dispatching thread that
@@ -41,6 +41,7 @@ public class CemeteryPlotterFrame extends CemeteryPlotter {
         }
 
         // create and set up the window
+        // set the title
         String frameTitle = "Cemetery Plotter";
 
         if (workingFile != null)
