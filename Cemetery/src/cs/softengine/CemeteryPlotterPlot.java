@@ -96,7 +96,6 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
         editButton = new JButton("Edit"); // when clicked will unlock text fields and allow changes
         editButton.setActionCommand("edit");
         editButton.addActionListener(this);
-        editButton.setEnabled(false); // initial state will be reversed and update/cancel will be disabled
 
         cancelButton = new JButton("Cancel");
         cancelButton.setActionCommand("cancel");
@@ -167,16 +166,15 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
         editable.add(cancelButton);
         editable.add(updateButton);
 
-        // disable editable fields until edit button is pressed
-        setFieldsEditable();
-
+        // disable editable fields until a plot is selected and edit button is pressed
+        setPlotEditable();
         return panel;
     }
 
     /**
      * Enable or disable fields belonging to editable list
      */
-    private void setFieldsEditable() {
+    public void setPlotEditable() {
         for (JComponent c : editable) {
             c.setEnabled(!c.isEnabled());
         }
@@ -191,19 +189,19 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
 
         switch (action) {
             case "edit":
-                setFieldsEditable();
+                setPlotEditable();
                 cancelButton.requestFocus();
                 break;
             case "update":
                 // write changes to plot using an additional method or call
                 //setPlotData(); // TODO write this method then uncomment
-                setFieldsEditable();
+                setPlotEditable();
                 editButton.requestFocus();
                 break;
             case "cancel":
                 // revert changes by reloading info into fields
                 //getPlotData(); // TODO write this method the uncomment
-                setFieldsEditable();
+                setPlotEditable();
                 editButton.requestFocus();
                 break;
         }

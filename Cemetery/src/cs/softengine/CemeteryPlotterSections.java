@@ -5,6 +5,7 @@ import javax.swing.border.*;
 import javax.swing.event.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 /**
  * Content pane for selecting section(s) of the cemetery
@@ -156,9 +157,18 @@ public class CemeteryPlotterSections extends CemeteryPlotter implements ActionLi
     }
 
     /**
+     * Gets the selected sections
+     * @return list of selected section names
+     */
+    public ArrayList<String> getSelectedSections() {
+        return (ArrayList<String>) sectionsList.getSelectedValuesList();
+    }
+
+    /**
      * Implementation of ListSelectionListener that is invoked when selections are made on the sections list
      */
     class SectionsListSelectionHandler implements ListSelectionListener {
+
         /**
          * Called automatically when selections are made
          * @param e ListSelectionEvent
@@ -171,6 +181,7 @@ public class CemeteryPlotterSections extends CemeteryPlotter implements ActionLi
             boolean isAdjusting = e.getValueIsAdjusting();
 
             cemeteryPlotterFrame.cemeteryPlotterPlots.clearPlotsList();
+            cemeteryPlotterFrame.cemeteryPlotterPeople.clearPeopleList();
 
             if (!lsm.isSelectionEmpty() && !isAdjusting) { // find out which indexes are selected.
                 int min = lsm.getMinSelectionIndex();
@@ -178,11 +189,11 @@ public class CemeteryPlotterSections extends CemeteryPlotter implements ActionLi
 
                 for (int index = min; index <= max; index++) {
                     if (lsm.isSelectedIndex(index)) {
-                        // list the plots and the people
+                        // list the plots
                         cemeteryPlotterFrame.cemeteryPlotterPlots.getPlotsData(sectionsListModel.get(index));
 
-                        // list the people TODO
-                        //cemeteryPlotterFrame.cemeteryPlotterPeople.getPeopleData(sectionsListModel.get(index));
+                        // list the people
+                        cemeteryPlotterFrame.cemeteryPlotterPeople.getPeopleData(sectionsListModel.get(index));
                     }
                 }
             }

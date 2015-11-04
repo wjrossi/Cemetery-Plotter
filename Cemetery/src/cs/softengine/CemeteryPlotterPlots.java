@@ -2,6 +2,8 @@ package cs.softengine;
 
 import javax.swing.*;
 import javax.swing.border.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.*;
 
@@ -65,6 +67,7 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
         plotsList = new JList<>(plotsListModel);
 
         plotsListSelectionModel = (DefaultListSelectionModel) plotsList.getSelectionModel();
+        plotsListSelectionModel.addListSelectionListener(new PlotsListSelectionHandler());
 
         plotsListScrollPane = new JScrollPane(plotsList);
         plotsListScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -76,9 +79,13 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
 
         // create new and delete buttons
         newPlotButton = new JButton("New Plot");
+        newPlotButton.setActionCommand("new");
+        newPlotButton.addActionListener(this);
         newPlotButton.setToolTipText("Add a new plot and view/edit its information");
 
         deletePlotButton = new JButton("Delete Plot(s)");
+        deletePlotButton.setActionCommand("delete");
+        deletePlotButton.addActionListener(this);
         deletePlotButton.setToolTipText("Permanently delete the selected plot from the cemetery");
 
         JPanel plotsButtonsPanel = new JPanel();
@@ -98,7 +105,20 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
      * @param e action event
      */
     public void actionPerformed(ActionEvent e) { // TODO add action listeners and stuff first
-        //
+        String action = e.getActionCommand().toLowerCase();
+
+        switch (action) {
+            case "new": // add a new plot and view/edit its information
+                // pop up a dialog:
+                //      suggest a default plotID that can be changed?
+                //      suggest a default section name that can be changed?
+                // then create a new Plot() and with those details and load it
+                // TODO
+                break;
+            case "delete": // permanently delete selected plot(s) from cemetery
+                // TODO
+                break;
+        }
     }
 
     /**
@@ -112,7 +132,7 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
     /**
      * Get the data from cemetery about plots and load it into the appropriate GUI elements
      */
-    public void getPlotsData(String section) { // TODO
+    public void getPlotsData(String section) {
         // figure out which plots to put in the list (based on which sections are selected in CemeteryPlotterSections)
         Section s = cemetery.get(new Section(section));
 
@@ -124,7 +144,7 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
     /**
      * Set the data from the GUI into the Cemetery, Section, and Plot in the cemetery
      */
-    public void setPlotsData() { // TODO on add and delete plot(s) probably
+    public void setPlotsData() { // TODO on add plot and possibly on delete plot(s)
         // write the plot data from the GUI fields into the right place in the data layer
     }
 
@@ -133,5 +153,35 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
      */
     public void clearPlotsList() {
         plotsListModel.clear();
+    }
+
+    /**
+     * Implementation of ListSelectionListener that is invoked when selections are made on the plots list
+     */
+    class PlotsListSelectionHandler implements ListSelectionListener {
+
+        /**
+         * Called automatically when selections are made
+         * @param e ListSelectionEvent
+         */
+        public void valueChanged(ListSelectionEvent e) {
+            ListSelectionModel lsm = (ListSelectionModel) e.getSource();
+
+            int firstIndex = e.getFirstIndex();
+            int lastIndex = e.getLastIndex();
+            boolean isAdjusting = e.getValueIsAdjusting();
+
+            if (!isAdjusting) {
+                if (lsm.isSelectionEmpty()) { // no selection
+                    // TODO clear all the fields and set to not editable, disable edit buttons...
+                    // TODO must interact nicely with people list selections
+                } else { // show the selected plot
+                    int index = lsm.getMinSelectionIndex();
+                    // TODO enable edit buttons, then set fields to editable and show their data
+                    // TODO must interact nicely with people list selections
+                    System.out.println("Selected Plot: " + plotsListModel.get(index)); // TEMP
+                }
+            }
+        }
     }
 }

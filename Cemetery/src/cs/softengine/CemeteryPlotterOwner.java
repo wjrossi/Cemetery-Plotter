@@ -94,7 +94,6 @@ public class CemeteryPlotterOwner extends CemeteryPlotter implements ActionListe
         editButton = new JButton("Edit"); // when clicked will unlock text fields and allow changes
         editButton.setActionCommand("edit");
         editButton.addActionListener(this);
-        editButton.setEnabled(false); // initial state will be reversed and update/cancel will be disabled
 
         cancelButton = new JButton("Cancel");
         cancelButton.setActionCommand("cancel");
@@ -105,7 +104,7 @@ public class CemeteryPlotterOwner extends CemeteryPlotter implements ActionListe
         updateButton.addActionListener(this);
 
         // create list of plots owned by person
-        plotsList = new JList<String>();
+        plotsList = new JList<>();
         plotsListScrollPane = new JScrollPane(plotsList);
         plotsListScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         plotsList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
@@ -203,8 +202,8 @@ public class CemeteryPlotterOwner extends CemeteryPlotter implements ActionListe
         editable.add(cancelButton);
         editable.add(updateButton);
 
-        // disable editable fields until edit button is pressed
-        setFieldsEditable();
+        // disable editable fields until a plot is selected and edit button is pressed
+        setOwnerEditable();
 
         return panel;
     }
@@ -212,7 +211,7 @@ public class CemeteryPlotterOwner extends CemeteryPlotter implements ActionListe
     /**
      * Enable or disable fields belonging to editable list
      */
-    private void setFieldsEditable() {
+    public void setOwnerEditable() {
         for (JComponent c : editable) {
             c.setEnabled(!c.isEnabled());
         }
@@ -227,19 +226,19 @@ public class CemeteryPlotterOwner extends CemeteryPlotter implements ActionListe
 
         switch (action) {
             case "edit":
-                setFieldsEditable();
+                setOwnerEditable();
                 cancelButton.requestFocus();
                 break;
             case "update":
                 // write changes to plot using an additional method or call
                 //setPlotData(); // TODO write this method then uncomment
-                setFieldsEditable();
+                setOwnerEditable();
                 editButton.requestFocus();
                 break;
             case "cancel":
                 // revert changes by reloading info into fields
                 //getPlotData(); // TODO write this method the uncomment
-                setFieldsEditable();
+                setOwnerEditable();
                 editButton.requestFocus();
                 break;
         }
