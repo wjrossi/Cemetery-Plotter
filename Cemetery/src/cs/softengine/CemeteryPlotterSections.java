@@ -155,7 +155,14 @@ public class CemeteryPlotterSections extends CemeteryPlotter implements ActionLi
         // used when a section is added or deleted
     }
 
+    /**
+     * Implementation of ListSelectionListener that is invoked when selections are made on the sections list
+     */
     class SectionsListSelectionHandler implements ListSelectionListener {
+        /**
+         * Called automatically when selections are made
+         * @param e ListSelectionEvent
+         */
         public void valueChanged(ListSelectionEvent e) {
             ListSelectionModel lsm = (ListSelectionModel) e.getSource();
 
