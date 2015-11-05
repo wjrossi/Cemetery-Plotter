@@ -145,9 +145,8 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
             case "both":
                 // clear the people list
                 peopleListModel.clear();
-
                 // get the people data for each selected section
-                cemeteryPlotterFrame.cemeteryPlotterSections.getSelectedSections().forEach(this::getPeopleData);
+                getPeopleData(cemeteryPlotterFrame.cemeteryPlotterSections.getSelectedSections());
                 break;
             case "search": // search using searchByBox and searchField
                 // TODO
@@ -165,19 +164,21 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
 
     /**
      * Get the data from cemetery about people and load it into the appropriate GUI elements
-     * @param section selected in CemeteryPlotterSections
+     * @param sections list of sections selected in CemeteryPlotterSections
      */
-    public void getPeopleData(String section) {
+    public void getPeopleData(ArrayList<String> sections) {
         // figure out which people to put in the list (based on selected sections and radio buttons and search items, etc...)
         ArrayList<String> people = new ArrayList<>();
 
-        if (interredPeopleRadioButton.isSelected()) { // list only interred
-            people.addAll(getPeopleDataInterred(section));
-        } else if (ownersRadioButton.isSelected()) { // list only owners
-            people.addAll(getPeopleDataOwners(section));
-        } else { // bothRadioButton.isSelected() // list both interred and owners
-            people.addAll(getPeopleDataInterred(section));
-            people.addAll(getPeopleDataOwners(section));
+        for (String section : sections) {
+            if (interredPeopleRadioButton.isSelected()) { // list only interred
+                people.addAll(getPeopleDataInterred(section));
+            } else if (ownersRadioButton.isSelected()) { // list only owners
+                people.addAll(getPeopleDataOwners(section));
+            } else { // bothRadioButton.isSelected() // list both interred and owners
+                people.addAll(getPeopleDataInterred(section));
+                people.addAll(getPeopleDataOwners(section));
+            }
         }
 
         // sort the list of people using default String comparator

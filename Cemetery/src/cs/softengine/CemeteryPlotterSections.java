@@ -180,21 +180,13 @@ public class CemeteryPlotterSections extends CemeteryPlotter implements ActionLi
             int lastIndex = e.getLastIndex();
             boolean isAdjusting = e.getValueIsAdjusting();
 
-            cemeteryPlotterFrame.cemeteryPlotterPlots.clearPlotsList();
-            cemeteryPlotterFrame.cemeteryPlotterPeople.clearPeopleList();
+            if (!isAdjusting) {
+                cemeteryPlotterFrame.cemeteryPlotterPlots.clearPlotsList();
+                cemeteryPlotterFrame.cemeteryPlotterPeople.clearPeopleList();
 
-            if (!lsm.isSelectionEmpty() && !isAdjusting) { // find out which indexes are selected.
-                int min = lsm.getMinSelectionIndex();
-                int max = lsm.getMaxSelectionIndex();
-
-                for (int index = min; index <= max; index++) {
-                    if (lsm.isSelectedIndex(index)) {
-                        // list the plots
-                        cemeteryPlotterFrame.cemeteryPlotterPlots.getPlotsData(sectionsListModel.get(index));
-
-                        // list the people
-                        cemeteryPlotterFrame.cemeteryPlotterPeople.getPeopleData(sectionsListModel.get(index));
-                    }
+                if (!lsm.isSelectionEmpty()) { // find out which indexes are selected.
+                    cemeteryPlotterFrame.cemeteryPlotterPlots.getPlotsData((ArrayList<String>) sectionsList.getSelectedValuesList());
+                    cemeteryPlotterFrame.cemeteryPlotterPeople.getPeopleData((ArrayList<String>) sectionsList.getSelectedValuesList());
                 }
             }
         }

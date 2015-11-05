@@ -6,6 +6,8 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Content pane for listing of plots belonging to selected section(s)
@@ -131,13 +133,26 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
 
     /**
      * Get the data from cemetery about plots and load it into the appropriate GUI elements
+     * @param sections list of selected sections in CemeteryPlotterSections
      */
-    public void getPlotsData(String section) {
-        // figure out which plots to put in the list (based on which sections are selected in CemeteryPlotterSections)
-        Section s = cemetery.get(new Section(section));
+    public void getPlotsData(ArrayList<String> sections) {
+        ArrayList<String> plots = new ArrayList<>();
 
-        for (Plot p : s.getPlots()) {
-            plotsListModel.addElement(Integer.toString(p.getID())); // messy
+        for (String section : sections) {
+            // figure out which plots to put in the list (based on which sections are selected in CemeteryPlotterSections)
+            Section s = cemetery.get(new Section(section));
+
+            for (Plot p : s.getPlots()) {
+                plots.add(Integer.toString(p.getID()));
+            }
+        }
+
+        // sort the list of people using default String comparator
+        Collections.sort(plots);
+
+        // add each person to the people list
+        for (String plotID : plots) {
+            plotsListModel.addElement(plotID);
         }
     }
 
