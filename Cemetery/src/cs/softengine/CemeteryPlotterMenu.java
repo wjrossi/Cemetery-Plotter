@@ -84,7 +84,7 @@ public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListen
 
     /**
      * Action listener for menu bar
-     * @param e
+     * @param e action event
      */
     public void actionPerformed(ActionEvent e) {
         String choice;
@@ -134,6 +134,7 @@ public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListen
                 // probably show a dialog asking if you want to save & exit or exit without saving
                 // probably send some kind of window event about exiting that gets handled in CemeteryPlotterFrame listener
                 // might have to get that listener from CemeteryPlotterFrame and add it to the Quit menuitem in this file
+                // *** if cemetery.isModified() is true, then ask them if they want to save ****
                 break;
         }
     }
@@ -192,7 +193,7 @@ public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListen
 
     /**
      * Item state listener for menu bar
-     * @param e
+     * @param e item event
      */
     public void itemStateChanged(ItemEvent e) {
         //

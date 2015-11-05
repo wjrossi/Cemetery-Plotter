@@ -15,11 +15,13 @@ public class Cemetery {
     private ArrayList<InterredPerson> interred; // list of all interred people in the cemetery
     private ArrayList<Person> owners; // list of all plot owner people in the cemetery
     private SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+    private boolean modified; // has the cemetery been modified
 
     /**
      * Constructs a singleton cemetery
      */
     public Cemetery() {
+        modified = false;
         sections = new ArrayList<>();
         plots = new ArrayList<>();
         interred = new ArrayList<>();
@@ -31,6 +33,7 @@ public class Cemetery {
      * @param file cemetery file
      */
     public Cemetery(File file) {
+        modified = false;
         try {
             // TODO decompress file, then decrypt file
             load(file); // load the plain-text file
@@ -360,6 +363,21 @@ public class Cemetery {
      */
     public ArrayList<Person> getOwners() {
         return owners;
+    }
+
+    /**
+     * Has the cemetery been modified?
+     * @return modified
+     */
+    public boolean isModified() {
+        return modified;
+    }
+
+    /**
+     * Set the cemetery as having been modified
+     */
+    public void setModified() {
+        modified = true;
     }
 
     /**

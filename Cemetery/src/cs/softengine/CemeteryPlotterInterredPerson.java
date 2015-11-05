@@ -308,7 +308,37 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
      * Set the data from the GUI into the interred person in the cemetery
      */
     public void setInterredData(Plot plot) { // TODO on update button press
-        // write the interred person data from the GUI fields into the right place in the data layer
+        cemetery.setModified();
+
+        // write the owner data from the GUI fields into the right place in the data layer
+        InterredPerson ip = plot.getInterred();
+
+        if (ip == null) {
+            ip = new InterredPerson();
+        }
+
+        ip.setInterredID(Integer.parseInt(interredIDField.getText())); // TODO what if this is changed
+        ip.setPlotID(Integer.parseInt(plotIDField.getText())); // TODO what if this is changed
+        ip.setFirstName(fnameField.getText());
+        ip.setLastName(lnameField.getText());
+        ip.setAddress1(address1Field.getText());
+        ip.setAddress2((address2Field.getText()));
+        ip.setCity(cityField.getText());
+        ip.setState(stateField.getText());
+        ip.setZip(zipField.getText());
+        ip.setPhone(phoneField.getText());
+
+        try {
+            ip.setBornDate(sdf.parse(bornDateField.getText()));
+        } catch (ParseException pe) {
+            ip.setBornDate(null);
+        }
+
+        try {
+            ip.setDiedDate(sdf.parse(diedDateField.getText()));
+        } catch (ParseException pe) {
+            ip.setDiedDate(null);
+        }
     }
 
     /**

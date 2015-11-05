@@ -69,6 +69,7 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
 
         burialDateLabel.setToolTipText("MM/DD/YYYY");
         purchasedDateLabel.setToolTipText("MM/DD/YYYY");
+        moneyDueLabel.setToolTipText("$123.45");
 
         // create text fields
         sectionField = new JTextField(6);
@@ -220,7 +221,7 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
     /**
      * Get the data from cemetery about a plot and load it into the appropriate GUI elements
      */
-    public void getPlotData(Plot plot) { // TODO
+    public void getPlotData(Plot plot) {
         editButton.setEnabled(true);
 
         // load the gui elements...
@@ -239,7 +240,12 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
             purchasedDateField.setText("");
         }
 
-        moneyDueField.setText(Integer.toString(plot.getMoneyDue() / 100)); // TODO make it show money in $
+        try {
+            moneyDueField.setText(nf.parse(Integer.toString(plot.getMoneyDue() / 100)).toString());
+        } catch (ParseException pe) {
+            moneyDueField.setText("");
+        }
+
         vacantCheckBox.setSelected(plot.isVacant());
         readyCheckBox.setSelected(plot.isReady());
     }
@@ -247,8 +253,30 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
     /**
      * Set the data from the GUI into the plot in the cemetery
      */
-    public void setPlotData(Plot plot) { // TODO on update button press
+    public void setPlotData(Plot plot) { // TODO BAD INPUT ERROR CHECKING
+        cemetery.setModified();
+
         // write the plot data from the GUI fields into the right place in the data layer
+        plot.setSection(sectionField.getText());
+        plot.setID(Integer.parseInt(plotIDField.getText()));
+
+        try {
+            plot.setBurialDate(sdf.parse(burialDateField.getText()));
+        } catch (ParseException pe) { // TODO show error??
+            plot.setBurialDate(null);
+        }
+
+        try {
+            plot.setPurchasedDate(sdf.parse(purchasedDateField.getText()));
+        } catch (ParseException pe) { // TODO show error??
+            plot.setPurchasedDate(null);
+        }
+
+        String moneyDue = moneyDueField.getText().replace("$", "").replace(".", ""); // strip symbols
+        plot.setMoneyDue(Integer.parseInt(moneyDue)); // save as pennies
+
+        plot.setVacant(vacantCheckBox.isSelected());
+        plot.setReady(readyCheckBox.isSelected());
     }
 
     /**
