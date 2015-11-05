@@ -80,16 +80,16 @@ public class CemeteryPlotterSections extends CemeteryPlotter implements ActionLi
         sectionsList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         sectionsList.setLayoutOrientation(JList.VERTICAL);
         sectionsList.setPrototypeCellValue("ABCDEFGH");
-        sectionsList.setToolTipText("Select the section(s) to list their plots below");
+        sectionsList.setToolTipText("Select the section(s) to list their plots below.");
 
         // create new and delete buttons
         newSectionButton = new JButton("New Section");
-        newSectionButton.setToolTipText("Create and add a new section to the cemetery");
+        newSectionButton.setToolTipText("Create and add a new section to the cemetery.");
         newSectionButton.setActionCommand("new section");
         newSectionButton.addActionListener(this);
 
         deleteSectionButton = new JButton("Delete Section(s)");
-        deleteSectionButton.setToolTipText("Permanently delete the selected section(s) from the cemetery");
+        deleteSectionButton.setToolTipText("Permanently delete the selected section(s) from the cemetery.");
         deleteSectionButton.setActionCommand("delete section");
         deleteSectionButton.addActionListener(this);
 

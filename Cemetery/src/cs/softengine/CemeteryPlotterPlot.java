@@ -200,6 +200,7 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
                 break;
             case "cancel":
                 // revert changes by reloading info into fields
+                editButton.setEnabled(false);
                 setPlotEditable();
                 clearPlotData();
                 getPlotData(cemeteryPlotterFrame.cemeteryPlotterPlots.getSelectedPlot());
@@ -236,7 +237,13 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
      * Clear all plot data from the GUI
      */
     public void clearPlotData() {
-        editButton.setEnabled(false);
         // clear each textfield and whatnot
+        sectionField.setText("");
+        plotIDField.setText("");
+        burialDateField.setText("");
+        purchasedDateField.setText("");
+        moneyDueField.setText("");
+        vacantCheckBox.setSelected(false);
+        readyCheckBox.setSelected(false);
     }
 }

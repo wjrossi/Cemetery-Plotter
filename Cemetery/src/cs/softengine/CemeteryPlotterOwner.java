@@ -2,6 +2,8 @@ package cs.softengine;
 
 import javax.swing.*;
 import javax.swing.border.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
@@ -19,8 +21,10 @@ public class CemeteryPlotterOwner extends CemeteryPlotter implements ActionListe
     private JTextField stateField;
     private JTextField zipField;
     private JTextField phoneField;
-    private JList<String> plotsList;
-    private JScrollPane plotsListScrollPane;
+    private JList<String> ownedList;
+    private JScrollPane ownedListScrollPane;
+    private DefaultListModel<String> ownedListModel;
+    private DefaultListSelectionModel ownedListSelectionModel;
     private JTextField addPlotField;
     private JButton addPlotButton;
     private JButton removePlotButton;
@@ -104,17 +108,31 @@ public class CemeteryPlotterOwner extends CemeteryPlotter implements ActionListe
         updateButton.addActionListener(this);
 
         // create list of plots owned by person
-        plotsList = new JList<>();
-        plotsListScrollPane = new JScrollPane(plotsList);
-        plotsListScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        plotsList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        plotsList.setLayoutOrientation(JList.VERTICAL);
-        plotsList.setPrototypeCellValue("999999");
+        ownedListModel = new DefaultListModel<>();
+        ownedList = new JList<>(ownedListModel);
+
+        //ownedListSelectionModel = (DefaultListSelectionModel) ownedList.getSelectionModel();
+        //ownedListSelectionModel.addListSelectionListener(new OwnedListSelectionHandler());
+
+        ownedListScrollPane = new JScrollPane(ownedList);
+        ownedListScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
+        ownedList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        ownedList.setLayoutOrientation(JList.VERTICAL);
+        ownedList.setPrototypeCellValue("999999");
 
         // create add and remove plot buttons and text field
         addPlotField = new JTextField(4);
+
         addPlotButton = new JButton("Add Plot");
-        removePlotButton = new JButton("Remove Plot(s)");
+        addPlotButton.setActionCommand("add");
+        addPlotButton.addActionListener(this);
+        addPlotButton.setToolTipText("Add an existing plot to the list of plots owned by this person.");
+
+        removePlotButton = new JButton("Remove Plot");
+        removePlotButton.setActionCommand("remove");
+        removePlotButton.addActionListener(this);
+        removePlotButton.setToolTipText("Remove selected plot from the list. Does NOT delete the plot from the cemetery.");
 
         // create sub-panels
         JPanel namePanel = new JPanel();
@@ -166,7 +184,7 @@ public class CemeteryPlotterOwner extends CemeteryPlotter implements ActionListe
         ownedButtonsPanel.add(addPlotButton);
         ownedButtonsPanel.add(removePlotButton);
 
-        ownedPanel.add(plotsListScrollPane);
+        ownedPanel.add(ownedListScrollPane);
         ownedPanel.add(addPlotField);
         ownedPanel.add(ownedButtonsPanel);
 
@@ -194,7 +212,7 @@ public class CemeteryPlotterOwner extends CemeteryPlotter implements ActionListe
         editable.add(stateField);
         editable.add(zipField);
         editable.add(phoneField);
-        editable.add(plotsList);
+        editable.add(ownedList);
         editable.add(addPlotButton);
         editable.add(addPlotField);
         editable.add(removePlotButton);
@@ -242,6 +260,12 @@ public class CemeteryPlotterOwner extends CemeteryPlotter implements ActionListe
                 getOwnerData(cemeteryPlotterFrame.cemeteryPlotterPlots.getSelectedPlot());
                 editButton.requestFocus();
                 break;
+            case "add":
+                // TODO add a plot to this owner's list and the list GUI object
+                break;
+            case "remove":
+                // TODO remove a plot from this owner's list and the list GUI object
+                break;
         }
     }
 
@@ -274,5 +298,42 @@ public class CemeteryPlotterOwner extends CemeteryPlotter implements ActionListe
      */
     public void clearOwnerData() {
         // clear each textfield and whatnot
+        fnameField.setText("");
+        lnameField.setText("");
+        address1Field.setText("");
+        address2Field.setText("");
+        cityField.setText("");
+        stateField.setText("");
+        zipField.setText("");
+        phoneField.setText("");
+        addPlotField.setText("");
+        ownedListModel.clear();
+    }
+
+    /**
+     * Implementation of ListSelectionListener that is invoked when selections are made on the owned plots list
+     */
+    class OwnedListSelectionHandler implements ListSelectionListener {
+
+        /**
+         * Called automatically when selections are made
+         * @param e ListSelectionEvent
+         */
+        public void valueChanged(ListSelectionEvent e) {
+            ListSelectionModel lsm = (ListSelectionModel) e.getSource();
+
+            int firstIndex = e.getFirstIndex();
+            int lastIndex = e.getLastIndex();
+            boolean isAdjusting = e.getValueIsAdjusting();
+
+            if (!isAdjusting) {
+                if (lsm.isSelectionEmpty()) { // no selection
+                    // DO NOTHING
+                } else { // show the selected plot
+                    int index = lsm.getMinSelectionIndex();
+                    // DO NOTHING ON SELECTION?
+                }
+            }
+        }
     }
 }

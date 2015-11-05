@@ -52,7 +52,7 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
 
         // create search text field and button
         searchField = new JTextField(8);
-        searchField.setToolTipText("View or edit the specified plot");
+        searchField.setToolTipText("View or edit the specified plot.");
 
         // add search text field and button to search panel
         JPanel searchPanel = new JPanel();
@@ -75,18 +75,18 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
         plotsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         plotsList.setLayoutOrientation(JList.VERTICAL);
         plotsList.setPrototypeCellValue("999999");
-        plotsList.setToolTipText("Select the plot you wish to view or edit");
+        plotsList.setToolTipText("Select the plot you wish to view or edit.");
 
         // create new and delete buttons
         newPlotButton = new JButton("New Plot");
         newPlotButton.setActionCommand("new");
         newPlotButton.addActionListener(this);
-        newPlotButton.setToolTipText("Add a new plot and view/edit its information");
+        newPlotButton.setToolTipText("Add a new plot and view/edit its information.");
 
-        deletePlotButton = new JButton("Delete Plot(s)");
+        deletePlotButton = new JButton("Delete Plot");
         deletePlotButton.setActionCommand("delete");
         deletePlotButton.addActionListener(this);
-        deletePlotButton.setToolTipText("Permanently delete the selected plot from the cemetery");
+        deletePlotButton.setToolTipText("Permanently delete the selected plot from the cemetery.");
 
         JPanel plotsButtonsPanel = new JPanel();
         plotsButtonsPanel.setLayout(new BoxLayout(plotsButtonsPanel, BoxLayout.LINE_AXIS));
@@ -115,7 +115,7 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
                 // then create a new Plot() and with those details and load it
                 // TODO
                 break;
-            case "delete": // permanently delete selected plot(s) from cemetery
+            case "delete": // permanently delete selected plot from cemetery
                 // TODO
                 break;
         }

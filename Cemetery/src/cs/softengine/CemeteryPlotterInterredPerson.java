@@ -252,6 +252,7 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
                 break;
             case "cancel":
                 // revert changes by reloading info into fields
+                editButton.setEnabled(false);
                 setInterredEditable();
                 clearInterredData();
                 getInterredData(cemeteryPlotterFrame.cemeteryPlotterPlots.getSelectedPlot());
@@ -289,5 +290,17 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
      */
     public void clearInterredData() {
         // clear each textfield and whatnot
+        interredIDField.setText("");
+        plotIDField.setText("");
+        fnameField.setText("");
+        lnameField.setText("");
+        address1Field.setText("");
+        address2Field.setText("");
+        cityField.setText("");
+        stateField.setText("");
+        zipField.setText("");
+        phoneField.setText("");
+        bornDateField.setText("");
+        diedDateField.setText("");
     }
 }
