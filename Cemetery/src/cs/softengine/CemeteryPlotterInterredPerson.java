@@ -272,16 +272,42 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
     /**
      * Get the data from cemetery about an interred person and load it into the appropriate GUI elements
      */
-    public void getInterredData(int plotID) { // TODO
+    public void getInterredData(Plot plot) { // TODO
         editButton.setEnabled(true);
-        // figure out what interred person data to fill in based on selected plot from CemeteryPlotterPlots
+
+        InterredPerson ip = plot.getInterred();
+
         // load the gui elements...
+        if (ip != null) {
+            interredIDField.setText(Integer.toString(ip.getInterredID()));
+            plotIDField.setText(Integer.toString(ip.getPlotID()));
+            fnameField.setText(ip.getFirstName());
+            lnameField.setText(ip.getLastName());
+            address1Field.setText(ip.getAddress1());
+            address2Field.setText(ip.getAddress2());
+            cityField.setText(ip.getCity());
+            stateField.setText(ip.getState());
+            zipField.setText(ip.getZip());
+            phoneField.setText(ip.getPhone());
+
+            try {
+                bornDateField.setText(ip.getBornDate().toString());
+            } catch (NullPointerException npe) {
+                bornDateField.setText("");
+            }
+
+            try {
+                diedDateField.setText(ip.getDiedDate().toString());
+            } catch (NullPointerException npe) {
+                diedDateField.setText("");
+            }
+        }
     }
 
     /**
      * Set the data from the GUI into the interred person in the cemetery
      */
-    public void setInterredData(int plotID) { // TODO on update button press
+    public void setInterredData(Plot plot) { // TODO on update button press
         // write the interred person data from the GUI fields into the right place in the data layer
     }
 

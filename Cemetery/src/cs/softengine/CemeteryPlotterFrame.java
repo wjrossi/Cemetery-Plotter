@@ -117,19 +117,21 @@ public class CemeteryPlotterFrame extends CemeteryPlotter {
 
     /**
      * Get data from cemetery for a plot, interred person, and owner
-     * @param plotID of the plot
+     * @param plot of the cemetery
      */
-    public void getData(int plotID) {
-        cemeteryPlotterPlot.getPlotData(plotID);
-        cemeteryPlotterInterredPerson.getInterredData(plotID);
-        cemeteryPlotterOwner.getOwnerData(plotID);
+    public void getData(Plot plot) {
+        plot = cemetery.getPlots().get(cemetery.getPlots().indexOf(plot));
+
+        cemeteryPlotterPlot.getPlotData(plot);
+        cemeteryPlotterInterredPerson.getInterredData(plot);
+        cemeteryPlotterOwner.getOwnerData(plot);
     }
 
     /**
      * Set data to cemetery for a plot, interred person, and owner
-     * @param plotID of the plot
+     * @param plot of the cemetery
      */
-    public void setData(int plotID) {
+    public void setData(Plot plot) {
         // write the data ?? MIGHT NOT NEED THIS???
     }
 

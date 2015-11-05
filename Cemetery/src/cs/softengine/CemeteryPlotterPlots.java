@@ -159,8 +159,12 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
      * Gets the selected plot ID
      * @return selected plotID
      */
-    public int getSelectedPlot() {
-        return Integer.parseInt(plotsList.getSelectedValue());
+    public Plot getSelectedPlot() {
+        // figure out what plot data to get and fill in based on selected plot from CemeteryPlotterPlots
+        int plotID = Integer.parseInt(plotsList.getSelectedValue());
+        Plot plot = new Plot("", plotID);
+
+        return cemetery.getPlots().get(cemetery.getPlots().indexOf(plot));
     }
 
     /**
@@ -184,9 +188,12 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
                     // TODO must interact nicely with people list selections
                     cemeteryPlotterFrame.clearData();
                 } else { // show the selected plot
-                    int index = lsm.getMinSelectionIndex();
                     // TODO must interact nicely with people list selections
-                    cemeteryPlotterFrame.getData(Integer.parseInt(plotsListModel.get(index)));
+                    int index = lsm.getMinSelectionIndex();
+                    int plotID = Integer.parseInt(plotsListModel.get(index));
+                    Plot plot = new Plot("", plotID);
+                    cemeteryPlotterFrame.clearData();
+                    cemeteryPlotterFrame.getData(plot);
                 }
             }
         }

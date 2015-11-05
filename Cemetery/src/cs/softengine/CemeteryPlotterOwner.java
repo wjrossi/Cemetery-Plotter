@@ -280,16 +280,33 @@ public class CemeteryPlotterOwner extends CemeteryPlotter implements ActionListe
     /**
      * Get the data from cemetery about a plot and load it into the appropriate GUI elements
      */
-    public void getOwnerData(int plotID) { // TODO
+    public void getOwnerData(Plot plot) { // TODO
         editButton.setEnabled(true);
-        // figure out what owner data to fill in based on selected plot from CemeteryPlotterPlots
+
+        Person owner = plot.getOwner();
+
         // load the gui elements...
+        if (owner != null) {
+            fnameField.setText(owner.getFirstName());
+            lnameField.setText(owner.getLastName());
+            address1Field.setText(owner.getAddress1());
+            address2Field.setText(owner.getAddress2());
+            cityField.setText(owner.getCity());
+            stateField.setText(owner.getState());
+            zipField.setText(owner.getZip());
+            phoneField.setText(owner.getPhone());
+            addPlotField.setText("");
+
+            for (Integer plotID : owner.getOwnedPlots()) {
+                ownedListModel.addElement(Integer.toString(plotID));
+            }
+        }
     }
 
     /**
      * Set the data from the GUI into the owner Person in the cemetery
      */
-    public void setOwnerData(int plotID) { // TODO on update button press
+    public void setOwnerData(Plot plot) { // TODO on update button press
         // write the owner data from the GUI fields into the right place in the data layer
     }
 

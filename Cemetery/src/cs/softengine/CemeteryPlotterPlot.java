@@ -220,16 +220,34 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
     /**
      * Get the data from cemetery about a plot and load it into the appropriate GUI elements
      */
-    public void getPlotData(int plotID) { // TODO
+    public void getPlotData(Plot plot) { // TODO
         editButton.setEnabled(true);
-        // figure out what plot data to get and fill in based on selected plot from CemeteryPlotterPlots
+
         // load the gui elements...
+        sectionField.setText(plot.getSection());
+        plotIDField.setText(Integer.toString(plot.getID()));
+
+        try {
+            burialDateField.setText(plot.getBurialDate().toString());
+        } catch (NullPointerException npe) {
+            burialDateField.setText("");
+        }
+
+        try {
+            purchasedDateField.setText(plot.getPurchasedDate().toString());
+        } catch (NullPointerException npe) {
+            purchasedDateField.setText("");
+        }
+
+        moneyDueField.setText(Integer.toString(plot.getMoneyDue() / 100)); // TODO make it show money in $
+        vacantCheckBox.setSelected(plot.isVacant());
+        readyCheckBox.setSelected(plot.isReady());
     }
 
     /**
      * Set the data from the GUI into the plot in the cemetery
      */
-    public void setPlotData(int plotID) { // TODO on update button press
+    public void setPlotData(Plot plot) { // TODO on update button press
         // write the plot data from the GUI fields into the right place in the data layer
     }
 
