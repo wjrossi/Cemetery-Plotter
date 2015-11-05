@@ -157,7 +157,7 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
 
     /**
      * Gets the selected plot ID
-     * @return selected plotID
+     * @return selected plot
      */
     public Plot getSelectedPlot() {
         // figure out what plot data to get and fill in based on selected plot from CemeteryPlotterPlots

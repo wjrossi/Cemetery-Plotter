@@ -254,11 +254,13 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
             if (!isAdjusting) {
                 if (lsm.isSelectionEmpty()) { // no selection
                     // TODO clear all the fields and set to not editable, disable edit buttons...
-                    // TODO must interact nicely with people list selections
+                    // TODO must interact nicely with plot list selections
+                    // should probably defer to plot list select, if any
                 } else { // show the selected person
                     int index = lsm.getMinSelectionIndex();
                     // TODO enable edit buttons, then set fields to editable and show their data
-                    // TODO must interact nicely with people list selections
+                    // TODO must interact nicely with plot list selections
+                    // probably should select the associated plotID in the plots list which will make it show in the center
                     System.out.println("Selected Person: " + peopleListModel.get(index)); // TEMP
                 }
             }
