@@ -26,7 +26,7 @@ public class CemeteryPlotterFrame extends CemeteryPlotter {
      */
     public CemeteryPlotterFrame() {
         // load GUI in separate thread
-        SwingUtilities.invokeLater(() -> createAndShowGUI());
+        SwingUtilities.invokeLater(this::createAndShowGUI);
     }
 
     /**
@@ -128,9 +128,17 @@ public class CemeteryPlotterFrame extends CemeteryPlotter {
     /**
      * Set data to cemetery for a plot, interred person, and owner
      * @param plotID of the plot
-     * @param isModified save if true, rollback if false
      */
-    public void setData(int plotID, boolean isModified) {
-        // write the data ??
+    public void setData(int plotID) {
+        // write the data ?? MIGHT NOT NEED THIS???
+    }
+
+    /**
+     * Clear all plot, interred person, and owner data from the GUI
+     */
+    public void clearData() {
+        cemeteryPlotterPlot.clearPlotData();
+        cemeteryPlotterInterredPerson.clearInterredData();
+        cemeteryPlotterOwner.clearOwnerData();
     }
 }

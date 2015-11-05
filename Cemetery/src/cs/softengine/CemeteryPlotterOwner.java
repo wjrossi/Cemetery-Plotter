@@ -231,14 +231,15 @@ public class CemeteryPlotterOwner extends CemeteryPlotter implements ActionListe
                 break;
             case "update":
                 // write changes to plot using an additional method or call
-                //setPlotData(); // TODO write this method then uncomment
+                setOwnerData(cemeteryPlotterFrame.cemeteryPlotterPlots.getSelectedPlot());
                 setOwnerEditable();
                 editButton.requestFocus();
                 break;
             case "cancel":
                 // revert changes by reloading info into fields
-                //getPlotData(); // TODO write this method the uncomment
                 setOwnerEditable();
+                clearOwnerData();
+                getOwnerData(cemeteryPlotterFrame.cemeteryPlotterPlots.getSelectedPlot());
                 editButton.requestFocus();
                 break;
         }
@@ -264,7 +265,14 @@ public class CemeteryPlotterOwner extends CemeteryPlotter implements ActionListe
     /**
      * Set the data from the GUI into the owner Person in the cemetery
      */
-    public void setOwnerData() { // TODO on update button press
+    public void setOwnerData(int plotID) { // TODO on update button press
         // write the owner data from the GUI fields into the right place in the data layer
+    }
+
+    /**
+     * Clear all owner data from the GUI
+     */
+    public void clearOwnerData() {
+        // clear each textfield and whatnot
     }
 }

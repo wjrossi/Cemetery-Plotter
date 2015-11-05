@@ -194,14 +194,15 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
                 break;
             case "update":
                 // write changes to plot using an additional method or call
-                //setPlotData(); // TODO write this method then uncomment
+                setPlotData(cemeteryPlotterFrame.cemeteryPlotterPlots.getSelectedPlot());
                 setPlotEditable();
                 editButton.requestFocus();
                 break;
             case "cancel":
                 // revert changes by reloading info into fields
-                //getPlotData(); // TODO write this method the uncomment
                 setPlotEditable();
+                clearPlotData();
+                getPlotData(cemeteryPlotterFrame.cemeteryPlotterPlots.getSelectedPlot());
                 editButton.requestFocus();
                 break;
         }
@@ -227,7 +228,15 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
     /**
      * Set the data from the GUI into the plot in the cemetery
      */
-    public void setPlotData() { // TODO on update button press
+    public void setPlotData(int plotID) { // TODO on update button press
         // write the plot data from the GUI fields into the right place in the data layer
+    }
+
+    /**
+     * Clear all plot data from the GUI
+     */
+    public void clearPlotData() {
+        editButton.setEnabled(false);
+        // clear each textfield and whatnot
     }
 }

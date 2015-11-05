@@ -246,14 +246,15 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
                 break;
             case "update":
                 // write changes to plot using an additional method or call
-                //setPlotData(); // TODO write this method then uncomment
+                setInterredData(cemeteryPlotterFrame.cemeteryPlotterPlots.getSelectedPlot());
                 setInterredEditable();
                 editButton.requestFocus();
                 break;
             case "cancel":
                 // revert changes by reloading info into fields
-                //getPlotData(); // TODO write this method the uncomment
                 setInterredEditable();
+                clearInterredData();
+                getInterredData(cemeteryPlotterFrame.cemeteryPlotterPlots.getSelectedPlot());
                 editButton.requestFocus();
                 break;
         }
@@ -279,7 +280,14 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
     /**
      * Set the data from the GUI into the interred person in the cemetery
      */
-    public void setInterredData() { // TODO on update button press
+    public void setInterredData(int plotID) { // TODO on update button press
         // write the interred person data from the GUI fields into the right place in the data layer
+    }
+
+    /**
+     * Clear all interred person data from the GUI
+     */
+    public void clearInterredData() {
+        // clear each textfield and whatnot
     }
 }

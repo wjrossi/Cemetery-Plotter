@@ -156,6 +156,14 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
     }
 
     /**
+     * Gets the selected plot ID
+     * @return selected plotID
+     */
+    public int getSelectedPlot() {
+        return Integer.parseInt(plotsList.getSelectedValue());
+    }
+
+    /**
      * Implementation of ListSelectionListener that is invoked when selections are made on the plots list
      */
     class PlotsListSelectionHandler implements ListSelectionListener {
@@ -173,13 +181,11 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
 
             if (!isAdjusting) {
                 if (lsm.isSelectionEmpty()) { // no selection
-                    // TODO clear all the fields and set to not editable, disable edit buttons...
                     // TODO must interact nicely with people list selections
+                    cemeteryPlotterFrame.clearData();
                 } else { // show the selected plot
                     int index = lsm.getMinSelectionIndex();
-                    // TODO enable edit buttons, then set fields to editable and show their data
                     // TODO must interact nicely with people list selections
-                    System.out.println("Selected Plot: " + plotsListModel.get(index)); // TEMP
                     cemeteryPlotterFrame.getData(Integer.parseInt(plotsListModel.get(index)));
                 }
             }
