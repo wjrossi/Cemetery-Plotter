@@ -255,8 +255,10 @@ public class CemeteryPlotterOwner extends CemeteryPlotter implements ActionListe
     /**
      * Get the data from cemetery about a plot and load it into the appropriate GUI elements
      */
-    public void getOwnerData() { // TODO
+    public void getOwnerData(int plotID) { // TODO
+        editButton.setEnabled(true);
         // figure out what owner data to fill in based on selected plot from CemeteryPlotterPlots
+        // load the gui elements...
     }
 
     /**

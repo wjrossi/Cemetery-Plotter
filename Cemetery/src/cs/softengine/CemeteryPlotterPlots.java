@@ -180,6 +180,7 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
                     // TODO enable edit buttons, then set fields to editable and show their data
                     // TODO must interact nicely with people list selections
                     System.out.println("Selected Plot: " + plotsListModel.get(index)); // TEMP
+                    cemeteryPlotterFrame.getData(Integer.parseInt(plotsListModel.get(index)));
                 }
             }
         }

@@ -103,7 +103,8 @@ public class CemeteryPlotterFrame extends CemeteryPlotter {
         frame.setVisible(true);
 
         // get data from cemetery and populate GUI with it
-        getData();
+        cemeteryPlotterSections.getSectionsData();
+        //cemeteryPlotterMap.getMapData(); // disabled till we have something to put there
     }
 
     /**
@@ -115,12 +116,21 @@ public class CemeteryPlotterFrame extends CemeteryPlotter {
     }
 
     /**
-     * Get data from cemetery to populate GUI
+     * Get data from cemetery for a plot, interred person, and owner
+     * @param plotID of the plot
      */
-    private void getData() {
-        cemeteryPlotterSections.getSectionsData();
-        //cemeteryPlotterPlots.getPlotsData(); handled automatically by sections
-        //cemeteryPlotterPeople.getPeopleData(); also handled automatically by sections probably
-        //cemeteryPlotterMap.getMapData(); // disabled till we have something to put there
+    public void getData(int plotID) {
+        cemeteryPlotterPlot.getPlotData(plotID);
+        cemeteryPlotterInterredPerson.getInterredData(plotID);
+        cemeteryPlotterOwner.getOwnerData(plotID);
+    }
+
+    /**
+     * Set data to cemetery for a plot, interred person, and owner
+     * @param plotID of the plot
+     * @param isModified save if true, rollback if false
+     */
+    public void setData(int plotID, boolean isModified) {
+        // write the data ??
     }
 }

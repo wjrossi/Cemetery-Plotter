@@ -270,8 +270,10 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
     /**
      * Get the data from cemetery about an interred person and load it into the appropriate GUI elements
      */
-    public void getInterredData() { // TODO
+    public void getInterredData(int plotID) { // TODO
+        editButton.setEnabled(true);
         // figure out what interred person data to fill in based on selected plot from CemeteryPlotterPlots
+        // load the gui elements...
     }
 
     /**

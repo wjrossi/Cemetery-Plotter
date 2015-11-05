@@ -218,8 +218,10 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
     /**
      * Get the data from cemetery about a plot and load it into the appropriate GUI elements
      */
-    public void getPlotData() { // TODO
+    public void getPlotData(int plotID) { // TODO
+        editButton.setEnabled(true);
         // figure out what plot data to get and fill in based on selected plot from CemeteryPlotterPlots
+        // load the gui elements...
     }
 
     /**
