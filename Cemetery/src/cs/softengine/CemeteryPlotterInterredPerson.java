@@ -248,6 +248,7 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
                 // write changes to plot using an additional method or call
                 setInterredData(cemeteryPlotterFrame.cemeteryPlotterPlots.getSelectedPlot());
                 setInterredEditable();
+                // TODO call something that updates section list, plot list, and/or people list, if necessary
                 editButton.requestFocus();
                 break;
             case "cancel":
@@ -308,7 +309,7 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
      * Set the data from the GUI into the interred person in the cemetery
      */
     public void setInterredData(Plot plot) { // TODO on update button press
-        cemetery.setModified();
+        cemetery.setModified(true);
 
         // write the owner data from the GUI fields into the right place in the data layer
         InterredPerson ip = plot.getInterred();
@@ -317,8 +318,8 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
             ip = new InterredPerson();
         }
 
-        ip.setInterredID(Integer.parseInt(interredIDField.getText())); // TODO what if this is changed
-        ip.setPlotID(Integer.parseInt(plotIDField.getText())); // TODO what if this is changed
+        ip.setInterredID(Integer.parseInt(interredIDField.getText())); // TODO what if this is changed??
+        ip.setPlotID(Integer.parseInt(plotIDField.getText())); // TODO what if this is changed??
         ip.setFirstName(fnameField.getText());
         ip.setLastName(lnameField.getText());
         ip.setAddress1(address1Field.getText());
@@ -339,6 +340,8 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
         } catch (ParseException pe) {
             ip.setDiedDate(null);
         }
+
+        plot.setInterred(ip);
     }
 
     /**

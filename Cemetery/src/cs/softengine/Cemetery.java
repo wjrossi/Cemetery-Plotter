@@ -375,9 +375,10 @@ public class Cemetery {
 
     /**
      * Set the cemetery as having been modified
+     * @param modifiedValue new modified value
      */
-    public void setModified() {
-        modified = true;
+    public void setModified(boolean modifiedValue) {
+        modified = modifiedValue;
     }
 
     /**

@@ -110,6 +110,7 @@ public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListen
             case "save": // save a file
                 try {
                     cemetery.save(workingFile); // save the working file
+                    cemetery.setModified(false);
                 } catch (IOException ex) { // TODO show error dialogs
                     // major error, how do we handle it
                     System.err.println("Unable to save file.");
@@ -119,10 +120,11 @@ public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListen
             case "save as":  // save as a user chosen file
                 file = saveAsFile();
 
-                if (file != null) {
+                if (file != null) { // a file was selected
                     try {
                         workingFile = file; // set the working file to the selected file
                         cemetery.save(file); // open the file using the cemetery object's load(file) method
+                        cemetery.setModified(false);
                     } catch (IOException ex) { // TODO show error dialogs
                         // major error, how do we handle it??
                         System.err.println("Unable to read input file.");
