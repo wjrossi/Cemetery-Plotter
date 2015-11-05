@@ -96,6 +96,7 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
         bornDateField.setColumns(10);
         diedDateField.setColumns(10);
 
+        interredIDField.setEnabled(false); // interredID cannot be changed and is auto-generated
         plotIDField.setEnabled(false); // plotID cannot be changed in interred person sub-class
 
         // join labels to text fields
@@ -203,8 +204,8 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
         panel.add(editPanel, BorderLayout.PAGE_END);
 
         // add editable components to list for easy enable/disable
-        editable.add(interredIDField);
-        //editable.add(plotIDField);
+        //editable.add(interredIDField); // not editable
+        //editable.add(plotIDField); // not editable
         editable.add(fnameField);
         editable.add(lnameField);
         editable.add(address1Field);
@@ -304,6 +305,7 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
             }
         } else { // possibly creating a new interred person for the associated plot
             plotIDField.setText(Integer.toString(plot.getID()));
+            // TODO add interredIDField.setText(Integer.toString(cemetery.getNextInterredID());
         }
     }
 
@@ -320,7 +322,7 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
             ip = new InterredPerson();
         }
 
-        ip.setInterredID(Integer.parseInt(interredIDField.getText()));
+        ip.setInterredID(Integer.parseInt(interredIDField.getText())); // TODO if this already exists, we got a problem
         ip.setPlotID(Integer.parseInt(plotIDField.getText()));
         ip.setFirstName(fnameField.getText());
         ip.setLastName(lnameField.getText());
