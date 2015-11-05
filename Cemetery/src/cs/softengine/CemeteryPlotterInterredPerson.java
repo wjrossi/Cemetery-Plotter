@@ -96,6 +96,8 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
         bornDateField.setColumns(10);
         diedDateField.setColumns(10);
 
+        plotIDField.setEnabled(false); // plotID cannot be changed in interred person sub-class
+
         // join labels to text fields
         interredIDLabel.setLabelFor(interredIDField);
         plotIDLabel.setLabelFor(plotIDField);
@@ -202,7 +204,7 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
 
         // add editable components to list for easy enable/disable
         editable.add(interredIDField);
-        editable.add(plotIDField);
+        //editable.add(plotIDField);
         editable.add(fnameField);
         editable.add(lnameField);
         editable.add(address1Field);
@@ -240,19 +242,17 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
         String action = e.getActionCommand().toLowerCase();
 
         switch (action) {
-            case "edit":
+            case "edit": // allow the info to be changed
                 setInterredEditable();
                 cancelButton.requestFocus();
                 break;
-            case "update":
-                // write changes to plot using an additional method or call
+            case "update": // write changes to plot
                 setInterredData(cemeteryPlotterFrame.cemeteryPlotterPlots.getSelectedPlot());
                 setInterredEditable();
                 // TODO call something that updates section list, plot list, and/or people list, if necessary
                 editButton.requestFocus();
                 break;
-            case "cancel":
-                // revert changes by reloading info into fields
+            case "cancel": // revert changes by clearing and reloading info
                 editButton.setEnabled(false);
                 setInterredEditable();
                 clearInterredData();
@@ -273,7 +273,7 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
     /**
      * Get the data from cemetery about an interred person and load it into the appropriate GUI elements
      */
-    public void getInterredData(Plot plot) { // TODO
+    public void getInterredData(Plot plot) {
         editButton.setEnabled(true);
 
         InterredPerson ip = plot.getInterred();
@@ -302,13 +302,15 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
             } catch (NullPointerException npe) {
                 diedDateField.setText("");
             }
+        } else { // possibly creating a new interred person for the associated plot
+            plotIDField.setText(Integer.toString(plot.getID()));
         }
     }
 
     /**
      * Set the data from the GUI into the interred person in the cemetery
      */
-    public void setInterredData(Plot plot) { // TODO on update button press
+    public void setInterredData(Plot plot) { // TODO bad input error checking
         cemetery.setModified(true);
 
         // write the owner data from the GUI fields into the right place in the data layer
@@ -318,8 +320,8 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
             ip = new InterredPerson();
         }
 
-        ip.setInterredID(Integer.parseInt(interredIDField.getText())); // TODO what if this is changed??
-        ip.setPlotID(Integer.parseInt(plotIDField.getText())); // TODO what if this is changed??
+        ip.setInterredID(Integer.parseInt(interredIDField.getText()));
+        ip.setPlotID(Integer.parseInt(plotIDField.getText()));
         ip.setFirstName(fnameField.getText());
         ip.setLastName(lnameField.getText());
         ip.setAddress1(address1Field.getText());

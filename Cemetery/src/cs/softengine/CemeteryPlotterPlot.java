@@ -189,19 +189,17 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
         String action = e.getActionCommand().toLowerCase();
 
         switch (action) {
-            case "edit":
+            case "edit": // allow changes to be made
                 setPlotEditable();
                 cancelButton.requestFocus();
                 break;
-            case "update":
-                // write changes to plot using an additional method or call
+            case "update": // write changes to plot
                 setPlotData(cemeteryPlotterFrame.cemeteryPlotterPlots.getSelectedPlot());
                 setPlotEditable();
                 // TODO call something that updates section list, plot list, and/or people list, if necessary
                 editButton.requestFocus();
                 break;
-            case "cancel":
-                // revert changes by reloading info into fields
+            case "cancel": // revert changes by clearing and reloading info
                 editButton.setEnabled(false);
                 setPlotEditable();
                 clearPlotData();
@@ -258,8 +256,8 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
         cemetery.setModified(true);
 
         // write the plot data from the GUI fields into the right place in the data layer
-        plot.setSection(sectionField.getText()); // TODO what if this is changed??
-        plot.setID(Integer.parseInt(plotIDField.getText())); // TODO what if this is changed??
+        plot.setSection(sectionField.getText()); // TODO don't let it be changed to a section that does not exist
+        plot.setID(Integer.parseInt(plotIDField.getText())); // TODO hmmm what if this is changed???
 
         try {
             plot.setBurialDate(sdf.parse(burialDateField.getText()));

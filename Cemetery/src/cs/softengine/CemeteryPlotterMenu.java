@@ -10,7 +10,7 @@ import java.io.IOException;
 /**
  * Cemetery Plotter Menu GUI Element
  */
-public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListener, ItemListener {
+public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListener {
     private JMenuBar menu;
 
     /**
@@ -133,10 +133,9 @@ public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListen
                 } // else do nothing
                 break;
             case "quit":  // quit the program // TODO figure this one out
-                // probably show a dialog asking if you want to save & exit or exit without saving
+                // *** if cemetery.isModified() is true, then ask them if they want to save ****
                 // probably send some kind of window event about exiting that gets handled in CemeteryPlotterFrame listener
                 // might have to get that listener from CemeteryPlotterFrame and add it to the Quit menuitem in this file
-                // *** if cemetery.isModified() is true, then ask them if they want to save ****
                 break;
         }
     }
@@ -191,13 +190,5 @@ public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListen
         }
 
         return file;
-    }
-
-    /**
-     * Item state listener for menu bar
-     * @param e item event
-     */
-    public void itemStateChanged(ItemEvent e) {
-        //
     }
 }

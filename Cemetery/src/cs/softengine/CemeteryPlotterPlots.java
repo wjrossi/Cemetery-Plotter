@@ -144,7 +144,7 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
     /**
      * Set the data from the GUI into the Cemetery, Section, and Plot in the cemetery
      */
-    public void setPlotsData() { // TODO on add plot and possibly on delete plot(s)
+    public void setPlotsData() { // TODO on add plot and possibly on delete plot
         // write the plot data from the GUI fields into the right place in the data layer
     }
 
