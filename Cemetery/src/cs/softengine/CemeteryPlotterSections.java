@@ -10,7 +10,7 @@ import java.util.ArrayList;
 /**
  * Content pane for selecting section(s) of the cemetery
  */
-public class CemeteryPlotterSections extends CemeteryPlotter implements ActionListener, ItemListener {
+public class CemeteryPlotterSections extends CemeteryPlotter implements ActionListener {
     private JPanel sectionsPanel;
     private JButton selectAllButton;
     private JButton selectNoneButton;
@@ -132,17 +132,11 @@ public class CemeteryPlotterSections extends CemeteryPlotter implements ActionLi
     }
 
     /**
-     * Item state listener for sections content pane
-     * @param e item event
-     */
-    public void itemStateChanged(ItemEvent e) {
-        //
-    }
-
-    /**
      * Get the data from cemetery about sections and load it into the appropriate GUI elements
      */
     public void getSectionsData() {
+        sectionsListModel.clear();
+
         for (Section s : cemetery.getSections()) {
             sectionsListModel.addElement(s.getName());
         }
@@ -181,6 +175,13 @@ public class CemeteryPlotterSections extends CemeteryPlotter implements ActionLi
             boolean isAdjusting = e.getValueIsAdjusting();
 
             if (!isAdjusting) {
+                cemeteryPlotterFrame.cemeteryPlotterPlot.clearPlotData();
+                cemeteryPlotterFrame.cemeteryPlotterPlot.setPlotEditable(false);
+                cemeteryPlotterFrame.cemeteryPlotterInterredPerson.clearInterredData();
+                cemeteryPlotterFrame.cemeteryPlotterInterredPerson.setInterredEditable(false);
+                cemeteryPlotterFrame.cemeteryPlotterOwner.clearOwnerData();
+                cemeteryPlotterFrame.cemeteryPlotterOwner.setOwnerEditable(false);
+
                 cemeteryPlotterFrame.cemeteryPlotterPlots.clearPlotsList();
                 cemeteryPlotterFrame.cemeteryPlotterPeople.clearPeopleList();
 

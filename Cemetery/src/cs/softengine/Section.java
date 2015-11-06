@@ -7,7 +7,7 @@ import java.util.ArrayList;
  */
 public class Section implements Comparable<Section> {
     private String name; // name of the section
-    private ArrayList<Plot> plots; // (TEMPORARY) data structure for a section... do we want a hashtable or hashmap?
+    private ArrayList<Plot> plots; // list of plots in this section
 
     /**
      * Constructs a new, empty section.

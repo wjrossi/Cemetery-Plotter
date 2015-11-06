@@ -10,25 +10,26 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- * Content pane allowing for the searching and listing of people in the cemetery
+ * Content pane allowing for the filtering and listing of people in the cemetery
  * based on current selected section(s)
  */
-public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionListener, ItemListener {
+public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionListener {
     private JPanel peoplePanel;
-    private JTextField searchField;
-    private JComboBox<String> searchByBox;
-    private JButton searchButton;
+    private JTextField filterField;
+    private JComboBox<String> filterByBox;
+    private DefaultComboBoxModel<String> filterByBoxListModel;
+    private String[] filterByBoxList;
     private JRadioButton bothRadioButton;
     private JRadioButton interredPeopleRadioButton;
     private JRadioButton ownersRadioButton;
-    private ButtonGroup searchButtonGroup;
+    private ButtonGroup filterButtonGroup;
     private DefaultListModel<String> peopleListModel;
     private DefaultListSelectionModel peopleListSelectionModel;
     private JList<String> peopleList;
     private JScrollPane peopleListScrollPane;
 
     /**
-     * Constructs a content pane for searching and listing of people
+     * Constructs a content pane for filtering and listing of people
      */
     public CemeteryPlotterPeople() {
         peoplePanel = createPeoplePanel();
@@ -57,27 +58,22 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
 
         // add things to panel
 
-        // create search text field
-        searchField = new JTextField();
+        // create filter text field
+        filterField = new JTextField(); // TODO add listener that searches as you type
 
-        // create search by combo box
-        String[] searchByBoxList = { "InterredID", "PlotID", "Name", "Phone",
+        // create filter by combo box
+        filterByBoxList = new String[] { "Last Name, First Name", "Phone",
                 "Date of Birth", "Date of Death", "Address", "City", "State", "Zip" };
-        searchByBox = new JComboBox<>(searchByBoxList);
-        searchByBox.setEditable(false);
+        filterByBoxListModel = new DefaultComboBoxModel<>(filterByBoxList);
+        filterByBox = new JComboBox<>(filterByBoxListModel);
+        filterByBox.setEditable(false);
 
-        // create search button
-        searchButton = new JButton("Search By");
-        searchButton.setActionCommand("search");
-        searchButton.addActionListener(this);
+        // add filter by combo box to filterCenter panel
+        JPanel filterCenter = new JPanel();
+        filterCenter.setLayout(new BoxLayout(filterCenter, BoxLayout.LINE_AXIS));
+        filterCenter.add(filterByBox);
 
-        // add search by combo box and search by button to searchCenter panel
-        JPanel searchCenter = new JPanel();
-        searchCenter.setLayout(new BoxLayout(searchCenter, BoxLayout.LINE_AXIS));
-        searchCenter.add(searchByBox);
-        searchCenter.add(searchButton);
-
-        // create search radio buttons
+        // create filter radio buttons
         interredPeopleRadioButton = new JRadioButton("Interred", false);
         interredPeopleRadioButton.setActionCommand("interred");
         interredPeopleRadioButton.addActionListener(this);
@@ -90,27 +86,27 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
         bothRadioButton.setActionCommand("both");
         bothRadioButton.addActionListener(this);
 
-        // create search radio button group
-        searchButtonGroup = new ButtonGroup();
-        searchButtonGroup.add(interredPeopleRadioButton);
-        searchButtonGroup.add(ownersRadioButton);
-        searchButtonGroup.add(bothRadioButton);
+        // create filter radio button group
+        filterButtonGroup = new ButtonGroup();
+        filterButtonGroup.add(interredPeopleRadioButton);
+        filterButtonGroup.add(ownersRadioButton);
+        filterButtonGroup.add(bothRadioButton);
 
-        // create search radio button panel and add radio buttons to panel
-        JPanel searchRadioButtonPanel = new JPanel();
-        searchRadioButtonPanel.setLayout(new BoxLayout(searchRadioButtonPanel, BoxLayout.LINE_AXIS));
-        searchRadioButtonPanel.add(interredPeopleRadioButton);
-        searchRadioButtonPanel.add(ownersRadioButton);
-        searchRadioButtonPanel.add(bothRadioButton);
+        // create filter radio button panel and add radio buttons to panel
+        JPanel filterRadioButtonPanel = new JPanel();
+        filterRadioButtonPanel.setLayout(new BoxLayout(filterRadioButtonPanel, BoxLayout.LINE_AXIS));
+        filterRadioButtonPanel.add(interredPeopleRadioButton);
+        filterRadioButtonPanel.add(ownersRadioButton);
+        filterRadioButtonPanel.add(bothRadioButton);
 
-        // add search field, searchCenter panel and search radio button panel to overall search panel
-        JPanel searchPanel = new JPanel(new BorderLayout());
-        searchPanel.add(searchField, BorderLayout.PAGE_START);
-        searchPanel.add(searchCenter, BorderLayout.CENTER);
-        searchPanel.add(searchRadioButtonPanel, BorderLayout.PAGE_END);
+        // add filter field, filterCenter panel and filter radio button panel to overall filter panel
+        JPanel filterPanel = new JPanel(new BorderLayout());
+        filterPanel.add(filterField, BorderLayout.PAGE_START);
+        filterPanel.add(filterCenter, BorderLayout.CENTER);
+        filterPanel.add(filterRadioButtonPanel, BorderLayout.PAGE_END);
 
-        // add search panel to main panel
-        panel.add(searchPanel, BorderLayout.PAGE_START);
+        // add filter panel to main panel
+        panel.add(filterPanel, BorderLayout.PAGE_START);
 
         // create list of sections
         peopleListModel = new DefaultListModel<>();
@@ -141,25 +137,45 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
 
         switch (action) {
             case "interred": // refresh people list on any of these actions
-            case "owners":
-            case "both":
+                // change filterBy list to reflect the type or people being viewed
+                filterByBoxListModel.removeAllElements();
+                filterByBoxList = new String[] { "InterredID", "Last Name, First Name", "Phone",
+                        "Date of Birth", "Date of Death", "Address", "City", "State", "Zip" };
+                filterByBoxListModel = new DefaultComboBoxModel<>(filterByBoxList);
+                filterByBox.setModel(filterByBoxListModel);
+
                 // clear the people list
                 peopleListModel.clear();
                 // get the people data for each selected section
                 getPeopleData(cemeteryPlotterFrame.cemeteryPlotterSections.getSelectedSections());
                 break;
-            case "search": // search using searchByBox and searchField
-                // TODO
+            case "owners":
+                // change filterBy list to reflect the type or people being viewed
+                filterByBoxListModel.removeAllElements();
+                filterByBoxList = new String[] { "OwnerID", "Last Name, First Name", "Phone",
+                        "Date of Birth", "Date of Death", "Address", "City", "State", "Zip" };
+                filterByBoxListModel = new DefaultComboBoxModel<>(filterByBoxList);
+                filterByBox.setModel(filterByBoxListModel);
+
+                // clear the people list
+                peopleListModel.clear();
+                // get the people data for each selected section
+                getPeopleData(cemeteryPlotterFrame.cemeteryPlotterSections.getSelectedSections());
+                break;
+            case "both":
+                // change filterBy list to reflect the type or people being viewed
+                filterByBoxListModel.removeAllElements();
+                filterByBoxList = new String[] { "Last Name, First Name", "Phone",
+                        "Date of Birth", "Date of Death", "Address", "City", "State", "Zip" };
+                filterByBoxListModel = new DefaultComboBoxModel<>(filterByBoxList);
+                filterByBox.setModel(filterByBoxListModel);
+
+                // clear the people list
+                peopleListModel.clear();
+                // get the people data for each selected section
+                getPeopleData(cemeteryPlotterFrame.cemeteryPlotterSections.getSelectedSections());
                 break;
         }
-    }
-
-    /**
-     * Item state listener for people content pane
-     * @param e item event
-     */
-    public void itemStateChanged(ItemEvent e) {
-        //
     }
 
     /**
@@ -167,7 +183,7 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
      * @param sections list of sections selected in CemeteryPlotterSections
      */
     public void getPeopleData(ArrayList<String> sections) {
-        // figure out which people to put in the list (based on selected sections and radio buttons and search items, etc...)
+        // figure out which people to put in the list (based on selected sections and radio buttons and filter items, etc...)
         ArrayList<String> people = new ArrayList<>();
 
         for (String section : sections) {
@@ -202,7 +218,7 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
         for (Plot p : s.getPlots()) {
             InterredPerson ip = p.getInterred();
             if (ip != null) {
-                // TODO switch based on searchByBox (to show burial date instead of name for example)
+                // TODO switch based on filterByBox (to show burial date instead of name for example)
                 results.add(ip.getLastName() + ", " + ip.getFirstName());
             }
         }
@@ -222,7 +238,7 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
         for (Plot p : s.getPlots()) {
             Person o = p.getOwner();
             if (o != null) {
-                // TODO switch based on searchByBox (to show ID instead of name for example)
+                // TODO switch based on filterByBox (to show ID instead of name for example)
                 results.add(o.getLastName() + ", " + o.getFirstName());
             }
         }

@@ -45,7 +45,7 @@ public class CemeteryPlotterFrame extends CemeteryPlotter {
         String frameTitle = "Cemetery Plotter";
 
         if (workingFile != null)
-            frameTitle += " (" + workingFile + ")";
+            frameTitle += " (" + workingFile.getName() + ")";
 
         frame = new JFrame(frameTitle);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);

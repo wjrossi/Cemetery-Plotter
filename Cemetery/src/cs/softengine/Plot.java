@@ -1,5 +1,8 @@
 package cs.softengine;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -12,18 +15,26 @@ public class Plot implements Comparable<Plot> {
     private int id; // plot identifier number
     private InterredPerson interred; // interred person
     private Person owner; // contact person, also person fiscally responsible for plot
-    private Date burial; // burial date
-    private Date purchased; // purchase date
+    private Date burialMonth; // burial date
+    private Date burialDay;
+    private Date burialYear;
+    private Date purchasedMonth; // purchase date
+    private Date purchasedDay;
+    private Date purchasedYear;
     private boolean vacant; // is the plot vacant/not vacant
     private boolean ready; // is the plot ready for use or not ready
-    private int moneyDue; // if not 0, person owes this much IN CENTS (for accuracy)
-    private SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+    private BigDecimal moneyDue; // person owes this much in DOLLARS and CENTS
+    private SimpleDateFormat sdfMonth; // month date format
+    private SimpleDateFormat sdfDay; // day date format
+    private SimpleDateFormat sdfYear; // year date format
+    private NumberFormat nf; // money format
+
 
     /**
      * Constructs an empty plot
      */
     public Plot() {
-        this(null, -1, null, null, null, null, true, false, 0);
+        this("", -1, null, null, "", "", "", "", "", "", true, false, new BigDecimal(0));
     }
 
     /**
@@ -32,22 +43,46 @@ public class Plot implements Comparable<Plot> {
      * @param id number
      */
     public Plot(String section, int id) {
-        this(section, id, null, null, null, null, true, false, 0);
+        this(section, id, null, null, "", "", "", "", "", "", true, false, new BigDecimal(0));
     }
 
     /**
      * Constructs a plot
      * @param section name
      * @param id number
+     * @param interred interred person
+     * @param owner of this plot
+     * @param burialMonth month
+     * @param burialDay day
+     * @param burialYear year
+     * @param purchasedMonth month
+     * @param purchasedDay day
+     * @param purchasedYear year
+     * @param vacant boolean
+     * @param ready boolean
+     * @param moneyDue BigDecimal
      */
-    public Plot(String section, int id, InterredPerson interred, Person owner, Date burial, Date purchased,
-                boolean vacant, boolean ready, int moneyDue) {
+    public Plot(String section, int id, InterredPerson interred, Person owner,
+                String burialMonth, String burialDay, String burialYear,
+                String purchasedMonth, String purchasedDay, String purchasedYear,
+                boolean vacant, boolean ready, BigDecimal moneyDue) {
+        sdfMonth = new SimpleDateFormat("MM");
+        sdfDay = new SimpleDateFormat("dd");
+        sdfYear = new SimpleDateFormat("yyyy");
+        nf = NumberFormat.getCurrencyInstance();
+        nf.setMinimumFractionDigits(2);
+        nf.setMaximumFractionDigits(2);
+
         this.section = section;
         this.id = id;
         this.interred = interred;
         this.owner = owner;
-        this.burial = burial;
-        this.purchased = purchased;
+        setBurialDateMonth(burialMonth);
+        setBurialDateDay(burialDay);
+        setBurialDateYear(burialYear);
+        setPurchasedDateMonth(purchasedMonth);
+        setPurchasedDateDay(purchasedDay);
+        setPurchasedDateYear(purchasedYear);
         this.vacant = vacant;
         this.ready = ready;
         this.moneyDue = moneyDue;
@@ -118,35 +153,170 @@ public class Plot implements Comparable<Plot> {
     }
 
     /**
-     * Get burial date
-     * @return burial date, null if unknown
+     * Get burial month date
+     * @return burial month date, null if unknown
      */
-    public Date getBurialDate() {
-        return burial;
+    public String getBurialDateMonth() {
+        String date;
+
+        try {
+            date = sdfMonth.format(burialMonth);
+        } catch (NullPointerException e) {
+            date = "";
+        }
+
+        return date;
     }
 
     /**
-     * Set burial date
-     * @param d burial date, null if unknown
+     * Set burial month date
+     * @param d burial month date, null if unknown
      */
-    public void setBurialDate(Date d) {
-        burial = d;
+    public void setBurialDateMonth(String d) {
+        try {
+            burialMonth = sdfMonth.parse(d);
+        } catch (ParseException e) {
+            burialMonth = null;
+        }
     }
 
     /**
-     * Get purchase date
-     * @return purchase date, null if unknown
+     * Get burial day date
+     * @return burial day date, null if unknown
      */
-    public Date getPurchasedDate() {
-        return purchased;
+    public String getBurialDateDay() {
+        String date;
+
+        try {
+            date = sdfDay.format(burialDay);
+        } catch (NullPointerException e) {
+            date = "";
+        }
+
+        return date;
     }
 
     /**
-     * Set purchase date
-     * @param d purchase date, null if unknown
+     * Set burial day date
+     * @param d burial day date, null if unknown
      */
-    public void setPurchasedDate(Date d) {
-        purchased = d;
+    public void setBurialDateDay(String d) {
+        try {
+            burialDay = sdfDay.parse(d);
+        } catch (ParseException e) {
+            burialDay = null;
+        }
+    }
+
+    /**
+     * Get burial year date
+     * @return burial year date, null if unknown
+     */
+    public String getBurialDateYear() {
+        String date;
+
+        try {
+            date = sdfYear.format(burialYear);
+        } catch (NullPointerException e) {
+            date = "";
+        }
+
+        return date;    }
+
+    /**
+     * Set burial year date
+     * @param d burial year date, null if unknown
+     */
+    public void setBurialDateYear(String d) {
+        try {
+            burialYear = sdfYear.parse(d);
+        } catch (ParseException e) {
+            burialYear = null;
+        }
+    }
+
+    /**
+     * Get purchase month date
+     * @return purchase month date, null if unknown
+     */
+    public String getPurchasedDateMonth() {
+        String date;
+
+        try {
+            date = sdfMonth.format(purchasedMonth);
+        } catch (NullPointerException e) {
+            date = "";
+        }
+
+        return date;
+    }
+
+    /**
+     * Set purchase month date
+     * @param d purchase month date, null if unknown
+     */
+    public void setPurchasedDateMonth(String d) {
+        try {
+            purchasedMonth = sdfMonth.parse(d);
+        } catch (ParseException e) {
+            purchasedMonth = null;
+        }
+    }
+
+    /**
+     * Get purchase day date
+     * @return purchase day date, null if unknown
+     */
+    public String getPurchasedDateDay() {
+        String date;
+
+        try {
+            date = sdfDay.format(purchasedDay);
+        } catch (NullPointerException e) {
+            date = "";
+        }
+
+        return date;
+    }
+
+    /**
+     * Set purchase day date
+     * @param d purchase day date, null if unknown
+     */
+    public void setPurchasedDateDay(String d) {
+        try {
+            purchasedDay = sdfDay.parse(d);
+        } catch (ParseException e) {
+            purchasedDay = null;
+        }
+    }
+
+    /**
+     * Get purchase year date
+     * @return purchase year date, null if unknown
+     */
+    public String getPurchasedDateYear() {
+        String date;
+
+        try {
+            date = sdfYear.format(purchasedYear);
+        } catch (NullPointerException e) {
+            date = "";
+        }
+
+        return date;
+    }
+
+    /**
+     * Set purchase year date
+     * @param d purchase year date, null if unknown
+     */
+    public void setPurchasedDateYear(String d) {
+        try {
+            purchasedYear = sdfYear.parse(d);
+        } catch (ParseException e) {
+            purchasedYear = null;
+        }
     }
 
     /**
@@ -186,19 +356,25 @@ public class Plot implements Comparable<Plot> {
     }
 
     /**
-     * Get the amount of money due
-     * @return the money due in cents
+     * Get the amount of money due, performs necessary conversion from CENTS to DOLLARS
+     * @return the money due in DOLLARS
      */
-    public int getMoneyDue() {
-        return moneyDue;
+    public String getMoneyDue() {
+        BigDecimal displayMoney = moneyDue.setScale(2, RoundingMode.HALF_EVEN);
+
+        return nf.format(displayMoney.doubleValue());
     }
 
     /**
      * Set the amount of money due
      * @param m the money due in cents
      */
-    public void setMoneyDue(int m) {
-        moneyDue = m;
+    public void setMoneyDue(String m) {
+        try {
+            moneyDue = new BigDecimal(nf.parse(m).toString());
+        } catch (ParseException e) {
+            // do NOT change money due on parse exception
+        }
     }
 
     /**
@@ -254,8 +430,12 @@ public class Plot implements Comparable<Plot> {
         else
             result += owner;
 
-        result += burial + "\n"
-                + purchased + "\n"
+        result += getBurialDateMonth() + "\n"
+                + getBurialDateDay() + "\n"
+                + getBurialDateYear() + "\n"
+                + getPurchasedDateMonth() + "\n"
+                + getPurchasedDateDay() + "\n"
+                + getPurchasedDateYear() + "\n"
                 + vacant + "\n"
                 + ready + "\n"
                 + moneyDue + "\n"

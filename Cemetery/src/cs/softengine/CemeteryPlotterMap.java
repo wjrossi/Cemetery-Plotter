@@ -10,7 +10,7 @@ import java.net.URL;
 /**
  * Content pane for plot info
  */
-public class CemeteryPlotterMap extends CemeteryPlotter implements ActionListener, ItemListener {
+public class CemeteryPlotterMap extends CemeteryPlotter implements ActionListener {
     private JPanel mapPanel;
     private JEditorPane mapPane;
 
@@ -85,14 +85,6 @@ public class CemeteryPlotterMap extends CemeteryPlotter implements ActionListene
      * @param e action event
      */
     public void actionPerformed(ActionEvent e) {
-        //
-    }
-
-    /**
-     * Item state listener for plot info content pane
-     * @param e item event
-     */
-    public void itemStateChanged(ItemEvent e) {
         //
     }
 }
