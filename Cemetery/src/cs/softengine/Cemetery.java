@@ -11,11 +11,11 @@ public class Cemetery {
     private ArrayList<Section> sections; // list of all sections in the cemetery
     private ArrayList<Plot> plots; // list of all plots in the cemetery
     private ArrayList<InterredPerson> interred; // list of all interred people in the cemetery
-    private ArrayList<Person> owners; // list of all plot owner people in the cemetery
+    private ArrayList<Person> contacts; // list of all plot contact people in the cemetery
     private boolean modified; // has the cemetery been modified
     private int nextPlotID; // next available plotID
     private int nextInterredID; // next available interredID
-    private int nextOwnerID; // next available ownerID
+    private int nextcontactID; // next available contactID
 
     /**
      * Constructs a single cemetery
@@ -24,12 +24,12 @@ public class Cemetery {
         modified = false;
         nextPlotID = -1;
         nextInterredID = -1;
-        nextOwnerID = -1;
+        nextcontactID = -1;
 
         sections = new ArrayList<>();
         plots = new ArrayList<>();
         interred = new ArrayList<>();
-        owners = new ArrayList<>();
+        contacts = new ArrayList<>();
     }
 
     /**
@@ -40,7 +40,7 @@ public class Cemetery {
         modified = false;
         nextPlotID = -1;
         nextInterredID = -1;
-        nextOwnerID = -1;
+        nextcontactID = -1;
 
         try {
             load(file); // load the plain-text file
@@ -90,16 +90,16 @@ public class Cemetery {
         int numSections; // number of sections in cemetery
         int numPlots; // number of plots in the cemetery
         int numInterred; // number of interred people in cemetery
-        int numOwners; // number of (non-interred) people
+        int numContacts; // number of (non-interred) people
         numSections = Integer.parseInt(buffer.readLine().trim());
         numPlots = Integer.parseInt(buffer.readLine().trim());
         numInterred = Integer.parseInt(buffer.readLine().trim());
-        numOwners = Integer.parseInt(buffer.readLine().trim());
+        numContacts = Integer.parseInt(buffer.readLine().trim());
 
         sections = new ArrayList<>(numSections);
         plots = new ArrayList<>(numPlots);
         interred = new ArrayList<>(numInterred);
-        owners = new ArrayList<>(numOwners);
+        contacts = new ArrayList<>(numContacts);
     }
 
     /**
@@ -133,7 +133,7 @@ public class Cemetery {
         String sectionName; // residing section name
         int id; // plot identifier number
         InterredPerson interred; // interred person
-        Person owner; // contact person, also person fiscally responsible for plot
+        Person contact; // contact person, also person fiscally responsible for plot
         String burialMonth, burialDay, burialYear; // burial date
         String purchasedMonth, purchasedDay, purchasedYear; // purchase date
         boolean vacant; // is the plot vacant/not vacant
@@ -149,7 +149,7 @@ public class Cemetery {
         interred = loadInterredPerson(buffer); // load an interred person belonging to this plot
 
         buffer.readLine().trim(); // read empty line
-        owner = loadPerson(buffer); // load an owner belonging to this plot
+        contact = loadPerson(buffer); // load a contact belonging to this plot
 
         // load a burial date
         burialMonth = buffer.readLine().trim();
@@ -166,11 +166,11 @@ public class Cemetery {
 
         moneyDue = new BigDecimal(buffer.readLine().trim());
 
-        plot = new Plot(sectionName, id, interred, owner, burialMonth, burialDay, burialYear,
+        plot = new Plot(sectionName, id, interred, contact, burialMonth, burialDay, burialYear,
                 purchasedMonth, purchasedDay, purchasedYear, vacant, ready, moneyDue);
 
-        if (plot.getOwner() != null) {
-            plot.getOwner().addOwnedPlot(plot.getID());
+        if (plot.getContact() != null) {
+            plot.getContact().addOwnedPlot(plot.getID());
         }
 
         plots.add(plot);
@@ -183,9 +183,9 @@ public class Cemetery {
      * @throws IOException
      */
     private Person loadPerson(BufferedReader buffer) throws IOException {
-        Person owner;
+        Person contact;
 
-        int ownerID;
+        int contactID;
         String fname, lname;
         String address1, address2;
         String city, state, zip;
@@ -194,11 +194,11 @@ public class Cemetery {
         String temp = buffer.readLine().trim();
 
         if (temp.equals("null")) {
-            owner = null;
+            contact = null;
             buffer.readLine().trim(); // read empty line
         } else {
-            ownerID = Integer.parseInt(temp);
-            nextOwnerID = ownerID > nextOwnerID ? ownerID + 1 : nextOwnerID;
+            contactID = Integer.parseInt(temp);
+            nextcontactID = contactID > nextcontactID ? contactID + 1 : nextcontactID;
 
             fname = buffer.readLine().trim();
             lname = buffer.readLine().trim();
@@ -211,11 +211,11 @@ public class Cemetery {
 
             buffer.readLine().trim(); // read empty line
 
-            owner = new Person(ownerID, fname, lname, address1, address2, city, state, zip, phone);
-            owners.add(owner);
+            contact = new Person(contactID, fname, lname, address1, address2, city, state, zip, phone);
+            contacts.add(contact);
         }
 
-        return owner;
+        return contact;
     }
 
     /**
@@ -231,9 +231,6 @@ public class Cemetery {
         String bornMonth, bornDay, bornYear;
         String diedMonth, diedDay, diedYear;
         String fname, lname;
-        String address1, address2;
-        String city, state, zip;
-        String phone;
 
         String temp = buffer.readLine().trim();
 
@@ -256,17 +253,11 @@ public class Cemetery {
 
             fname = buffer.readLine().trim();
             lname = buffer.readLine().trim();
-            address1 = buffer.readLine().trim();
-            address2 = buffer.readLine().trim();
-            city = buffer.readLine().trim();
-            state = buffer.readLine().trim();
-            zip = buffer.readLine().trim();
-            phone = buffer.readLine().trim();
 
             buffer.readLine().trim(); // read empty line
 
             ip = new InterredPerson(interredID, plotID, bornMonth, bornDay, bornYear, diedMonth, diedDay, diedYear,
-                    fname, lname, address1, address2, city, state, zip, phone);
+                    fname, lname);
 
             interred.add(ip);
         }
@@ -368,11 +359,11 @@ public class Cemetery {
     }
 
     /**
-     * Get list of all owner people in cemetery
+     * Get list of all contact people in cemetery
      * @return people
      */
-    public ArrayList<Person> getOwners() {
-        return owners;
+    public ArrayList<Person> getContacts() {
+        return contacts;
     }
 
     /**
@@ -422,18 +413,18 @@ public class Cemetery {
     }
 
     /**
-     * Set the next available ID number for an owner
+     * Set the next available ID number for a contact
      */
-    public void setNextOwnerID() {
-        nextOwnerID++;
+    public void setNextContactID() {
+        nextcontactID++;
     }
 
     /**
-     * Get the next available ID number for an owner
-     * @return nextOwnerID
+     * Get the next available ID number for a contact
+     * @return nextcontactID
      */
-    public int getNextOwnerID() {
-        return nextOwnerID;
+    public int getNextContactID() {
+        return nextcontactID;
     }
 
     /**
@@ -445,7 +436,7 @@ public class Cemetery {
                 + sections.size() + "\n"
                 + plots.size() + "\n"
                 + interred.size() + "\n"
-                + owners.size() + "\n"
+                + contacts.size() + "\n"
                 + "</CEMETERY>\n";
     }
 }

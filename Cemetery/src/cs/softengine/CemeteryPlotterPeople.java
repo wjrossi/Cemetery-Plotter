@@ -7,6 +7,7 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 
 /**
@@ -21,7 +22,7 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
     private String[] filterByBoxList;
     private JRadioButton bothRadioButton;
     private JRadioButton interredPeopleRadioButton;
-    private JRadioButton ownersRadioButton;
+    private JRadioButton contactsRadioButton;
     private ButtonGroup filterButtonGroup;
     private DefaultListModel<String> peopleListModel;
     private DefaultListSelectionModel peopleListSelectionModel;
@@ -62,8 +63,7 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
         filterField = new JTextField(); // TODO add listener that searches as you type
 
         // create filter by combo box
-        filterByBoxList = new String[] { "Last Name, First Name", "Phone",
-                "Date of Birth", "Date of Death", "Address", "City", "State", "Zip" };
+        filterByBoxList = new String[] { "Last Name, First Name" };
         filterByBoxListModel = new DefaultComboBoxModel<>(filterByBoxList);
         filterByBox = new JComboBox<>(filterByBoxListModel);
         filterByBox.setEditable(false);
@@ -78,9 +78,9 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
         interredPeopleRadioButton.setActionCommand("interred");
         interredPeopleRadioButton.addActionListener(this);
 
-        ownersRadioButton = new JRadioButton("Owners", false);
-        ownersRadioButton.setActionCommand("owners");
-        ownersRadioButton.addActionListener(this);
+        contactsRadioButton = new JRadioButton("Contacts", false);
+        contactsRadioButton.setActionCommand("contacts");
+        contactsRadioButton.addActionListener(this);
 
         bothRadioButton = new JRadioButton("Both", true);
         bothRadioButton.setActionCommand("both");
@@ -89,14 +89,14 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
         // create filter radio button group
         filterButtonGroup = new ButtonGroup();
         filterButtonGroup.add(interredPeopleRadioButton);
-        filterButtonGroup.add(ownersRadioButton);
+        filterButtonGroup.add(contactsRadioButton);
         filterButtonGroup.add(bothRadioButton);
 
         // create filter radio button panel and add radio buttons to panel
         JPanel filterRadioButtonPanel = new JPanel();
         filterRadioButtonPanel.setLayout(new BoxLayout(filterRadioButtonPanel, BoxLayout.LINE_AXIS));
         filterRadioButtonPanel.add(interredPeopleRadioButton);
-        filterRadioButtonPanel.add(ownersRadioButton);
+        filterRadioButtonPanel.add(contactsRadioButton);
         filterRadioButtonPanel.add(bothRadioButton);
 
         // add filter field, filterCenter panel and filter radio button panel to overall filter panel
@@ -139,8 +139,8 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
             case "interred": // refresh people list on any of these actions
                 // change filterBy list to reflect the type or people being viewed
                 filterByBoxListModel.removeAllElements();
-                filterByBoxList = new String[] { "InterredID", "Last Name, First Name", "Phone",
-                        "Date of Birth", "Date of Death", "Address", "City", "State", "Zip" };
+                filterByBoxList = new String[] { "InterredID", "Last Name, First Name",
+                        "Date of Burial", "Date of Purchase" };
                 filterByBoxListModel = new DefaultComboBoxModel<>(filterByBoxList);
                 filterByBox.setModel(filterByBoxListModel);
 
@@ -149,10 +149,10 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
                 // get the people data for each selected section
                 getPeopleData(cemeteryPlotterFrame.cemeteryPlotterSections.getSelectedSections());
                 break;
-            case "owners":
+            case "contacts":
                 // change filterBy list to reflect the type or people being viewed
                 filterByBoxListModel.removeAllElements();
-                filterByBoxList = new String[] { "OwnerID", "Last Name, First Name", "Phone",
+                filterByBoxList = new String[] { "ContactID", "Last Name, First Name", "Phone",
                         "Date of Birth", "Date of Death", "Address", "City", "State", "Zip" };
                 filterByBoxListModel = new DefaultComboBoxModel<>(filterByBoxList);
                 filterByBox.setModel(filterByBoxListModel);
@@ -165,8 +165,7 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
             case "both":
                 // change filterBy list to reflect the type or people being viewed
                 filterByBoxListModel.removeAllElements();
-                filterByBoxList = new String[] { "Last Name, First Name", "Phone",
-                        "Date of Birth", "Date of Death", "Address", "City", "State", "Zip" };
+                filterByBoxList = new String[] { "Last Name, First Name" };
                 filterByBoxListModel = new DefaultComboBoxModel<>(filterByBoxList);
                 filterByBox.setModel(filterByBoxListModel);
 
@@ -182,18 +181,18 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
      * Get the data from cemetery about people and load it into the appropriate GUI elements
      * @param sections list of sections selected in CemeteryPlotterSections
      */
-    public void getPeopleData(ArrayList<String> sections) {
+    public void getPeopleData(Collection<String> sections) {
         // figure out which people to put in the list (based on selected sections and radio buttons and filter items, etc...)
         ArrayList<String> people = new ArrayList<>();
 
         for (String section : sections) {
             if (interredPeopleRadioButton.isSelected()) { // list only interred
                 people.addAll(getPeopleDataInterred(section));
-            } else if (ownersRadioButton.isSelected()) { // list only owners
-                people.addAll(getPeopleDataOwners(section));
-            } else { // bothRadioButton.isSelected() // list both interred and owners
+            } else if (contactsRadioButton.isSelected()) { // list only contacts
+                people.addAll(getPeopleDataContact(section));
+            } else { // bothRadioButton.isSelected() // list both interred and contacts
                 people.addAll(getPeopleDataInterred(section));
-                people.addAll(getPeopleDataOwners(section));
+                people.addAll(getPeopleDataContact(section));
             }
         }
 
@@ -227,16 +226,16 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
     }
 
     /**
-     * Get the data from cemetery about the owner of plots in the selected section(s)
+     * Get the data from cemetery about the contact of plots in the selected section(s)
      * @param section selected in CeneteryPlotterSections
-     * @return list of owners
+     * @return list of contacts
      */
-    private ArrayList<String> getPeopleDataOwners(String section) {
+    private ArrayList<String> getPeopleDataContact(String section) {
         Section s = cemetery.get(new Section(section));
         ArrayList<String> results = new ArrayList<>(s.getSize());
 
         for (Plot p : s.getPlots()) {
-            Person o = p.getOwner();
+            Person o = p.getContact();
             if (o != null) {
                 // TODO switch based on filterByBox (to show ID instead of name for example)
                 results.add(o.getLastName() + ", " + o.getFirstName());
@@ -251,6 +250,13 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
      */
     public void clearPeopleList() {
         peopleListModel.clear();
+    }
+
+    /**
+     * Override the people list's selection
+     */
+    public void overridePeopleList() {
+        peopleList.clearSelection();
     }
 
     /**
@@ -270,13 +276,10 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
             boolean isAdjusting = e.getValueIsAdjusting();
 
             if (!isAdjusting) {
-                if (lsm.isSelectionEmpty()) { // no selection
-                    // TODO must interact nicely with plot list selections
-                    // should probably defer to plot list select, if any
-                } else { // show the selected person
+                if (!lsm.isSelectionEmpty()) { // show the selected person
                     int index = lsm.getMinSelectionIndex();
                     // TODO must interact nicely with plot list selections
-                    // probably should select the associated plotID in the plots list which will make it show in the center
+                    // should select the associated plotID in the plots list which will make it show in the center
                     System.out.println("Selected Person: " + peopleListModel.get(index)); // TEMP
                 }
             }

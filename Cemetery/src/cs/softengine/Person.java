@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * A person. Includes personal information like name and address.
  */
 public class Person implements Comparable<Person> {
-    private int ownerID;
+    private int contactID;
     private String fname;
     private String lname;
     private String address1;
@@ -25,10 +25,10 @@ public class Person implements Comparable<Person> {
     }
 
     /**
-     * Constructs a new person with an ownerID.
+     * Constructs a new person with an contactID.
      */
-    public Person(int ownerID) {
-        this(ownerID, "", "", "", "", "", "", "", "");
+    public Person(int contactID) {
+        this(contactID, "", "", "", "", "", "", "", "");
     }
 
     /**
@@ -55,8 +55,8 @@ public class Person implements Comparable<Person> {
     /**
      * Constructs a person using all needed information
      */
-    public Person(int ownerID, String fname, String lname, String address1, String address2, String city, String state, String zip, String phone) {
-        this.ownerID = ownerID;
+    public Person(int contactID, String fname, String lname, String address1, String address2, String city, String state, String zip, String phone) {
+        this.contactID = contactID;
         this.fname = fname;
         this.lname = lname;
         this.address1 = address1;
@@ -233,23 +233,23 @@ public class Person implements Comparable<Person> {
     }
 
     /**
-     * Set the owner's ID number
-     * @param ownerID number
+     * Set the contact's ID number
+     * @param contactID number
      */
-    public void setOwnerID(int ownerID) {
-        this.ownerID = ownerID;
+    public void setContactID(int contactID) {
+        this.contactID = contactID;
     }
 
     /**
-     * Get the owner's ID number
-     * @return ownerID
+     * Get the contact's ID number
+     * @return contactID
      */
-    public int getOwnerID() {
-        return ownerID;
+    public int getContactID() {
+        return contactID;
     }
 
     /**
-     * Compare a person to another person based on their ownerID
+     * Compare a person to another person based on their contactID
      * @param p a person
      * @return  < 0 if p is less than this person
      *            0 if p is equal to this person
@@ -260,7 +260,7 @@ public class Person implements Comparable<Person> {
         if (p == null)
             throw new NullPointerException();
 
-        return p.getOwnerID() - ownerID;
+        return p.getContactID() - contactID;
     }
 
     /**
@@ -286,7 +286,7 @@ public class Person implements Comparable<Person> {
      */
     public String toString() {
         return "<PERSON>\n"
-                + ownerID + "\n"
+                + contactID + "\n"
                 + fname + "\n"
                 + lname + "\n"
                 + address1 + "\n"

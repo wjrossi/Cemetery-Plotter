@@ -15,12 +15,6 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
     private JTextField plotIDField;
     private JTextField fnameField;
     private JTextField lnameField;
-    private JTextField address1Field;
-    private JTextField address2Field;
-    private JTextField cityField;
-    private JTextField stateField;
-    private JTextField zipField;
-    private JTextField phoneField;
     private JTextField bornDateMonthField;
     private JTextField bornDateDayField;
     private JTextField bornDateYearField;
@@ -66,12 +60,6 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
         JLabel plotIDLabel = new JLabel("PlotID:");
         JLabel fnameLabel = new JLabel("First:");
         JLabel lnameLabel = new JLabel("Last:");
-        JLabel address1Label = new JLabel("Address 1:");
-        JLabel address2Label = new JLabel("Address 2:");
-        JLabel cityLabel = new JLabel("City:");
-        JLabel stateLabel = new JLabel("State:");
-        JLabel zipLabel = new JLabel("Zip:");
-        JLabel phoneLabel = new JLabel("Phone:");
         JLabel bornDateLabel = new JLabel("Date of Birth:");
         JLabel diedDateLabel = new JLabel("Date of Death:");
         JLabel dateDividerLabel1 = new JLabel("/");
@@ -87,12 +75,6 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
         plotIDField = new JTextField(4);
         fnameField = new JTextField(8);
         lnameField = new JTextField(8);
-        address1Field = new JTextField(12);
-        address2Field = new JTextField(12);
-        cityField = new JTextField(8);
-        stateField = new JTextField(2);
-        zipField = new JTextField(5);
-        phoneField = new JTextField(10);
         bornDateMonthField = new JTextField(2);
         bornDateDayField = new JTextField(2);
         bornDateYearField = new JTextField(4);
@@ -103,17 +85,18 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
         interredIDField.setEnabled(false); // interredID cannot be changed and is auto-generated
         plotIDField.setEnabled(false); // plotID cannot be changed in interred person sub-class
 
+        bornDateMonthField.setToolTipText("MM");
+        bornDateDayField.setToolTipText("DD");
+        bornDateYearField.setToolTipText("YYYY");
+        diedDateMonthField.setToolTipText("MM");
+        diedDateDayField.setToolTipText("DD");
+        diedDateYearField.setToolTipText("YYYY");
+
         // join labels to text fields
         interredIDLabel.setLabelFor(interredIDField);
         plotIDLabel.setLabelFor(plotIDField);
         fnameLabel.setLabelFor(fnameField);
         lnameLabel.setLabelFor(lnameField);
-        address1Label.setLabelFor(address1Field);
-        address2Label.setLabelFor(address2Field);
-        cityLabel.setLabelFor(cityField);
-        stateLabel.setLabelFor(stateField);
-        zipLabel.setLabelFor(zipField);
-        phoneLabel.setLabelFor(phoneField);
         bornDateLabel.setLabelFor(bornDateYearField);
         diedDateLabel.setLabelFor(diedDateYearField);
 
@@ -133,22 +116,12 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
         // create sub-panels
         JPanel idPanel = new JPanel();
         JPanel namePanel = new JPanel();
-        JPanel addressPanel = new JPanel();
-        JPanel address1Panel = new JPanel();
-        JPanel address2Panel = new JPanel();
-        JPanel address3Panel = new JPanel();
-        JPanel phonePanel = new JPanel();
         JPanel bornDatePanel = new JPanel();
         JPanel diedDatePanel = new JPanel();
         JPanel editPanel = new JPanel();
 
         idPanel.setLayout(new BoxLayout(idPanel, BoxLayout.LINE_AXIS));
         namePanel.setLayout(new BoxLayout(namePanel, BoxLayout.LINE_AXIS));
-        addressPanel.setLayout(new BoxLayout(addressPanel, BoxLayout.PAGE_AXIS));
-        address1Panel.setLayout(new BoxLayout(address1Panel, BoxLayout.LINE_AXIS));
-        address2Panel.setLayout(new BoxLayout(address2Panel, BoxLayout.LINE_AXIS));
-        address3Panel.setLayout(new BoxLayout(address3Panel, BoxLayout.LINE_AXIS));
-        phonePanel.setLayout(new BoxLayout(phonePanel, BoxLayout.LINE_AXIS));
         bornDatePanel.setLayout(new BoxLayout(bornDatePanel, BoxLayout.LINE_AXIS));
         diedDatePanel.setLayout(new BoxLayout(diedDatePanel, BoxLayout.LINE_AXIS));
         editPanel.setLayout(new BoxLayout(editPanel, BoxLayout.LINE_AXIS));
@@ -163,26 +136,6 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
         namePanel.add(fnameField);
         namePanel.add(lnameLabel);
         namePanel.add(lnameField);
-
-        address1Panel.add(address1Label);
-        address1Panel.add(address1Field);
-
-        address2Panel.add(address2Label);
-        address2Panel.add(address2Field);
-
-        address3Panel.add(cityLabel);
-        address3Panel.add(cityField);
-        address3Panel.add(stateLabel);
-        address3Panel.add(stateField);
-        address3Panel.add(zipLabel);
-        address3Panel.add(zipField);
-
-        addressPanel.add(address1Panel);
-        addressPanel.add(address2Panel);
-        addressPanel.add(address3Panel);
-
-        phonePanel.add(phoneLabel);
-        phonePanel.add(phoneField);
 
         bornDatePanel.add(bornDateLabel);
         bornDatePanel.add(bornDateMonthField);
@@ -207,8 +160,6 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
         fieldsPanel.setLayout(new BoxLayout(fieldsPanel, BoxLayout.PAGE_AXIS));
         fieldsPanel.add(idPanel);
         fieldsPanel.add(namePanel);
-        fieldsPanel.add(addressPanel);
-        fieldsPanel.add(phonePanel);
         fieldsPanel.add(bornDatePanel);
         fieldsPanel.add(diedDatePanel);
 
@@ -220,12 +171,6 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
         //editable.add(plotIDField); // not editable
         editable.add(fnameField);
         editable.add(lnameField);
-        editable.add(address1Field);
-        editable.add(address2Field);
-        editable.add(cityField);
-        editable.add(stateField);
-        editable.add(zipField);
-        editable.add(phoneField);
         editable.add(bornDateMonthField);
         editable.add(bornDateDayField);
         editable.add(bornDateYearField);
@@ -319,12 +264,6 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
             plotIDField.setText(Integer.toString(ip.getPlotID()));
             fnameField.setText(ip.getFirstName());
             lnameField.setText(ip.getLastName());
-            address1Field.setText(ip.getAddress1());
-            address2Field.setText(ip.getAddress2());
-            cityField.setText(ip.getCity());
-            stateField.setText(ip.getState());
-            zipField.setText(ip.getZip());
-            phoneField.setText(ip.getPhone());
 
             bornDateMonthField.setText(ip.getBornDateMonth());
             bornDateDayField.setText(ip.getBornDateDay());
@@ -345,7 +284,7 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
     public void setInterredData(Plot plot) { // TODO bad input error checking
         cemetery.setModified(true);
 
-        // write the owner data from the GUI fields into the right place in the data layer
+        // write the contact data from the GUI fields into the right place in the data layer
         InterredPerson ip = plot.getInterred();
 
         if (ip == null) {
@@ -356,12 +295,6 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
         ip.setPlotID(Integer.parseInt(plotIDField.getText()));
         ip.setFirstName(fnameField.getText());
         ip.setLastName(lnameField.getText());
-        ip.setAddress1(address1Field.getText());
-        ip.setAddress2((address2Field.getText()));
-        ip.setCity(cityField.getText());
-        ip.setState(stateField.getText());
-        ip.setZip(zipField.getText());
-        ip.setPhone(phoneField.getText());
 
         ip.setBornDateMonth(bornDateMonthField.getText());
         ip.setBornDateDay(bornDateDayField.getText());
@@ -385,12 +318,6 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
         plotIDField.setText("");
         fnameField.setText("");
         lnameField.setText("");
-        address1Field.setText("");
-        address2Field.setText("");
-        cityField.setText("");
-        stateField.setText("");
-        zipField.setText("");
-        phoneField.setText("");
         bornDateMonthField.setText("");
         bornDateDayField.setText("");
         bornDateYearField.setText("");

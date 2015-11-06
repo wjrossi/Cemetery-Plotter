@@ -75,7 +75,7 @@ public class CemeteryTest {
     @Test
     public void testGetSections() throws Exception{
         c = new Cemetery();
-        sections = new ArrayList<Section>();
+        sections = new ArrayList<>();
         Section mockSection = Mockito.mock(Section.class);
         sections.add(mockSection);
         c.setSections(sections);
@@ -89,7 +89,7 @@ public class CemeteryTest {
     @Test
     public void testSetSections() throws Exception{
         c = new Cemetery();
-        sections = new ArrayList<Section>();
+        sections = new ArrayList<>();
         Section mockSection = Mockito.mock(Section.class);
         sections.add(mockSection);
         c.setSections(sections);
@@ -104,7 +104,7 @@ public class CemeteryTest {
     public void testGetPlots() throws Exception{
         c = new Cemetery();
         Plot mockPlot = Mockito.mock(Plot.class);
-        plots = new ArrayList<Plot>();
+        plots = new ArrayList<>();
         plots.add(mockPlot);
 
         assertEquals("plot must be " + mockPlot + ", but returned " + c.getPlots(), c.getPlots().toString(), "[]");
@@ -116,7 +116,7 @@ public class CemeteryTest {
     @Test
     public void testGetInterred() throws Exception{
         c = new Cemetery();
-        interred = new ArrayList<InterredPerson>();
+        interred = new ArrayList<>();
         InterredPerson mockInterredPerson = Mockito.mock(InterredPerson.class);
         interred.add(mockInterredPerson);
 
@@ -124,16 +124,16 @@ public class CemeteryTest {
     }
 
     /**
-     * Tests that Cemetery.getOwners() correctly Get list of all (non-interred) people in Cemetery class.
+     * Tests that Cemetery.getContacts() correctly Get list of all (non-interred) people in Cemetery class.
      */
     @Test
     public void testGetOwners() throws Exception{
         c = new Cemetery();
-        owners = new ArrayList<Person>();
+        owners = new ArrayList<>();
         Person mockPerson = Mockito.mock(Person.class);
         owners.add(mockPerson);
 
-        assertEquals("people must be " + owners + ", but returned " + c.getOwners(), c.getOwners().toString(), "[]");
+        assertEquals("people must be " + owners + ", but returned " + c.getContacts(), c.getContacts().toString(), "[]");
     }
 
     /**

@@ -18,12 +18,6 @@ public class InterredPerson implements Comparable<InterredPerson> {
     private Date diedYear;
     private String fname;
     private String lname;
-    private String address1;
-    private String address2;
-    private String city;
-    private String state;
-    private String zip;
-    private String phone;
     private SimpleDateFormat sdfMonth; // month date format
     private SimpleDateFormat sdfDay; // day date format
     private SimpleDateFormat sdfYear; // year date format
@@ -32,7 +26,7 @@ public class InterredPerson implements Comparable<InterredPerson> {
      * Construct a new, empty interred person
      */
     public InterredPerson() {
-        this(-1, -1, "", "", "", "", "", "", "", "", "", "", "", "", "", "");
+        this(-1, -1, "", "", "", "", "", "", "", "");
     }
 
     /**
@@ -40,7 +34,7 @@ public class InterredPerson implements Comparable<InterredPerson> {
      * @param interredID unique ID number for the interred person in the plot
      */
     public InterredPerson(int interredID) {
-        this(interredID, -1, "", "", "", "", "", "", "", "", "", "", "", "", "", "");
+        this(interredID, -1, "", "", "", "", "", "", "", "");
     }
 
     /**
@@ -49,7 +43,7 @@ public class InterredPerson implements Comparable<InterredPerson> {
      * @param plotID unique ID number of the plot in which this person is interred
      */
     public InterredPerson(int interredID, int plotID) {
-        this(interredID, plotID, "", "", "", "", "", "", "", "", "", "", "", "", "", "");
+        this(interredID, plotID, "", "", "", "", "", "", "", "");
     }
 
     /**
@@ -64,19 +58,11 @@ public class InterredPerson implements Comparable<InterredPerson> {
      * @param diedYear year, may be null
      * @param fname first name
      * @param lname last name
-     * @param address1 line 1 of address
-     * @param address2 line 2 of address
-     * @param city the city
-     * @param state the state
-     * @param zip the zip code
-     * @param phone phone number
      */
     public InterredPerson(int interredID, int plotID,
                           String bornMonth, String bornDay, String bornYear,
                           String diedMonth, String diedDay, String diedYear,
-                          String fname, String lname,
-                          String address1, String address2,
-                          String city, String state, String zip, String phone) {
+                          String fname, String lname) {
         sdfMonth = new SimpleDateFormat("MM");
         sdfDay = new SimpleDateFormat("dd");
         sdfYear = new SimpleDateFormat("yyyy");
@@ -91,12 +77,6 @@ public class InterredPerson implements Comparable<InterredPerson> {
         setDiedDateYear(diedYear);
         this.fname = fname;
         this.lname = lname;
-        this.address1 = address1;
-        this.address2 = address2;
-        this.city = city;
-        this.state = state;
-        this.zip = zip;
-        this.phone = phone;
     }
 
     /**
@@ -332,102 +312,6 @@ public class InterredPerson implements Comparable<InterredPerson> {
     }
 
     /**
-     * Set address line 1
-     * @param address1 address line 1
-     */
-    public void setAddress1(String address1) {
-        this.address1 = address1;
-    }
-
-    /**
-     * Get address line 1
-     * @return address1
-     */
-    public String getAddress1() {
-        return address1;
-    }
-
-    /**
-     * Set address line 2
-     * @param address2 address line 2
-     */
-    public void setAddress2(String address2) {
-        this.address2 = address2;
-    }
-
-    /**
-     * Get address line 2
-     * @return address2 address line 2
-     */
-    public String getAddress2() {
-        return address2;
-    }
-
-    /**
-     * Set the city
-     * @param city city
-     */
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    /**
-     * Get the city
-     * @return city
-     */
-    public String getCity() {
-        return city;
-    }
-
-    /**
-     * Set the state
-     * @param state state
-     */
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    /**
-     * Get state
-     * @return state
-     */
-    public String getState() {
-        return state;
-    }
-
-    /**
-     * Set zip code
-     * @param zip zip code
-     */
-    public void setZip(String zip) {
-        this.zip = zip;
-    }
-
-    /**
-     * Get zip code
-     * @return zip code
-     */
-    public String getZip() {
-        return zip;
-    }
-
-    /**
-     * Set phone number
-     * @param phone phone number
-     */
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    /**
-     * Get phone number
-     * @return phone number
-     */
-    public String getPhone() {
-        return phone;
-    }
-
-    /**
      * Compare an interred person to another interred person based on their interredID
      * @param p an interred person
      * @return  < 0 if p is less than this interredID
@@ -473,14 +357,6 @@ public class InterredPerson implements Comparable<InterredPerson> {
                 + getDiedDateMonth() + "\n"
                 + getDiedDateDay() + "\n"
                 + getDiedDateYear() + "\n"
-                + fname + "\n"
-                + lname + "\n"
-                + address1 + "\n"
-                + address2 + "\n"
-                + city + "\n"
-                + state  + "\n"
-                + zip + "\n"
-                + phone  + "\n"
                 + "</INTERREDPERSON>\n";
     }
 }

@@ -14,7 +14,7 @@ public class Plot implements Comparable<Plot> {
     private String section; // residing section name
     private int id; // plot identifier number
     private InterredPerson interred; // interred person
-    private Person owner; // contact person, also person fiscally responsible for plot
+    private Person contact; // contact person, also person fiscally responsible for plot
     private Date burialMonth; // burial date
     private Date burialDay;
     private Date burialYear;
@@ -51,7 +51,7 @@ public class Plot implements Comparable<Plot> {
      * @param section name
      * @param id number
      * @param interred interred person
-     * @param owner of this plot
+     * @param contact of this plot
      * @param burialMonth month
      * @param burialDay day
      * @param burialYear year
@@ -62,7 +62,7 @@ public class Plot implements Comparable<Plot> {
      * @param ready boolean
      * @param moneyDue BigDecimal
      */
-    public Plot(String section, int id, InterredPerson interred, Person owner,
+    public Plot(String section, int id, InterredPerson interred, Person contact,
                 String burialMonth, String burialDay, String burialYear,
                 String purchasedMonth, String purchasedDay, String purchasedYear,
                 boolean vacant, boolean ready, BigDecimal moneyDue) {
@@ -76,7 +76,7 @@ public class Plot implements Comparable<Plot> {
         this.section = section;
         this.id = id;
         this.interred = interred;
-        this.owner = owner;
+        this.contact = contact;
         setBurialDateMonth(burialMonth);
         setBurialDateDay(burialDay);
         setBurialDateYear(burialYear);
@@ -137,19 +137,19 @@ public class Plot implements Comparable<Plot> {
     }
 
     /**
-     * Get owner of plot
-     * @return owner of plot, null if unknown
+     * Get contact of plot
+     * @return contact of plot, null if unknown
      */
-    public Person getOwner() {
-        return owner;
+    public Person getContact() {
+        return contact;
     }
 
     /**
-     * Set owner of plot
-     * @param p owner of plot, null if unknown
+     * Set contact of plot
+     * @param p contact of plot, null if unknown
      */
-    public void setOwner(Person p) {
-        owner = p;
+    public void setContact(Person p) {
+        contact = p;
     }
 
     /**
@@ -425,10 +425,10 @@ public class Plot implements Comparable<Plot> {
         else
             result += interred;
 
-        if (owner == null)
+        if (contact == null)
             result += "<PERSON>\nnull\n</PERSON>\n";
         else
-            result += owner;
+            result += contact;
 
         result += getBurialDateMonth() + "\n"
                 + getBurialDateDay() + "\n"

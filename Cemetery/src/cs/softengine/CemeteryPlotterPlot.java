@@ -69,7 +69,7 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
 
         burialDateLabel.setToolTipText("MM/DD/YYYY");
         purchasedDateLabel.setToolTipText("MM/DD/YYYY");
-        moneyDueLabel.setToolTipText("$123.45");
+        moneyDueLabel.setToolTipText("e.g., $1234.56 or $7890");
 
         // create text fields
         sectionField = new JTextField(6);
@@ -81,6 +81,14 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
         purchasedDateDayField = new JTextField(2);
         purchasedDateYearField = new JTextField(4);
         moneyDueField = new JTextField(8);
+
+        burialDateMonthField.setToolTipText("MM");
+        burialDateDayField.setToolTipText("DD");
+        burialDateYearField.setToolTipText("YYYY");
+        purchasedDateMonthField.setToolTipText("MM");
+        purchasedDateDayField.setToolTipText("DD");
+        purchasedDateYearField.setToolTipText("YYYY");
+        moneyDueField.setToolTipText("e.g., $1234.56 or $7890");
 
         // set labels to text fields
         sectionLabel.setLabelFor(sectionField);
