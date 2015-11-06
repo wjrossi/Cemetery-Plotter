@@ -371,7 +371,6 @@ public class Plot implements Comparable<Plot> {
      */
     public void setMoneyDue(String m) {
         try {
-            System.out.println("m: " + m + ", parsed: " + nf.parse(m).toString());
             moneyDue = new BigDecimal(nf.parse(m).toString());
         } catch (ParseException e) {
             // do NOT change money due on parse exception
