@@ -29,7 +29,6 @@ public class Plot implements Comparable<Plot> {
     private SimpleDateFormat sdfYear; // year date format
     private NumberFormat nf; // money format
 
-
     /**
      * Constructs an empty plot
      */

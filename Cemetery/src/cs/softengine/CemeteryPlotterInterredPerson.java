@@ -289,6 +289,7 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
 
         if (ip == null) {
             ip = new InterredPerson();
+            cemetery.setNextInterredID();
         }
 
         ip.setInterredID(Integer.parseInt(interredIDField.getText())); // TODO if this already exists, we got a problem
@@ -305,8 +306,6 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
         ip.setDiedDateYear(diedDateYearField.getText());
 
         plot.setInterred(ip);
-
-        cemetery.setNextInterredID();
     }
 
     /**

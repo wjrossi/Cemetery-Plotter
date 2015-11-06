@@ -323,7 +323,13 @@ public class Cemetery {
      * @return section of the cemetery, null if it does not exist
      */
     public Section get(Section s) {
-        return sections.get(sections.indexOf(s));
+        int index = sections.indexOf(s);
+
+        if (index < 0) {
+            return null;
+        } else {
+            return sections.get(index);
+        }
     }
 
     /**

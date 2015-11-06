@@ -341,11 +341,9 @@ public class CemeteryPlotterContact extends CemeteryPlotter implements ActionLis
         contact.setPhone(phoneField.getText());
 
         ArrayList<Integer> ownedPlots = new ArrayList<>(ownedListModel.size());
-
         for (String plotID : ownedList.getSelectedValuesList()) {
             ownedPlots.add(Integer.parseInt(plotID));
         }
-
         contact.setOwnedPlots(ownedPlots);
 
         plot.setContact(contact);
