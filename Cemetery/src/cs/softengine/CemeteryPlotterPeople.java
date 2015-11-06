@@ -17,6 +17,8 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
     private JPanel peoplePanel;
     private JTextField searchField;
     private JComboBox<String> searchByBox;
+    private DefaultComboBoxModel<String> searchByBoxListModel;
+    private String[] searchByBoxList;
     private JButton searchButton;
     private JRadioButton bothRadioButton;
     private JRadioButton interredPeopleRadioButton;
@@ -61,9 +63,10 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
         searchField = new JTextField();
 
         // create search by combo box
-        String[] searchByBoxList = { "InterredID", "PlotID", "Name", "Phone",
+        searchByBoxList = new String[] { "Last Name, First Name", "Phone",
                 "Date of Birth", "Date of Death", "Address", "City", "State", "Zip" };
-        searchByBox = new JComboBox<>(searchByBoxList);
+        searchByBoxListModel = new DefaultComboBoxModel<>(searchByBoxList);
+        searchByBox = new JComboBox<>(searchByBoxListModel);
         searchByBox.setEditable(false);
 
         // create search button
@@ -141,8 +144,36 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
 
         switch (action) {
             case "interred": // refresh people list on any of these actions
+                searchByBoxListModel.removeAllElements();
+                searchByBoxList = new String[] { "InterredID", "Last Name, First Name", "Phone",
+                        "Date of Birth", "Date of Death", "Address", "City", "State", "Zip" };
+                searchByBoxListModel = new DefaultComboBoxModel<>(searchByBoxList);
+                searchByBox.setModel(searchByBoxListModel);
+
+                // clear the people list
+                peopleListModel.clear();
+                // get the people data for each selected section
+                getPeopleData(cemeteryPlotterFrame.cemeteryPlotterSections.getSelectedSections());
+                break;
             case "owners":
+                searchByBoxListModel.removeAllElements();
+                searchByBoxList = new String[] { "OwnerID", "Last Name, First Name", "Phone",
+                        "Date of Birth", "Date of Death", "Address", "City", "State", "Zip" };
+                searchByBoxListModel = new DefaultComboBoxModel<>(searchByBoxList);
+                searchByBox.setModel(searchByBoxListModel);
+
+                // clear the people list
+                peopleListModel.clear();
+                // get the people data for each selected section
+                getPeopleData(cemeteryPlotterFrame.cemeteryPlotterSections.getSelectedSections());
+                break;
             case "both":
+                searchByBoxListModel.removeAllElements();
+                searchByBoxList = new String[] { "Last Name, First Name", "Phone",
+                        "Date of Birth", "Date of Death", "Address", "City", "State", "Zip" };
+                searchByBoxListModel = new DefaultComboBoxModel<>(searchByBoxList);
+                searchByBox.setModel(searchByBoxListModel);
+
                 // clear the people list
                 peopleListModel.clear();
                 // get the people data for each selected section

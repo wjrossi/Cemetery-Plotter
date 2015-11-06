@@ -24,7 +24,6 @@ public class CemeteryPlotterOwner extends CemeteryPlotter implements ActionListe
     private JList<String> ownedList;
     private JScrollPane ownedListScrollPane;
     private DefaultListModel<String> ownedListModel;
-    //private DefaultListSelectionModel ownedListSelectionModel;
     private JTextField addPlotField;
     private JButton addPlotButton;
     private JButton removePlotButton;
@@ -110,9 +109,6 @@ public class CemeteryPlotterOwner extends CemeteryPlotter implements ActionListe
         // create list of plots owned by person
         ownedListModel = new DefaultListModel<>();
         ownedList = new JList<>(ownedListModel);
-
-        //ownedListSelectionModel = (DefaultListSelectionModel) ownedList.getSelectionModel();
-        //ownedListSelectionModel.addListSelectionListener(new OwnedListSelectionHandler());
 
         ownedListScrollPane = new JScrollPane(ownedList);
         ownedListScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -221,17 +217,18 @@ public class CemeteryPlotterOwner extends CemeteryPlotter implements ActionListe
         editable.add(updateButton);
 
         // disable editable fields until a plot is selected and edit button is pressed
-        setOwnerEditable();
+        setOwnerEditable(false);
 
         return panel;
     }
 
     /**
      * Enable or disable fields belonging to editable list
+     * @param value enabled/disabled
      */
-    public void setOwnerEditable() {
+    public void setOwnerEditable(boolean value) {
         for (JComponent c : editable) {
-            c.setEnabled(!c.isEnabled());
+            c.setEnabled(value);
         }
     }
 
@@ -244,20 +241,13 @@ public class CemeteryPlotterOwner extends CemeteryPlotter implements ActionListe
 
         switch (action) {
             case "edit": // allow changed to be made
-                setOwnerEditable();
-                cancelButton.requestFocus();
+                editOwner();
                 break;
             case "update": // write changes to plot
-                setOwnerData(cemeteryPlotterFrame.cemeteryPlotterPlots.getSelectedPlot());
-                setOwnerEditable();
-                // TODO call something that updates section list, plot list, and/or people list, if necessary
-                editButton.requestFocus();
+                updateOwner();
                 break;
             case "cancel": // revert changes by clearing and reloading info
-                setOwnerEditable();
-                clearOwnerData();
-                getOwnerData(cemeteryPlotterFrame.cemeteryPlotterPlots.getSelectedPlot());
-                editButton.requestFocus();
+                cancelOwner();
                 break;
             case "add": // add a new plot to the owner's list GUI object
                 // TODO
@@ -267,6 +257,34 @@ public class CemeteryPlotterOwner extends CemeteryPlotter implements ActionListe
                 // TODO
                 break;
         }
+    }
+
+    /**
+     * Edit button's action for the plot owner's data
+     */
+    public void editOwner() {
+        setOwnerEditable(true);
+        cancelButton.requestFocus();
+    }
+
+    /**
+     * Update button's action for the plot owner's data
+     */
+    public void updateOwner() {
+        setOwnerEditable(false);
+        setOwnerData(cemeteryPlotterFrame.cemeteryPlotterPlots.getSelectedPlot());
+        // TODO call something that updates section list, plot list, and/or people list, if necessary
+        editButton.requestFocus();
+    }
+
+    /**
+     * Cancel button's action for the plot owner's data
+     */
+    public void cancelOwner() {
+        setOwnerEditable(false);
+        clearOwnerData();
+        getOwnerData(cemeteryPlotterFrame.cemeteryPlotterPlots.getSelectedPlot());
+        editButton.requestFocus();
     }
 
     /**
@@ -313,7 +331,8 @@ public class CemeteryPlotterOwner extends CemeteryPlotter implements ActionListe
         Person owner = plot.getOwner();
 
         if (owner == null) {
-            owner = new Person();
+            owner = new Person(cemetery.getNextOwnerID());
+            cemetery.setNextOwnerID();
         }
 
         owner.setFirstName(fnameField.getText());
@@ -351,32 +370,5 @@ public class CemeteryPlotterOwner extends CemeteryPlotter implements ActionListe
         phoneField.setText("");
         addPlotField.setText("");
         ownedListModel.clear();
-    }
-
-    /**
-     * Implementation of ListSelectionListener that is invoked when selections are made on the owned plots list
-     */
-    class OwnedListSelectionHandler implements ListSelectionListener {
-
-        /**
-         * Called automatically when selections are made
-         * @param e ListSelectionEvent
-         */
-        public void valueChanged(ListSelectionEvent e) {
-            ListSelectionModel lsm = (ListSelectionModel) e.getSource();
-
-            int firstIndex = e.getFirstIndex();
-            int lastIndex = e.getLastIndex();
-            boolean isAdjusting = e.getValueIsAdjusting();
-
-            if (!isAdjusting) {
-                if (lsm.isSelectionEmpty()) { // no selection
-                    // DO NOTHING
-                } else { // show the selected plot
-                    int index = lsm.getMinSelectionIndex();
-                    // DO NOTHING ON SELECTION?
-                }
-            }
-        }
     }
 }

@@ -16,12 +16,18 @@ public class Cemetery {
     private ArrayList<Person> owners; // list of all plot owner people in the cemetery
     private SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
     private boolean modified; // has the cemetery been modified
+    private int nextPlotID; //
+    private int nextInterredID;
+    private int nextOwnerID;
 
     /**
      * Constructs a singleton cemetery
      */
     public Cemetery() {
         modified = false;
+        nextPlotID = -1;
+        nextInterredID = -1;
+        nextOwnerID = -1;
         sections = new ArrayList<>();
         plots = new ArrayList<>();
         interred = new ArrayList<>();
@@ -34,8 +40,11 @@ public class Cemetery {
      */
     public Cemetery(File file) {
         modified = false;
+        nextPlotID = -1;
+        nextInterredID = -1;
+        nextOwnerID = -1;
+
         try {
-            // TODO decompress file, then decrypt file
             load(file); // load the plain-text file
         } catch (IOException e) { // TODO show error dialogs
             System.err.println("Unable to read input file. Exiting.");
@@ -50,6 +59,8 @@ public class Cemetery {
      * @throws IOException
      */
     public void load(File file) throws IOException {
+        // TODO decompress file, then decrypt file
+
         BufferedReader buffer;
         String temp;
         Section section = null; // current section for quick loading of plots
@@ -132,6 +143,8 @@ public class Cemetery {
         sectionName = buffer.readLine().trim();
         id = Integer.parseInt(buffer.readLine().trim());
 
+        nextPlotID = id > nextPlotID ? id + 1 : nextPlotID;
+
         buffer.readLine().trim(); // read empty line
         interred = loadInterredPerson(buffer); // load an interred person belonging to this plot
 
@@ -175,7 +188,8 @@ public class Cemetery {
     private Person loadPerson(BufferedReader buffer) throws IOException {
         Person p;
 
-        String fname,lname;
+        int ownerID;
+        String fname, lname;
         String address1, address2;
         String city, state, zip;
         String phone;
@@ -188,7 +202,10 @@ public class Cemetery {
             p = null;
             buffer.readLine().trim(); // read empty line
         } else {
-            fname = temp;
+            ownerID = Integer.parseInt(temp);
+            nextOwnerID = ownerID > nextOwnerID ? ownerID + 1 : nextOwnerID;
+
+            fname = buffer.readLine().trim();
             lname = buffer.readLine().trim();
             address1 = buffer.readLine().trim();
             address2 = buffer.readLine().trim();
@@ -199,7 +216,7 @@ public class Cemetery {
 
             buffer.readLine().trim(); // read empty line
 
-            p = new Person(fname, lname, address1, address2, city, state, zip, phone);
+            p = new Person(ownerID, fname, lname, address1, address2, city, state, zip, phone);
             owners.add(p);
         }
 
@@ -230,6 +247,8 @@ public class Cemetery {
             buffer.readLine().trim();
         } else {
             interredID = Integer.parseInt(temp);
+            nextInterredID = interredID > nextInterredID ? interredID + 1 : nextInterredID;
+
             plotID = Integer.parseInt(buffer.readLine().trim());
 
             try {
@@ -379,6 +398,51 @@ public class Cemetery {
      */
     public void setModified(boolean modifiedValue) {
         modified = modifiedValue;
+    }
+
+    /**
+     * Set the next available ID number for a plot
+     */
+    public void setNextPlotID() {
+        nextPlotID++;
+    }
+
+    /**
+     * Get the next available ID number for a plot
+     * @return nextPlotID
+     */
+    public int getNextPlotID() {
+        return nextPlotID;
+    }
+
+    /**
+     * Set the next available ID number for an interred person
+     */
+    public void setNextInterredID() {
+        nextInterredID++;
+    }
+
+    /**
+     * Get the next available ID number for an interred person
+     * @return nextInterredID
+     */
+    public int getNextInterredID() {
+        return nextInterredID;
+    }
+
+    /**
+     * Set the next available ID number for an owner
+     */
+    public void setNextOwnerID() {
+        nextOwnerID++;
+    }
+
+    /**
+     * Get the next available ID number for an owner
+     * @return nextOwnerID
+     */
+    public int getNextOwnerID() {
+        return nextOwnerID;
     }
 
     /**

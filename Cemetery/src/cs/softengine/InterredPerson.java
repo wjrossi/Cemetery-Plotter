@@ -30,6 +30,14 @@ public class InterredPerson implements Comparable<InterredPerson> {
     }
 
     /**
+     * Construct a new interred person with an ID number
+     * @param interredID number
+     */
+    public InterredPerson(int interredID) {
+        this(interredID, -1, null, null, "", "", "", "", "", "", "", "");
+    }
+
+    /**
      * Construct a new interred person
      * @param interredID unique number
      * @param plotID unique number

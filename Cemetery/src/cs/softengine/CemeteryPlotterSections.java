@@ -181,6 +181,13 @@ public class CemeteryPlotterSections extends CemeteryPlotter implements ActionLi
             boolean isAdjusting = e.getValueIsAdjusting();
 
             if (!isAdjusting) {
+                cemeteryPlotterFrame.cemeteryPlotterPlot.clearPlotData();
+                cemeteryPlotterFrame.cemeteryPlotterPlot.setPlotEditable(false);
+                cemeteryPlotterFrame.cemeteryPlotterInterredPerson.clearInterredData();
+                cemeteryPlotterFrame.cemeteryPlotterInterredPerson.setInterredEditable(false);
+                cemeteryPlotterFrame.cemeteryPlotterOwner.clearOwnerData();
+                cemeteryPlotterFrame.cemeteryPlotterOwner.setOwnerEditable(false);
+
                 cemeteryPlotterFrame.cemeteryPlotterPlots.clearPlotsList();
                 cemeteryPlotterFrame.cemeteryPlotterPeople.clearPeopleList();
 

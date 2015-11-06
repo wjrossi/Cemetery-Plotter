@@ -168,16 +168,17 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
         editable.add(updateButton);
 
         // disable editable fields until a plot is selected and edit button is pressed
-        setPlotEditable();
+        setPlotEditable(false);
         return panel;
     }
 
     /**
      * Enable or disable fields belonging to editable list
+     * @param value enabled/disabled
      */
-    public void setPlotEditable() {
+    public void setPlotEditable(boolean value) {
         for (JComponent c : editable) {
-            c.setEnabled(!c.isEnabled());
+            c.setEnabled(value);
         }
     }
 
@@ -190,23 +191,43 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
 
         switch (action) {
             case "edit": // allow changes to be made
-                setPlotEditable();
-                cancelButton.requestFocus();
+                editPlot();
                 break;
             case "update": // write changes to plot
-                setPlotData(cemeteryPlotterFrame.cemeteryPlotterPlots.getSelectedPlot());
-                setPlotEditable();
-                // TODO call something that updates section list, plot list, and/or people list, if necessary
-                editButton.requestFocus();
+                updatePlot();
                 break;
             case "cancel": // revert changes by clearing and reloading info
-                editButton.setEnabled(false);
-                setPlotEditable();
-                clearPlotData();
-                getPlotData(cemeteryPlotterFrame.cemeteryPlotterPlots.getSelectedPlot());
-                editButton.requestFocus();
+                cancelPlot();
                 break;
         }
+    }
+
+    /**
+     * Edit button's action for the plot's data
+     */
+    public void editPlot() {
+        setPlotEditable(true);
+        cancelButton.requestFocus();
+    }
+
+    /**
+     * Update button's action for the plot's data
+     */
+    public void updatePlot() {
+        setPlotEditable(false);
+        setPlotData(cemeteryPlotterFrame.cemeteryPlotterPlots.getSelectedPlot());
+        // TODO call something that updates section list, plot list, and/or people list, if necessary
+        editButton.requestFocus();
+    }
+
+    /**
+     * Cancel button's action for the plot's data
+     */
+    public void cancelPlot() {
+        setPlotEditable(false);
+        clearPlotData();
+        getPlotData(cemeteryPlotterFrame.cemeteryPlotterPlots.getSelectedPlot());
+        editButton.requestFocus();
     }
 
     /**

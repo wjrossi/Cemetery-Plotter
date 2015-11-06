@@ -221,17 +221,18 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
         editable.add(updateButton);
 
         // disable editable fields until a plot is selected and edit button is pressed
-        setInterredEditable();
+        setInterredEditable(false);
 
         return panel;
     }
 
     /**
      * Enable or disable fields belonging to editable list
+     * @param value enabled/disabled
      */
-    private void setInterredEditable() {
+    public void setInterredEditable(boolean value) {
         for (JComponent c : editable) {
-            c.setEnabled(!c.isEnabled());
+            c.setEnabled(value);
         }
     }
 
@@ -244,23 +245,43 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
 
         switch (action) {
             case "edit": // allow the info to be changed
-                setInterredEditable();
-                cancelButton.requestFocus();
+                editInterred();
                 break;
             case "update": // write changes to plot
-                setInterredData(cemeteryPlotterFrame.cemeteryPlotterPlots.getSelectedPlot());
-                setInterredEditable();
-                // TODO call something that updates section list, plot list, and/or people list, if necessary
-                editButton.requestFocus();
+                updateInterred();
                 break;
             case "cancel": // revert changes by clearing and reloading info
-                editButton.setEnabled(false);
-                setInterredEditable();
-                clearInterredData();
-                getInterredData(cemeteryPlotterFrame.cemeteryPlotterPlots.getSelectedPlot());
-                editButton.requestFocus();
+                cancelInterred();
                 break;
         }
+    }
+
+    /**
+     * Edit button's action for the interred person's data
+     */
+    public void editInterred() {
+        setInterredEditable(true);
+        cancelButton.requestFocus();
+    }
+
+    /**
+     * Update button's action for the interred person's data
+     */
+    public void updateInterred() {
+        setInterredEditable(false);
+        setInterredData(cemeteryPlotterFrame.cemeteryPlotterPlots.getSelectedPlot());
+        // TODO call something that updates section list, plot list, and/or people list, if necessary
+        editButton.requestFocus();
+    }
+
+    /**
+     * Cancel button's action for the interred person's data
+     */
+    public void cancelInterred() {
+        setInterredEditable(false);
+        clearInterredData();
+        getInterredData(cemeteryPlotterFrame.cemeteryPlotterPlots.getSelectedPlot());
+        editButton.requestFocus();
     }
 
     /**
@@ -305,7 +326,7 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
             }
         } else { // possibly creating a new interred person for the associated plot
             plotIDField.setText(Integer.toString(plot.getID()));
-            // TODO add interredIDField.setText(Integer.toString(cemetery.getNextInterredID());
+            interredIDField.setText(Integer.toString(cemetery.getNextInterredID()));
         }
     }
 
@@ -346,6 +367,8 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
         }
 
         plot.setInterred(ip);
+
+        cemetery.setNextInterredID();
     }
 
     /**
