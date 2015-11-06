@@ -7,12 +7,13 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 
 /**
  * Content pane for listing of plots belonging to selected section(s)
  */
-public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListener, ItemListener {
+public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListener {
     private JPanel plotsPanel;
     private JTextField searchField;
     private DefaultListModel<String> plotsListModel;
@@ -124,18 +125,10 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
     }
 
     /**
-     * Item state listener for plots content pane
-     * @param e item event
-     */
-    public void itemStateChanged(ItemEvent e) {
-        //
-    }
-
-    /**
      * Get the data from cemetery about plots and load it into the appropriate GUI elements
      * @param sections list of selected sections in CemeteryPlotterSections
      */
-    public void getPlotsData(ArrayList<String> sections) {
+    public void getPlotsData(Collection<String> sections) {
         ArrayList<String> plots = new ArrayList<>();
 
         for (String section : sections) {
@@ -207,6 +200,7 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
                     int index = lsm.getMinSelectionIndex();
                     int plotID = Integer.parseInt(plotsListModel.get(index));
                     Plot plot = new Plot("", plotID);
+                    cemeteryPlotterFrame.cemeteryPlotterPeople.overridePeopleList();
                     cemeteryPlotterFrame.clearData();
                     cemeteryPlotterFrame.getData(plot);
                 }

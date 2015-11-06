@@ -7,28 +7,30 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 
 /**
- * Content pane allowing for the searching and listing of people in the cemetery
+ * Content pane allowing for the filtering and listing of people in the cemetery
  * based on current selected section(s)
  */
-public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionListener, ItemListener {
+public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionListener {
     private JPanel peoplePanel;
-    private JTextField searchField;
-    private JComboBox<String> searchByBox;
-    private JButton searchButton;
+    private JTextField filterField;
+    private JComboBox<String> filterByBox;
+    private DefaultComboBoxModel<String> filterByBoxListModel;
+    private String[] filterByBoxList;
     private JRadioButton bothRadioButton;
     private JRadioButton interredPeopleRadioButton;
-    private JRadioButton ownersRadioButton;
-    private ButtonGroup searchButtonGroup;
+    private JRadioButton contactsRadioButton;
+    private ButtonGroup filterButtonGroup;
     private DefaultListModel<String> peopleListModel;
     private DefaultListSelectionModel peopleListSelectionModel;
     private JList<String> peopleList;
     private JScrollPane peopleListScrollPane;
 
     /**
-     * Constructs a content pane for searching and listing of people
+     * Constructs a content pane for filtering and listing of people
      */
     public CemeteryPlotterPeople() {
         peoplePanel = createPeoplePanel();
@@ -57,60 +59,54 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
 
         // add things to panel
 
-        // create search text field
-        searchField = new JTextField();
+        // create filter text field
+        filterField = new JTextField(); // TODO add listener that searches as you type
 
-        // create search by combo box
-        String[] searchByBoxList = { "InterredID", "PlotID", "Name", "Phone",
-                "Date of Birth", "Date of Death", "Address", "City", "State", "Zip" };
-        searchByBox = new JComboBox<>(searchByBoxList);
-        searchByBox.setEditable(false);
+        // create filter by combo box
+        filterByBoxList = new String[] { "Last Name, First Name" };
+        filterByBoxListModel = new DefaultComboBoxModel<>(filterByBoxList);
+        filterByBox = new JComboBox<>(filterByBoxListModel);
+        filterByBox.setEditable(false);
 
-        // create search button
-        searchButton = new JButton("Search By");
-        searchButton.setActionCommand("search");
-        searchButton.addActionListener(this);
+        // add filter by combo box to filterCenter panel
+        JPanel filterCenter = new JPanel();
+        filterCenter.setLayout(new BoxLayout(filterCenter, BoxLayout.LINE_AXIS));
+        filterCenter.add(filterByBox);
 
-        // add search by combo box and search by button to searchCenter panel
-        JPanel searchCenter = new JPanel();
-        searchCenter.setLayout(new BoxLayout(searchCenter, BoxLayout.LINE_AXIS));
-        searchCenter.add(searchByBox);
-        searchCenter.add(searchButton);
-
-        // create search radio buttons
+        // create filter radio buttons
         interredPeopleRadioButton = new JRadioButton("Interred", false);
         interredPeopleRadioButton.setActionCommand("interred");
         interredPeopleRadioButton.addActionListener(this);
 
-        ownersRadioButton = new JRadioButton("Owners", false);
-        ownersRadioButton.setActionCommand("owners");
-        ownersRadioButton.addActionListener(this);
+        contactsRadioButton = new JRadioButton("Contacts", false);
+        contactsRadioButton.setActionCommand("contacts");
+        contactsRadioButton.addActionListener(this);
 
         bothRadioButton = new JRadioButton("Both", true);
         bothRadioButton.setActionCommand("both");
         bothRadioButton.addActionListener(this);
 
-        // create search radio button group
-        searchButtonGroup = new ButtonGroup();
-        searchButtonGroup.add(interredPeopleRadioButton);
-        searchButtonGroup.add(ownersRadioButton);
-        searchButtonGroup.add(bothRadioButton);
+        // create filter radio button group
+        filterButtonGroup = new ButtonGroup();
+        filterButtonGroup.add(interredPeopleRadioButton);
+        filterButtonGroup.add(contactsRadioButton);
+        filterButtonGroup.add(bothRadioButton);
 
-        // create search radio button panel and add radio buttons to panel
-        JPanel searchRadioButtonPanel = new JPanel();
-        searchRadioButtonPanel.setLayout(new BoxLayout(searchRadioButtonPanel, BoxLayout.LINE_AXIS));
-        searchRadioButtonPanel.add(interredPeopleRadioButton);
-        searchRadioButtonPanel.add(ownersRadioButton);
-        searchRadioButtonPanel.add(bothRadioButton);
+        // create filter radio button panel and add radio buttons to panel
+        JPanel filterRadioButtonPanel = new JPanel();
+        filterRadioButtonPanel.setLayout(new BoxLayout(filterRadioButtonPanel, BoxLayout.LINE_AXIS));
+        filterRadioButtonPanel.add(interredPeopleRadioButton);
+        filterRadioButtonPanel.add(contactsRadioButton);
+        filterRadioButtonPanel.add(bothRadioButton);
 
-        // add search field, searchCenter panel and search radio button panel to overall search panel
-        JPanel searchPanel = new JPanel(new BorderLayout());
-        searchPanel.add(searchField, BorderLayout.PAGE_START);
-        searchPanel.add(searchCenter, BorderLayout.CENTER);
-        searchPanel.add(searchRadioButtonPanel, BorderLayout.PAGE_END);
+        // add filter field, filterCenter panel and filter radio button panel to overall filter panel
+        JPanel filterPanel = new JPanel(new BorderLayout());
+        filterPanel.add(filterField, BorderLayout.PAGE_START);
+        filterPanel.add(filterCenter, BorderLayout.CENTER);
+        filterPanel.add(filterRadioButtonPanel, BorderLayout.PAGE_END);
 
-        // add search panel to main panel
-        panel.add(searchPanel, BorderLayout.PAGE_START);
+        // add filter panel to main panel
+        panel.add(filterPanel, BorderLayout.PAGE_START);
 
         // create list of sections
         peopleListModel = new DefaultListModel<>();
@@ -141,43 +137,62 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
 
         switch (action) {
             case "interred": // refresh people list on any of these actions
-            case "owners":
-            case "both":
+                // change filterBy list to reflect the type or people being viewed
+                filterByBoxListModel.removeAllElements();
+                filterByBoxList = new String[] { "InterredID", "Last Name, First Name",
+                        "Date of Burial", "Date of Purchase" };
+                filterByBoxListModel = new DefaultComboBoxModel<>(filterByBoxList);
+                filterByBox.setModel(filterByBoxListModel);
+
                 // clear the people list
                 peopleListModel.clear();
                 // get the people data for each selected section
                 getPeopleData(cemeteryPlotterFrame.cemeteryPlotterSections.getSelectedSections());
                 break;
-            case "search": // search using searchByBox and searchField
-                // TODO
+            case "contacts":
+                // change filterBy list to reflect the type or people being viewed
+                filterByBoxListModel.removeAllElements();
+                filterByBoxList = new String[] { "ContactID", "Last Name, First Name", "Phone",
+                        "Date of Birth", "Date of Death", "Address", "City", "State", "Zip" };
+                filterByBoxListModel = new DefaultComboBoxModel<>(filterByBoxList);
+                filterByBox.setModel(filterByBoxListModel);
+
+                // clear the people list
+                peopleListModel.clear();
+                // get the people data for each selected section
+                getPeopleData(cemeteryPlotterFrame.cemeteryPlotterSections.getSelectedSections());
+                break;
+            case "both":
+                // change filterBy list to reflect the type or people being viewed
+                filterByBoxListModel.removeAllElements();
+                filterByBoxList = new String[] { "Last Name, First Name" };
+                filterByBoxListModel = new DefaultComboBoxModel<>(filterByBoxList);
+                filterByBox.setModel(filterByBoxListModel);
+
+                // clear the people list
+                peopleListModel.clear();
+                // get the people data for each selected section
+                getPeopleData(cemeteryPlotterFrame.cemeteryPlotterSections.getSelectedSections());
                 break;
         }
-    }
-
-    /**
-     * Item state listener for people content pane
-     * @param e item event
-     */
-    public void itemStateChanged(ItemEvent e) {
-        //
     }
 
     /**
      * Get the data from cemetery about people and load it into the appropriate GUI elements
      * @param sections list of sections selected in CemeteryPlotterSections
      */
-    public void getPeopleData(ArrayList<String> sections) {
-        // figure out which people to put in the list (based on selected sections and radio buttons and search items, etc...)
+    public void getPeopleData(Collection<String> sections) {
+        // figure out which people to put in the list (based on selected sections and radio buttons and filter items, etc...)
         ArrayList<String> people = new ArrayList<>();
 
         for (String section : sections) {
             if (interredPeopleRadioButton.isSelected()) { // list only interred
                 people.addAll(getPeopleDataInterred(section));
-            } else if (ownersRadioButton.isSelected()) { // list only owners
-                people.addAll(getPeopleDataOwners(section));
-            } else { // bothRadioButton.isSelected() // list both interred and owners
+            } else if (contactsRadioButton.isSelected()) { // list only contacts
+                people.addAll(getPeopleDataContact(section));
+            } else { // bothRadioButton.isSelected() // list both interred and contacts
                 people.addAll(getPeopleDataInterred(section));
-                people.addAll(getPeopleDataOwners(section));
+                people.addAll(getPeopleDataContact(section));
             }
         }
 
@@ -202,7 +217,7 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
         for (Plot p : s.getPlots()) {
             InterredPerson ip = p.getInterred();
             if (ip != null) {
-                // TODO switch based on searchByBox (to show burial date instead of name for example)
+                // TODO switch based on filterByBox (to show burial date instead of name for example)
                 results.add(ip.getLastName() + ", " + ip.getFirstName());
             }
         }
@@ -211,18 +226,18 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
     }
 
     /**
-     * Get the data from cemetery about the owner of plots in the selected section(s)
+     * Get the data from cemetery about the contact of plots in the selected section(s)
      * @param section selected in CeneteryPlotterSections
-     * @return list of owners
+     * @return list of contacts
      */
-    private ArrayList<String> getPeopleDataOwners(String section) {
+    private ArrayList<String> getPeopleDataContact(String section) {
         Section s = cemetery.get(new Section(section));
         ArrayList<String> results = new ArrayList<>(s.getSize());
 
         for (Plot p : s.getPlots()) {
-            Person o = p.getOwner();
+            Person o = p.getContact();
             if (o != null) {
-                // TODO switch based on searchByBox (to show ID instead of name for example)
+                // TODO switch based on filterByBox (to show ID instead of name for example)
                 results.add(o.getLastName() + ", " + o.getFirstName());
             }
         }
@@ -235,6 +250,13 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
      */
     public void clearPeopleList() {
         peopleListModel.clear();
+    }
+
+    /**
+     * Override the people list's selection
+     */
+    public void overridePeopleList() {
+        peopleList.clearSelection();
     }
 
     /**
@@ -254,13 +276,10 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
             boolean isAdjusting = e.getValueIsAdjusting();
 
             if (!isAdjusting) {
-                if (lsm.isSelectionEmpty()) { // no selection
-                    // TODO must interact nicely with plot list selections
-                    // should probably defer to plot list select, if any
-                } else { // show the selected person
+                if (!lsm.isSelectionEmpty()) { // show the selected person
                     int index = lsm.getMinSelectionIndex();
                     // TODO must interact nicely with plot list selections
-                    // probably should select the associated plotID in the plots list which will make it show in the center
+                    // should select the associated plotID in the plots list which will make it show in the center
                     System.out.println("Selected Person: " + peopleListModel.get(index)); // TEMP
                 }
             }

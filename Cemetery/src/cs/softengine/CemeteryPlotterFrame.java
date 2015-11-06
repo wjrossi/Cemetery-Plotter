@@ -16,7 +16,7 @@ public class CemeteryPlotterFrame extends CemeteryPlotter {
     CemeteryPlotterPlots cemeteryPlotterPlots; // the list of plots in the currently selected section(s)
     CemeteryPlotterPlot cemeteryPlotterPlot; // the currently selected plot's info
     CemeteryPlotterInterredPerson cemeteryPlotterInterredPerson; // the currently selected plot's interred person
-    CemeteryPlotterOwner cemeteryPlotterOwner; // the currently selected plot's owner
+    CemeteryPlotterContact cemeteryPlotterContact; // the currently selected plot's contact
     CemeteryPlotterPeople cemeteryPlotterPeople; // the list of people in the currently selected section(s)
     CemeteryPlotterMap cemeteryPlotterMap; // the map of the cemetery
 
@@ -45,7 +45,7 @@ public class CemeteryPlotterFrame extends CemeteryPlotter {
         String frameTitle = "Cemetery Plotter";
 
         if (workingFile != null)
-            frameTitle += " (" + workingFile + ")";
+            frameTitle += " (" + workingFile.getName() + ")";
 
         frame = new JFrame(frameTitle);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -67,7 +67,7 @@ public class CemeteryPlotterFrame extends CemeteryPlotter {
         cemeteryPlotterPlots = new CemeteryPlotterPlots();
         cemeteryPlotterPlot = new CemeteryPlotterPlot();
         cemeteryPlotterInterredPerson = new CemeteryPlotterInterredPerson();
-        cemeteryPlotterOwner = new CemeteryPlotterOwner();
+        cemeteryPlotterContact = new CemeteryPlotterContact();
         cemeteryPlotterPeople = new CemeteryPlotterPeople();
         cemeteryPlotterMap = new CemeteryPlotterMap();
 
@@ -81,7 +81,7 @@ public class CemeteryPlotterFrame extends CemeteryPlotter {
         centerTopPanel.setLayout(new BoxLayout(centerTopPanel, BoxLayout.LINE_AXIS));
         centerTopPanel.add(cemeteryPlotterPlot.getPlotPanel());
         centerTopPanel.add(cemeteryPlotterInterredPerson.getInterredPanel());
-        centerTopPanel.add(cemeteryPlotterOwner.getOwnerPanel());
+        centerTopPanel.add(cemeteryPlotterContact.getContactPanel());
 
         // center bottom panel
         centerBottomPanel.add(cemeteryPlotterMap.getMapPanel(), BorderLayout.CENTER);
@@ -116,7 +116,7 @@ public class CemeteryPlotterFrame extends CemeteryPlotter {
     }
 
     /**
-     * Get data from cemetery for a plot, interred person, and owner
+     * Get data from cemetery for a plot, interred person, and contact
      * @param plot of the cemetery
      */
     public void getData(Plot plot) {
@@ -124,11 +124,11 @@ public class CemeteryPlotterFrame extends CemeteryPlotter {
 
         cemeteryPlotterPlot.getPlotData(plot);
         cemeteryPlotterInterredPerson.getInterredData(plot);
-        cemeteryPlotterOwner.getOwnerData(plot);
+        cemeteryPlotterContact.getContactData(plot);
     }
 
     /**
-     * Set data to cemetery for a plot, interred person, and owner
+     * Set data to cemetery for a plot, interred person, and contact
      * @param plot of the cemetery
      */
     public void setData(Plot plot) {
@@ -136,11 +136,11 @@ public class CemeteryPlotterFrame extends CemeteryPlotter {
     }
 
     /**
-     * Clear all plot, interred person, and owner data from the GUI
+     * Clear all plot, interred person, and contact data from the GUI
      */
     public void clearData() {
         cemeteryPlotterPlot.clearPlotData();
         cemeteryPlotterInterredPerson.clearInterredData();
-        cemeteryPlotterOwner.clearOwnerData();
+        cemeteryPlotterContact.clearContactData();
     }
 }

@@ -2,17 +2,15 @@ package cs.softengine;
 
 import javax.swing.*;
 import javax.swing.border.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 
 /**
- * Content pane containing editable information on a plot owner
+ * Content pane containing editable information on a plot contact
  */
-public class CemeteryPlotterOwner extends CemeteryPlotter implements ActionListener, ItemListener {
-    private JPanel ownerPanel;
+public class CemeteryPlotterContact extends CemeteryPlotter implements ActionListener {
+    private JPanel contactPanel;
     private JTextField fnameField;
     private JTextField lnameField;
     private JTextField address1Field;
@@ -24,7 +22,6 @@ public class CemeteryPlotterOwner extends CemeteryPlotter implements ActionListe
     private JList<String> ownedList;
     private JScrollPane ownedListScrollPane;
     private DefaultListModel<String> ownedListModel;
-    //private DefaultListSelectionModel ownedListSelectionModel;
     private JTextField addPlotField;
     private JButton addPlotButton;
     private JButton removePlotButton;
@@ -34,31 +31,31 @@ public class CemeteryPlotterOwner extends CemeteryPlotter implements ActionListe
     private ArrayList<JComponent> editable;
 
     /**
-     * Constructs a content pane for a plot owner info
+     * Constructs a content pane for a plot contact info
      */
-    public CemeteryPlotterOwner() {
+    public CemeteryPlotterContact() {
         editable = new ArrayList<>();
-        ownerPanel = createOwnerPanel();
+        contactPanel = createContactPanel();
     }
 
     /**
-     * Get plot owner info panel
-     * @return ownerPanel
+     * Get plot contact info panel
+     * @return contactPanel
      */
-    public JPanel getOwnerPanel() {
-        return ownerPanel;
+    public JPanel getContactPanel() {
+        return contactPanel;
     }
 
     /**
-     * Create plot owner panel
+     * Create plot contact panel
      * @return panel
      */
-    private JPanel createOwnerPanel() {
+    private JPanel createContactPanel() {
         JPanel panel = new JPanel(new BorderLayout(), true);
 
         // create an raised, etched, titled border
         Border etchedBorder = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
-        TitledBorder titledBorder = BorderFactory.createTitledBorder(etchedBorder, "Owner");
+        TitledBorder titledBorder = BorderFactory.createTitledBorder(etchedBorder, "Contact");
         titledBorder.setTitleJustification(TitledBorder.LEFT);
         panel.setBorder(titledBorder);
 
@@ -111,15 +108,13 @@ public class CemeteryPlotterOwner extends CemeteryPlotter implements ActionListe
         ownedListModel = new DefaultListModel<>();
         ownedList = new JList<>(ownedListModel);
 
-        //ownedListSelectionModel = (DefaultListSelectionModel) ownedList.getSelectionModel();
-        //ownedListSelectionModel.addListSelectionListener(new OwnedListSelectionHandler());
-
         ownedListScrollPane = new JScrollPane(ownedList);
         ownedListScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
         ownedList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         ownedList.setLayoutOrientation(JList.VERTICAL);
         ownedList.setPrototypeCellValue("999999");
+        ownedList.setToolTipText("List of plots owned by this contact.");
 
         // create add and remove plot buttons and text field
         addPlotField = new JTextField(4);
@@ -221,17 +216,18 @@ public class CemeteryPlotterOwner extends CemeteryPlotter implements ActionListe
         editable.add(updateButton);
 
         // disable editable fields until a plot is selected and edit button is pressed
-        setOwnerEditable();
+        setContactEditable(false);
 
         return panel;
     }
 
     /**
      * Enable or disable fields belonging to editable list
+     * @param value enabled/disabled
      */
-    public void setOwnerEditable() {
+    public void setContactEditable(boolean value) {
         for (JComponent c : editable) {
-            c.setEnabled(!c.isEnabled());
+            c.setEnabled(value);
         }
     }
 
@@ -244,86 +240,105 @@ public class CemeteryPlotterOwner extends CemeteryPlotter implements ActionListe
 
         switch (action) {
             case "edit": // allow changed to be made
-                setOwnerEditable();
-                cancelButton.requestFocus();
+                editContact();
                 break;
             case "update": // write changes to plot
-                setOwnerData(cemeteryPlotterFrame.cemeteryPlotterPlots.getSelectedPlot());
-                setOwnerEditable();
-                // TODO call something that updates section list, plot list, and/or people list, if necessary
-                editButton.requestFocus();
+                updateContact();
                 break;
             case "cancel": // revert changes by clearing and reloading info
-                setOwnerEditable();
-                clearOwnerData();
-                getOwnerData(cemeteryPlotterFrame.cemeteryPlotterPlots.getSelectedPlot());
-                editButton.requestFocus();
+                cancelContact();
                 break;
-            case "add": // add a new plot to the owner's list GUI object
+            case "add": // add a new plot to the contact's list GUI object
                 // TODO
                 // can multiple people own a plot? probably not
                 break;
-            case "remove": // remove selected plot from the owner's list GUI object
+            case "remove": // remove selected plot from the contact's list GUI object
                 // TODO
                 break;
         }
     }
 
     /**
-     * Item state listener for plot owner info content pane
-     * @param e item event
+     * Edit button's action for the plot contact's data
      */
-    public void itemStateChanged(ItemEvent e) {
-        //
+    public void editContact() {
+        setContactEditable(true);
+        editButton.setEnabled(false);
+        cancelButton.requestFocus();
+    }
+
+    /**
+     * Update button's action for the plot contact's data
+     */
+    public void updateContact() {
+        setContactEditable(false);
+        editButton.setEnabled(true);
+        setContactData(cemeteryPlotterFrame.cemeteryPlotterPlots.getSelectedPlot());
+        clearContactData();
+        getContactData(cemeteryPlotterFrame.cemeteryPlotterPlots.getSelectedPlot());
+        // TODO call something that updates section list, plot list, and/or people list, if necessary
+        editButton.requestFocus();
+    }
+
+    /**
+     * Cancel button's action for the plot contact's data
+     */
+    public void cancelContact() {
+        setContactEditable(false);
+        editButton.setEnabled(true);
+        clearContactData();
+        getContactData(cemeteryPlotterFrame.cemeteryPlotterPlots.getSelectedPlot());
+        editButton.requestFocus();
     }
 
     /**
      * Get the data from cemetery about a plot and load it into the appropriate GUI elements
      */
-    public void getOwnerData(Plot plot) {
+    public void getContactData(Plot plot) {
         editButton.setEnabled(true);
 
-        Person owner = plot.getOwner();
+        Person contact = plot.getContact();
 
         // load the gui elements...
-        if (owner != null) {
-            fnameField.setText(owner.getFirstName());
-            lnameField.setText(owner.getLastName());
-            address1Field.setText(owner.getAddress1());
-            address2Field.setText(owner.getAddress2());
-            cityField.setText(owner.getCity());
-            stateField.setText(owner.getState());
-            zipField.setText(owner.getZip());
-            phoneField.setText(owner.getPhone());
+        if (contact != null) {
+            fnameField.setText(contact.getFirstName());
+            lnameField.setText(contact.getLastName());
+            address1Field.setText(contact.getAddress1());
+            address2Field.setText(contact.getAddress2());
+            cityField.setText(contact.getCity());
+            stateField.setText(contact.getState());
+            zipField.setText(contact.getZip());
+            phoneField.setText(contact.getPhone());
             addPlotField.setText("");
 
-            for (Integer plotID : owner.getOwnedPlots()) {
+            for (Integer plotID : contact.getOwnedPlots()) {
                 ownedListModel.addElement(Integer.toString(plotID));
             }
         }
     }
 
     /**
-     * Set the data from the GUI into the owner Person in the cemetery
+     * Set the data from the GUI into the contact Person in the cemetery
      */
-    public void setOwnerData(Plot plot) { // TODO BAD INPUT ERROR CHECKING
+    public void setContactData(Plot plot) { // TODO BAD INPUT ERROR CHECKING
         cemetery.setModified(true);
 
-        // write the owner data from the GUI fields into the right place in the data layer
-        Person owner = plot.getOwner();
+        // write the contact data from the GUI fields into the right place in the data layer
+        Person contact = plot.getContact();
 
-        if (owner == null) {
-            owner = new Person();
+        if (contact == null) {
+            contact = new Person(cemetery.getNextContactID());
+            cemetery.setNextContactID();
         }
 
-        owner.setFirstName(fnameField.getText());
-        owner.setLastName(lnameField.getText());
-        owner.setAddress1(address1Field.getText());
-        owner.setAddress2((address2Field.getText()));
-        owner.setCity(cityField.getText());
-        owner.setState(stateField.getText());
-        owner.setZip(zipField.getText());
-        owner.setPhone(phoneField.getText());
+        contact.setFirstName(fnameField.getText());
+        contact.setLastName(lnameField.getText());
+        contact.setAddress1(address1Field.getText());
+        contact.setAddress2((address2Field.getText()));
+        contact.setCity(cityField.getText());
+        contact.setState(stateField.getText());
+        contact.setZip(zipField.getText());
+        contact.setPhone(phoneField.getText());
 
         ArrayList<Integer> ownedPlots = new ArrayList<>(ownedListModel.size());
 
@@ -331,15 +346,15 @@ public class CemeteryPlotterOwner extends CemeteryPlotter implements ActionListe
             ownedPlots.add(Integer.parseInt(plotID));
         }
 
-        owner.setOwnedPlots(ownedPlots);
+        contact.setOwnedPlots(ownedPlots);
 
-        plot.setOwner(owner);
+        plot.setContact(contact);
     }
 
     /**
-     * Clear all owner data from the GUI
+     * Clear all contact data from the GUI
      */
-    public void clearOwnerData() {
+    public void clearContactData() {
         // clear each textfield and whatnot
         fnameField.setText("");
         lnameField.setText("");
@@ -351,32 +366,5 @@ public class CemeteryPlotterOwner extends CemeteryPlotter implements ActionListe
         phoneField.setText("");
         addPlotField.setText("");
         ownedListModel.clear();
-    }
-
-    /**
-     * Implementation of ListSelectionListener that is invoked when selections are made on the owned plots list
-     */
-    class OwnedListSelectionHandler implements ListSelectionListener {
-
-        /**
-         * Called automatically when selections are made
-         * @param e ListSelectionEvent
-         */
-        public void valueChanged(ListSelectionEvent e) {
-            ListSelectionModel lsm = (ListSelectionModel) e.getSource();
-
-            int firstIndex = e.getFirstIndex();
-            int lastIndex = e.getLastIndex();
-            boolean isAdjusting = e.getValueIsAdjusting();
-
-            if (!isAdjusting) {
-                if (lsm.isSelectionEmpty()) { // no selection
-                    // DO NOTHING
-                } else { // show the selected plot
-                    int index = lsm.getMinSelectionIndex();
-                    // DO NOTHING ON SELECTION?
-                }
-            }
-        }
     }
 }

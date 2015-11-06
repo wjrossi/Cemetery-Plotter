@@ -6,6 +6,7 @@ import java.util.ArrayList;
  * A person. Includes personal information like name and address.
  */
 public class Person implements Comparable<Person> {
+    private int contactID;
     private String fname;
     private String lname;
     private String address1;
@@ -20,27 +21,42 @@ public class Person implements Comparable<Person> {
      * Constructs a new, empty person.
      */
     public Person() {
-        this("", "", "", "", "", "", "", "");
+        this(-1, "", "", "", "", "", "", "", "");
+    }
+
+    /**
+     * Constructs a new person with an contactID.
+     */
+    public Person(int contactID) {
+        this(contactID, "", "", "", "", "", "", "", "");
     }
 
     /**
      * Constructs a person using his fist name, last name.
      */
     public Person(String fname, String lname) {
-        this(fname, lname, "", "", "", "", "", "");
+        this(-1, fname, lname, "", "", "", "", "", "");
     }
 
     /**
      * Constructs a person using his fist name, last name and phone number.
      */
     public Person(String fname, String lname, String phone) {
-        this(fname, lname, "", "", "", "", "", phone);
+        this(-1, fname, lname, "", "", "", "", "", phone);
     }
 
     /**
      * Constructs a person using all needed information
      */
     public Person(String fname, String lname, String address1, String address2, String city, String state, String zip, String phone) {
+        this(-1, fname, lname, address1, address2, city, state, zip, phone);
+    }
+
+    /**
+     * Constructs a person using all needed information
+     */
+    public Person(int contactID, String fname, String lname, String address1, String address2, String city, String state, String zip, String phone) {
+        this.contactID = contactID;
         this.fname = fname;
         this.lname = lname;
         this.address1 = address1;
@@ -217,7 +233,23 @@ public class Person implements Comparable<Person> {
     }
 
     /**
-     * Compare a person to another person based on last name, first name, and phone
+     * Set the contact's ID number
+     * @param contactID number
+     */
+    public void setContactID(int contactID) {
+        this.contactID = contactID;
+    }
+
+    /**
+     * Get the contact's ID number
+     * @return contactID
+     */
+    public int getContactID() {
+        return contactID;
+    }
+
+    /**
+     * Compare a person to another person based on their contactID
      * @param p a person
      * @return  < 0 if p is less than this person
      *            0 if p is equal to this person
@@ -228,18 +260,7 @@ public class Person implements Comparable<Person> {
         if (p == null)
             throw new NullPointerException();
 
-        int compare;
-
-        compare = lname.toUpperCase().compareTo(p.getLastName().toUpperCase());
-
-        if (compare == 0) { // same last name, compare by first name
-            compare = fname.toUpperCase().compareTo(p.getFirstName().toUpperCase());
-
-            if (compare == 0) // same first name, compare by phone
-                compare = phone.compareTo(p.getPhone());
-        }
-
-        return compare;
+        return p.getContactID() - contactID;
     }
 
     /**
@@ -265,6 +286,7 @@ public class Person implements Comparable<Person> {
      */
     public String toString() {
         return "<PERSON>\n"
+                + contactID + "\n"
                 + fname + "\n"
                 + lname + "\n"
                 + address1 + "\n"

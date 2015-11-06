@@ -100,6 +100,10 @@ public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListen
                     try {
                         workingFile = file; // set the working file to the selected file
                         cemetery.load(file); // open the file using the cemetery object's load(file) method
+
+                        // reload gui elements
+                        cemeteryPlotterFrame.clearData();
+                        cemeteryPlotterFrame.cemeteryPlotterSections.getSectionsData();
                     } catch (IOException ex) { // TODO show error dialogs
                         // major error, how do we handle it??
                         System.err.println("Unable to read input file.");
@@ -125,6 +129,8 @@ public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListen
                         workingFile = file; // set the working file to the selected file
                         cemetery.save(file); // open the file using the cemetery object's load(file) method
                         cemetery.setModified(false);
+                        cemeteryPlotterFrame.getFrame().setTitle("Cemetery Plotter (" + workingFile.getName() + ")");
+
                     } catch (IOException ex) { // TODO show error dialogs
                         // major error, how do we handle it??
                         System.err.println("Unable to read input file.");
