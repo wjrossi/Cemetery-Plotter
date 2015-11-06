@@ -12,7 +12,7 @@ import java.util.Collections;
 /**
  * Content pane for listing of plots belonging to selected section(s)
  */
-public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListener, ItemListener {
+public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListener {
     private JPanel plotsPanel;
     private JTextField searchField;
     private DefaultListModel<String> plotsListModel;
@@ -121,14 +121,6 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
                 // TODO
                 break;
         }
-    }
-
-    /**
-     * Item state listener for plots content pane
-     * @param e item event
-     */
-    public void itemStateChanged(ItemEvent e) {
-        //
     }
 
     /**

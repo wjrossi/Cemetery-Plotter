@@ -4,15 +4,12 @@ import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * Content pane containing editable information of an interred person
  */
-public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements ActionListener, ItemListener {
+public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements ActionListener {
     private JPanel interredPanel;
     private JTextField interredIDField;
     private JTextField plotIDField;
@@ -306,14 +303,6 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
         clearInterredData();
         getInterredData(cemeteryPlotterFrame.cemeteryPlotterPlots.getSelectedPlot());
         editButton.requestFocus();
-    }
-
-    /**
-     * Item state listener for interred person info content pane
-     * @param e item event
-     */
-    public void itemStateChanged(ItemEvent e) {
-        //
     }
 
     /**

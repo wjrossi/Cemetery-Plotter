@@ -2,8 +2,6 @@ package cs.softengine;
 
 import javax.swing.*;
 import javax.swing.border.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
@@ -11,7 +9,7 @@ import java.util.ArrayList;
 /**
  * Content pane containing editable information on a plot owner
  */
-public class CemeteryPlotterOwner extends CemeteryPlotter implements ActionListener, ItemListener {
+public class CemeteryPlotterOwner extends CemeteryPlotter implements ActionListener {
     private JPanel ownerPanel;
     private JTextField fnameField;
     private JTextField lnameField;
@@ -290,14 +288,6 @@ public class CemeteryPlotterOwner extends CemeteryPlotter implements ActionListe
         clearOwnerData();
         getOwnerData(cemeteryPlotterFrame.cemeteryPlotterPlots.getSelectedPlot());
         editButton.requestFocus();
-    }
-
-    /**
-     * Item state listener for plot owner info content pane
-     * @param e item event
-     */
-    public void itemStateChanged(ItemEvent e) {
-        //
     }
 
     /**

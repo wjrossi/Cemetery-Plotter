@@ -13,7 +13,7 @@ import java.util.Collections;
  * Content pane allowing for the filtering and listing of people in the cemetery
  * based on current selected section(s)
  */
-public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionListener, ItemListener {
+public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionListener {
     private JPanel peoplePanel;
     private JTextField filterField;
     private JComboBox<String> filterByBox;
@@ -176,14 +176,6 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
                 getPeopleData(cemeteryPlotterFrame.cemeteryPlotterSections.getSelectedSections());
                 break;
         }
-    }
-
-    /**
-     * Item state listener for people content pane
-     * @param e item event
-     */
-    public void itemStateChanged(ItemEvent e) {
-        //
     }
 
     /**

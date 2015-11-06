@@ -10,7 +10,7 @@ import java.util.ArrayList;
 /**
  * Content pane for selecting section(s) of the cemetery
  */
-public class CemeteryPlotterSections extends CemeteryPlotter implements ActionListener, ItemListener {
+public class CemeteryPlotterSections extends CemeteryPlotter implements ActionListener {
     private JPanel sectionsPanel;
     private JButton selectAllButton;
     private JButton selectNoneButton;
@@ -129,14 +129,6 @@ public class CemeteryPlotterSections extends CemeteryPlotter implements ActionLi
                 // b) put them in some kind of "blank" section?
                 break;
         }
-    }
-
-    /**
-     * Item state listener for sections content pane
-     * @param e item event
-     */
-    public void itemStateChanged(ItemEvent e) {
-        //
     }
 
     /**
