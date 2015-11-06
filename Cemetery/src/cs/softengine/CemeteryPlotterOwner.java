@@ -275,6 +275,8 @@ public class CemeteryPlotterOwner extends CemeteryPlotter implements ActionListe
         setOwnerEditable(false);
         editButton.setEnabled(true);
         setOwnerData(cemeteryPlotterFrame.cemeteryPlotterPlots.getSelectedPlot());
+        clearOwnerData();
+        getOwnerData(cemeteryPlotterFrame.cemeteryPlotterPlots.getSelectedPlot());
         // TODO call something that updates section list, plot list, and/or people list, if necessary
         editButton.requestFocus();
     }

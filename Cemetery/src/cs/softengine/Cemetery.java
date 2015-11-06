@@ -1,6 +1,7 @@
 package cs.softengine;
 
 import java.io.*;
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -140,7 +141,7 @@ public class Cemetery {
         String purchasedMonth, purchasedDay, purchasedYear; // purchase date
         boolean vacant; // is the plot vacant/not vacant
         boolean ready; // is the plot ready for use or not ready
-        int moneyDue; // if not 0, person owes this much IN CENTS (for accuracy)
+        BigDecimal moneyDue; // if not 0, person owes this much IN CENTS (for accuracy)
 
         sectionName = buffer.readLine().trim();
         id = Integer.parseInt(buffer.readLine().trim());
@@ -166,11 +167,7 @@ public class Cemetery {
         vacant = Boolean.parseBoolean(buffer.readLine().trim());
         ready = Boolean.parseBoolean(buffer.readLine().trim());
 
-        try { // load money due
-            moneyDue = Integer.parseInt(buffer.readLine().trim());
-        } catch (NumberFormatException e) {
-            moneyDue = 0;
-        }
+        moneyDue = new BigDecimal(buffer.readLine().trim());
 
         plot = new Plot(sectionName, id, interred, owner, burialMonth, burialDay, burialYear,
                 purchasedMonth, purchasedDay, purchasedYear, vacant, ready, moneyDue);

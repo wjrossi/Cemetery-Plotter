@@ -1,5 +1,8 @@
 package cs.softengine;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -20,16 +23,18 @@ public class Plot implements Comparable<Plot> {
     private Date purchasedYear;
     private boolean vacant; // is the plot vacant/not vacant
     private boolean ready; // is the plot ready for use or not ready
-    private int moneyDue; // if not 0, person owes this much IN CENTS (for accuracy)
+    private BigDecimal moneyDue; // person owes this much in DOLLARS and CENTS
     private SimpleDateFormat sdfMonth; // month date format
     private SimpleDateFormat sdfDay; // day date format
     private SimpleDateFormat sdfYear; // year date format
+    private NumberFormat nf; // money format
+
 
     /**
      * Constructs an empty plot
      */
     public Plot() {
-        this("", -1, null, null, "", "", "", "", "", "", true, false, 0);
+        this("", -1, null, null, "", "", "", "", "", "", true, false, new BigDecimal(0));
     }
 
     /**
@@ -38,7 +43,7 @@ public class Plot implements Comparable<Plot> {
      * @param id number
      */
     public Plot(String section, int id) {
-        this(section, id, null, null, "", "", "", "", "", "", true, false, 0);
+        this(section, id, null, null, "", "", "", "", "", "", true, false, new BigDecimal(0));
     }
 
     /**
@@ -55,15 +60,18 @@ public class Plot implements Comparable<Plot> {
      * @param purchasedYear year
      * @param vacant boolean
      * @param ready boolean
-     * @param moneyDue in pennies
+     * @param moneyDue BigDecimal
      */
     public Plot(String section, int id, InterredPerson interred, Person owner,
                 String burialMonth, String burialDay, String burialYear,
                 String purchasedMonth, String purchasedDay, String purchasedYear,
-                boolean vacant, boolean ready, int moneyDue) {
+                boolean vacant, boolean ready, BigDecimal moneyDue) {
         sdfMonth = new SimpleDateFormat("MM");
         sdfDay = new SimpleDateFormat("dd");
         sdfYear = new SimpleDateFormat("yyyy");
+        nf = NumberFormat.getCurrencyInstance();
+        nf.setMinimumFractionDigits(2);
+        nf.setMaximumFractionDigits(2);
 
         this.section = section;
         this.id = id;
@@ -348,19 +356,26 @@ public class Plot implements Comparable<Plot> {
     }
 
     /**
-     * Get the amount of money due
-     * @return the money due in cents
+     * Get the amount of money due, performs necessary conversion from CENTS to DOLLARS
+     * @return the money due in DOLLARS
      */
-    public int getMoneyDue() {
-        return moneyDue;
+    public String getMoneyDue() {
+        BigDecimal displayMoney = moneyDue.setScale(2, RoundingMode.HALF_EVEN);
+
+        return nf.format(displayMoney.doubleValue());
     }
 
     /**
      * Set the amount of money due
      * @param m the money due in cents
      */
-    public void setMoneyDue(int m) {
-        moneyDue = m;
+    public void setMoneyDue(String m) {
+        try {
+            System.out.println("m: " + m + ", parsed: " + nf.parse(m).toString());
+            moneyDue = new BigDecimal(nf.parse(m).toString());
+        } catch (ParseException e) {
+            // do NOT change money due on parse exception
+        }
     }
 
     /**

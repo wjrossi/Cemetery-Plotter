@@ -24,28 +24,22 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
     private JTextField stateField;
     private JTextField zipField;
     private JTextField phoneField;
-    private JFormattedTextField bornDateMonthField;
-    private JFormattedTextField bornDateDayField;
-    private JFormattedTextField bornDateYearField;
-    private JFormattedTextField diedDateMonthField;
-    private JFormattedTextField diedDateDayField;
-    private JFormattedTextField diedDateYearField;
+    private JTextField bornDateMonthField;
+    private JTextField bornDateDayField;
+    private JTextField bornDateYearField;
+    private JTextField diedDateMonthField;
+    private JTextField diedDateDayField;
+    private JTextField diedDateYearField;
     private JButton editButton;
     private JButton cancelButton;
     private JButton updateButton;
     private ArrayList<JComponent> editable;
-    private SimpleDateFormat sdfMonth;
-    private SimpleDateFormat sdfDay;
-    private SimpleDateFormat sdfYear;
 
     /**
      * Constructs a content pane for an interred person info
      */
     public CemeteryPlotterInterredPerson() {
         editable = new ArrayList<>();
-        sdfMonth = new SimpleDateFormat("MM");
-        sdfDay = new SimpleDateFormat("dd");
-        sdfYear = new SimpleDateFormat("yyyy");
         interredPanel = createInterredPersonPanel();
     }
 
@@ -102,19 +96,12 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
         stateField = new JTextField(2);
         zipField = new JTextField(5);
         phoneField = new JTextField(10);
-        bornDateMonthField = new JFormattedTextField(sdfMonth);
-        bornDateDayField = new JFormattedTextField(sdfDay);
-        bornDateYearField = new JFormattedTextField(sdfYear);
-        diedDateMonthField = new JFormattedTextField(sdfMonth);
-        diedDateDayField = new JFormattedTextField(sdfDay);
-        diedDateYearField = new JFormattedTextField(sdfYear);
-
-        bornDateMonthField.setColumns(2);
-        bornDateDayField.setColumns(2);
-        bornDateYearField.setColumns(4);
-        diedDateMonthField.setColumns(2);
-        diedDateDayField.setColumns(2);
-        diedDateYearField.setColumns(4);
+        bornDateMonthField = new JTextField(2);
+        bornDateDayField = new JTextField(2);
+        bornDateYearField = new JTextField(4);
+        diedDateMonthField = new JTextField(2);
+        diedDateDayField = new JTextField(2);
+        diedDateYearField = new JTextField(4);
 
         interredIDField.setEnabled(false); // interredID cannot be changed and is auto-generated
         plotIDField.setEnabled(false); // plotID cannot be changed in interred person sub-class
@@ -304,6 +291,8 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
         setInterredEditable(false);
         editButton.setEnabled(true);
         setInterredData(cemeteryPlotterFrame.cemeteryPlotterPlots.getSelectedPlot());
+        clearInterredData();
+        getInterredData(cemeteryPlotterFrame.cemeteryPlotterPlots.getSelectedPlot());
         // TODO call something that updates section list, plot list, and/or people list, if necessary
         editButton.requestFocus();
     }

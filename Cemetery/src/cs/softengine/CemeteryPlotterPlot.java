@@ -4,11 +4,7 @@ import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.text.NumberFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * Content pane for plot info
@@ -17,33 +13,25 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
     private JPanel plotPanel;
     private JTextField sectionField;
     private JTextField plotIDField;
-    private JFormattedTextField burialDateMonthField;
-    private JFormattedTextField burialDateDayField;
-    private JFormattedTextField burialDateYearField;
-    private JFormattedTextField purchasedDateMonthField;
-    private JFormattedTextField purchasedDateDayField;
-    private JFormattedTextField purchasedDateYearField;
-    private JFormattedTextField moneyDueField;
+    private JTextField burialDateMonthField;
+    private JTextField burialDateDayField;
+    private JTextField burialDateYearField;
+    private JTextField purchasedDateMonthField;
+    private JTextField purchasedDateDayField;
+    private JTextField purchasedDateYearField;
+    private JTextField moneyDueField;
     private JCheckBox vacantCheckBox;
     private JCheckBox readyCheckBox;
     private JButton editButton;
     private JButton cancelButton;
     private JButton updateButton;
     private ArrayList<JComponent> editable;
-    private SimpleDateFormat sdfMonth;
-    private SimpleDateFormat sdfDay;
-    private SimpleDateFormat sdfYear;
-    private NumberFormat nf;
 
     /**
      * Constructs a content pane for plot info
      */
     public CemeteryPlotterPlot() {
         editable = new ArrayList<>();
-        sdfMonth = new SimpleDateFormat("MM");
-        sdfDay = new SimpleDateFormat("dd");
-        sdfYear = new SimpleDateFormat("yyyy");
-        nf = NumberFormat.getCurrencyInstance();
         plotPanel = createPlotPanel();
     }
 
@@ -86,20 +74,13 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
         // create text fields
         sectionField = new JTextField(6);
         plotIDField = new JTextField(4);
-        burialDateMonthField = new JFormattedTextField(sdfMonth);
-        burialDateDayField = new JFormattedTextField(sdfDay);
-        burialDateYearField = new JFormattedTextField(sdfYear);
-        purchasedDateMonthField = new JFormattedTextField(sdfMonth);
-        purchasedDateDayField = new JFormattedTextField(sdfDay);
-        purchasedDateYearField = new JFormattedTextField(sdfYear);
-        moneyDueField = new JFormattedTextField(nf);
-        burialDateMonthField.setColumns(2);
-        burialDateDayField.setColumns(2);
-        burialDateYearField.setColumns(4);
-        purchasedDateMonthField.setColumns(2);
-        purchasedDateDayField.setColumns(2);
-        purchasedDateYearField.setColumns(4);
-        moneyDueField.setColumns(8);
+        burialDateMonthField = new JTextField(2);
+        burialDateDayField = new JTextField(2);
+        burialDateYearField = new JTextField(4);
+        purchasedDateMonthField = new JTextField(2);
+        purchasedDateDayField = new JTextField(2);
+        purchasedDateYearField = new JTextField(4);
+        moneyDueField = new JTextField(8);
 
         // set labels to text fields
         sectionLabel.setLabelFor(sectionField);
@@ -249,6 +230,8 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
         setPlotEditable(false);
         editButton.setEnabled(true);
         setPlotData(cemeteryPlotterFrame.cemeteryPlotterPlots.getSelectedPlot());
+        clearPlotData();
+        getPlotData(cemeteryPlotterFrame.cemeteryPlotterPlots.getSelectedPlot());
         // TODO call something that updates section list, plot list, and/or people list, if necessary
         editButton.requestFocus();
     }
@@ -282,11 +265,7 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
         purchasedDateDayField.setText(plot.getPurchasedDateDay());
         purchasedDateYearField.setText(plot.getPurchasedDateYear());
 
-        try {
-            moneyDueField.setText(nf.parse(Integer.toString(plot.getMoneyDue() / 100)).toString());
-        } catch (ParseException pe) {
-            moneyDueField.setText("$0.00");
-        }
+        moneyDueField.setText(plot.getMoneyDue());
 
         vacantCheckBox.setSelected(plot.isVacant());
         readyCheckBox.setSelected(plot.isReady());
@@ -310,8 +289,7 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
         plot.setPurchasedDateDay(purchasedDateDayField.getText());
         plot.setPurchasedDateYear(purchasedDateYearField.getText());
 
-        String moneyDue = moneyDueField.getText().replace("$", "").replace(".", ""); // strip symbols
-        plot.setMoneyDue(Integer.parseInt(moneyDue)); // save as pennies
+        plot.setMoneyDue(moneyDueField.getText());
 
         plot.setVacant(vacantCheckBox.isSelected());
         plot.setReady(readyCheckBox.isSelected());
