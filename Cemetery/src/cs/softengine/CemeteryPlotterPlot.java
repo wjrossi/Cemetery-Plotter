@@ -13,12 +13,16 @@ import java.util.Date;
 /**
  * Content pane for plot info
  */
-public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListener, ItemListener {
+public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListener {
     private JPanel plotPanel;
     private JTextField sectionField;
     private JTextField plotIDField;
-    private JFormattedTextField burialDateField;
-    private JFormattedTextField purchasedDateField;
+    private JFormattedTextField burialDateMonthField;
+    private JFormattedTextField burialDateDayField;
+    private JFormattedTextField burialDateYearField;
+    private JFormattedTextField purchasedDateMonthField;
+    private JFormattedTextField purchasedDateDayField;
+    private JFormattedTextField purchasedDateYearField;
     private JFormattedTextField moneyDueField;
     private JCheckBox vacantCheckBox;
     private JCheckBox readyCheckBox;
@@ -26,7 +30,9 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
     private JButton cancelButton;
     private JButton updateButton;
     private ArrayList<JComponent> editable;
-    private SimpleDateFormat sdf;
+    private SimpleDateFormat sdfMonth;
+    private SimpleDateFormat sdfDay;
+    private SimpleDateFormat sdfYear;
     private NumberFormat nf;
 
     /**
@@ -34,7 +40,9 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
      */
     public CemeteryPlotterPlot() {
         editable = new ArrayList<>();
-        sdf = new SimpleDateFormat("MM/dd/yyyy");
+        sdfMonth = new SimpleDateFormat("MM");
+        sdfDay = new SimpleDateFormat("dd");
+        sdfYear = new SimpleDateFormat("yyyy");
         nf = NumberFormat.getCurrencyInstance();
         plotPanel = createPlotPanel();
     }
@@ -66,6 +74,10 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
         JLabel burialDateLabel = new JLabel("Date of Burial:");
         JLabel purchasedDateLabel = new JLabel("Date of Purchase:");
         JLabel moneyDueLabel = new JLabel("Amount Owed:");
+        JLabel dateDividerLabel1 = new JLabel("/");
+        JLabel dateDividerLabel2 = new JLabel("/");
+        JLabel dateDividerLabel3 = new JLabel("/");
+        JLabel dateDividerLabel4 = new JLabel("/");
 
         burialDateLabel.setToolTipText("MM/DD/YYYY");
         purchasedDateLabel.setToolTipText("MM/DD/YYYY");
@@ -74,19 +86,26 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
         // create text fields
         sectionField = new JTextField(6);
         plotIDField = new JTextField(4);
-        burialDateField = new JFormattedTextField(sdf);
-        purchasedDateField = new JFormattedTextField(sdf);
+        burialDateMonthField = new JFormattedTextField(sdfMonth);
+        burialDateDayField = new JFormattedTextField(sdfDay);
+        burialDateYearField = new JFormattedTextField(sdfYear);
+        purchasedDateMonthField = new JFormattedTextField(sdfMonth);
+        purchasedDateDayField = new JFormattedTextField(sdfDay);
+        purchasedDateYearField = new JFormattedTextField(sdfYear);
         moneyDueField = new JFormattedTextField(nf);
-
-        burialDateField.setColumns(10);
-        purchasedDateField.setColumns(10);
+        burialDateMonthField.setColumns(2);
+        burialDateDayField.setColumns(2);
+        burialDateYearField.setColumns(4);
+        purchasedDateMonthField.setColumns(2);
+        purchasedDateDayField.setColumns(2);
+        purchasedDateYearField.setColumns(4);
         moneyDueField.setColumns(8);
 
         // set labels to text fields
         sectionLabel.setLabelFor(sectionField);
         plotIDLabel.setLabelFor(plotIDField);
-        burialDateLabel.setLabelFor(burialDateField);
-        purchasedDateLabel.setLabelFor(purchasedDateField);
+        burialDateLabel.setLabelFor(burialDateYearField);
+        purchasedDateLabel.setLabelFor(purchasedDateYearField);
         moneyDueLabel.setLabelFor(moneyDueField);
 
         // create status check boxes
@@ -128,10 +147,18 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
         idPanel.add(plotIDField);
 
         burialDatePanel.add(burialDateLabel);
-        burialDatePanel.add(burialDateField);
+        burialDatePanel.add(burialDateMonthField);
+        burialDatePanel.add(dateDividerLabel1);
+        burialDatePanel.add(burialDateDayField);
+        burialDatePanel.add(dateDividerLabel2);
+        burialDatePanel.add(burialDateYearField);
 
         purchasedDatePanel.add(purchasedDateLabel);
-        purchasedDatePanel.add(purchasedDateField);
+        purchasedDatePanel.add(purchasedDateMonthField);
+        purchasedDatePanel.add(dateDividerLabel3);
+        purchasedDatePanel.add(purchasedDateDayField);
+        purchasedDatePanel.add(dateDividerLabel4);
+        purchasedDatePanel.add(purchasedDateYearField);
 
         moneyDuePanel.add(moneyDueLabel);
         moneyDuePanel.add(moneyDueField);
@@ -158,8 +185,12 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
         // add editable components to list for easy enable/disable
         editable.add(sectionField);
         editable.add(plotIDField);
-        editable.add(burialDateField);
-        editable.add(purchasedDateField);
+        editable.add(burialDateMonthField);
+        editable.add(burialDateDayField);
+        editable.add(burialDateYearField);
+        editable.add(purchasedDateMonthField);
+        editable.add(purchasedDateDayField);
+        editable.add(purchasedDateYearField);
         editable.add(moneyDueField);
         editable.add(vacantCheckBox);
         editable.add(readyCheckBox);
@@ -231,14 +262,6 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
     }
 
     /**
-     * Item state listener for plot info content pane
-     * @param e item event
-     */
-    public void itemStateChanged(ItemEvent e) {
-        //
-    }
-
-    /**
      * Get the data from cemetery about a plot and load it into the appropriate GUI elements
      */
     public void getPlotData(Plot plot) {
@@ -249,15 +272,39 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
         plotIDField.setText(Integer.toString(plot.getID()));
 
         try {
-            burialDateField.setText(plot.getBurialDate().toString());
+            burialDateMonthField.setText(plot.getBurialDate().toString());
         } catch (NullPointerException npe) {
-            burialDateField.setText("");
+            burialDateMonthField.setText("");
         }
 
         try {
-            purchasedDateField.setText(plot.getPurchasedDate().toString());
+            burialDateDayField.setText(plot.getBurialDate().toString());
         } catch (NullPointerException npe) {
-            purchasedDateField.setText("");
+            burialDateDayField.setText("");
+        }
+
+        try {
+            burialDateYearField.setText(plot.getBurialDate().toString());
+        } catch (NullPointerException npe) {
+            burialDateYearField.setText("");
+        }
+
+        try {
+            purchasedDateMonthField.setText(plot.getPurchasedDate().toString());
+        } catch (NullPointerException npe) {
+            purchasedDateMonthField.setText("");
+        }
+
+        try {
+            purchasedDateDayField.setText(plot.getPurchasedDate().toString());
+        } catch (NullPointerException npe) {
+            purchasedDateDayField.setText("");
+        }
+
+        try {
+            purchasedDateYearField.setText(plot.getPurchasedDate().toString());
+        } catch (NullPointerException npe) {
+            purchasedDateYearField.setText("");
         }
 
         try {
@@ -281,13 +328,37 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
         plot.setID(Integer.parseInt(plotIDField.getText())); // TODO hmmm what if this is changed???
 
         try {
-            plot.setBurialDate(sdf.parse(burialDateField.getText()));
+            plot.setBurialDate(sdfMonth.parse(burialDateMonthField.getText()));
         } catch (ParseException pe) { // TODO show error??
             plot.setBurialDate(null);
         }
 
         try {
-            plot.setPurchasedDate(sdf.parse(purchasedDateField.getText()));
+            plot.setBurialDate(sdfDay.parse(burialDateDayField.getText()));
+        } catch (ParseException pe) { // TODO show error??
+            plot.setBurialDate(null);
+        }
+
+        try {
+            plot.setBurialDate(sdfYear.parse(burialDateYearField.getText()));
+        } catch (ParseException pe) { // TODO show error??
+            plot.setBurialDate(null);
+        }
+
+        try {
+            plot.setPurchasedDate(sdfMonth.parse(purchasedDateMonthField.getText()));
+        } catch (ParseException pe) { // TODO show error??
+            plot.setPurchasedDate(null);
+        }
+
+        try {
+            plot.setPurchasedDate(sdfDay.parse(purchasedDateDayField.getText()));
+        } catch (ParseException pe) { // TODO show error??
+            plot.setPurchasedDate(null);
+        }
+
+        try {
+            plot.setPurchasedDate(sdfYear.parse(purchasedDateYearField.getText()));
         } catch (ParseException pe) { // TODO show error??
             plot.setPurchasedDate(null);
         }
@@ -306,8 +377,12 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
         // clear each textfield and whatnot
         sectionField.setText("");
         plotIDField.setText("");
-        burialDateField.setText("");
-        purchasedDateField.setText("");
+        burialDateMonthField.setText("");
+        burialDateDayField.setText("");
+        burialDateYearField.setText("");
+        purchasedDateMonthField.setText("");
+        purchasedDateDayField.setText("");
+        purchasedDateYearField.setText("");
         moneyDueField.setText("");
         vacantCheckBox.setSelected(false);
         readyCheckBox.setSelected(false);
