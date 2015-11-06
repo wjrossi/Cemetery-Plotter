@@ -14,20 +14,20 @@ public class Cemetery {
     private ArrayList<Plot> plots; // list of all plots in the cemetery
     private ArrayList<InterredPerson> interred; // list of all interred people in the cemetery
     private ArrayList<Person> owners; // list of all plot owner people in the cemetery
-    private SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
     private boolean modified; // has the cemetery been modified
-    private int nextPlotID; //
-    private int nextInterredID;
-    private int nextOwnerID;
+    private int nextPlotID; // next available plotID
+    private int nextInterredID; // next available interredID
+    private int nextOwnerID; // next available ownerID
 
     /**
-     * Constructs a singleton cemetery
+     * Constructs a single cemetery
      */
     public Cemetery() {
         modified = false;
         nextPlotID = -1;
         nextInterredID = -1;
         nextOwnerID = -1;
+
         sections = new ArrayList<>();
         plots = new ArrayList<>();
         interred = new ArrayList<>();
@@ -130,12 +130,14 @@ public class Cemetery {
      * @throws IOException
      */
     private void loadPlot(BufferedReader buffer, Section section) throws IOException {
+        Plot plot;
+
         String sectionName; // residing section name
         int id; // plot identifier number
         InterredPerson interred; // interred person
         Person owner; // contact person, also person fiscally responsible for plot
-        Date burial; // burial date
-        Date purchased; // purchase date
+        String burialMonth, burialDay, burialYear; // burial date
+        String purchasedMonth, purchasedDay, purchasedYear; // purchase date
         boolean vacant; // is the plot vacant/not vacant
         boolean ready; // is the plot ready for use or not ready
         int moneyDue; // if not 0, person owes this much IN CENTS (for accuracy)
@@ -151,17 +153,15 @@ public class Cemetery {
         buffer.readLine().trim(); // read empty line
         owner = loadPerson(buffer); // load an owner belonging to this plot
 
-        try { // load a burial date
-            burial = sdf.parse(buffer.readLine().trim());
-        } catch (ParseException e) {
-            burial = null;
-        }
+        // load a burial date
+        burialMonth = buffer.readLine().trim();
+        burialDay = buffer.readLine().trim();
+        burialYear = buffer.readLine().trim();
 
-        try { // load a purchased date
-            purchased = sdf.parse(buffer.readLine().trim());
-        } catch (ParseException e) {
-            purchased = null;
-        }
+        // load a purchased date
+        purchasedMonth = buffer.readLine().trim();
+        purchasedDay = buffer.readLine().trim();
+        purchasedYear = buffer.readLine().trim();
 
         vacant = Boolean.parseBoolean(buffer.readLine().trim());
         ready = Boolean.parseBoolean(buffer.readLine().trim());
@@ -172,12 +172,15 @@ public class Cemetery {
             moneyDue = 0;
         }
 
-        Plot p = new Plot(sectionName, id, interred, owner, burial, purchased, vacant, ready, moneyDue);
+        plot = new Plot(sectionName, id, interred, owner, burialMonth, burialDay, burialYear,
+                purchasedMonth, purchasedDay, purchasedYear, vacant, ready, moneyDue);
 
-        if (p.getOwner() != null) p.getOwner().addOwnedPlot(p.getID());
+        if (plot.getOwner() != null) {
+            plot.getOwner().addOwnedPlot(plot.getID());
+        }
 
-        plots.add(p);
-        section.add(p);
+        plots.add(plot);
+        section.add(plot);
     }
 
     /**
@@ -186,7 +189,7 @@ public class Cemetery {
      * @throws IOException
      */
     private Person loadPerson(BufferedReader buffer) throws IOException {
-        Person p;
+        Person owner;
 
         int ownerID;
         String fname, lname;
@@ -194,12 +197,10 @@ public class Cemetery {
         String city, state, zip;
         String phone;
 
-        String temp;
-
-        temp = buffer.readLine().trim();
+        String temp = buffer.readLine().trim();
 
         if (temp.equals("null")) {
-            p = null;
+            owner = null;
             buffer.readLine().trim(); // read empty line
         } else {
             ownerID = Integer.parseInt(temp);
@@ -216,11 +217,11 @@ public class Cemetery {
 
             buffer.readLine().trim(); // read empty line
 
-            p = new Person(ownerID, fname, lname, address1, address2, city, state, zip, phone);
-            owners.add(p);
+            owner = new Person(ownerID, fname, lname, address1, address2, city, state, zip, phone);
+            owners.add(owner);
         }
 
-        return p;
+        return owner;
     }
 
     /**
@@ -230,17 +231,17 @@ public class Cemetery {
      */
     private InterredPerson loadInterredPerson(BufferedReader buffer) throws IOException {
         InterredPerson ip;
+
         int interredID; // id number for the interred person
         int plotID; // id number of the plot in which this person is interred
-        Date born, died;
+        String bornMonth, bornDay, bornYear;
+        String diedMonth, diedDay, diedYear;
         String fname, lname;
         String address1, address2;
         String city, state, zip;
         String phone;
 
-        String temp;
-
-        temp = buffer.readLine().trim();
+        String temp = buffer.readLine().trim();
 
         if (temp.equals("null")) {
             ip = null;
@@ -251,17 +252,13 @@ public class Cemetery {
 
             plotID = Integer.parseInt(buffer.readLine().trim());
 
-            try {
-                born = sdf.parse(buffer.readLine().trim());
-            } catch (ParseException e) {
-                born = null;
-            }
+            bornMonth = buffer.readLine().trim();
+            bornDay = buffer.readLine().trim();
+            bornYear = buffer.readLine().trim();
 
-            try {
-                died = sdf.parse(buffer.readLine().trim());
-            } catch (ParseException e) {
-                died = null;
-            }
+            diedMonth = buffer.readLine().trim();
+            diedDay = buffer.readLine().trim();
+            diedYear = buffer.readLine().trim();
 
             fname = buffer.readLine().trim();
             lname = buffer.readLine().trim();
@@ -272,9 +269,9 @@ public class Cemetery {
             zip = buffer.readLine().trim();
             phone = buffer.readLine().trim();
 
-            buffer.readLine().trim();
+            buffer.readLine().trim(); // read empty line
 
-            ip = new InterredPerson(interredID, plotID, born, died,
+            ip = new InterredPerson(interredID, plotID, bornMonth, bornDay, bornYear, diedMonth, diedDay, diedYear,
                     fname, lname, address1, address2, city, state, zip, phone);
 
             interred.add(ip);

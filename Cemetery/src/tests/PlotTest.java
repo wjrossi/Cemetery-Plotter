@@ -125,26 +125,6 @@ public class PlotTest {
     }
 
     /**
-     * Tests that Plot.getBurialDate() correctly gets the burial variable of the Plot class.
-    */
-    @Test
-    public void testGetBurialDate() throws Exception {
-        p = new Plot();
-        p.setBurialDate(null);
-        assertEquals("Burial must be 'null', but is " + p.getBurialDate(), p.getBurialDate(), null);
-    }
-
-    /**
-     * Tests that Plot.getPurchasedDate() correctly gets the purchased variable of the Plot class.
-    */
-    @Test
-    public void testGetPurchasedDate() throws Exception {
-        p = new Plot();
-        p.setPurchasedDate(null);
-        assertEquals("Purchased must be 'null', but is " + p.getPurchasedDate(), p.getPurchasedDate(), null);
-    }
-
-    /**
      * Tests that Plot.isVacant() correctly gets the vacant variable of the Plot class.
     */
     @Test
@@ -182,17 +162,6 @@ public class PlotTest {
         p = new Plot();
         p.setSection("section1");
         assertEquals("Plot section must be section1, but is " + p.getSection(), p.getSection(), "section1");
-    }
-
-    /**
-     * Tests that Plot.setInterred() correctly sets the interred person variable of the Plot class.
-     */
-    @Test
-    public void testSetInterred() throws Exception {
-        p = new Plot();
-        InterredPerson person = new InterredPerson(35, 2346, null, null, "Kobe", "Bryant");
-        p.setInterred(person);
-        assertEquals("Plot interred person must be Kobe Bryant, but is " + p.getInterred(), p.getInterred(), person);
     }
 
     /**

@@ -264,6 +264,7 @@ public class CemeteryPlotterOwner extends CemeteryPlotter implements ActionListe
      */
     public void editOwner() {
         setOwnerEditable(true);
+        editButton.setEnabled(false);
         cancelButton.requestFocus();
     }
 
@@ -272,6 +273,7 @@ public class CemeteryPlotterOwner extends CemeteryPlotter implements ActionListe
      */
     public void updateOwner() {
         setOwnerEditable(false);
+        editButton.setEnabled(true);
         setOwnerData(cemeteryPlotterFrame.cemeteryPlotterPlots.getSelectedPlot());
         // TODO call something that updates section list, plot list, and/or people list, if necessary
         editButton.requestFocus();
@@ -282,6 +284,7 @@ public class CemeteryPlotterOwner extends CemeteryPlotter implements ActionListe
      */
     public void cancelOwner() {
         setOwnerEditable(false);
+        editButton.setEnabled(true);
         clearOwnerData();
         getOwnerData(cemeteryPlotterFrame.cemeteryPlotterPlots.getSelectedPlot());
         editButton.requestFocus();

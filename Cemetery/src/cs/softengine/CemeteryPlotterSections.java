@@ -143,6 +143,8 @@ public class CemeteryPlotterSections extends CemeteryPlotter implements ActionLi
      * Get the data from cemetery about sections and load it into the appropriate GUI elements
      */
     public void getSectionsData() {
+        sectionsListModel.clear();
+
         for (Section s : cemetery.getSections()) {
             sectionsListModel.addElement(s.getName());
         }

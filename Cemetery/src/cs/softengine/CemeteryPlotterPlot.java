@@ -238,6 +238,7 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
      */
     public void editPlot() {
         setPlotEditable(true);
+        editButton.setEnabled(false);
         cancelButton.requestFocus();
     }
 
@@ -246,6 +247,7 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
      */
     public void updatePlot() {
         setPlotEditable(false);
+        editButton.setEnabled(true);
         setPlotData(cemeteryPlotterFrame.cemeteryPlotterPlots.getSelectedPlot());
         // TODO call something that updates section list, plot list, and/or people list, if necessary
         editButton.requestFocus();
@@ -256,6 +258,7 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
      */
     public void cancelPlot() {
         setPlotEditable(false);
+        editButton.setEnabled(true);
         clearPlotData();
         getPlotData(cemeteryPlotterFrame.cemeteryPlotterPlots.getSelectedPlot());
         editButton.requestFocus();
@@ -271,46 +274,18 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
         sectionField.setText(plot.getSection());
         plotIDField.setText(Integer.toString(plot.getID()));
 
-        try {
-            burialDateMonthField.setText(plot.getBurialDate().toString());
-        } catch (NullPointerException npe) {
-            burialDateMonthField.setText("");
-        }
+        burialDateMonthField.setText(plot.getBurialDateMonth());
+        burialDateDayField.setText(plot.getBurialDateDay());
+        burialDateYearField.setText(plot.getBurialDateYear());
 
-        try {
-            burialDateDayField.setText(plot.getBurialDate().toString());
-        } catch (NullPointerException npe) {
-            burialDateDayField.setText("");
-        }
-
-        try {
-            burialDateYearField.setText(plot.getBurialDate().toString());
-        } catch (NullPointerException npe) {
-            burialDateYearField.setText("");
-        }
-
-        try {
-            purchasedDateMonthField.setText(plot.getPurchasedDate().toString());
-        } catch (NullPointerException npe) {
-            purchasedDateMonthField.setText("");
-        }
-
-        try {
-            purchasedDateDayField.setText(plot.getPurchasedDate().toString());
-        } catch (NullPointerException npe) {
-            purchasedDateDayField.setText("");
-        }
-
-        try {
-            purchasedDateYearField.setText(plot.getPurchasedDate().toString());
-        } catch (NullPointerException npe) {
-            purchasedDateYearField.setText("");
-        }
+        purchasedDateMonthField.setText(plot.getPurchasedDateMonth());
+        purchasedDateDayField.setText(plot.getPurchasedDateDay());
+        purchasedDateYearField.setText(plot.getPurchasedDateYear());
 
         try {
             moneyDueField.setText(nf.parse(Integer.toString(plot.getMoneyDue() / 100)).toString());
         } catch (ParseException pe) {
-            moneyDueField.setText("");
+            moneyDueField.setText("$0.00");
         }
 
         vacantCheckBox.setSelected(plot.isVacant());
@@ -327,41 +302,13 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
         plot.setSection(sectionField.getText()); // TODO don't let it be changed to a section that does not exist
         plot.setID(Integer.parseInt(plotIDField.getText())); // TODO hmmm what if this is changed???
 
-        try {
-            plot.setBurialDate(sdfMonth.parse(burialDateMonthField.getText()));
-        } catch (ParseException pe) { // TODO show error??
-            plot.setBurialDate(null);
-        }
+        plot.setBurialDateMonth(burialDateMonthField.getText());
+        plot.setBurialDateDay(burialDateDayField.getText());
+        plot.setBurialDateYear(burialDateYearField.getText());
 
-        try {
-            plot.setBurialDate(sdfDay.parse(burialDateDayField.getText()));
-        } catch (ParseException pe) { // TODO show error??
-            plot.setBurialDate(null);
-        }
-
-        try {
-            plot.setBurialDate(sdfYear.parse(burialDateYearField.getText()));
-        } catch (ParseException pe) { // TODO show error??
-            plot.setBurialDate(null);
-        }
-
-        try {
-            plot.setPurchasedDate(sdfMonth.parse(purchasedDateMonthField.getText()));
-        } catch (ParseException pe) { // TODO show error??
-            plot.setPurchasedDate(null);
-        }
-
-        try {
-            plot.setPurchasedDate(sdfDay.parse(purchasedDateDayField.getText()));
-        } catch (ParseException pe) { // TODO show error??
-            plot.setPurchasedDate(null);
-        }
-
-        try {
-            plot.setPurchasedDate(sdfYear.parse(purchasedDateYearField.getText()));
-        } catch (ParseException pe) { // TODO show error??
-            plot.setPurchasedDate(null);
-        }
+        plot.setPurchasedDateMonth(purchasedDateMonthField.getText());
+        plot.setPurchasedDateDay(purchasedDateDayField.getText());
+        plot.setPurchasedDateYear(purchasedDateYearField.getText());
 
         String moneyDue = moneyDueField.getText().replace("$", "").replace(".", ""); // strip symbols
         plot.setMoneyDue(Integer.parseInt(moneyDue)); // save as pennies
