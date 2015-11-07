@@ -143,4 +143,15 @@ public class CemeteryPlotterFrame extends CemeteryPlotter {
         cemeteryPlotterInterredPerson.clearInterredData();
         cemeteryPlotterContact.clearContactData();
     }
+
+    /**
+     * Clear and refresh the people and plots lists
+     */
+    public void refreshListData() {
+        cemeteryPlotterPlots.getSelectedPlot();
+        cemeteryPlotterPlots.clearPlotsList();
+        cemeteryPlotterPeople.clearPeopleList();
+        cemeteryPlotterPlots.getPlotsData(cemeteryPlotterFrame.cemeteryPlotterSections.getSelectedSections());
+        cemeteryPlotterPeople.getPeopleData(cemeteryPlotterFrame.cemeteryPlotterSections.getSelectedSections());
+    }
 }

@@ -276,7 +276,7 @@ public class CemeteryPlotterContact extends CemeteryPlotter implements ActionLis
         setContactData(cemeteryPlotterFrame.cemeteryPlotterPlots.getSelectedPlot());
         clearContactData();
         getContactData(cemeteryPlotterFrame.cemeteryPlotterPlots.getSelectedPlot());
-        // TODO call something that updates section list, plot list, and/or people list, if necessary
+        //cemeteryPlotterFrame.refreshListData();
         editButton.requestFocus();
     }
 

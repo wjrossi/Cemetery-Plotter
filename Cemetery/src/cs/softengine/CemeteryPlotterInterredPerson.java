@@ -235,7 +235,7 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
         setInterredData(cemeteryPlotterFrame.cemeteryPlotterPlots.getSelectedPlot());
         clearInterredData();
         getInterredData(cemeteryPlotterFrame.cemeteryPlotterPlots.getSelectedPlot());
-        // TODO call something that updates section list, plot list, and/or people list, if necessary
+        //cemeteryPlotterFrame.refreshListData();
         editButton.requestFocus();
     }
 

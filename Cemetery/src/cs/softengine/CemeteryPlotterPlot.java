@@ -248,7 +248,7 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
             setPlotData(cemeteryPlotterFrame.cemeteryPlotterPlots.getSelectedPlot());
             clearPlotData();
             getPlotData(cemeteryPlotterFrame.cemeteryPlotterPlots.getSelectedPlot());
-            // TODO call something that updates section list, plot list, and/or people list, if necessary
+            //cemeteryPlotterFrame.refreshListData();
             editButton.requestFocus();
         }
     }
