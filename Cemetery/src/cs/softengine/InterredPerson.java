@@ -357,6 +357,8 @@ public class InterredPerson implements Comparable<InterredPerson> {
                 + getDiedDateMonth() + "\n"
                 + getDiedDateDay() + "\n"
                 + getDiedDateYear() + "\n"
+                + fname + "\n"
+                + lname + "\n"
                 + "</INTERREDPERSON>\n";
     }
 }

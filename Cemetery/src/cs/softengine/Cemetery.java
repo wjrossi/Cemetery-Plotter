@@ -91,6 +91,7 @@ public class Cemetery {
         int numPlots; // number of plots in the cemetery
         int numInterred; // number of interred people in cemetery
         int numContacts; // number of (non-interred) people
+
         numSections = Integer.parseInt(buffer.readLine().trim());
         numPlots = Integer.parseInt(buffer.readLine().trim());
         numInterred = Integer.parseInt(buffer.readLine().trim());
