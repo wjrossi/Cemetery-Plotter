@@ -171,7 +171,7 @@ public class InterredPersonTest {
     @Test
     public void testGetFirstName(){
         i = new InterredPerson(1234, 5678, "11", "11", "1111", "02", "22", "2222", "Bill", "Laboon");
-        assertEquals("getFIrstName must return 'Bill', but returned: " + i.getFirstName(), i.getFirstName(), "Bill");
+        assertEquals("getFirstName must return 'Bill', but returned: " + i.getFirstName(), i.getFirstName(), "Bill");
     }
 
     /**
@@ -182,5 +182,68 @@ public class InterredPersonTest {
         i = new InterredPerson(1234, 5678, "11", "11", "1111", "02", "22", "2222", "Frank", "Laboon");
         i.setFirstName("Bill");
         assertEquals("fname should be 'Bill', but is: " + i.getFirstName(), i.getFirstName(), "Bill");
+    }
+
+    /**
+     * Tests that InterredPerson.getLastName() returns the correct value.
+     */
+    @Test
+    public void testGetLastName(){
+        i = new InterredPerson(1234, 5678, "11", "11", "1111", "02", "22", "2222", "Bill", "Laboon");
+        assertEquals("getLastName must return 'Laboon', but returned: " + i.getLastName(), i.getLastName(), "Laboon");
+    }
+
+    /**
+     * Tests that InterredPerson.setLastName() correctly sets the lname variable of the InterredPerson class.
+     */
+    @Test
+    public void testSetLastName(){
+        i = new InterredPerson(1234, 5678, "11", "11", "1111", "02", "22", "2222", "Bill", "Frank");
+        i.setLastName("Laboon");
+        assertEquals("lname should be 'Laboon', but is: " + i.getLastName(), i.getLastName(), "Laboon");
+    }
+
+    /**
+     * Tests that InterredPerson.compareTo() method is working correctly in the negative case.
+     */
+    @Test
+    public void testCompareTo(){
+        i = new InterredPerson(1234, 5678, "11", "11", "1111", "02", "22", "2222", "Bill", "Laboon");
+        InterredPerson i2 = new InterredPerson(5678, 5678, "11", "11", "1111", "02", "22", "2222", "Bill", "Laboon");
+
+        assertNotEquals("Bill Laboon and other Bill Laboon have different interredID values, and should not be equal!", i.compareTo(i2), 0);
+    }
+
+    /**
+     * Tests that InterredPerson.equals() method is working correctly in the affirmative case.
+     */
+    @Test
+    public void testEquals(){
+        i = new InterredPerson(1234, 5678, "11", "11", "1111", "02", "22", "2222", "Bill", "Laboon");
+        InterredPerson i2 = new InterredPerson(1234, 5678, "11", "11", "1111", "02", "22", "2222", "Bill", "Laboon");
+
+        assertTrue("Bill Laboon and Bill Laboon should be considered equal, but are not!", i.equals(i2));
+    }
+
+    /**
+     * Tests that InterredPerson.toString() method is working correctly.
+     */
+    @Test
+    public void testToString(){
+        i = new InterredPerson(1234, 5678, "11", "11", "1111", "02", "22", "2222", "Bill", "Laboon");
+        String testStr = "<INTERREDPERSON>\n"
+                + 1234 + "\n"
+                + 5678 + "\n"
+                + "11" + "\n"
+                + "11" + "\n"
+                + "1111" + "\n"
+                + "02" + "\n"
+                + "22" + "\n"
+                + "2222" + "\n"
+                + "Bill" + "\n"
+                + "Laboon" + "\n"
+                + "</INTERREDPERSON>\n";
+
+        assertEquals("InterredPerson string should be: " + testStr + " but is: " + i.toString(), i.toString(), testStr);
     }
 }
