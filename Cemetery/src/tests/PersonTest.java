@@ -172,6 +172,7 @@ public class PersonTest {
     public void testToString() throws Exception {
         p = new Person("Bill", "Laboon", "1234 Laboon Place", "4567 Bill Street", "Laboontown", "Maine", "1337", "555-555-5555");
         String testStr = "<PERSON>\n"
+                + -1 + "\n"
                 + "Bill" + "\n"
                 + "Laboon" + "\n"
                 + "1234 Laboon Place" + "\n"
@@ -238,37 +239,14 @@ public class PersonTest {
     }
 
     /**
-     * Tests that the Person.compareTo() method is working correctly for Persons with different last names.
+     * Tests that the Person.compareTo() method is working correctly in the negative case.
      */
     @Test
     public void testCompareToLastName() {
-        p = new Person("Bill", "Laboon");
-        Person p2 = new Person("Bill", "Catboon");
+        p = new Person(1234, "Bill", "Laboon", "1234 Laboon Place", "4567 Bill Street", "Laboontown", "Maine", "1337", "555-555-5555");
+        Person p2 = new Person(5678, "Bill", "Catboon", "1234 Laboon Place", "4567 Bill Street", "Laboontown", "Maine", "1337", "555-555-5555");
 
         assertNotEquals("Bill Laboon and Bill Catboon should not be equal!", p.compareTo(p2), 0);
-    }
-
-    /**
-     * Tests that the Person.compareTo() method is working correctly for Persons with the same last name, but different first names.
-     */
-    @Test
-    public void testCompareToFirstName() {
-        p = new Person("Bill", "Laboon");
-        Person p2 = new Person("Cat", "Laboon");
-
-        assertNotEquals("Bill Laboon and Cat Laboon should not be equal!", p.compareTo(p2), 0);
-    }
-
-    /**
-     * Tests that the Person.compareTo() method is working correctly for Persons with the same name, but different phone numbers.
-     */
-
-    @Test
-    public void testCompareToPhone() {
-        p = new Person("Bill", "Laboon", "1234 Laboon Place", "4567 Bill Street", "Laboontown", "Maine", "1337", "555-555-5555");
-        Person p2 = new Person("Bill", "Laboon", "1234 Different Place", "4567 Different Street", "Differentown", "Rhode Island", "7331", "555-555-CATS");
-
-        assertNotEquals("Bill Laboon and Bill Laboon have the same name, but are not the same person!", p.compareTo(p2), 0);
     }
 
     /**
@@ -276,8 +254,8 @@ public class PersonTest {
      */
     @Test
     public void testEquals() {
-        p = new Person("Bill", "Laboon", "1234 Laboon Place", "4567 Bill Street", "Laboontown", "Maine", "1337", "555-555-5555");
-        Person p2 = new Person("Bill", "Laboon", "1234 Laboon Place", "4567 Bill Street", "Laboontown", "Maine", "1337", "555-555-5555");
+        p = new Person(1234, "Bill", "Laboon", "1234 Laboon Place", "4567 Bill Street", "Laboontown", "Maine", "1337", "555-555-5555");
+        Person p2 = new Person(1234, "Bill", "Laboon", "1234 Laboon Place", "4567 Bill Street", "Laboontown", "Maine", "1337", "555-555-5555");
 
         assertTrue("These people should be considered equal, but are not.", p.equals(p2));
     }

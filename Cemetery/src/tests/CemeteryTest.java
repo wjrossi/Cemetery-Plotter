@@ -154,4 +154,92 @@ public class CemeteryTest {
                 "0\n" +
                 "</CEMETERY>\n");
     }
+
+    /**
+     * Tests that Cemetery.isModified() returns the correct value.
+     */
+    @Test
+    public void testIsModified(){
+        c = new Cemetery();
+        assertFalse("modified should be false, but is: " + c.isModified(), c.isModified());
+    }
+
+    /**
+     * Tests that Cemetery.setModified() correctly sets the modified variable of the Cemetery class.
+     */
+    @Test
+    public void testSetModified(){
+        c = new Cemetery();
+        c.setModified(true);
+        assertTrue("modified should be true, but is: " + c.isModified(), c.isModified());
+    }
+
+    /**
+     * Tests that the Cemetery.getNextPlotID() returns the correct value.
+     */
+    @Test
+    public void testGetNextPlotID(){
+        c = new Cemetery();
+        assertEquals("nextPlotID should be -1, but is: " + c.getNextPlotID(), c.getNextPlotID(), -1);
+    }
+
+    /**
+     * Tests that Cemetery.setNextPlotID() correctly increments the nextPlotID variable of the Cemetery class.
+     */
+    @Test
+    public void testSetNextPlotID(){
+        c = new Cemetery();
+        //Ensure that we know the current value of nextPlotID
+        assertEquals(c.getNextPlotID(), -1);
+        //Increment the value of nextPlotID
+        c.setNextPlotID();
+        //Verify that nextPlotID has been incremented
+        assertEquals("nextPlotID should be 0, but is: " + c.getNextPlotID(), c.getNextPlotID(), 0);
+    }
+
+    /**
+     * Tests that the Cemetery.getNextInterredID() returns the correct value.
+     */
+    @Test
+    public void testGetNextInterredID(){
+        c = new Cemetery();
+        assertEquals("nextInterredID should be -1, but is: " + c.getNextInterredID(), c.getNextInterredID(), -1);
+    }
+
+    /**
+     * Tests that Cemetery.setNextInterredID() correctly increments the nextInterredID variable of the Cemetery class.
+     */
+    @Test
+    public void testSetNextInterredID(){
+        c = new Cemetery();
+        //Ensure that we know the current value of nextInterredID
+        assertEquals(c.getNextInterredID(), -1);
+        //Increment the value of nextInterredID
+        c.setNextInterredID();
+        //Verify that nextInterredID has been incremented
+        assertEquals("nextInterredID should be 0, but is: " + c.getNextInterredID(), c.getNextInterredID(), 0);
+    }
+
+    /**
+     * Tests that the Cemetery.getNextContactID() returns the correct value.
+     */
+    @Test
+    public void testGetNextContactID(){
+        c = new Cemetery();
+        assertEquals("nextcontactID should be -1, but is: " + c.getNextContactID(), c.getNextContactID(), -1);
+    }
+
+    /**
+     * Tests that Cemetery.setNextContactID() correctly increments the nextcontactID variable of the Cemetery class.
+     */
+    @Test
+    public void testSetNextContactID(){
+        c = new Cemetery();
+        //Ensure that we know the current value of nextContactID
+        assertEquals(c.getNextContactID(), -1);
+        //Increment the value of nextContactID
+        c.setNextContactID();
+        //Verify that nextContactID has been incremented
+        assertEquals("nextcontactID should be 0, but is: " + c.getNextContactID(), c.getNextContactID(), 0);
+    }
 }
