@@ -6,7 +6,9 @@ import cs.softengine.Plot;
 import cs.softengine.Person;
 
 import org.junit.Test;
+import org.mockito.Mockito;
 
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -54,22 +56,9 @@ public class PlotTest {
    @Test
     public void testGetInterred() throws Exception {
         p = new Plot();
-        p.setInterred(new InterredPerson());
-        p.getInterred().setFirstName("Bill");
-        p.getInterred().setLastName("Laboon");
-        assertEquals("Interred person should be:\n-1\n" +
-                "-1\n" +
-                "null\n" +
-                "null\n" +
-                "Bill\n" +
-                "Laboon, but is\n" +
-                p.getInterred().toString(), p.getInterred().toString(), "<INTERREDPERSON>\n-1\n" +
-                "-1\n" +
-                "null\n" +
-                "null\n" +
-                "Bill\n" +
-                "Laboon\n" +
-                "</INTERREDPERSON>\n");
+        InterredPerson i = Mockito.mock(InterredPerson.class);
+        p.setInterred(i);
+       assertEquals("Interred person should be: " + i + " but is: " + p.getInterred(), p.getInterred(), i);
     }
 
     /**
@@ -78,32 +67,123 @@ public class PlotTest {
     @Test
     public void testGetContact() throws Exception {
         p = new Plot();
-        p.setContact(new Person());
-        p.getContact().setFirstName("Bill");
-        p.getContact().setLastName("Laboon");
-        p.getContact().setAddress1("address1");
-        p.getContact().setAddress2("address2");
-        p.getContact().setCity("Pittsburgh");
-        p.getContact().setState("PA");
-        p.getContact().setZip("15213");
-        p.getContact().setPhone("4120000000");
-        assertEquals("Contact should be:\nBill\n" +
-                "Laboon\n" +
-                "address1\n" +
-                "address2\n" +
-                "Pittsburgh\n" +
-                "PA\n" +
-                "15213\n" +
-                "4120000000, but is" +
-                p.getContact().toString(), p.getContact().toString(), "<PERSON>\nBill\n" +
-                "Laboon\n" +
-                "address1\n" +
-                "address2\n" +
-                "Pittsburgh\n" +
-                "PA\n" +
-                "15213\n" +
-                "4120000000\n" +
-                "</PERSON>\n");
+        Person person = Mockito.mock(Person.class);
+        p.setContact(person);
+        assertEquals("contact should be: " + person + " but is: " + p.getContact(), p.getContact(), person);
+    }
+
+    /**
+     * Tests that Plot.getBurialDateMonth() returns the correct value.
+     */
+    @Test
+    public void testGetBurialDateMonth(){
+        p = new Plot("A", 0, new InterredPerson(), new Person(), "11", "11", "1111", "12", "12", "2222", false, false, new BigDecimal(0));
+        assertEquals("getBurialDateMonth must return '11' but returned: " + p.getBurialDateMonth(), p.getBurialDateMonth(), "11");
+    }
+
+    /**
+     * Tests that Plot.setBurialDateMonth() correctly sets the burialMonth value of the Plot class.
+     */
+    @Test
+    public void testSetBurialDateMonth(){
+        p = new Plot("A", 0, new InterredPerson(), new Person(), "11", "11", "1111", "12", "12", "2222", false, false, new BigDecimal(0));
+        p.setBurialDateMonth("12");
+        assertEquals("burialMonth should be '12', but is: " + p.getBurialDateMonth(), p.getBurialDateMonth(), "12");
+    }
+
+    /**
+     * Tests that Plot.getBurialDateDay() returns the correct value.
+     */
+    @Test
+    public void testGetBurialDateDay(){
+        p = new Plot("A", 0, new InterredPerson(), new Person(), "11", "11", "1111", "12", "12", "2222", false, false, new BigDecimal(0));
+        assertEquals("getBurialDateDay must return '11', but returned: " + p.getBurialDateDay(), p.getBurialDateDay(), "11");
+    }
+
+    /**
+     * Tests that Plot.setBurialDateDay() correctly sets the burialDay variable of the Plot class.
+     */
+    @Test
+    public void testSetBurialDateDay(){
+        p = new Plot("A", 0, new InterredPerson(), new Person(), "11", "11", "1111", "12", "12", "2222", false, false, new BigDecimal(0));
+        p.setBurialDateDay("12");
+        assertEquals("burialDay should be '12', but is: " + p.getBurialDateDay(), p.getBurialDateDay(), "12");
+    }
+
+    /**
+     * Tests that Plot.getBurialDateYear() returns the correct value.
+     */
+    @Test
+    public void testGetBurialDateYear(){
+        p = new Plot("A", 0, new InterredPerson(), new Person(), "11", "11", "1111", "12", "12", "2222", false, false, new BigDecimal(0));
+        assertEquals("getBurialDateYear must return '1111', but returned: " + p.getBurialDateYear(), p.getBurialDateYear(), "1111");
+    }
+
+    /**
+     * Tests that Plot.setBurialDateYear() correctly sets the burialYear variable of the Plot class.
+     */
+    @Test
+    public void testSetBurialDateYear(){
+        p = new Plot("A", 0, new InterredPerson(), new Person(), "11", "11", "1111", "12", "12", "2222", false, false, new BigDecimal(0));
+        p.setBurialDateYear("2222");
+        assertEquals("burialDay should be '2222', but is: " + p.getBurialDateYear(), p.getBurialDateYear(), "2222");
+    }
+
+    /**
+     * Tests that Plot.getPurchasedDateMonth() returns the correct value.
+     */
+    @Test
+    public void testGetPurchasedDateMonth(){
+        p = new Plot("A", 0, new InterredPerson(), new Person(), "11", "11", "1111", "12", "12", "2222", false, false, new BigDecimal(0));
+        assertEquals("getPurchasedDateMonth must return '12' but returned: " + p.getPurchasedDateMonth(), p.getPurchasedDateMonth(), "12");
+    }
+
+    /**
+     * Tests that Plot.setPurchasedDateMonth() correctly sets the purchasedMonth value of the Plot class.
+     */
+    @Test
+    public void testSetPurchasedDateMonth(){
+        p = new Plot("A", 0, new InterredPerson(), new Person(), "11", "11", "1111", "12", "12", "2222", false, false, new BigDecimal(0));
+        p.setPurchasedDateMonth("11");
+        assertEquals("PurchasedMonth should be '11', but is: " + p.getPurchasedDateMonth(), p.getPurchasedDateMonth(), "11");
+    }
+
+    /**
+     * Tests that Plot.getPurchasedDateDay() returns the correct value.
+     */
+    @Test
+    public void testGetPurchasedDateDay(){
+        p = new Plot("A", 0, new InterredPerson(), new Person(), "11", "11", "1111", "12", "12", "2222", false, false, new BigDecimal(0));
+        assertEquals("getPurchasedDateDay must return '12', but returned: " + p.getPurchasedDateDay(), p.getPurchasedDateDay(), "12");
+    }
+
+    /**
+     * Tests that Plot.setPurchasedDateDay() correctly sets the purchasedDay variable of the Plot class.
+     */
+    @Test
+    public void testSetPurchasedDateDay(){
+        p = new Plot("A", 0, new InterredPerson(), new Person(), "11", "11", "1111", "12", "12", "2222", false, false, new BigDecimal(0));
+        p.setPurchasedDateDay("11");
+        assertEquals("PurchasedDay should be '11', but is: " + p.getPurchasedDateDay(), p.getPurchasedDateDay(), "11");
+    }
+
+    /**
+     * Tests that Plot.getPurchasedDateYear() returns the correct value.
+     */
+    @Test
+    public void testGetPurchasedDateYear(){
+        p = new Plot("A", 0, new InterredPerson(), new Person(), "11", "11", "1111", "12", "12", "2222", false, false, new BigDecimal(0));
+        assertEquals("getPurchasedDateYear must return '2222', but returned: " + p.getPurchasedDateYear(), p.getPurchasedDateYear(), "2222");
+    }
+
+    /**
+     * Tests that Plot.setPurchasedDateYear() correctly sets the purchasedYear variable of the Plot class.
+     */
+    @Test
+    public void testSetPurchasedDateYear(){
+        p = new Plot("A", 0, new InterredPerson(), new Person(), "11", "11", "1111", "12", "12", "2222", false, false, new BigDecimal(0));
+        p.setPurchasedDateYear("1111");
+        assertEquals("PurchasedDay should be '1111', but is: " + p.getPurchasedDateYear(), p.getPurchasedDateYear(), "1111");
     }
 
     /**
@@ -131,7 +211,8 @@ public class PlotTest {
     */
     @Test
     public void testGetMoneyDue() throws Exception {
-        // TODO re-write
+        p = new Plot();
+        assertEquals("getMoneyDue must return $0.00, but returns: " + p.getMoneyDue(), p.getMoneyDue(), "$0.00");
     }
 
     /**
@@ -180,7 +261,9 @@ public class PlotTest {
      */
     @Test
     public void testSetMoneyDue() throws Exception {
-        // TODO re-write
+        p = new Plot();
+        p.setMoneyDue("$11.99");
+        assertEquals("moneyDue must be $11.99, but is: " + p.getMoneyDue(), p.getMoneyDue(), "$11.99");
     }
 
     /**
@@ -209,5 +292,28 @@ public class PlotTest {
         p2.setID(1234);
 
         assertTrue("These plots should be considered equal, but are not.", p.equals(p2));
+    }
+
+    /**
+     * Tests that the Plot.toString() method is working correctly.
+     */
+    public void testToString(){
+        p = new Plot("A", 0, null, null, "11", "11", "1111", "12", "12", "2222", false, false, new BigDecimal(0));
+        String testStr = "<PLOT>\n"
+                + 0
+                + "<INTERREDPERSON>\nnull\n</INTERREDPERSON\n"
+                + "<PERSON>\nnull\n</PERSON>\n"
+                + "11\n"
+                + "11\n"
+                + "1111\n"
+                + "12\n"
+                + "12\n"
+                + "2222\n"
+                + false + "\n"
+                + false + "\n"
+                + "$0.00\n"
+                + "<PLOT>\n";
+
+        assertEquals("toString() should return: " + testStr + " but returned: " + p.toString(), p.toString(), testStr);
     }
 }
