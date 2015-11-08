@@ -10,9 +10,6 @@ import java.util.Date;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by Jamie on 10/26/2015.
- */
 public class InterredPersonTest {
     InterredPerson i;
 
@@ -21,7 +18,7 @@ public class InterredPersonTest {
      */
     @Test
     public void testGetPlotID(){
-        i = new InterredPerson(1234, 5678, "11", "11", "1111", "22", "22", "2222", "Bill", "Laboon");
+        i = new InterredPerson(1234, 5678, "11", "11", "1111", "02", "22", "2222", "Bill", "Laboon");
         assertEquals("getPlotID must return 5678, but returns: " + i.getPlotID(), i.getPlotID(), 5678);
     }
 
@@ -30,7 +27,7 @@ public class InterredPersonTest {
      */
     @Test
     public void testSetPlotID(){
-        i = new InterredPerson(1234, 9999, "11", "11", "1111", "22", "22", "2222", "Bill", "Laboon");
+        i = new InterredPerson(1234, 5678, "11", "11", "1111", "02", "22", "2222", "Bill", "Laboon");
         i.setPlotID(5678);
         assertEquals("plotID should be 5678, but is: " + i.getPlotID(), i.getPlotID(), 5678);
     }
@@ -40,7 +37,7 @@ public class InterredPersonTest {
      */
     @Test
     public void testGetInterredID(){
-        i = new InterredPerson(1234, 5678, "11", "11", "1111", "22", "22", "2222", "Bill", "Laboon");
+        i = new InterredPerson(1234, 5678, "11", "11", "1111", "02", "22", "2222", "Bill", "Laboon");
         assertEquals("getInterredID must return 1234, but returns: " + i.getInterredID(), i.getInterredID(), 1234);
     }
 
@@ -49,7 +46,7 @@ public class InterredPersonTest {
      */
     @Test
     public void testSetInterredID(){
-        i = new InterredPerson(9999, 5678, "11", "11", "1111", "22", "22", "2222", "Bill", "Laboon");
+        i = new InterredPerson(1234, 5678, "11", "11", "1111", "02", "22", "2222", "Bill", "Laboon");
         i.setInterredID(1234);
         assertEquals("interredID should be 1234, but is: " + i.getInterredID(), i.getInterredID(), 1234);
     }
@@ -59,7 +56,7 @@ public class InterredPersonTest {
      */
     @Test
     public void testGetBornDateMonth(){
-        i = new InterredPerson(1234, 5678, "11", "11", "1111", "22", "22", "2222", "Bill", "Laboon");
+        i = new InterredPerson(1234, 5678, "11", "11", "1111", "02", "22", "2222", "Bill", "Laboon");
         assertEquals("getBornDateMonth must return 11, but returns: " + i.getBornDateMonth(), i.getBornDateMonth(), "11");
     }
 
@@ -68,7 +65,7 @@ public class InterredPersonTest {
      */
     @Test
     public void testSetBornDateMonth(){
-        i = new InterredPerson(1234, 5678, "01", "11", "1111", "22", "22", "2222", "Bill", "Laboon");
+        i = new InterredPerson(1234, 5678, "11", "11", "1111", "02", "22", "2222", "Bill", "Laboon");
         i.setBornDateMonth("11");
         assertEquals("bornMonth should be 11, but is: " + i.getBornDateMonth(), i.getBornDateMonth(), "11");
     }
@@ -78,7 +75,7 @@ public class InterredPersonTest {
      */
     @Test
     public void testGetBornDateDay(){
-        i = new InterredPerson(1234, 5678, "11", "11", "1111", "22", "22", "2222", "Bill", "Laboon");
+        i = new InterredPerson(1234, 5678, "11", "11", "1111", "02", "22", "2222", "Bill", "Laboon");
         assertEquals("getBornDateDay must return 11, but returns: " + i.getBornDateDay(), i.getBornDateDay(), "11");
     }
 
@@ -87,7 +84,7 @@ public class InterredPersonTest {
      */
     @Test
     public void testSetBornDateDay(){
-        i = new InterredPerson(1234, 5678, "11", "01", "1111", "22", "22", "2222", "Bill", "Laboon");
+        i = new InterredPerson(1234, 5678, "11", "11", "1111", "02", "22", "2222", "Bill", "Laboon");
         i.setBornDateDay("11");
         assertEquals("bornDay should be 11, but is: " + i.getBornDateDay(), i.getBornDateDay(), "11");
     }
@@ -97,7 +94,7 @@ public class InterredPersonTest {
      */
     @Test
     public void testGetBornDateYear(){
-        i = new InterredPerson(1234, 5678, "11", "11", "1111", "22", "22", "2222", "Bill", "Laboon");
+        i = new InterredPerson(1234, 5678, "11", "11", "1111", "02", "22", "2222", "Bill", "Laboon");
         assertEquals("getBornDateYear must return 1111, but returns: " + i.getBornDateYear(), i.getBornDateYear(), "1111");
     }
 
@@ -106,8 +103,147 @@ public class InterredPersonTest {
      */
     @Test
     public void testSetBornDateYear(){
-        i = new InterredPerson(1234, 5678, "11", "11", "0001", "22", "22", "2222", "Bill", "Laboon");
+        i = new InterredPerson(1234, 5678, "11", "11", "1111", "02", "22", "2222", "Bill", "Laboon");
         i.setBornDateYear("1111");
-        assertEquals("setBornDateYear should be 1111, but is: " + i.getBornDateYear(), i.getBornDateYear(), "1111");
+        assertEquals("bornYear should be 1111, but is: " + i.getBornDateYear(), i.getBornDateYear(), "1111");
+    }
+
+    /**
+     * Tests that InterredPerson.getDiedDateMonth() returns the correct value.
+     */
+    @Test
+    public void testGetDiedDateMonth(){
+        i = new InterredPerson(1234, 5678, "11", "11", "1111", "02", "22", "2222", "Bill", "Laboon");
+        assertEquals("getDiedDateMonth must return 02, but returned: " + i.getDiedDateMonth(), i.getDiedDateMonth(), "02");
+    }
+
+    /**
+     * Tests that InterredPerson.setDiedDateMonth() correctly sets the diedMonth variable of the InterredPerson class.
+     */
+    @Test
+    public void testSetDiedDateMonth(){
+        i = new InterredPerson(1234, 5678, "11", "11", "1111", "03", "22", "2222", "Bill", "Laboon");
+        i.setDiedDateMonth("02");
+        assertEquals("diedMonth should be 02, but is: " + i.getDiedDateMonth(), i.getDiedDateMonth(), "02");
+    }
+
+    /**
+     * Tests that InterredPerson.getDiedDateDay() returns the correct value.
+     */
+    @Test
+    public void testGetDiedDateDay(){
+        i = new InterredPerson(1234, 5678, "11", "11", "1111", "02", "22", "2222", "Bill", "Laboon");
+        assertEquals("getDiedDateDay must return 22, but returned: " + i.getDiedDateDay(), i.getDiedDateDay(), "22");
+    }
+
+    /**
+     * Tests that InterredPerson.setDiedDateDay() correctly sets the diedDay variable of the InterredPerson class.
+     */
+    @Test
+    public void testSetDiedDateDay(){
+        i = new InterredPerson(1234, 5678, "11", "11", "1111", "02", "02", "2222", "Bill", "Laboon");
+        i.setDiedDateDay("22");
+        assertEquals("diedDay should be 22, but is: " + i.getDiedDateDay(), i.getDiedDateDay(), "22");
+    }
+
+    /**
+     * Tests that InterredPerson.getDiedDateYear() returns the correct value.
+     */
+    @Test
+    public void testGetDiedDateYear(){
+        i = new InterredPerson(1234, 5678, "11", "11", "1111", "02", "22", "2222", "Bill", "Laboon");
+        assertEquals("getDiedDateYear must return 2222, but returned: " + i.getDiedDateYear(), i.getDiedDateYear(), "2222");
+    }
+
+    /**
+     * Tests that InterredPerson.setDiedDateYear() correctly sets the diedYear variable of the InterredPerson class.
+     */
+    @Test
+    public void testSetDiedDateYear(){
+        i = new InterredPerson(1234, 5678, "11", "11", "1111", "02", "22", "0002", "Bill", "Laboon");
+        i.setDiedDateYear("2222");
+        assertEquals("diedYear should be 2222, but is: " + i.getDiedDateYear(), i.getDiedDateYear(), "2222");
+    }
+
+    /**
+     * Tests that InterredPerson.getFirstName() returns the correct value.
+     */
+    @Test
+    public void testGetFirstName(){
+        i = new InterredPerson(1234, 5678, "11", "11", "1111", "02", "22", "2222", "Bill", "Laboon");
+        assertEquals("getFirstName must return 'Bill', but returned: " + i.getFirstName(), i.getFirstName(), "Bill");
+    }
+
+    /**
+     * Tests that InterredPerson.setFirstName() correctly sets the fname variable of the InterredPerson class.
+     */
+    @Test
+    public void testSetFirstName(){
+        i = new InterredPerson(1234, 5678, "11", "11", "1111", "02", "22", "2222", "Frank", "Laboon");
+        i.setFirstName("Bill");
+        assertEquals("fname should be 'Bill', but is: " + i.getFirstName(), i.getFirstName(), "Bill");
+    }
+
+    /**
+     * Tests that InterredPerson.getLastName() returns the correct value.
+     */
+    @Test
+    public void testGetLastName(){
+        i = new InterredPerson(1234, 5678, "11", "11", "1111", "02", "22", "2222", "Bill", "Laboon");
+        assertEquals("getLastName must return 'Laboon', but returned: " + i.getLastName(), i.getLastName(), "Laboon");
+    }
+
+    /**
+     * Tests that InterredPerson.setLastName() correctly sets the lname variable of the InterredPerson class.
+     */
+    @Test
+    public void testSetLastName(){
+        i = new InterredPerson(1234, 5678, "11", "11", "1111", "02", "22", "2222", "Bill", "Frank");
+        i.setLastName("Laboon");
+        assertEquals("lname should be 'Laboon', but is: " + i.getLastName(), i.getLastName(), "Laboon");
+    }
+
+    /**
+     * Tests that InterredPerson.compareTo() method is working correctly in the negative case.
+     */
+    @Test
+    public void testCompareTo(){
+        i = new InterredPerson(1234, 5678, "11", "11", "1111", "02", "22", "2222", "Bill", "Laboon");
+        InterredPerson i2 = new InterredPerson(5678, 5678, "11", "11", "1111", "02", "22", "2222", "Bill", "Laboon");
+
+        assertNotEquals("Bill Laboon and other Bill Laboon have different interredID values, and should not be equal!", i.compareTo(i2), 0);
+    }
+
+    /**
+     * Tests that InterredPerson.equals() method is working correctly in the affirmative case.
+     */
+    @Test
+    public void testEquals(){
+        i = new InterredPerson(1234, 5678, "11", "11", "1111", "02", "22", "2222", "Bill", "Laboon");
+        InterredPerson i2 = new InterredPerson(1234, 5678, "11", "11", "1111", "02", "22", "2222", "Bill", "Laboon");
+
+        assertTrue("Bill Laboon and Bill Laboon should be considered equal, but are not!", i.equals(i2));
+    }
+
+    /**
+     * Tests that InterredPerson.toString() method is working correctly.
+     */
+    @Test
+    public void testToString(){
+        i = new InterredPerson(1234, 5678, "11", "11", "1111", "02", "22", "2222", "Bill", "Laboon");
+        String testStr = "<INTERREDPERSON>\n"
+                + 1234 + "\n"
+                + 5678 + "\n"
+                + "11" + "\n"
+                + "11" + "\n"
+                + "1111" + "\n"
+                + "02" + "\n"
+                + "22" + "\n"
+                + "2222" + "\n"
+                + "Bill" + "\n"
+                + "Laboon" + "\n"
+                + "</INTERREDPERSON>\n";
+
+        assertEquals("InterredPerson string should be: " + testStr + " but is: " + i.toString(), i.toString(), testStr);
     }
 }
