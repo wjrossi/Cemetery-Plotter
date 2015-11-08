@@ -6,6 +6,9 @@ import java.io.File;
  * Created by DanielKindler on 10/26/15.
  */
 public class DropboxClient {
+    static final String APP_KEY = "vt1i3erg8q7s4t9";
+    static final String APP_SECRET = "okbzk7y9chk5tae";
+    static final String AUTH_CODE = "hERJM65MpP4AAAAAAAAHlKxvXAT9RU8imsePK40S4Ho"
     static final String AUTH_URL = "https://api.dropboxapi.com/1/oauth/"; // + <request token>
     static final String GET_FILE_URL = "https://content.dropboxapi.com/1/files/auto/"; // + <file path>
     static final String PUT_FILE_URL = "https://content.dropboxapi.com/1/files_put/auto/"; // + <file name> + ?param=val
