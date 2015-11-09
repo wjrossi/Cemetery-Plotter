@@ -11,6 +11,6 @@
     <orderEntry type="library" exported="" name="junit:junit:4.12" level="application" />
     <orderEntry type="library" name="mockito-all-1.10.19" level="project" />
     <orderEntry type="library" name="junit-4.11" level="project" />
-    <orderEntry type="library" name="com.github.thiagolocatelli:parse4j:1.4" level="project" />
+    <orderEntry type="library" exported="" name="com.github.thiagolocatelli:parse4j:1.4" level="project" />
   </component>
 </module>
