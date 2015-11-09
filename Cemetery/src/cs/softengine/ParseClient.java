@@ -30,7 +30,7 @@ public class ParseClient {
             public void done(byte[] data, ParseException e) {
                 if (e == null) {
                     String str = new String(data, StandardCharsets.UTF_8);
-                    f = new File("cemetery.db", str);
+                    //f = new File("cemetery.db", str);
                 } else {
                     // throw error
                 }
