@@ -75,7 +75,7 @@ public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListen
         fileQuit = new JMenuItem("Quit");
         fileQuit.setMnemonic(KeyEvent.VK_Q);
         fileQuit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, InputEvent.META_MASK));
-        fileQuit.addActionListener(this);
+        fileQuit.addActionListener(new exitApp());
 
         menuFile.add(fileQuit);
 
@@ -196,5 +196,13 @@ public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListen
         }
 
         return file;
+    }
+
+    static class exitApp implements ActionListener
+    {
+        public void actionPerformed(ActionEvent e)
+        {
+            System.exit(0);
+        }
     }
 }
