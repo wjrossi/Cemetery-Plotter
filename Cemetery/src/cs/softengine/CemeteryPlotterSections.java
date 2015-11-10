@@ -7,6 +7,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 
 /**
  * Content pane for selecting section(s) of the cemetery
@@ -90,7 +91,7 @@ public class CemeteryPlotterSections extends CemeteryPlotter implements ActionLi
         newSectionButton.addActionListener(this);
 
         deleteSectionButton = new JButton("Delete Section(s)");
-        deleteSectionButton.setToolTipText("Permanently delete the selected section(s) from the cemetery.");
+        deleteSectionButton.setToolTipText("Delete the selected section(s) from the cemetery and their plots, if any exist.");
         deleteSectionButton.setActionCommand("delete section");
         deleteSectionButton.addActionListener(this);
 
@@ -120,15 +121,85 @@ public class CemeteryPlotterSections extends CemeteryPlotter implements ActionLi
             case "select none": // deselect all things in the list
                 sectionsListSelectionModel.clearSelection();
                 break;
-            case "new section": // TODO
-                // add a new section to the cemetery and list/listmodel
+            case "new section": // add a new section
+                newSection();
                 break;
-            case "delete section": // TODO
-                // delete selected section(s) from the cemetery and list/listmodel
-                // what should happen to the plots in that section, if there are any?
-                // a) delete them too?
-                // b) put them in some kind of "blank" section?
+            case "delete section": // delete selected section(s)
+                deleteSection();
                 break;
+        }
+    }
+
+    /**
+     * Create a new section
+     */
+    public void newSection() {
+        Section section;
+
+        String name = (String) JOptionPane.showInputDialog(
+                cemeteryPlotterFrame.getFrame(),
+                "Section Name:",
+                "Add New Section",
+                JOptionPane.PLAIN_MESSAGE,
+                null,
+                null,
+                "");
+
+        if (name != null && !name.isEmpty()) {
+            section = new Section(name);
+            cemetery.add(section);
+            refreshSectionsList();
+            cemetery.setModified(true);
+        }
+    }
+
+    /**
+     * Delete the selected section(s)
+     */
+    public void deleteSection() {
+        boolean plotsExist = false;
+        int delete;
+
+        for (String section : getSelectedSections()) {
+            plotsExist = cemetery.get(new Section(section)).getSize() > 0;
+        }
+
+        // if there are plots in any of the selected sections display a warning
+        if (plotsExist) {
+            delete = JOptionPane.showOptionDialog(cemeteryPlotterFrame.getFrame(),
+                    "You are about to delete section(s) that contain plots.\n" +
+                            "All section(s) and plots will be deleted.\n" +
+                            "Are you sure you want to continue?",
+                    "Are you sure?",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.WARNING_MESSAGE,
+                    null,
+                    null,
+                    null);
+        } else {
+            delete = JOptionPane.showOptionDialog(cemeteryPlotterFrame.getFrame(),
+                    "You are about to delete section(s).\n" +
+                            "Are you sure you want to continue?",
+                    "Are you sure?",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.WARNING_MESSAGE,
+                    null,
+                    null,
+                    null);
+        }
+
+        if (delete == JOptionPane.YES_OPTION) { // delete section(s) and their plots
+            for (String s : getSelectedSections()) {
+                Section section = cemetery.get(new Section(s));
+                cemetery.remove(section);
+                for (Plot plot : section.getPlots()) {
+                    cemetery.getPlots().remove(plot);
+                    cemetery.getInterred().remove(plot.getInterred());
+                    cemetery.getContacts().remove(plot.getContact());
+                }
+            }
+            refreshSectionsList();
+            cemetery.setModified(true);
         }
     }
 
@@ -136,19 +207,21 @@ public class CemeteryPlotterSections extends CemeteryPlotter implements ActionLi
      * Get the data from cemetery about sections and load it into the appropriate GUI elements
      */
     public void getSectionsData() {
+        ArrayList<String> sections = new ArrayList<>();
+
+        for (Section section : cemetery.getSections()) {
+            sections.add(section.getName());
+        }
+
         sectionsListModel.clear();
 
-        for (Section s : cemetery.getSections()) {
-            sectionsListModel.addElement(s.getName());
-        }
-    }
+        // sort the list of people using default String comparator
+        Collections.sort(sections);
 
-    /**
-     * Set the data from the GUI into the Cemetery and Section in the cemetery
-     */
-    public void setSectionsData() { // TODO on new or delete section(s) probably
-        // write the sections data from the GUI fields into the right place in the data layer
-        // used when a section is added or deleted
+        // add each person to the people list
+        for (String section : sections) {
+            sectionsListModel.addElement(section);
+        }
     }
 
     /**
@@ -197,13 +270,13 @@ public class CemeteryPlotterSections extends CemeteryPlotter implements ActionLi
                     cemeteryPlotterFrame.cemeteryPlotterPlots.getPlotsData(sectionsList.getSelectedValuesList());
                     cemeteryPlotterFrame.cemeteryPlotterPeople.getPeopleData(sectionsList.getSelectedValuesList());
 
-                    if (sectionsList.getMinSelectionIndex() >= 0
-                            && sectionsList.getMinSelectionIndex() == sectionsList.getMaxSelectionIndex()) {
+                    // a single selection only
+                    if (sectionsList.getMinSelectionIndex() == sectionsList.getMaxSelectionIndex()) {
                         cemeteryPlotterFrame.cemeteryPlotterPlots.setPlotsEditable(true);
-                    } else {
+                    } else { // multiple selections
                         cemeteryPlotterFrame.cemeteryPlotterPlots.setPlotsEditable(false);
                     }
-                } else {
+                } else { // no selection
                     cemeteryPlotterFrame.cemeteryPlotterPlots.setPlotsEditable(false);
                 }
             }

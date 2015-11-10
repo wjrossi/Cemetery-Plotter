@@ -132,11 +132,9 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
         switch (action) {
             case "new": // add a new plot and view/edit its information
                 newPlot();
-                cemetery.setModified(true);
                 break;
             case "delete": // permanently delete selected plot from cemetery
                 deletePlot();
-                cemetery.setModified(true);
                 break;
         }
     }
@@ -180,6 +178,7 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
             cemetery.getPlots().add(plot);
         }
         refreshPlotsList();
+        cemetery.setModified(true);
     }
 
     /**
@@ -192,6 +191,8 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
         cemetery.getPlots().remove(plot);
 
         refreshPlotsList();
+        cemeteryPlotterFrame.cemeteryPlotterPeople.refreshPeopleList();
+        cemetery.setModified(true);
     }
 
     /**
