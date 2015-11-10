@@ -160,6 +160,13 @@ public class CemeteryPlotterSections extends CemeteryPlotter implements ActionLi
     }
 
     /**
+     * Refresh the sections list when sections have been updated
+     */
+    public void refreshSectionsList() {
+        getSectionsData();
+    }
+
+    /**
      * Implementation of ListSelectionListener that is invoked when selections are made on the sections list
      */
     class SectionsListSelectionHandler implements ListSelectionListener {
