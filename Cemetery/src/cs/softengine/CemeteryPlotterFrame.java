@@ -49,7 +49,8 @@ public class CemeteryPlotterFrame extends CemeteryPlotter {
 
         frame = new JFrame(frameTitle);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        frame.addWindowListener(new WindowEventHandler());
 
         // create and set up the menu bar
         cemeteryPlotterMenu = new CemeteryPlotterMenu();
@@ -153,5 +154,36 @@ public class CemeteryPlotterFrame extends CemeteryPlotter {
         cemeteryPlotterPeople.clearPeopleList();
         cemeteryPlotterPlots.getPlotsData(cemeteryPlotterFrame.cemeteryPlotterSections.getSelectedSections());
         cemeteryPlotterPeople.getPeopleData(cemeteryPlotterFrame.cemeteryPlotterSections.getSelectedSections());
+    }
+
+    /**
+     * Handles window events for this frame
+     */
+    class WindowEventHandler extends WindowAdapter {
+
+        /**
+         * Intercepts the window closing signal and checks for unsaved changes.
+         * @param we window event
+         */
+        public void windowClosing(WindowEvent we) {
+            int exit = -1;
+
+            if (cemetery.isModified()) {
+                exit = JOptionPane.showOptionDialog(frame,
+                        "You have made changes that have not been saved.\nAre you sure you want to quit?",
+                        "Are you sure?",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.WARNING_MESSAGE,
+                        null,
+                        null,
+                        null);
+            } else { // quit
+                cemeteryPlotterFrame.getFrame().dispose();
+            }
+
+            if (exit == JOptionPane.YES_OPTION) { // quit
+                cemeteryPlotterFrame.getFrame().dispose();
+            } // else, do nothing
+        }
     }
 }

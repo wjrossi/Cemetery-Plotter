@@ -75,7 +75,7 @@ public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListen
         fileQuit = new JMenuItem("Quit");
         fileQuit.setMnemonic(KeyEvent.VK_Q);
         fileQuit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, InputEvent.META_MASK));
-        fileQuit.addActionListener(new exitApp());
+        fileQuit.addActionListener(this);
 
         menuFile.add(fileQuit);
 
@@ -138,10 +138,9 @@ public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListen
                     }
                 } // else do nothing
                 break;
-            case "quit":  // quit the program // TODO figure this one out
-                // *** if cemetery.isModified() is true, then ask them if they want to save ****
-                // probably send some kind of window event about exiting that gets handled in CemeteryPlotterFrame listener
-                // might have to get that listener from CemeteryPlotterFrame and add it to the Quit menuitem in this file
+            case "quit":  // quit the program
+                WindowEvent we = new WindowEvent(cemeteryPlotterFrame.getFrame(), WindowEvent.WINDOW_CLOSING);
+                cemeteryPlotterFrame.getFrame().dispatchEvent(we);
                 break;
         }
     }
@@ -196,13 +195,5 @@ public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListen
         }
 
         return file;
-    }
-
-    static class exitApp implements ActionListener
-    {
-        public void actionPerformed(ActionEvent e)
-        {
-            System.exit(0);
-        }
     }
 }
