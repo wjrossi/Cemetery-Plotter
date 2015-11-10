@@ -164,6 +164,19 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
     }
 
     /**
+     * Refresh the plots list when a plot has been put in a new section
+     */
+    public void refreshPlotsList() {
+        int index = plotsList.getSelectedIndex();
+        clearPlotsList();
+        getPlotsData(cemeteryPlotterFrame.cemeteryPlotterSections.getSelectedSections());
+
+        if (index >= 0) {
+            plotsList.setSelectedIndex(index);
+        }
+    }
+
+    /**
      * Gets the selected plot ID
      * @return selected plot
      */

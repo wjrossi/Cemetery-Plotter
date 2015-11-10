@@ -264,11 +264,9 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
             plotIDField.setText(Integer.toString(ip.getPlotID()));
             fnameField.setText(ip.getFirstName());
             lnameField.setText(ip.getLastName());
-
             bornDateMonthField.setText(ip.getBornDateMonth());
             bornDateDayField.setText(ip.getBornDateDay());
             bornDateYearField.setText(ip.getBornDateYear());
-
             diedDateMonthField.setText(ip.getDiedDateMonth());
             diedDateDayField.setText(ip.getDiedDateDay());
             diedDateYearField.setText(ip.getDiedDateYear());
@@ -296,11 +294,9 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
         ip.setPlotID(Integer.parseInt(plotIDField.getText()));
         ip.setFirstName(fnameField.getText());
         ip.setLastName(lnameField.getText());
-
         ip.setBornDateMonth(bornDateMonthField.getText());
         ip.setBornDateDay(bornDateDayField.getText());
         ip.setBornDateYear(bornDateYearField.getText());
-
         ip.setDiedDateMonth(diedDateMonthField.getText());
         ip.setDiedDateDay(diedDateDayField.getText());
         ip.setDiedDateYear(diedDateYearField.getText());

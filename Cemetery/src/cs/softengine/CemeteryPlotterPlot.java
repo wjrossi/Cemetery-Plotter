@@ -82,7 +82,6 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
         purchasedDateYearField = new JTextField(4);
         moneyDueField = new JTextField(8);
 
-        sectionField.setEnabled(false); // TODO possibly enable to create new plots
         plotIDField.setEnabled(false);
 
         burialDateMonthField.setToolTipText("MM");
@@ -175,7 +174,7 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
         panel.add(editPanel, BorderLayout.PAGE_END);
 
         // add editable components to list for easy enable/disable
-        //editable.add(sectionField);
+        editable.add(sectionField);
         editable.add(burialDateMonthField);
         editable.add(burialDateDayField);
         editable.add(burialDateYearField);
@@ -240,6 +239,10 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
         String section = sectionField.getText().toUpperCase();
 
         if (cemetery.get(new Section(section)) == null) { // invalid section name
+            JOptionPane.showMessageDialog(cemeteryPlotterFrame.getFrame(),
+                    "Section \"" + section + "\" does not exist.",
+                    "Error",
+                    JOptionPane.WARNING_MESSAGE);
             sectionField.requestFocus();
             sectionField.selectAll();
         } else { // valid section name, update plot
@@ -248,7 +251,7 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
             setPlotData(cemeteryPlotterFrame.cemeteryPlotterPlots.getSelectedPlot());
             clearPlotData();
             getPlotData(cemeteryPlotterFrame.cemeteryPlotterPlots.getSelectedPlot());
-            //cemeteryPlotterFrame.refreshListData();
+            cemeteryPlotterFrame.cemeteryPlotterPlots.refreshPlotsList();
             editButton.requestFocus();
         }
     }
@@ -274,17 +277,13 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
         if (plot != null) {
             sectionField.setText(plot.getSection());
             plotIDField.setText(Integer.toString(plot.getID()));
-
             burialDateMonthField.setText(plot.getBurialDateMonth());
             burialDateDayField.setText(plot.getBurialDateDay());
             burialDateYearField.setText(plot.getBurialDateYear());
-
             purchasedDateMonthField.setText(plot.getPurchasedDateMonth());
             purchasedDateDayField.setText(plot.getPurchasedDateDay());
             purchasedDateYearField.setText(plot.getPurchasedDateYear());
-
             moneyDueField.setText(plot.getMoneyDue());
-
             vacantCheckBox.setSelected(plot.isVacant());
             readyCheckBox.setSelected(plot.isReady());
         } else { // setting up a new plot
@@ -303,20 +302,23 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
             cemetery.setNextPlotID();
         }
 
-        // write the plot data from the GUI fields into the right place in the data layer
-        plot.setSection(sectionField.getText().toUpperCase()); // TODO don't let it be changed to a section that does not exist
-        plot.setID(Integer.parseInt(plotIDField.getText()));
+        String section = sectionField.getText().toUpperCase();
 
+        if (!plot.getSection().equals(section)) {
+            cemetery.get(new Section(plot.getSection())).remove(plot);
+            cemetery.get(new Section(section)).add(plot);
+        }
+
+        // write the plot data from the GUI fields into the right place in the data layer
+        plot.setSection(section);
+        plot.setID(Integer.parseInt(plotIDField.getText()));
         plot.setBurialDateMonth(burialDateMonthField.getText());
         plot.setBurialDateDay(burialDateDayField.getText());
         plot.setBurialDateYear(burialDateYearField.getText());
-
         plot.setPurchasedDateMonth(purchasedDateMonthField.getText());
         plot.setPurchasedDateDay(purchasedDateDayField.getText());
         plot.setPurchasedDateYear(purchasedDateYearField.getText());
-
         plot.setMoneyDue(moneyDueField.getText());
-
         plot.setVacant(vacantCheckBox.isSelected());
         plot.setReady(readyCheckBox.isSelected());
     }

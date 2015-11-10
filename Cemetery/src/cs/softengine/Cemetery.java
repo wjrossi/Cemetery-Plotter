@@ -15,7 +15,7 @@ public class Cemetery {
     private boolean modified; // has the cemetery been modified
     private int nextPlotID; // next available plotID
     private int nextInterredID; // next available interredID
-    private int nextcontactID; // next available contactID
+    private int nextContactID; // next available contactID
 
     /**
      * Constructs a single cemetery
@@ -24,7 +24,7 @@ public class Cemetery {
         modified = false;
         nextPlotID = -1;
         nextInterredID = -1;
-        nextcontactID = -1;
+        nextContactID = -1;
 
         sections = new ArrayList<>();
         plots = new ArrayList<>();
@@ -40,7 +40,7 @@ public class Cemetery {
         modified = false;
         nextPlotID = -1;
         nextInterredID = -1;
-        nextcontactID = -1;
+        nextContactID = -1;
 
         try {
             load(file); // load the plain-text file
@@ -199,7 +199,7 @@ public class Cemetery {
             buffer.readLine().trim(); // read empty line
         } else {
             contactID = Integer.parseInt(temp);
-            nextcontactID = contactID > nextcontactID ? contactID + 1 : nextcontactID;
+            nextContactID = contactID > nextContactID ? contactID + 1 : nextContactID;
 
             fname = buffer.readLine().trim();
             lname = buffer.readLine().trim();
@@ -423,7 +423,7 @@ public class Cemetery {
      * Set the next available ID number for a contact
      */
     public void setNextContactID() {
-        nextcontactID++;
+        nextContactID++;
     }
 
     /**
@@ -431,7 +431,7 @@ public class Cemetery {
      * @return nextcontactID
      */
     public int getNextContactID() {
-        return nextcontactID;
+        return nextContactID;
     }
 
     /**
