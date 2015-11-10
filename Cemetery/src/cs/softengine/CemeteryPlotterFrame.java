@@ -149,11 +149,9 @@ public class CemeteryPlotterFrame extends CemeteryPlotter {
      * Clear and refresh the people and plots lists
      */
     public void refreshLists() { // TODO no idea
-        cemeteryPlotterPlots.getSelectedPlot();
-        cemeteryPlotterPlots.clearPlotsList();
-        cemeteryPlotterPeople.clearPeopleList();
-        cemeteryPlotterPlots.getPlotsData(cemeteryPlotterFrame.cemeteryPlotterSections.getSelectedSections());
-        cemeteryPlotterPeople.getPeopleData(cemeteryPlotterFrame.cemeteryPlotterSections.getSelectedSections());
+        //cemeteryPlotterSections.refreshSectionsList();
+        cemeteryPlotterPlots.refreshPlotsList();
+        //cemeteryPlotterPeople.refreshPeopleList();
     }
 
     /**

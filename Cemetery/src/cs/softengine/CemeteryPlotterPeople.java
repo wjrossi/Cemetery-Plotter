@@ -253,6 +253,19 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
     }
 
     /**
+     * Refresh the people list when an interred person or contact has been updated
+     */
+    public void refreshPeopleList() {
+        int index = peopleList.getSelectedIndex();
+        clearPeopleList();
+        getPeopleData(cemeteryPlotterFrame.cemeteryPlotterSections.getSelectedSections());
+
+        if (index >= 0) {
+            peopleList.setSelectedIndex(index);
+        }
+    }
+
+    /**
      * Override the people list's selection
      */
     public void overridePeopleList() {
