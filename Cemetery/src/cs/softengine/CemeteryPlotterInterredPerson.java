@@ -222,6 +222,7 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
      */
     public void editInterred() {
         setInterredEditable(true);
+        interredIDField.setText(Integer.toString(cemetery.getNextInterredID()));
         editButton.setEnabled(false);
         cancelButton.requestFocus();
     }
@@ -272,7 +273,6 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
             diedDateYearField.setText(ip.getDiedDateYear());
         } else { // possibly creating a new interred person for the associated plot
             plotIDField.setText(Integer.toString(plot.getID()));
-            interredIDField.setText(Integer.toString(cemetery.getNextInterredID()));
         }
     }
 

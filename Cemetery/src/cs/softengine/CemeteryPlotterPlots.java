@@ -22,11 +22,13 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
     private JScrollPane plotsListScrollPane;
     private JButton newPlotButton;
     private JButton deletePlotButton;
+    private ArrayList<JComponent> editable;
 
     /**
      * Constructs a content pane for listing of plots belonging to selected section(s)
      */
     public CemeteryPlotterPlots() {
+        editable = new ArrayList<>();
         plotsPanel = createPlotsPanel();
     }
 
@@ -84,7 +86,7 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
         newPlotButton = new JButton("New Plot");
         newPlotButton.setActionCommand("new");
         newPlotButton.addActionListener(this);
-        newPlotButton.setToolTipText("Add a new plot and view/edit its information.");
+        newPlotButton.setToolTipText("Add a new plot in the selected section.  Only one section may be selected.");
 
         deletePlotButton = new JButton("Delete Plot");
         deletePlotButton.setActionCommand("delete");
@@ -100,7 +102,24 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
         panel.add(plotsListScrollPane, BorderLayout.CENTER);
         panel.add(plotsButtonsPanel, BorderLayout.PAGE_END);
 
+        // add editable components to list for easy enable/disable
+        editable.add(newPlotButton);
+        editable.add(deletePlotButton);
+
+        // disable editable fields until a single section is selected
+        setPlotsEditable(false);
+
         return panel;
+    }
+
+    /**
+     * Enable or disable fields belonging to editable list
+     * @param value enabled/disabled
+     */
+    public void setPlotsEditable(boolean value) {
+        for (JComponent c : editable) {
+            c.setEnabled(value);
+        }
     }
 
     /**
@@ -112,14 +131,12 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
 
         switch (action) {
             case "new": // add a new plot and view/edit its information
-                // pop up a dialog:
-                //      suggest a default plotID that can be changed?
-                //      suggest a default section name that can be changed?
-                // then create a new Plot() and with those details and load it
-                // TODO
+                newPlot();
+                cemetery.setModified(true);
                 break;
             case "delete": // permanently delete selected plot from cemetery
-                // TODO
+                deletePlot();
+                cemetery.setModified(true);
                 break;
         }
     }
@@ -150,10 +167,31 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
     }
 
     /**
-     * Set the data from the GUI into the Cemetery, Section, and Plot in the cemetery
+     * Create a new plot and view/edit it
      */
-    public void setPlotsData() { // TODO on add plot and possibly on delete plot
-        // write the plot data from the GUI fields into the right place in the data layer
+    public void newPlot() {
+        Plot plot = new Plot();
+
+        for (String section : cemeteryPlotterFrame.cemeteryPlotterSections.getSelectedSections()) {
+            plot.setSection(section);
+            plot.setID(cemetery.getNextPlotID());
+            cemetery.setNextPlotID();
+            cemetery.get(new Section(section)).add(plot);
+            cemetery.getPlots().add(plot);
+        }
+        refreshPlotsList();
+    }
+
+    /**
+     * Delete the selected plot permanently
+     */
+    public void deletePlot() {
+        Plot plot = getSelectedPlot();
+
+        cemetery.get(new Section(plot.getSection())).remove(plot);
+        cemetery.getPlots().remove(plot);
+
+        refreshPlotsList();
     }
 
     /**

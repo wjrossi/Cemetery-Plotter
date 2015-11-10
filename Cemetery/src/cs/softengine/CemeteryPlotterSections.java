@@ -196,6 +196,15 @@ public class CemeteryPlotterSections extends CemeteryPlotter implements ActionLi
                 if (!lsm.isSelectionEmpty()) { // find out which indexes are selected.
                     cemeteryPlotterFrame.cemeteryPlotterPlots.getPlotsData(sectionsList.getSelectedValuesList());
                     cemeteryPlotterFrame.cemeteryPlotterPeople.getPeopleData(sectionsList.getSelectedValuesList());
+
+                    if (sectionsList.getMinSelectionIndex() >= 0
+                            && sectionsList.getMinSelectionIndex() == sectionsList.getMaxSelectionIndex()) {
+                        cemeteryPlotterFrame.cemeteryPlotterPlots.setPlotsEditable(true);
+                    } else {
+                        cemeteryPlotterFrame.cemeteryPlotterPlots.setPlotsEditable(false);
+                    }
+                } else {
+                    cemeteryPlotterFrame.cemeteryPlotterPlots.setPlotsEditable(false);
                 }
             }
         }

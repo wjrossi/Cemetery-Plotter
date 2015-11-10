@@ -190,6 +190,7 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
 
         // disable editable fields until a plot is selected and edit button is pressed
         setPlotEditable(false);
+
         return panel;
     }
 
