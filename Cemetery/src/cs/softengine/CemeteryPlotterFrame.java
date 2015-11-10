@@ -168,7 +168,7 @@ public class CemeteryPlotterFrame extends CemeteryPlotter {
 
             if (cemetery.isModified()) {
                 exit = JOptionPane.showOptionDialog(frame,
-                        "You have made changes that have not been saved.\nAre you sure you want to quit?",
+                        "You have changes that are not saved.\nAre you sure you want to quit?",
                         "Are you sure?",
                         JOptionPane.YES_NO_OPTION,
                         JOptionPane.WARNING_MESSAGE,
