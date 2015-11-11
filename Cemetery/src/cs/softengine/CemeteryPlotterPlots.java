@@ -210,6 +210,7 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
      */
     public void clearPlotsList() {
         plotsListModel.clear();
+        searchField.setText("");
     }
 
     /**
