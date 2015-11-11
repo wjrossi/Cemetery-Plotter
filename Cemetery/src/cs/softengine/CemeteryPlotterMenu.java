@@ -189,7 +189,7 @@ public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListen
 
         fileChooser = new JFileChooser(workingFile);
         fileFilter = new FileNameExtensionFilter("Cemetery DB Files", "db");
-        fileChooser.addChoosableFileFilter(fileFilter);
+        fileChooser.setFileFilter(fileFilter);
 
         result = fileChooser.showOpenDialog(menu.getParent());
 
@@ -214,7 +214,7 @@ public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListen
 
         fileChooser = new JFileChooser(workingFile);
         fileFilter = new FileNameExtensionFilter("Cemetery DB Files", "db");
-        fileChooser.addChoosableFileFilter(fileFilter);
+        fileChooser.setFileFilter(fileFilter);
 
         result = fileChooser.showSaveDialog(menu.getParent());
 
