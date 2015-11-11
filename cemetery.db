@@ -1,8 +1,8 @@
 <CEMETERY>
 17
 7
+6
 4
-3
 </CEMETERY>
 <SECTION>
 A
@@ -73,7 +73,7 @@ PA
 
 true
 false
-4502.50
+4502.5
 </PLOT>
 <SECTION>
 B
@@ -111,7 +111,7 @@ Springfield
 
 
 
-true
+false
 false
 0
 </PLOT>
