@@ -86,12 +86,12 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
         newPlotButton = new JButton("New Plot");
         newPlotButton.setActionCommand("new");
         newPlotButton.addActionListener(this);
-        newPlotButton.setToolTipText("Add a new plot in the selected section.  Only one section may be selected.");
+        newPlotButton.setToolTipText("Add a new plot in the selected section. Only one section may be selected.");
 
         deletePlotButton = new JButton("Delete Plot");
         deletePlotButton.setActionCommand("delete");
         deletePlotButton.addActionListener(this);
-        deletePlotButton.setToolTipText("Permanently delete the selected plot from the cemetery.");
+        deletePlotButton.setToolTipText("Permanently delete the selected plot from the cemetery. Only one section may be selected.");
 
         JPanel plotsButtonsPanel = new JPanel();
         plotsButtonsPanel.setLayout(new BoxLayout(plotsButtonsPanel, BoxLayout.LINE_AXIS));

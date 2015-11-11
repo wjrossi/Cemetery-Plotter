@@ -146,7 +146,7 @@ public class CemeteryPlotterSections extends CemeteryPlotter implements ActionLi
                 "");
 
         if (name != null && !name.isEmpty()) {
-            section = new Section(name);
+            section = new Section(name.toUpperCase());
             cemetery.add(section);
             refreshSectionsList();
             cemetery.setModified(true);
