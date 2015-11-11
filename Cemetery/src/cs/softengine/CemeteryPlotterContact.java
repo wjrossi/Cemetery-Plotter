@@ -376,17 +376,18 @@ public class CemeteryPlotterContact extends CemeteryPlotter implements ActionLis
      *
      */
     public void removePlot() {
-        int plotIndex = ownedList.getSelectedIndex();
+        int index = ownedList.getSelectedIndex();
 
-        if (plotIndex < 0) { // no selection
+        if (index < 0) { // no selection
             JOptionPane.showMessageDialog(cemeteryPlotterFrame.getFrame(),
                     "No plotID selected from this contacts plot list.",
                     "Error",
                     JOptionPane.WARNING_MESSAGE);
             addPlotButton.requestFocus();
         } else { // remove selected plot
+            int plotID = Integer.parseInt(ownedListModel.get(index));
             int remove = JOptionPane.showOptionDialog(cemeteryPlotterFrame.getFrame(),
-                    "Are you sure you want to remove plot \"" + ownedListModel.get(plotIndex) + "\" " +
+                    "Are you sure you want to remove plot \"" + plotID + "\" " +
                             "from this contact?",
                     "Remove?",
                     JOptionPane.YES_NO_OPTION,
@@ -396,7 +397,14 @@ public class CemeteryPlotterContact extends CemeteryPlotter implements ActionLis
                     null);
 
             if (remove == JOptionPane.YES_OPTION) { // remove it
-              // TODO
+                int plotIndex = cemetery.getPlots().indexOf(new Plot("", plotID));
+                Plot plot = cemetery.getPlots().get(plotIndex);
+                ownedListModel.remove(index);
+
+                if (plotIndex >= 0) {
+                    setContactData(plot);
+                    plot.setContact(null);
+                }
             }
         }
     }
