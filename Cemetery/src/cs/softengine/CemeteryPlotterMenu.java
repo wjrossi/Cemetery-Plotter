@@ -94,10 +94,10 @@ public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListen
 
         switch (choice) {
             case "open": // open a file
-                if (cemetery.isModified()) {
+                if (cemetery.isModified()) { // unsaved changes?
                     int open = JOptionPane.showOptionDialog(cemeteryPlotterFrame.getFrame(),
                             "You have changes that are not saved.\nAre you sure you want to open a new file?",
-                            "Are you sure?",
+                            "Open?",
                             JOptionPane.YES_NO_OPTION,
                             JOptionPane.WARNING_MESSAGE,
                             null,
@@ -128,6 +128,21 @@ public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListen
                 } // else do nothing
                 break;
             case "save": // save a file
+                if (cemetery.isModified()) { // unsaved changes?
+                    int open = JOptionPane.showOptionDialog(cemeteryPlotterFrame.getFrame(),
+                            "You are about to overwrite \"" + workingFile + "\" with new changes.\nAre you sure you want to save?",
+                            "Save?",
+                            JOptionPane.YES_NO_OPTION,
+                            JOptionPane.WARNING_MESSAGE,
+                            null,
+                            null,
+                            null);
+
+                    if (open == JOptionPane.NO_OPTION) {
+                        return;
+                    }
+                }
+
                 try {
                     cemetery.save(workingFile); // save the working file
                     cemetery.setModified(false);
@@ -174,7 +189,7 @@ public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListen
 
         fileChooser = new JFileChooser(workingFile);
         fileFilter = new FileNameExtensionFilter("Cemetery DB Files", "db");
-        fileChooser.setFileFilter(fileFilter);
+        fileChooser.addChoosableFileFilter(fileFilter);
 
         result = fileChooser.showOpenDialog(menu.getParent());
 
@@ -199,7 +214,7 @@ public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListen
 
         fileChooser = new JFileChooser(workingFile);
         fileFilter = new FileNameExtensionFilter("Cemetery DB Files", "db");
-        fileChooser.setFileFilter(fileFilter);
+        fileChooser.addChoosableFileFilter(fileFilter);
 
         result = fileChooser.showSaveDialog(menu.getParent());
 

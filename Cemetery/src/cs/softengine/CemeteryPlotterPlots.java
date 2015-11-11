@@ -187,12 +187,22 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
     public void deletePlot() {
         Plot plot = getSelectedPlot();
 
-        cemetery.get(new Section(plot.getSection())).remove(plot);
-        cemetery.getPlots().remove(plot);
+        int remove = JOptionPane.showOptionDialog(cemeteryPlotterFrame.getFrame(),
+                "Are you sure you want to delete the plot with plotID\"" + plot.getID() + "\"?",
+                "Delete?",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE,
+                null,
+                null,
+                null);
 
-        refreshPlotsList();
-        cemeteryPlotterFrame.cemeteryPlotterPeople.refreshPeopleList();
-        cemetery.setModified(true);
+        if (remove == JOptionPane.YES_OPTION) { // remove it
+            cemetery.get(new Section(plot.getSection())).remove(plot);
+            cemetery.getPlots().remove(plot);
+            refreshPlotsList();
+            cemeteryPlotterFrame.cemeteryPlotterPeople.refreshPeopleList();
+            cemetery.setModified(true);
+        }
     }
 
     /**

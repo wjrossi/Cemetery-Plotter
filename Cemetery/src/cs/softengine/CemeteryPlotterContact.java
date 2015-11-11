@@ -349,7 +349,7 @@ public class CemeteryPlotterContact extends CemeteryPlotter implements ActionLis
                                     ", Zip: " + contact.getZip() + "\n" +
                                     "Phone: " + contact.getPhone() + "\n" +
                                     "Are you sure you want to overwrite the contact?",
-                            "Are you sure?",
+                            "Overwrite?",
                             JOptionPane.YES_NO_OPTION,
                             JOptionPane.WARNING_MESSAGE,
                             null,
@@ -376,7 +376,29 @@ public class CemeteryPlotterContact extends CemeteryPlotter implements ActionLis
      *
      */
     public void removePlot() {
+        int plotIndex = ownedList.getSelectedIndex();
 
+        if (plotIndex < 0) { // no selection
+            JOptionPane.showMessageDialog(cemeteryPlotterFrame.getFrame(),
+                    "No plotID selected from this contacts plot list.",
+                    "Error",
+                    JOptionPane.WARNING_MESSAGE);
+            addPlotButton.requestFocus();
+        } else { // remove selected plot
+            int remove = JOptionPane.showOptionDialog(cemeteryPlotterFrame.getFrame(),
+                    "Are you sure you want to remove plot \"" + ownedListModel.get(plotIndex) + "\" " +
+                            "from this contact?",
+                    "Remove?",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.WARNING_MESSAGE,
+                    null,
+                    null,
+                    null);
+
+            if (remove == JOptionPane.YES_OPTION) { // remove it
+              // TODO
+            }
+        }
     }
 
     /**

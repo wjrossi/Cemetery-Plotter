@@ -129,29 +129,12 @@ public class CemeteryPlotterFrame extends CemeteryPlotter {
     }
 
     /**
-     * Set data to cemetery for a plot, interred person, and contact
-     * @param plot of the cemetery
-     */
-    public void setData(Plot plot) {
-        // write the data ?? MIGHT NOT NEED THIS???
-    }
-
-    /**
      * Clear all plot, interred person, and contact data from the GUI
      */
     public void clearData() {
         cemeteryPlotterPlot.clearPlotData();
         cemeteryPlotterInterredPerson.clearInterredData();
         cemeteryPlotterContact.clearContactData();
-    }
-
-    /**
-     * Clear and refresh the people and plots lists
-     */
-    public void refreshLists() { // TODO no idea
-        //cemeteryPlotterSections.refreshSectionsList();
-        cemeteryPlotterPlots.refreshPlotsList();
-        //cemeteryPlotterPeople.refreshPeopleList();
     }
 
     /**
@@ -169,7 +152,7 @@ public class CemeteryPlotterFrame extends CemeteryPlotter {
             if (cemetery.isModified()) {
                 exit = JOptionPane.showOptionDialog(frame,
                         "You have changes that are not saved.\nAre you sure you want to quit?",
-                        "Are you sure?",
+                        "Quit?",
                         JOptionPane.YES_NO_OPTION,
                         JOptionPane.WARNING_MESSAGE,
                         null,
