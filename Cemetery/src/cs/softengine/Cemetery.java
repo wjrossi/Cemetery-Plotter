@@ -144,7 +144,7 @@ public class Cemetery {
         sectionName = buffer.readLine().trim();
         id = Integer.parseInt(buffer.readLine().trim());
 
-        nextPlotID = id > nextPlotID ? id + 1 : nextPlotID;
+        nextPlotID = id >= nextPlotID ? id + 1 : nextPlotID;
 
         buffer.readLine().trim(); // read empty line
         interred = loadInterredPerson(buffer); // load an interred person belonging to this plot
@@ -199,7 +199,7 @@ public class Cemetery {
             buffer.readLine().trim(); // read empty line
         } else {
             contactID = Integer.parseInt(temp);
-            nextContactID = contactID > nextContactID ? contactID + 1 : nextContactID;
+            nextContactID = contactID >= nextContactID ? contactID + 1 : nextContactID;
 
             fname = buffer.readLine().trim();
             lname = buffer.readLine().trim();
@@ -240,7 +240,7 @@ public class Cemetery {
             buffer.readLine().trim();
         } else {
             interredID = Integer.parseInt(temp);
-            nextInterredID = interredID > nextInterredID ? interredID + 1 : nextInterredID;
+            nextInterredID = interredID >= nextInterredID ? interredID + 1 : nextInterredID;
 
             plotID = Integer.parseInt(buffer.readLine().trim());
 

@@ -94,13 +94,29 @@ public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListen
 
         switch (choice) {
             case "open": // open a file
+                if (cemetery.isModified()) {
+                    int open = JOptionPane.showOptionDialog(cemeteryPlotterFrame.getFrame(),
+                            "You have changes that are not saved.\nAre you sure you want to open a new file?",
+                            "Are you sure?",
+                            JOptionPane.YES_NO_OPTION,
+                            JOptionPane.WARNING_MESSAGE,
+                            null,
+                            null,
+                            null);
+
+                    if (open == JOptionPane.NO_OPTION) {
+                        return;
+                    }
+                }
+
                 File file = openFile();
 
                 if (file != null) {
                     try {
                         workingFile = file; // set the working file to the selected file
                         cemetery.load(file); // open the file using the cemetery object's load(file) method
-
+                        cemetery.setModified(false);
+                        cemeteryPlotterFrame.getFrame().setTitle("Cemetery Plotter (" + workingFile.getName() + ")");
                         // reload gui elements
                         cemeteryPlotterFrame.clearData();
                         cemeteryPlotterFrame.cemeteryPlotterSections.getSectionsData();
@@ -130,7 +146,6 @@ public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListen
                         cemetery.save(file); // open the file using the cemetery object's load(file) method
                         cemetery.setModified(false);
                         cemeteryPlotterFrame.getFrame().setTitle("Cemetery Plotter (" + workingFile.getName() + ")");
-
                     } catch (IOException ex) { // TODO show error dialogs
                         // major error, how do we handle it??
                         System.err.println("Unable to read input file.");
@@ -165,7 +180,6 @@ public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListen
 
         if (result == JFileChooser.APPROVE_OPTION) {
             file = fileChooser.getSelectedFile();
-            cemeteryPlotterFrame.getFrame().setTitle("Cemetery Plotter (" + workingFile + ")");
         }
 
         return file;
@@ -191,7 +205,6 @@ public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListen
 
         if (result == JFileChooser.APPROVE_OPTION) {
             file = fileChooser.getSelectedFile();
-            cemeteryPlotterFrame.getFrame().setTitle("Cemetery Plotter (" + workingFile + ")");
         }
 
         return file;

@@ -222,7 +222,6 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
      */
     public void editInterred() {
         setInterredEditable(true);
-        interredIDField.setText(Integer.toString(cemetery.getNextInterredID()));
         editButton.setEnabled(false);
         cancelButton.requestFocus();
     }
@@ -273,6 +272,7 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
             diedDateYearField.setText(ip.getDiedDateYear());
         } else { // possibly creating a new interred person for the associated plot
             plotIDField.setText(Integer.toString(plot.getID()));
+            interredIDField.setText(Integer.toString(cemetery.getNextInterredID()));
         }
     }
 
@@ -290,7 +290,7 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
             cemetery.setNextInterredID();
         }
 
-        ip.setInterredID(Integer.parseInt(interredIDField.getText())); // TODO if this already exists, we got a problem
+        ip.setInterredID(Integer.parseInt(interredIDField.getText()));
         ip.setPlotID(Integer.parseInt(plotIDField.getText()));
         ip.setFirstName(fnameField.getText());
         ip.setLastName(lnameField.getText());

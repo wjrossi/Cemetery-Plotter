@@ -244,6 +244,13 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
             boolean isAdjusting = e.getValueIsAdjusting();
 
             if (!isAdjusting) {
+                cemeteryPlotterFrame.cemeteryPlotterPlot.clearPlotData();
+                cemeteryPlotterFrame.cemeteryPlotterPlot.setPlotEditable(false);
+                cemeteryPlotterFrame.cemeteryPlotterInterredPerson.clearInterredData();
+                cemeteryPlotterFrame.cemeteryPlotterInterredPerson.setInterredEditable(false);
+                cemeteryPlotterFrame.cemeteryPlotterContact.clearContactData();
+                cemeteryPlotterFrame.cemeteryPlotterContact.setContactEditable(false);
+
                 if (lsm.isSelectionEmpty()) { // no selection
                     // TODO must interact nicely with people list selections
                     cemeteryPlotterFrame.clearData();

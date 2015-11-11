@@ -22,7 +22,6 @@ public class CemeteryPlotterContact extends CemeteryPlotter implements ActionLis
     private JList<String> ownedList;
     private JScrollPane ownedListScrollPane;
     private DefaultListModel<String> ownedListModel;
-    private JTextField addPlotField;
     private JButton addPlotButton;
     private JButton removePlotButton;
     private JButton editButton;
@@ -116,9 +115,7 @@ public class CemeteryPlotterContact extends CemeteryPlotter implements ActionLis
         ownedList.setPrototypeCellValue("999999");
         ownedList.setToolTipText("List of plots owned by this contact.");
 
-        // create add and remove plot buttons and text field
-        addPlotField = new JTextField(4);
-
+        // create add and remove plot buttons
         addPlotButton = new JButton("Add Plot");
         addPlotButton.setActionCommand("add");
         addPlotButton.addActionListener(this);
@@ -180,7 +177,6 @@ public class CemeteryPlotterContact extends CemeteryPlotter implements ActionLis
         ownedButtonsPanel.add(removePlotButton);
 
         ownedPanel.add(ownedListScrollPane);
-        ownedPanel.add(addPlotField);
         ownedPanel.add(ownedButtonsPanel);
 
         editPanel.add(editButton);
@@ -209,7 +205,6 @@ public class CemeteryPlotterContact extends CemeteryPlotter implements ActionLis
         editable.add(phoneField);
         editable.add(ownedList);
         editable.add(addPlotButton);
-        editable.add(addPlotField);
         editable.add(removePlotButton);
         editable.add(editButton);
         editable.add(cancelButton);
@@ -249,11 +244,10 @@ public class CemeteryPlotterContact extends CemeteryPlotter implements ActionLis
                 cancelContact();
                 break;
             case "add": // add a new plot to the contact's list GUI object
-                // TODO
-                // can multiple people own a plot? probably not
+                addPlot();
                 break;
             case "remove": // remove selected plot from the contact's list GUI object
-                // TODO
+                removePlot();
                 break;
         }
     }
@@ -292,6 +286,74 @@ public class CemeteryPlotterContact extends CemeteryPlotter implements ActionLis
     }
 
     /**
+     * Add a plot to the contact's
+     */
+    public void addPlot() {
+        // get plotID from user
+        String input = (String) JOptionPane.showInputDialog(
+                cemeteryPlotterFrame.getFrame(),
+                "PlotID:",
+                "Assign a plot to this person",
+                JOptionPane.PLAIN_MESSAGE,
+                null,
+                null,
+                "");
+
+        // validate plotID
+        if (input != null && !input.isEmpty()) {
+            int plotID = Integer.parseInt(input);
+            int plotIndex = cemetery.getPlots().indexOf(new Plot("", plotID));
+
+            if (plotIndex >= 0) { // valid plot
+                Plot plot = cemetery.getPlots().get(plotIndex);
+                Person oldContact = plot.getContact();
+                Person contact = cemeteryPlotterFrame.cemeteryPlotterPlots.getSelectedPlot().getContact();
+
+                if (oldContact == null || contact.equals(oldContact)) { // no existing contact or same person
+                    ownedListModel.addElement(Integer.toString(plotID));
+                    setContactData(plot);
+                    cemetery.setModified(true);
+                } else { // ask to overwrite
+                    int overwrite = JOptionPane.showOptionDialog(cemeteryPlotterFrame.getFrame(),
+                            "Plot with plotID \"" + plotID + "\" already has a contact.\n" +
+                                    "First Name: " + contact.getFirstName() +
+                                    ", Last Name: " + contact.getLastName() + "\n" +
+                                    "Address1: " + contact.getAddress1() + "\n" +
+                                    "Address2: " + contact.getAddress2() + "\n" +
+                                    "City: " + contact.getCity() + ", State: " + contact.getState() +
+                                    ", Zip: " + contact.getZip() + "\n" +
+                                    "Phone: " + contact.getPhone() + "\n" +
+                                    "Are you sure you want to overwrite the contact?",
+                            "Are you sure?",
+                            JOptionPane.YES_NO_OPTION,
+                            JOptionPane.WARNING_MESSAGE,
+                            null,
+                            null,
+                            null);
+
+                    if (overwrite == JOptionPane.YES_OPTION) {
+                        setContactData(plot);
+                        cemetery.setModified(true);
+                    }
+                }
+            } else { // invalid plot
+                JOptionPane.showMessageDialog(cemeteryPlotterFrame.getFrame(),
+                        "Plot with plotID \"" + plotID + "\" does not exist.",
+                        "Error",
+                        JOptionPane.WARNING_MESSAGE);
+                addPlotButton.requestFocus();
+            }
+        }
+    }
+
+    /**
+     *
+     */
+    public void removePlot() {
+
+    }
+
+    /**
      * Get the data from cemetery about a plot and load it into the appropriate GUI elements
      */
     public void getContactData(Plot plot) {
@@ -309,11 +371,12 @@ public class CemeteryPlotterContact extends CemeteryPlotter implements ActionLis
             stateField.setText(contact.getState());
             zipField.setText(contact.getZip());
             phoneField.setText(contact.getPhone());
-            addPlotField.setText("");
 
             for (Integer plotID : contact.getOwnedPlots()) {
                 ownedListModel.addElement(Integer.toString(plotID));
             }
+        } else {
+            ownedListModel.addElement(Integer.toString(plot.getID()));
         }
     }
 
@@ -340,11 +403,10 @@ public class CemeteryPlotterContact extends CemeteryPlotter implements ActionLis
         contact.setZip(zipField.getText());
         contact.setPhone(phoneField.getText());
 
-        ArrayList<Integer> ownedPlots = new ArrayList<>(ownedListModel.size());
-        for (String plotID : ownedList.getSelectedValuesList()) {
-            ownedPlots.add(Integer.parseInt(plotID));
+        contact.setOwnedPlots(new ArrayList<>(ownedListModel.size()));
+        for (int index = 0; index < ownedListModel.size(); index++) {
+            contact.addOwnedPlot(Integer.parseInt(ownedListModel.get(index)));
         }
-        contact.setOwnedPlots(ownedPlots);
 
         plot.setContact(contact);
     }
@@ -362,7 +424,6 @@ public class CemeteryPlotterContact extends CemeteryPlotter implements ActionLis
         stateField.setText("");
         zipField.setText("");
         phoneField.setText("");
-        addPlotField.setText("");
         ownedListModel.clear();
     }
 }
