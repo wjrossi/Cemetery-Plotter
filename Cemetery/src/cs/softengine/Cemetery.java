@@ -170,7 +170,7 @@ public class Cemetery {
         plot = new Plot(sectionName, id, interred, contact, burialMonth, burialDay, burialYear,
                 purchasedMonth, purchasedDay, purchasedYear, vacant, ready, moneyDue);
 
-        if (plot.getContact() != null) {
+        if (plot.getContact() != null) { // TODO this is not adding all owned plots to the contact
             plot.getContact().addOwnedPlot(plot.getID());
         }
 

@@ -288,6 +288,7 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
         if (ip == null) {
             ip = new InterredPerson();
             cemetery.setNextInterredID();
+            cemetery.getInterred().add(ip);
         }
 
         ip.setInterredID(Integer.parseInt(interredIDField.getText()));

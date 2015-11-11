@@ -332,6 +332,7 @@ public class CemeteryPlotterContact extends CemeteryPlotter implements ActionLis
                             null);
 
                     if (overwrite == JOptionPane.YES_OPTION) {
+                        ownedListModel.addElement(Integer.toString(plotID));
                         setContactData(plot);
                         cemetery.setModified(true);
                     }
@@ -392,6 +393,7 @@ public class CemeteryPlotterContact extends CemeteryPlotter implements ActionLis
         if (contact == null) {
             contact = new Person(cemetery.getNextContactID());
             cemetery.setNextContactID();
+            cemetery.getContacts().add(contact);
         }
 
         contact.setFirstName(fnameField.getText());
@@ -406,6 +408,7 @@ public class CemeteryPlotterContact extends CemeteryPlotter implements ActionLis
         contact.setOwnedPlots(new ArrayList<>(ownedListModel.size()));
         for (int index = 0; index < ownedListModel.size(); index++) {
             contact.addOwnedPlot(Integer.parseInt(ownedListModel.get(index)));
+            cemetery.getPlots().get(cemetery.getPlots().indexOf(plot)).setContact(contact);
         }
 
         plot.setContact(contact);
