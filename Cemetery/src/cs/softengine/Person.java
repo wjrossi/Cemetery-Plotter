@@ -287,7 +287,9 @@ public class Person implements Comparable<Person> {
      * @return all person info
      */
     public String toString() {
-        return "<PERSON>\n"
+        String result;
+
+        result = "<PERSON>\n"
                 + contactID + "\n"
                 + fname + "\n"
                 + lname + "\n"
@@ -297,6 +299,19 @@ public class Person implements Comparable<Person> {
                 + state  + "\n"
                 + zip + "\n"
                 + phone  + "\n"
+                + "<OWNEDPLOTS>\n";
+
+        if (plots == null || plots.size() == 0) {
+            result += "null\n";
+        } else {
+            for (Integer plotID : plots) {
+                result += Integer.toString(plotID) + "\n";
+            }
+        }
+
+        result += "</OWNEDPLOTS>\n"
                 + "</PERSON>\n";
+
+        return result;
     }
 }

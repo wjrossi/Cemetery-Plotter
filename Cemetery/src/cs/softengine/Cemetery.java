@@ -146,10 +146,7 @@ public class Cemetery {
 
         nextPlotID = id >= nextPlotID ? id + 1 : nextPlotID;
 
-        buffer.readLine().trim(); // read empty line
         interred = loadInterredPerson(buffer); // load an interred person belonging to this plot
-
-        buffer.readLine().trim(); // read empty line
         contact = loadPerson(buffer); // load a contact belonging to this plot
 
         // load a burial date
@@ -170,9 +167,9 @@ public class Cemetery {
         plot = new Plot(sectionName, id, interred, contact, burialMonth, burialDay, burialYear,
                 purchasedMonth, purchasedDay, purchasedYear, vacant, ready, moneyDue);
 
-        if (plot.getContact() != null) { // TODO this is not adding all owned plots to the contact
+        /*if (plot.getContact() != null) { // TODO this is not adding all owned plots to the contact
             plot.getContact().addOwnedPlot(plot.getID());
-        }
+        }*/
 
         plots.add(plot);
         section.add(plot);
@@ -192,6 +189,7 @@ public class Cemetery {
         String city, state, zip;
         String phone;
 
+        buffer.readLine().trim(); // read empty line
         String temp = buffer.readLine().trim();
 
         if (temp.equals("null")) {
@@ -210,9 +208,23 @@ public class Cemetery {
             zip = buffer.readLine().trim();
             phone = buffer.readLine().trim();
 
+            contact = new Person(contactID, fname, lname, address1, address2, city, state, zip, phone);
+
             buffer.readLine().trim(); // read empty line
 
-            contact = new Person(contactID, fname, lname, address1, address2, city, state, zip, phone);
+            // read owned plots YIKES
+            temp = buffer.readLine().trim();
+            if (!temp.equals("null")) {
+                contact.addOwnedPlot(Integer.parseInt(temp));
+                while (!(temp = buffer.readLine().trim()).equals("</OWNEDPLOTS>")) {
+                    contact.addOwnedPlot(Integer.parseInt(temp));
+                }
+            } else {
+                buffer.readLine().trim();
+            }
+
+            buffer.readLine().trim(); // read empty line
+
             contacts.add(contact);
         }
 
@@ -233,6 +245,7 @@ public class Cemetery {
         String diedMonth, diedDay, diedYear;
         String fname, lname;
 
+        buffer.readLine().trim(); // read empty line
         String temp = buffer.readLine().trim();
 
         if (temp.equals("null")) {

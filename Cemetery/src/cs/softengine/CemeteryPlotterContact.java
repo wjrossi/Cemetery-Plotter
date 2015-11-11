@@ -412,6 +412,13 @@ public class CemeteryPlotterContact extends CemeteryPlotter implements ActionLis
         }
 
         plot.setContact(contact);
+
+        int contactIndex = cemetery.getContacts().indexOf(contact);
+        if (contactIndex >= 0) {
+            cemetery.getContacts().set(contactIndex, contact);
+        } else {
+            cemetery.getContacts().add(contact);
+        }
     }
 
     /**
