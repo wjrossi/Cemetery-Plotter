@@ -26,7 +26,9 @@ public class CemeteryPlotterContact extends CemeteryPlotter implements ActionLis
     private JButton removePlotButton;
     private JButton editButton;
     private JButton cancelButton;
+    private JButton deleteButton;
     private JButton updateButton;
+
     private ArrayList<JComponent> editable;
 
     /**
@@ -98,6 +100,10 @@ public class CemeteryPlotterContact extends CemeteryPlotter implements ActionLis
         cancelButton = new JButton("Cancel");
         cancelButton.setActionCommand("cancel");
         cancelButton.addActionListener(this);
+
+        deleteButton = new JButton("Delete");
+        deleteButton.setActionCommand("delete");
+        deleteButton.addActionListener(this);
 
         updateButton = new JButton("Update");
         updateButton.setActionCommand("update");
@@ -181,6 +187,7 @@ public class CemeteryPlotterContact extends CemeteryPlotter implements ActionLis
 
         editPanel.add(editButton);
         editPanel.add(cancelButton);
+        editPanel.add(deleteButton);
         editPanel.add(updateButton);
 
         // add sub-panels to main panel
@@ -208,6 +215,7 @@ public class CemeteryPlotterContact extends CemeteryPlotter implements ActionLis
         editable.add(removePlotButton);
         editable.add(editButton);
         editable.add(cancelButton);
+        editable.add(deleteButton);
         editable.add(updateButton);
 
         // disable editable fields until a plot is selected and edit button is pressed
@@ -243,6 +251,9 @@ public class CemeteryPlotterContact extends CemeteryPlotter implements ActionLis
             case "cancel": // revert changes by clearing and reloading info
                 cancelContact();
                 break;
+            case "delete": // delete this record
+                deleteContact();
+                break;
             case "add": // add a new plot to the contact's list GUI object
                 addPlot();
                 break;
@@ -259,6 +270,20 @@ public class CemeteryPlotterContact extends CemeteryPlotter implements ActionLis
         setContactEditable(true);
         editButton.setEnabled(false);
         cancelButton.requestFocus();
+    }
+
+    /**
+     * Delete button's action for the interred person's data
+     */
+    public void deleteContact() {
+        cemetery.setModified(true);
+        setContactEditable(false);
+        editButton.setEnabled(true);
+        cemeteryPlotterFrame.cemeteryPlotterPlots.getSelectedPlot().setContact(null);
+        clearContactData();
+        getContactData(cemeteryPlotterFrame.cemeteryPlotterPlots.getSelectedPlot());
+        cemeteryPlotterFrame.cemeteryPlotterPeople.refreshPeopleList();
+        editButton.requestFocus();
     }
 
     /**

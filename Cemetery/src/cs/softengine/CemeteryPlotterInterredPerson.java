@@ -23,6 +23,7 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
     private JTextField diedDateYearField;
     private JButton editButton;
     private JButton cancelButton;
+    private JButton deleteButton;
     private JButton updateButton;
     private ArrayList<JComponent> editable;
 
@@ -109,6 +110,10 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
         cancelButton.setActionCommand("cancel");
         cancelButton.addActionListener(this);
 
+        deleteButton = new JButton("Delete");
+        deleteButton.setActionCommand("delete");
+        deleteButton.addActionListener(this);
+
         updateButton = new JButton("Update");
         updateButton.setActionCommand("update");
         updateButton.addActionListener(this);
@@ -153,6 +158,7 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
 
         editPanel.add(editButton);
         editPanel.add(cancelButton);
+        editPanel.add(deleteButton);
         editPanel.add(updateButton);
 
         // add sub-panels to main panel
@@ -179,6 +185,7 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
         editable.add(diedDateYearField);
         editable.add(editButton);
         editable.add(cancelButton);
+        editable.add(deleteButton);
         editable.add(updateButton);
 
         // disable editable fields until a plot is selected and edit button is pressed
@@ -208,6 +215,9 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
             case "edit": // allow the info to be changed
                 editInterred();
                 break;
+            case "delete": // delete this record
+                deleteInterred();
+                break;
             case "update": // write changes to plot
                 updateInterred();
                 break;
@@ -224,6 +234,20 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
         setInterredEditable(true);
         editButton.setEnabled(false);
         cancelButton.requestFocus();
+    }
+
+    /**
+     * Delete button's action for the interred person's data
+     */
+    public void deleteInterred() {
+        cemetery.setModified(true);
+        setInterredEditable(false);
+        editButton.setEnabled(true);
+        cemeteryPlotterFrame.cemeteryPlotterPlots.getSelectedPlot().setInterred(null);
+        clearInterredData();
+        getInterredData(cemeteryPlotterFrame.cemeteryPlotterPlots.getSelectedPlot());
+        cemeteryPlotterFrame.cemeteryPlotterPeople.refreshPeopleList();
+        editButton.requestFocus();
     }
 
     /**
