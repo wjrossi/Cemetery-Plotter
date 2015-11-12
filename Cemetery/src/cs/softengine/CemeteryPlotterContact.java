@@ -280,6 +280,7 @@ public class CemeteryPlotterContact extends CemeteryPlotter implements ActionLis
         cemetery.setModified(true);
         setContactEditable(false);
         editButton.setEnabled(true);
+        cemetery.getContacts().remove(cemeteryPlotterFrame.cemeteryPlotterPlots.getSelectedPlot().getContact());
         cemeteryPlotterFrame.cemeteryPlotterPlots.getSelectedPlot().setContact(null);
         clearContactData();
         getContactData(cemeteryPlotterFrame.cemeteryPlotterPlots.getSelectedPlot());
