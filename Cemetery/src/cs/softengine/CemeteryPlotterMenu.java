@@ -94,85 +94,110 @@ public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListen
 
         switch (choice) {
             case "open": // open a file
-                if (cemetery.isModified()) { // unsaved changes?
-                    int open = JOptionPane.showOptionDialog(cemeteryPlotterFrame.getFrame(),
-                            "You have changes that are not saved.\nAre you sure you want to open a new file?",
-                            "Open?",
-                            JOptionPane.YES_NO_OPTION,
-                            JOptionPane.WARNING_MESSAGE,
-                            null,
-                            null,
-                            null);
-
-                    if (open == JOptionPane.NO_OPTION) {
-                        return;
-                    }
-                }
-
-                File file = openFile();
-
-                if (file != null) {
-                    try {
-                        workingFile = file; // set the working file to the selected file
-                        cemetery.load(file); // open the file using the cemetery object's load(file) method
-                        cemetery.setModified(false);
-                        cemeteryPlotterFrame.getFrame().setTitle("Cemetery Plotter (" + workingFile.getName() + ")");
-                        // reload gui elements
-                        cemeteryPlotterFrame.clearData();
-                        cemeteryPlotterFrame.cemeteryPlotterSections.getSectionsData();
-                    } catch (IOException ex) { // TODO show error dialogs
-                        // major error, how do we handle it??
-                        System.err.println("Unable to read input file.");
-                        ex.printStackTrace();
-                    }
-                } // else do nothing
+                open();
                 break;
             case "save": // save a file
-                if (cemetery.isModified()) { // unsaved changes?
-                    int open = JOptionPane.showOptionDialog(cemeteryPlotterFrame.getFrame(),
-                            "You are about to overwrite \"" + workingFile + "\" with new changes.\nAre you sure you want to save?",
-                            "Save?",
-                            JOptionPane.YES_NO_OPTION,
-                            JOptionPane.WARNING_MESSAGE,
-                            null,
-                            null,
-                            null);
-
-                    if (open == JOptionPane.NO_OPTION) {
-                        return;
-                    }
-                }
-
-                try {
-                    cemetery.save(workingFile); // save the working file
-                    cemetery.setModified(false);
-                } catch (IOException ex) { // TODO show error dialogs
-                    // major error, how do we handle it
-                    System.err.println("Unable to save file.");
-                    ex.printStackTrace();
-                }
+                save();
                 break;
             case "save as":  // save as a user chosen file
-                file = saveAsFile();
-
-                if (file != null) { // a file was selected
-                    try {
-                        workingFile = file; // set the working file to the selected file
-                        cemetery.save(file); // open the file using the cemetery object's load(file) method
-                        cemetery.setModified(false);
-                        cemeteryPlotterFrame.getFrame().setTitle("Cemetery Plotter (" + workingFile.getName() + ")");
-                    } catch (IOException ex) { // TODO show error dialogs
-                        // major error, how do we handle it??
-                        System.err.println("Unable to read input file.");
-                        ex.printStackTrace();
-                    }
-                } // else do nothing
+                saveAs();
                 break;
             case "quit":  // quit the program
                 WindowEvent we = new WindowEvent(cemeteryPlotterFrame.getFrame(), WindowEvent.WINDOW_CLOSING);
                 cemeteryPlotterFrame.getFrame().dispatchEvent(we);
                 break;
         }
+    }
+
+    /**
+     * Open a new file
+     */
+    public void open() {
+        if (cemetery.isModified()) { // unsaved changes?
+            int open = JOptionPane.showOptionDialog(cemeteryPlotterFrame.getFrame(),
+                    "You have changes that are not saved.\nAre you sure you want to open a new file?",
+                    "Open?",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.WARNING_MESSAGE,
+                    null,
+                    null,
+                    null);
+
+            if (open == JOptionPane.NO_OPTION) {
+                return;
+            }
+        }
+
+        File file = openFile();
+
+        if (file != null) {
+            try {
+                workingFile = file; // set the working file to the selected file
+                cemetery = new Cemetery();
+                cemetery.load(workingFile);
+
+                // reload gui elements
+                cemeteryPlotterFrame.getFrame().setTitle("Cemetery Plotter (" + workingFile.getName() + ")");
+                cemeteryPlotterFrame.clearData();
+                cemeteryPlotterFrame.cemeteryPlotterSections.getSectionsData();
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(cemeteryPlotterFrame.getFrame(),
+                        "Unable to open file \"" + file.getName() + "\"!",
+                        "Error",
+                        JOptionPane.WARNING_MESSAGE);
+            }
+        } // else do nothing
+    }
+
+    /**
+     * Save to current file
+     */
+    public void save() {
+        if (cemetery.isModified()) { // unsaved changes?
+            int open = JOptionPane.showOptionDialog(cemeteryPlotterFrame.getFrame(),
+                    "You are about to overwrite \"" + workingFile + "\" with new changes.\nAre you sure you want to save?",
+                    "Save?",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.WARNING_MESSAGE,
+                    null,
+                    null,
+                    null);
+
+            if (open == JOptionPane.NO_OPTION) {
+                return;
+            }
+        }
+
+        try {
+            cemetery.save(workingFile); // save the working file
+            cemetery.setModified(false);
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(cemeteryPlotterFrame.getFrame(),
+                    "Unable to save file \"" + workingFile.getName() + "\"!",
+                    "Error",
+                    JOptionPane.WARNING_MESSAGE);
+        }
+    }
+
+    /**
+     * Save as a different file
+     */
+    public void saveAs() {
+        File file = saveAsFile();
+
+        if (file != null) { // a file was selected
+            try {
+                workingFile = file; // set the working file to the selected file
+                cemetery.save(file); // open the file using the cemetery object's load(file) method
+                cemetery.setModified(false);
+                cemeteryPlotterFrame.getFrame().setTitle("Cemetery Plotter (" + workingFile.getName() + ")");
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(cemeteryPlotterFrame.getFrame(),
+                        "Unable to save as file \"" + file.getName() + "\"!",
+                        "Error",
+                        JOptionPane.WARNING_MESSAGE);
+            }
+        } // else do nothing
     }
 
     /**

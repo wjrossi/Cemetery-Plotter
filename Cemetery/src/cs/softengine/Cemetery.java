@@ -23,9 +23,9 @@ public class Cemetery {
      */
     public Cemetery() {
         modified = false;
-        nextPlotID = -1;
-        nextInterredID = -1;
-        nextContactID = -1;
+        nextPlotID = 0;
+        nextInterredID = 0;
+        nextContactID = 0;
 
         sections = new ArrayList<>();
         plots = new ArrayList<>();
@@ -39,9 +39,9 @@ public class Cemetery {
      */
     public Cemetery(File file) {
         modified = false;
-        nextPlotID = -1;
-        nextInterredID = -1;
-        nextContactID = -1;
+        nextPlotID = 0;
+        nextInterredID = 0;
+        nextContactID = 0;
 
         try {
             load(file); // load the plain-text file
