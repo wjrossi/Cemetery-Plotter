@@ -5,6 +5,7 @@ import javax.swing.border.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Content pane containing editable information on a plot contact
@@ -460,11 +461,13 @@ public class CemeteryPlotterContact extends CemeteryPlotter implements ActionLis
         contact.setZip(zipField.getText());
         contact.setPhone(phoneField.getText());
 
-        contact.setOwnedPlots(new ArrayList<>(ownedListModel.size()));
+        ArrayList<Integer> ownedPlots = new ArrayList<>(ownedListModel.size());
         for (int index = 0; index < ownedListModel.size(); index++) {
-            contact.addOwnedPlot(Integer.parseInt(ownedListModel.get(index)));
+            ownedPlots.add(Integer.parseInt(ownedListModel.get(index)));
             cemetery.getPlots().get(cemetery.getPlots().indexOf(plot)).setContact(contact);
         }
+        Collections.sort(ownedPlots);
+        contact.setOwnedPlots(ownedPlots);
 
         plot.setContact(contact);
 
