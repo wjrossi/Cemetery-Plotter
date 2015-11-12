@@ -23,6 +23,7 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
     private JTextField diedDateYearField;
     private JButton editButton;
     private JButton cancelButton;
+    private JButton deleteButton;
     private JButton updateButton;
     private ArrayList<JComponent> editable;
 
@@ -82,7 +83,6 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
         diedDateDayField = new JTextField(2);
         diedDateYearField = new JTextField(4);
 
-        interredIDField.setEnabled(false); // interredID cannot be changed and is auto-generated
         plotIDField.setEnabled(false); // plotID cannot be changed in interred person sub-class
 
         bornDateMonthField.setToolTipText("MM");
@@ -108,6 +108,10 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
         cancelButton = new JButton("Cancel");
         cancelButton.setActionCommand("cancel");
         cancelButton.addActionListener(this);
+
+        deleteButton = new JButton("Delete");
+        deleteButton.setActionCommand("delete");
+        deleteButton.addActionListener(this);
 
         updateButton = new JButton("Update");
         updateButton.setActionCommand("update");
@@ -153,6 +157,7 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
 
         editPanel.add(editButton);
         editPanel.add(cancelButton);
+        editPanel.add(deleteButton);
         editPanel.add(updateButton);
 
         // add sub-panels to main panel
@@ -167,7 +172,7 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
         panel.add(editPanel, BorderLayout.PAGE_END);
 
         // add editable components to list for easy enable/disable
-        //editable.add(interredIDField); // not editable
+        editable.add(interredIDField);
         //editable.add(plotIDField); // not editable
         editable.add(fnameField);
         editable.add(lnameField);
@@ -179,6 +184,7 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
         editable.add(diedDateYearField);
         editable.add(editButton);
         editable.add(cancelButton);
+        editable.add(deleteButton);
         editable.add(updateButton);
 
         // disable editable fields until a plot is selected and edit button is pressed
@@ -208,6 +214,9 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
             case "edit": // allow the info to be changed
                 editInterred();
                 break;
+            case "delete": // delete this record
+                deleteInterred();
+                break;
             case "update": // write changes to plot
                 updateInterred();
                 break;
@@ -222,22 +231,49 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
      */
     public void editInterred() {
         setInterredEditable(true);
-        interredIDField.setText(Integer.toString(cemetery.getNextInterredID()));
         editButton.setEnabled(false);
         cancelButton.requestFocus();
+    }
+
+    /**
+     * Delete button's action for the interred person's data
+     */
+    public void deleteInterred() {
+        cemetery.setModified(true);
+        setInterredEditable(false);
+        editButton.setEnabled(true);
+        cemetery.getInterred().remove(cemeteryPlotterFrame.cemeteryPlotterPlots.getSelectedPlot().getInterred());
+        cemeteryPlotterFrame.cemeteryPlotterPlots.getSelectedPlot().setInterred(null);
+        clearInterredData();
+        getInterredData(cemeteryPlotterFrame.cemeteryPlotterPlots.getSelectedPlot());
+        cemeteryPlotterFrame.cemeteryPlotterPeople.refreshPeopleList();
+        editButton.requestFocus();
     }
 
     /**
      * Update button's action for the interred person's data
      */
     public void updateInterred() {
-        setInterredEditable(false);
-        editButton.setEnabled(true);
-        setInterredData(cemeteryPlotterFrame.cemeteryPlotterPlots.getSelectedPlot());
-        clearInterredData();
-        getInterredData(cemeteryPlotterFrame.cemeteryPlotterPlots.getSelectedPlot());
-        cemeteryPlotterFrame.cemeteryPlotterPeople.refreshPeopleList();
-        editButton.requestFocus();
+        String interredID = interredIDField.getText().toUpperCase();
+        int interredIndex = cemetery.getInterred().indexOf(new InterredPerson(Integer.parseInt(interredID)));
+
+        if (interredIndex >= 0) { // interredID already exists
+            JOptionPane.showMessageDialog(cemeteryPlotterFrame.getFrame(),
+                    "Interred person with interredID \"" + interredID + "\" already exists\n"
+                            + "in plot with plotID \"" + cemetery.getInterred().get(interredIndex).getPlotID() + "\".",
+                    "Error",
+                    JOptionPane.WARNING_MESSAGE);
+            interredIDField.requestFocus();
+            interredIDField.selectAll();
+        } else {
+            setInterredEditable(false);
+            editButton.setEnabled(true);
+            setInterredData(cemeteryPlotterFrame.cemeteryPlotterPlots.getSelectedPlot());
+            clearInterredData();
+            getInterredData(cemeteryPlotterFrame.cemeteryPlotterPlots.getSelectedPlot());
+            cemeteryPlotterFrame.cemeteryPlotterPeople.refreshPeopleList();
+            editButton.requestFocus();
+        }
     }
 
     /**
@@ -273,6 +309,7 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
             diedDateYearField.setText(ip.getDiedDateYear());
         } else { // possibly creating a new interred person for the associated plot
             plotIDField.setText(Integer.toString(plot.getID()));
+            interredIDField.setText(Integer.toString(cemetery.getNextInterredID()));
         }
     }
 
@@ -288,9 +325,10 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
         if (ip == null) {
             ip = new InterredPerson();
             cemetery.setNextInterredID();
+            cemetery.getInterred().add(ip);
         }
 
-        ip.setInterredID(Integer.parseInt(interredIDField.getText())); // TODO if this already exists, we got a problem
+        ip.setInterredID(Integer.parseInt(interredIDField.getText()));
         ip.setPlotID(Integer.parseInt(plotIDField.getText()));
         ip.setFirstName(fnameField.getText());
         ip.setLastName(lnameField.getText());

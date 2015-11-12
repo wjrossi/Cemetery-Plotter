@@ -3,6 +3,7 @@ package cs.softengine;
 import java.io.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * A cemetery
@@ -22,9 +23,9 @@ public class Cemetery {
      */
     public Cemetery() {
         modified = false;
-        nextPlotID = -1;
-        nextInterredID = -1;
-        nextContactID = -1;
+        nextPlotID = 0;
+        nextInterredID = 0;
+        nextContactID = 0;
 
         sections = new ArrayList<>();
         plots = new ArrayList<>();
@@ -38,9 +39,9 @@ public class Cemetery {
      */
     public Cemetery(File file) {
         modified = false;
-        nextPlotID = -1;
-        nextInterredID = -1;
-        nextContactID = -1;
+        nextPlotID = 0;
+        nextInterredID = 0;
+        nextContactID = 0;
 
         try {
             load(file); // load the plain-text file
@@ -79,6 +80,10 @@ public class Cemetery {
         }
 
         buffer.close();
+
+        for (Section s : sections) {
+            Collections.sort(s.getPlots());
+        }
     }
 
     /**
@@ -144,12 +149,9 @@ public class Cemetery {
         sectionName = buffer.readLine().trim();
         id = Integer.parseInt(buffer.readLine().trim());
 
-        nextPlotID = id > nextPlotID ? id + 1 : nextPlotID;
+        nextPlotID = id >= nextPlotID ? id + 1 : nextPlotID;
 
-        buffer.readLine().trim(); // read empty line
         interred = loadInterredPerson(buffer); // load an interred person belonging to this plot
-
-        buffer.readLine().trim(); // read empty line
         contact = loadPerson(buffer); // load a contact belonging to this plot
 
         // load a burial date
@@ -170,10 +172,6 @@ public class Cemetery {
         plot = new Plot(sectionName, id, interred, contact, burialMonth, burialDay, burialYear,
                 purchasedMonth, purchasedDay, purchasedYear, vacant, ready, moneyDue);
 
-        if (plot.getContact() != null) {
-            plot.getContact().addOwnedPlot(plot.getID());
-        }
-
         plots.add(plot);
         section.add(plot);
     }
@@ -192,6 +190,7 @@ public class Cemetery {
         String city, state, zip;
         String phone;
 
+        buffer.readLine().trim(); // read empty line
         String temp = buffer.readLine().trim();
 
         if (temp.equals("null")) {
@@ -199,7 +198,7 @@ public class Cemetery {
             buffer.readLine().trim(); // read empty line
         } else {
             contactID = Integer.parseInt(temp);
-            nextContactID = contactID > nextContactID ? contactID + 1 : nextContactID;
+            nextContactID = contactID >= nextContactID ? contactID + 1 : nextContactID;
 
             fname = buffer.readLine().trim();
             lname = buffer.readLine().trim();
@@ -210,9 +209,23 @@ public class Cemetery {
             zip = buffer.readLine().trim();
             phone = buffer.readLine().trim();
 
+            contact = new Person(contactID, fname, lname, address1, address2, city, state, zip, phone);
+
             buffer.readLine().trim(); // read empty line
 
-            contact = new Person(contactID, fname, lname, address1, address2, city, state, zip, phone);
+            // read owned plots YIKES
+            temp = buffer.readLine().trim();
+            if (!temp.equals("null")) {
+                contact.addOwnedPlot(Integer.parseInt(temp));
+                while (!(temp = buffer.readLine().trim()).equals("</OWNEDPLOTS>")) {
+                    contact.addOwnedPlot(Integer.parseInt(temp));
+                }
+            } else {
+                buffer.readLine().trim();
+            }
+
+            buffer.readLine().trim(); // read empty line
+
             contacts.add(contact);
         }
 
@@ -233,6 +246,7 @@ public class Cemetery {
         String diedMonth, diedDay, diedYear;
         String fname, lname;
 
+        buffer.readLine().trim(); // read empty line
         String temp = buffer.readLine().trim();
 
         if (temp.equals("null")) {
@@ -240,7 +254,7 @@ public class Cemetery {
             buffer.readLine().trim();
         } else {
             interredID = Integer.parseInt(temp);
-            nextInterredID = interredID > nextInterredID ? interredID + 1 : nextInterredID;
+            nextInterredID = interredID >= nextInterredID ? interredID + 1 : nextInterredID;
 
             plotID = Integer.parseInt(buffer.readLine().trim());
 
@@ -278,6 +292,11 @@ public class Cemetery {
 
         oldFile = file;
         newFile = new File(file.getName() + ".new");
+
+        Collections.sort(sections);
+        Collections.sort(plots);
+        Collections.sort(interred);
+        Collections.sort(contacts);
 
         buffer = new PrintWriter(new FileWriter(newFile));
 

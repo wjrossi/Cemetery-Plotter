@@ -126,7 +126,7 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
      * Action listener for plots content pane
      * @param e action event
      */
-    public void actionPerformed(ActionEvent e) { // TODO add action listeners and stuff first
+    public void actionPerformed(ActionEvent e) {
         String action = e.getActionCommand().toLowerCase();
 
         switch (action) {
@@ -187,12 +187,25 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
     public void deletePlot() {
         Plot plot = getSelectedPlot();
 
-        cemetery.get(new Section(plot.getSection())).remove(plot);
-        cemetery.getPlots().remove(plot);
+        int remove = JOptionPane.showOptionDialog(cemeteryPlotterFrame.getFrame(),
+                "Are you sure you want to delete the plot with plotID \"" + plot.getID() + "\"?\n" +
+                "This action will also delete the interred and contact information associated with the plot.",
+                "Delete?",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE,
+                null,
+                null,
+                null);
 
-        refreshPlotsList();
-        cemeteryPlotterFrame.cemeteryPlotterPeople.refreshPeopleList();
-        cemetery.setModified(true);
+        if (remove == JOptionPane.YES_OPTION) { // remove it
+            cemetery.get(new Section(plot.getSection())).remove(plot);
+            cemetery.getPlots().remove(plot);
+            cemetery.getInterred().remove(plot.getInterred());
+            cemetery.getContacts().remove(plot.getContact());
+            refreshPlotsList();
+            cemeteryPlotterFrame.cemeteryPlotterPeople.refreshPeopleList();
+            cemetery.setModified(true);
+        }
     }
 
     /**
@@ -200,6 +213,7 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
      */
     public void clearPlotsList() {
         plotsListModel.clear();
+        searchField.setText("");
     }
 
     /**
@@ -244,6 +258,13 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
             boolean isAdjusting = e.getValueIsAdjusting();
 
             if (!isAdjusting) {
+                cemeteryPlotterFrame.cemeteryPlotterPlot.clearPlotData();
+                cemeteryPlotterFrame.cemeteryPlotterPlot.setPlotEditable(false);
+                cemeteryPlotterFrame.cemeteryPlotterInterredPerson.clearInterredData();
+                cemeteryPlotterFrame.cemeteryPlotterInterredPerson.setInterredEditable(false);
+                cemeteryPlotterFrame.cemeteryPlotterContact.clearContactData();
+                cemeteryPlotterFrame.cemeteryPlotterContact.setContactEditable(false);
+
                 if (lsm.isSelectionEmpty()) { // no selection
                     // TODO must interact nicely with people list selections
                     cemeteryPlotterFrame.clearData();

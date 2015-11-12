@@ -181,6 +181,9 @@ public class PersonTest {
                 + "Maine"  + "\n"
                 + "1337" + "\n"
                 + "555-555-5555"  + "\n"
+                + "<OWNEDPLOTS>" + "\n"
+                + "null" + "\n"
+                + "</OWNEDPLOTS>\n"
                 + "</PERSON>\n";
 
         assertEquals("Person string should be " + testStr + " but is " + p.toString(), p.toString(), testStr);
