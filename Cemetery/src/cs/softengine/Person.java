@@ -219,7 +219,6 @@ public class Person implements Comparable<Person> {
      *         false, if unsuccessful
      */
     public boolean addOwnedPlot(int plotID) {
-        // TODO need to access that plot and make its contact this person
         return plots.add(plotID);
     }
 

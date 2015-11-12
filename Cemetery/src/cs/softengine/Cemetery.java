@@ -3,6 +3,7 @@ package cs.softengine;
 import java.io.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * A cemetery
@@ -79,6 +80,10 @@ public class Cemetery {
         }
 
         buffer.close();
+
+        for (Section s : sections) {
+            Collections.sort(s.getPlots());
+        }
     }
 
     /**
@@ -166,10 +171,6 @@ public class Cemetery {
 
         plot = new Plot(sectionName, id, interred, contact, burialMonth, burialDay, burialYear,
                 purchasedMonth, purchasedDay, purchasedYear, vacant, ready, moneyDue);
-
-        /*if (plot.getContact() != null) { // TODO this is not adding all owned plots to the contact
-            plot.getContact().addOwnedPlot(plot.getID());
-        }*/
 
         plots.add(plot);
         section.add(plot);
@@ -291,6 +292,11 @@ public class Cemetery {
 
         oldFile = file;
         newFile = new File(file.getName() + ".new");
+
+        Collections.sort(sections);
+        Collections.sort(plots);
+        Collections.sort(interred);
+        Collections.sort(contacts);
 
         buffer = new PrintWriter(new FileWriter(newFile));
 
