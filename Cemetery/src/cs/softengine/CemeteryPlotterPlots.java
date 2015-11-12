@@ -188,7 +188,8 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
         Plot plot = getSelectedPlot();
 
         int remove = JOptionPane.showOptionDialog(cemeteryPlotterFrame.getFrame(),
-                "Are you sure you want to delete the plot with plotID \"" + plot.getID() + "\"?",
+                "Are you sure you want to delete the plot with plotID \"" + plot.getID() + "\"?" +
+                "This action will also delete the interred and contact information associated with the plot.",
                 "Delete?",
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.WARNING_MESSAGE,
