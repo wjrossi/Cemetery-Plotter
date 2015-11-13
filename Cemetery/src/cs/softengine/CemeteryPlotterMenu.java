@@ -155,7 +155,7 @@ public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListen
     public void save() {
         if (cemetery.isModified()) { // unsaved changes?
             int open = JOptionPane.showOptionDialog(cemeteryPlotterFrame.getFrame(),
-                    "You are about to overwrite \"" + workingFile + "\" with new changes.\nAre you sure you want to save?",
+                    "You are about to overwrite \"" + workingFile.getName() + "\" with new changes.\nAre you sure you want to save?",
                     "Save?",
                     JOptionPane.YES_NO_OPTION,
                     JOptionPane.WARNING_MESSAGE,
