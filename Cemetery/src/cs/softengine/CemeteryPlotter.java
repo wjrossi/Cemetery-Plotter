@@ -1,8 +1,6 @@
 package cs.softengine;
 
-import org.parse4j.ParseException;
 import java.io.File;
-import java.io.FileNotFoundException;
 
 /**
  * CemeteryPlotter utility for cemetery management.
@@ -16,7 +14,7 @@ public class CemeteryPlotter {
      * Main
      * @param args n/a
      */
-    public static void main(String[] args) throws ParseException, FileNotFoundException {
+    public static void main(String[] args) {
         File defaultFile;
 
         switch (System.getProperty("os.name").toLowerCase()) {
@@ -29,16 +27,5 @@ public class CemeteryPlotter {
         workingFile = defaultFile; // set working file to default file
         cemetery = new Cemetery(workingFile); // initialize cemetery with default file
         cemeteryPlotterFrame = new CemeteryPlotterFrame(); // create and initialize GUI
-
-        ParseClient pc = new ParseClient();
-
-
-        try {
-            pc.saveFile(workingFile);
-        } catch (ParseException e) {
-            System.out.println("Exception thrown  :" + e);
-        } catch (FileNotFoundException e) {
-            System.out.println("Exception thrown  :" + e);
-        }
     }
 }

@@ -1,5 +1,7 @@
 package cs.softengine;
 
+import org.parse4j.ParseException;
+
 import java.io.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -284,8 +286,7 @@ public class Cemetery {
      * Save cemetery data
      */
     public void save(File file) throws IOException {
-        if (file == null)
-            throw new IOException("No file open to save");
+        if (file == null) throw new IOException("No file open to save");
 
         PrintWriter buffer;
         File oldFile, newFile;

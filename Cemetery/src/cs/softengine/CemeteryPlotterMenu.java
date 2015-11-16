@@ -1,8 +1,8 @@
 package cs.softengine;
+import org.parse4j.ParseException;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
@@ -35,7 +35,7 @@ public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListen
     private JMenuBar createMenuBar() {
         JMenuBar menuBar;
         JMenu menuFile;
-        JMenuItem fileOpen, fileSave, fileSaveAs, fileQuit;
+        JMenuItem fileOpen, fileSave, fileSaveAs, fileQuit, fileSaveInCloud, fileOpenFromCloud;
 
         // create the entire menu bar
         menuBar = new JMenuBar();
@@ -53,6 +53,11 @@ public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListen
         fileOpen.addActionListener(this);
         menuFile.add(fileOpen);
 
+        // open  in cloud
+        fileOpenFromCloud = new JMenuItem("Open From Cloud");
+        fileOpenFromCloud.addActionListener(this);
+        menuFile.add(fileOpenFromCloud);
+
         menuFile.addSeparator();
 
         // save (meta+s)
@@ -68,6 +73,12 @@ public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListen
         fileSaveAs.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.SHIFT_MASK | InputEvent.META_MASK));
         fileSaveAs.addActionListener(this);
         menuFile.add(fileSaveAs);
+
+
+        // file save in cloud
+        fileSaveInCloud = new JMenuItem("Save In Cloud");
+        fileSaveInCloud.addActionListener(this);
+        menuFile.add(fileSaveInCloud);
 
         menuFile.addSeparator();
 
@@ -96,11 +107,17 @@ public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListen
             case "open": // open a file
                 open();
                 break;
+            case "open from cloud":
+                openFromCloud();
+                break;
             case "save": // save a file
                 save();
                 break;
             case "save as":  // save as a user chosen file
                 saveAs();
+                break;
+            case "save in cloud":
+                saveInCloud();
                 break;
             case "quit":  // quit the program
                 WindowEvent we = new WindowEvent(cemeteryPlotterFrame.getFrame(), WindowEvent.WINDOW_CLOSING);
@@ -199,6 +216,31 @@ public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListen
             }
         } // else do nothing
     }
+
+    /**
+     * Save in cloud
+     */
+
+    public void saveInCloud() {
+        ParseClient pc = new ParseClient();
+        try {
+            pc.saveFile(workingFile);
+            System.out.println("Saving to cloud...");
+        } catch (ParseException e) {
+            System.out.println("Exception thrown  :" + e);
+        } catch (IOException e) {
+            System.out.println("Exception thrown  :" + e);
+        }
+    }
+
+    /**
+     * Open From Cloud
+     */
+    public void openFromCloud() {
+
+    }
+
+
 
     /**
      * Show file chooser dialog to open a cemetery db file
