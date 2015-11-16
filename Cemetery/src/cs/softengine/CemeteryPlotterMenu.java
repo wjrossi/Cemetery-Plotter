@@ -171,7 +171,7 @@ public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListen
      */
     public void save() {
         if (cemetery.isModified()) { // unsaved changes?
-            int open = JOptionPane.showOptionDialog(cemeteryPlotterFrame.getFrame(),
+            int save = JOptionPane.showOptionDialog(cemeteryPlotterFrame.getFrame(),
                     "You are about to overwrite \"" + workingFile.getName() + "\" with new changes.\nAre you sure you want to save?",
                     "Save?",
                     JOptionPane.YES_NO_OPTION,
@@ -180,7 +180,7 @@ public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListen
                     null,
                     null);
 
-            if (open == JOptionPane.NO_OPTION) {
+            if (save == JOptionPane.NO_OPTION) {
                 return;
             }
         }
@@ -205,7 +205,7 @@ public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListen
         if (file != null) { // a file was selected
             try {
                 workingFile = file; // set the working file to the selected file
-                cemetery.save(file); // open the file using the cemetery object's load(file) method
+                cemetery.save(workingFile); // open the file using the cemetery object's load(file) method
                 cemetery.setModified(false);
                 cemeteryPlotterFrame.getFrame().setTitle("Cemetery Plotter (" + workingFile.getName() + ")");
             } catch (IOException ex) {
