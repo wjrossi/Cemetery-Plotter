@@ -22,6 +22,7 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
     private JTextField moneyDueField;
     private JCheckBox vacantCheckBox;
     private JCheckBox readyCheckBox;
+    private JTextArea notesTextArea;
     private JButton editButton;
     private JButton cancelButton;
     private JButton updateButton;
@@ -66,6 +67,7 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
         JLabel dateDividerLabel2 = new JLabel("/");
         JLabel dateDividerLabel3 = new JLabel("/");
         JLabel dateDividerLabel4 = new JLabel("/");
+        JLabel notesLabel = new JLabel("Notes:");
 
         burialDateLabel.setToolTipText("MM/DD/YYYY");
         purchasedDateLabel.setToolTipText("MM/DD/YYYY");
@@ -81,6 +83,7 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
         purchasedDateDayField = new JTextField(2);
         purchasedDateYearField = new JTextField(4);
         moneyDueField = new JTextField(8);
+        notesTextArea = new JTextArea(8, 60);
 
         plotIDField.setEnabled(false);
 
@@ -98,6 +101,7 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
         burialDateLabel.setLabelFor(burialDateYearField);
         purchasedDateLabel.setLabelFor(purchasedDateYearField);
         moneyDueLabel.setLabelFor(moneyDueField);
+        notesLabel.setLabelFor(notesTextArea);
 
         // create status check boxes
         vacantCheckBox = new JCheckBox("Vacant", false);
@@ -122,6 +126,7 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
         JPanel purchasedDatePanel = new JPanel();
         JPanel moneyDuePanel = new JPanel();
         JPanel checkBoxPanel = new JPanel();
+        JPanel notesPanel = new JPanel();
         JPanel editPanel = new JPanel();
 
         idPanel.setLayout(new BoxLayout(idPanel, BoxLayout.LINE_AXIS));
@@ -129,6 +134,7 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
         purchasedDatePanel.setLayout(new BoxLayout(purchasedDatePanel, BoxLayout.LINE_AXIS));
         moneyDuePanel.setLayout(new BoxLayout(moneyDuePanel, BoxLayout.LINE_AXIS));
         checkBoxPanel.setLayout(new BoxLayout(checkBoxPanel, BoxLayout.LINE_AXIS));
+        notesPanel.setLayout(new BoxLayout(notesPanel, BoxLayout.LINE_AXIS));
         editPanel.setLayout(new BoxLayout(editPanel, BoxLayout.LINE_AXIS));
 
         // add items to sub-panels
@@ -157,6 +163,9 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
         checkBoxPanel.add(vacantCheckBox);
         checkBoxPanel.add(readyCheckBox);
 
+        notesPanel.add(notesLabel);
+        notesPanel.add(notesTextArea);
+
         editPanel.add(editButton);
         editPanel.add(cancelButton);
         editPanel.add(updateButton);
@@ -169,6 +178,7 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
         fieldsPanel.add(purchasedDatePanel);
         fieldsPanel.add(moneyDuePanel);
         fieldsPanel.add(checkBoxPanel);
+        panel.add(notesPanel);
 
         panel.add(fieldsPanel, BorderLayout.PAGE_START);
         panel.add(editPanel, BorderLayout.PAGE_END);
@@ -184,6 +194,7 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
         editable.add(moneyDueField);
         editable.add(vacantCheckBox);
         editable.add(readyCheckBox);
+        editable.add(notesTextArea);
         editable.add(editButton);
         editable.add(cancelButton);
         editable.add(updateButton);
@@ -287,6 +298,7 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
             moneyDueField.setText(plot.getMoneyDue());
             vacantCheckBox.setSelected(plot.isVacant());
             readyCheckBox.setSelected(plot.isReady());
+            notesTextArea.setText(plot.getNotes());
         } else { // setting up a new plot
             plotIDField.setText(Integer.toString(cemetery.getNextPlotID()));
         }
@@ -322,6 +334,7 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
         plot.setMoneyDue(moneyDueField.getText());
         plot.setVacant(vacantCheckBox.isSelected());
         plot.setReady(readyCheckBox.isSelected());
+        plot.setNotes(notesTextArea.getText());
     }
 
     /**
@@ -338,6 +351,7 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
         purchasedDateDayField.setText("");
         purchasedDateYearField.setText("");
         moneyDueField.setText("");
+        notesTextArea.setText("");
         vacantCheckBox.setSelected(false);
         readyCheckBox.setSelected(false);
     }

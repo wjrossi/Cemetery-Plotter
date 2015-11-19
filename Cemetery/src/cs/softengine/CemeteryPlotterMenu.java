@@ -220,7 +220,6 @@ public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListen
     /**
      * Save in cloud
      */
-
     public void saveInCloud() {
         ParseClient pc = new ParseClient();
         try {
@@ -239,8 +238,6 @@ public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListen
     public void openFromCloud() {
 
     }
-
-
 
     /**
      * Show file chooser dialog to open a cemetery db file

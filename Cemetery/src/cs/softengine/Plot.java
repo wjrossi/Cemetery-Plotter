@@ -23,6 +23,7 @@ public class Plot implements Comparable<Plot> {
     private Date purchasedYear;
     private boolean vacant; // is the plot vacant/not vacant
     private boolean ready; // is the plot ready for use or not ready
+    private String notes;
     private BigDecimal moneyDue; // person owes this much in DOLLARS and CENTS
     private SimpleDateFormat sdfMonth; // month date format
     private SimpleDateFormat sdfDay; // day date format
@@ -33,7 +34,7 @@ public class Plot implements Comparable<Plot> {
      * Constructs an empty plot
      */
     public Plot() {
-        this("", -1, null, null, "", "", "", "", "", "", true, false, new BigDecimal(0));
+        this("", -1, null, null, "", "", "", "", "", "", true, false, new BigDecimal(0), "");
     }
 
     /**
@@ -42,7 +43,7 @@ public class Plot implements Comparable<Plot> {
      * @param id number
      */
     public Plot(String section, int id) {
-        this(section, id, null, null, "", "", "", "", "", "", true, false, new BigDecimal(0));
+        this(section, id, null, null, "", "", "", "", "", "", true, false, new BigDecimal(0), "");
     }
 
     /**
@@ -60,11 +61,12 @@ public class Plot implements Comparable<Plot> {
      * @param vacant boolean
      * @param ready boolean
      * @param moneyDue BigDecimal
+     * @param notes String
      */
     public Plot(String section, int id, InterredPerson interred, Person contact,
                 String burialMonth, String burialDay, String burialYear,
                 String purchasedMonth, String purchasedDay, String purchasedYear,
-                boolean vacant, boolean ready, BigDecimal moneyDue) {
+                boolean vacant, boolean ready, BigDecimal moneyDue, String notes) {
         sdfMonth = new SimpleDateFormat("MM");
         sdfDay = new SimpleDateFormat("dd");
         sdfYear = new SimpleDateFormat("yyyy");
@@ -85,6 +87,7 @@ public class Plot implements Comparable<Plot> {
         this.vacant = vacant;
         this.ready = ready;
         this.moneyDue = moneyDue;
+        this.notes = notes;
     }
 
     /**
@@ -377,6 +380,22 @@ public class Plot implements Comparable<Plot> {
     }
 
     /**
+     * Get notes
+     * @return notes
+     */
+    public String getNotes() {
+        return notes;
+    }
+
+    /**
+     * Set notes
+     * @param n notes
+     */
+    public void setNotes(String n) {
+        notes = n;
+    }
+
+    /**
      * Compare a plot to another plot
      * @param p a plot
      * @return  < 0 if p is less than this plot
@@ -438,6 +457,9 @@ public class Plot implements Comparable<Plot> {
                 + vacant + "\n"
                 + ready + "\n"
                 + moneyDue + "\n"
+                + "<NOTES>\n"
+                + notes + "\n"
+                + "</NOTES>\n"
                 + "</PLOT>\n";
 
         return result;

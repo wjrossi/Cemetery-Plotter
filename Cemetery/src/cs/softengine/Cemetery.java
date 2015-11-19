@@ -147,6 +147,7 @@ public class Cemetery {
         boolean vacant; // is the plot vacant/not vacant
         boolean ready; // is the plot ready for use or not ready
         BigDecimal moneyDue; // if not 0, person owes this much IN CENTS (for accuracy)
+        String notes;
 
         sectionName = buffer.readLine().trim();
         id = Integer.parseInt(buffer.readLine().trim());
@@ -171,8 +172,15 @@ public class Cemetery {
 
         moneyDue = new BigDecimal(buffer.readLine().trim());
 
+        buffer.readLine().trim(); // read empty line
+        String temp;
+        notes = "";
+
+        while (!(temp = buffer.readLine()).equals("</NOTES>"))
+            notes += temp + "\n";
+
         plot = new Plot(sectionName, id, interred, contact, burialMonth, burialDay, burialYear,
-                purchasedMonth, purchasedDay, purchasedYear, vacant, ready, moneyDue);
+                purchasedMonth, purchasedDay, purchasedYear, vacant, ready, moneyDue, notes);
 
         plots.add(plot);
         section.add(plot);
