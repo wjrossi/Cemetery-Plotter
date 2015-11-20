@@ -218,7 +218,7 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
             InterredPerson ip = p.getInterred();
             if (ip != null) {
                 // TODO switch based on filterByBox (to show burial date instead of name for example)
-                results.add(ip.getLastName() + ", " + ip.getFirstName());
+                results.add(ip.getLastName() + ", " + ip.getFirstName() + " [Plot #" + ip.getPlotID() + "]");
             }
         }
 
@@ -227,18 +227,18 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
 
     /**
      * Get the data from cemetery about the contact of plots in the selected section(s)
-     * @param section selected in CeneteryPlotterSections
+     * @param section selected in CemeteryPlotterSections
      * @return list of contacts
      */
     private ArrayList<String> getPeopleDataContact(String section) {
         Section s = cemetery.get(new Section(section));
         ArrayList<String> results = new ArrayList<>(s.getSize());
 
-        for (Plot p : s.getPlots()) {
-            Person o = p.getContact();
-            if (o != null) {
+        for (Plot plot : s.getPlots()) {
+            Person p = plot.getContact();
+            if (p != null) {
                 // TODO switch based on filterByBox (to show ID instead of name for example)
-                results.add(o.getLastName() + ", " + o.getFirstName());
+                results.add(p.getLastName() + ", " + p.getFirstName());
             }
         }
 
@@ -266,11 +266,29 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
     }
 
     /**
-     * Override the people list's selection
+     * Get the people list
+     * @return peopleListModel
      */
-    public void overridePeopleList() {
-        peopleList.clearSelection();
+    public DefaultListModel<String> getPeopleListModel() {
+        return peopleListModel;
     }
+
+    /**
+     * Get people list
+     * @return peopleList
+     */
+    public JList<String> getPeopleList() {
+        return peopleList;
+    }
+
+    /**
+     * Set selected person
+     * @param index of person in peopleList
+     */
+    public void setSelectedPerson(int index) {
+        peopleList.setSelectedIndex(index);
+    }
+
 
     /**
      * Implementation of ListSelectionListener that is invoked when selections are made on the people list
@@ -291,9 +309,15 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
             if (!isAdjusting) {
                 if (!lsm.isSelectionEmpty()) { // show the selected person
                     int index = lsm.getMinSelectionIndex();
-                    // TODO must interact nicely with plot list selections
-                    // should select the associated plotID in the plots list which will make it show in the center
-                    System.out.println("Selected Person: " + peopleListModel.get(index)); // TEMP
+                    String selection = peopleListModel.get(index);
+                    String id = "";
+                    if (selection.indexOf("[Plot #") > 0) {
+                        id = selection.substring(selection.lastIndexOf("[Plot #") + 7, selection.lastIndexOf("]"));
+                        if (!id.isEmpty()) {
+                            int plotsIndex = cemeteryPlotterFrame.cemeteryPlotterPlots.getPlotsListModel().indexOf(id);
+                            cemeteryPlotterFrame.cemeteryPlotterPlots.setSelectedPlot(plotsIndex);
+                        }
+                    }
                 }
             }
         }

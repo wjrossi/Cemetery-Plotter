@@ -209,6 +209,14 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
     }
 
     /**
+     * Get the plots list
+     * @return plotsListModel
+     */
+    public DefaultListModel<String> getPlotsListModel() {
+        return plotsListModel;
+    }
+
+    /**
      * Clear the plots list
      */
     public void clearPlotsList() {
@@ -242,6 +250,14 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
     }
 
     /**
+     * Set selected plot
+     * @param index of plot in plotsList
+     */
+    public void setSelectedPlot(int index) {
+        plotsList.setSelectedIndex(index);
+    }
+
+    /**
      * Implementation of ListSelectionListener that is invoked when selections are made on the plots list
      */
     class PlotsListSelectionHandler implements ListSelectionListener {
@@ -266,14 +282,14 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
                 cemeteryPlotterFrame.cemeteryPlotterContact.setContactEditable(false);
 
                 if (lsm.isSelectionEmpty()) { // no selection
-                    // TODO must interact nicely with people list selections
                     cemeteryPlotterFrame.clearData();
                 } else { // show the selected plot
                     // TODO must interact nicely with people list selections
                     int index = lsm.getMinSelectionIndex();
                     int plotID = Integer.parseInt(plotsListModel.get(index));
                     Plot plot = new Plot("", plotID);
-                    cemeteryPlotterFrame.cemeteryPlotterPeople.overridePeopleList();
+
+                    cemeteryPlotterFrame.cemeteryPlotterPeople.getPeopleList().clearSelection();
                     cemeteryPlotterFrame.clearData();
                     cemeteryPlotterFrame.getData(plot);
                 }
