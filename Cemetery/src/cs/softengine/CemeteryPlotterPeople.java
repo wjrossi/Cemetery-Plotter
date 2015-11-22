@@ -120,7 +120,7 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
 
         peopleList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         peopleList.setLayoutOrientation(JList.VERTICAL);
-        peopleList.setPrototypeCellValue("Firstname Lastname");
+        peopleList.setPrototypeCellValue("Lastname, Firstname [Plot #: 12345]");
 
         // add list to main panel
         panel.add(peopleListScrollPane, BorderLayout.CENTER);

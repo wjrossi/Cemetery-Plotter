@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
@@ -49,7 +50,23 @@ public class CemeteryPlotterMap extends CemeteryPlotter implements ActionListene
         mapPane.setEditable(false);
         JScrollPane mapScrollPane = new JScrollPane(mapPane);
         mapScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        //mapScrollPane.setPreferredSize(new Dimension(320, 240));
+
+        mapPane.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (cemeteryPlotterFrame.cemeteryPlotterPlot.isEditable())
+                    cemeteryPlotterFrame.cemeteryPlotterPlot.setMapLocationField(e.getPoint());
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) { }
+            @Override
+            public void mouseReleased(MouseEvent e) { }
+            @Override
+            public void mouseEntered(MouseEvent e) { }
+            @Override
+            public void mouseExited(MouseEvent e) { }
+        });
 
         // add map scroll pane to main panel
         panel.add(mapScrollPane, BorderLayout.CENTER);
@@ -71,9 +88,9 @@ public class CemeteryPlotterMap extends CemeteryPlotter implements ActionListene
      * Load URL in map pane after other GUI elements
      */
     public void getMapData() {
-        URL mapURL;
+        String mapURL;
         try { // TODO what do we put in the map and how
-            mapURL = new URL(""); // super temporary!! may want to do this after loading gui!!
+            mapURL = new File("resources/map.html").toURL().toString(); // super temporary!! may want to do this after loading gui!!
             mapPane.setPage(mapURL);
         } catch (IOException e) {
             e.printStackTrace();

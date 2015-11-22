@@ -255,6 +255,7 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
      */
     public void setSelectedPlot(int index) {
         plotsList.setSelectedIndex(index);
+        plotsList.ensureIndexIsVisible(index);
     }
 
     /**
