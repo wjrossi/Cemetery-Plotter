@@ -62,19 +62,13 @@ public class Cemetery {
      * @throws IOException
      */
     public void load(File file) throws IOException {
-        File oldFile = file;
         File decompressedFile = decompress(file);
-
-        if (decompressedFile.exists()) {
-            oldFile.delete();
-            decompressedFile.renameTo(file);
-        }
 
         BufferedReader buffer;
         String temp;
         Section section = null; // current section for quick loading of plots
 
-        buffer = new BufferedReader(new FileReader(file));
+        buffer = new BufferedReader(new FileReader(decompressedFile));
         while ((temp = buffer.readLine()) != null) {
             switch (temp.trim()) {
                 case "<CEMETERY>":
@@ -342,7 +336,7 @@ public class Cemetery {
      * @return compressed save file
      */
     private File compress(File file) {
-        File fileOut = new File(file.getName() + "x");
+        File fileOut = new File(file.getName() + ".tmp");
 
         try {
             FileInputStream fileRead = new FileInputStream(file);
@@ -366,7 +360,7 @@ public class Cemetery {
     }
 
     private File decompress(File file) {
-        File fileOut = new File(file.getName() + "x");
+        File fileOut = new File(file.getName() + ".tmp");
 
         try {
             InflaterInputStream fileRead = new InflaterInputStream(new FileInputStream(file));
