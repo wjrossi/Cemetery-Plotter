@@ -22,6 +22,8 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
     private JTextField moneyDueField;
     private JCheckBox vacantCheckBox;
     private JCheckBox readyCheckBox;
+    private JCheckBox veteranCheckBox;
+    private JCheckBox crematedCheckBox;
     private JTextArea notesTextArea;
     private JTextField mapLocationField;
     private JButton editButton;
@@ -112,6 +114,8 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
         // create status check boxes
         vacantCheckBox = new JCheckBox("Vacant", false);
         readyCheckBox = new JCheckBox("Ready", false);
+        veteranCheckBox = new JCheckBox("Veteran", false);
+        crematedCheckBox = new JCheckBox("Cremated", false);
 
         // create edit, update, and cancel buttons
         editButton = new JButton("Edit"); // when clicked will unlock text fields and allow changes
@@ -170,6 +174,8 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
 
         checkBoxPanel.add(vacantCheckBox);
         checkBoxPanel.add(readyCheckBox);
+        checkBoxPanel.add(veteranCheckBox);
+        checkBoxPanel.add(crematedCheckBox);
 
         notesPanel.add(notesLabel);
         notesPanel.add(notesTextArea);
@@ -206,6 +212,8 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
         editable.add(moneyDueField);
         editable.add(vacantCheckBox);
         editable.add(readyCheckBox);
+        editable.add(veteranCheckBox);
+        editable.add(crematedCheckBox);
         editable.add(notesTextArea);
         editable.add(editButton);
         editable.add(cancelButton);
@@ -326,6 +334,8 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
             moneyDueField.setText(plot.getMoneyDue());
             vacantCheckBox.setSelected(plot.isVacant());
             readyCheckBox.setSelected(plot.isReady());
+            veteranCheckBox.setSelected(plot.isVeteran());
+            crematedCheckBox.setSelected(plot.isCremated());
             notesTextArea.setText(plot.getNotes());
             mapLocationField.setText(plot.getMapLocation());
 
@@ -366,6 +376,8 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
         plot.setMoneyDue(moneyDueField.getText());
         plot.setVacant(vacantCheckBox.isSelected());
         plot.setReady(readyCheckBox.isSelected());
+        plot.setVeteran(veteranCheckBox.isSelected());
+        plot.setCremated(crematedCheckBox.isSelected());
         plot.setNotes(notesTextArea.getText());
         plot.setMapLocation(mapLocationField.getText());
     }
@@ -388,5 +400,7 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
         mapLocationField.setText("");
         vacantCheckBox.setSelected(false);
         readyCheckBox.setSelected(false);
+        veteranCheckBox.setSelected(false);
+        crematedCheckBox.setSelected(false);
     }
 }

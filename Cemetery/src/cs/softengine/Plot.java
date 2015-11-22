@@ -23,6 +23,8 @@ public class Plot implements Comparable<Plot> {
     private Date purchasedYear;
     private boolean vacant; // is the plot vacant/not vacant
     private boolean ready; // is the plot ready for use or not ready
+    private boolean veteran;
+    private boolean cremated;
     private String notes;
     private BigDecimal moneyDue; // person owes this much in DOLLARS and CENTS
     private String mapLocation;
@@ -35,7 +37,7 @@ public class Plot implements Comparable<Plot> {
      * Constructs an empty plot
      */
     public Plot() {
-        this("", -1, null, null, "", "", "", "", "", "", true, false, new BigDecimal(0), "", "");
+        this("", -1, null, null, "", "", "", "", "", "", true, false, false, false, new BigDecimal(0), "", "");
     }
 
     /**
@@ -44,7 +46,7 @@ public class Plot implements Comparable<Plot> {
      * @param id number
      */
     public Plot(String section, int id) {
-        this(section, id, null, null, "", "", "", "", "", "", true, false, new BigDecimal(0), "", "");
+        this(section, id, null, null, "", "", "", "", "", "", true, false, false, false, new BigDecimal(0), "", "");
     }
 
     /**
@@ -61,6 +63,8 @@ public class Plot implements Comparable<Plot> {
      * @param purchasedYear year
      * @param vacant boolean
      * @param ready boolean
+     * @param veteran boolean
+     * @param cremated boolean
      * @param moneyDue BigDecimal
      * @param notes String
      * @paran mapLocation String
@@ -68,7 +72,8 @@ public class Plot implements Comparable<Plot> {
     public Plot(String section, int id, InterredPerson interred, Person contact,
                 String burialMonth, String burialDay, String burialYear,
                 String purchasedMonth, String purchasedDay, String purchasedYear,
-                boolean vacant, boolean ready, BigDecimal moneyDue, String notes, String mapLocation) {
+                boolean vacant, boolean ready, boolean veteran, boolean cremated,
+                BigDecimal moneyDue, String notes, String mapLocation) {
         sdfMonth = new SimpleDateFormat("MM");
         sdfDay = new SimpleDateFormat("dd");
         sdfYear = new SimpleDateFormat("yyyy");
@@ -88,6 +93,8 @@ public class Plot implements Comparable<Plot> {
         setPurchasedDateYear(purchasedYear);
         this.vacant = vacant;
         this.ready = ready;
+        this.veteran = veteran;
+        this.cremated = cremated;
         this.moneyDue = moneyDue;
         this.notes = notes;
         this.mapLocation = mapLocation;
@@ -361,6 +368,38 @@ public class Plot implements Comparable<Plot> {
     }
 
     /**
+     * Is the plot for a veteran
+     * @return veteran
+     */
+    public boolean isVeteran() {
+        return veteran;
+    }
+
+    /**
+     * Is the plot for a veteran
+     * @param v veteran
+     */
+    public void setVeteran(boolean v) {
+        veteran = v;
+    }
+
+    /**
+     * Is the plot for a person who was cremated
+     * @return cremated
+     */
+    public boolean isCremated() {
+        return cremated;
+    }
+
+    /**
+     * Is the plot for a person who was cremated
+     * @param c cremated
+     */
+    public void setCremated(boolean c) {
+        cremated = c;
+    }
+
+    /**
      * Get the amount of money due, performs necessary conversion from CENTS to DOLLARS
      * @return the money due in DOLLARS
      */
@@ -475,6 +514,8 @@ public class Plot implements Comparable<Plot> {
                 + getPurchasedDateYear() + "\n"
                 + vacant + "\n"
                 + ready + "\n"
+                + veteran + "\n"
+                + cremated + "\n"
                 + moneyDue + "\n"
                 + "<NOTES>\n"
                 + notes + "\n"

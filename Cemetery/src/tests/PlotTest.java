@@ -77,7 +77,7 @@ public class PlotTest {
      */
     @Test
     public void testGetBurialDateMonth(){
-        p = new Plot("A", 0, new InterredPerson(), new Person(), "11", "11", "1111", "12", "12", "2222", false, false, new BigDecimal(0), "", "");
+        p = new Plot("A", 0, new InterredPerson(), new Person(), "11", "11", "1111", "12", "12", "2222", false, false, false, false, new BigDecimal(0), "", "");
         assertEquals("getBurialDateMonth must return '11' but returned: " + p.getBurialDateMonth(), p.getBurialDateMonth(), "11");
     }
 
@@ -86,7 +86,7 @@ public class PlotTest {
      */
     @Test
     public void testSetBurialDateMonth(){
-        p = new Plot("A", 0, new InterredPerson(), new Person(), "11", "11", "1111", "12", "12", "2222", false, false, new BigDecimal(0), "", "");
+        p = new Plot("A", 0, new InterredPerson(), new Person(), "11", "11", "1111", "12", "12", "2222", false, false, false, false, new BigDecimal(0), "", "");
         p.setBurialDateMonth("12");
         assertEquals("burialMonth should be '12', but is: " + p.getBurialDateMonth(), p.getBurialDateMonth(), "12");
     }
@@ -96,7 +96,7 @@ public class PlotTest {
      */
     @Test
     public void testGetBurialDateDay(){
-        p = new Plot("A", 0, new InterredPerson(), new Person(), "11", "11", "1111", "12", "12", "2222", false, false, new BigDecimal(0), "", "");
+        p = new Plot("A", 0, new InterredPerson(), new Person(), "11", "11", "1111", "12", "12", "2222", false, false, false, false, new BigDecimal(0), "", "");
         assertEquals("getBurialDateDay must return '11', but returned: " + p.getBurialDateDay(), p.getBurialDateDay(), "11");
     }
 
@@ -105,7 +105,7 @@ public class PlotTest {
      */
     @Test
     public void testSetBurialDateDay(){
-        p = new Plot("A", 0, new InterredPerson(), new Person(), "11", "11", "1111", "12", "12", "2222", false, false, new BigDecimal(0), "", "");
+        p = new Plot("A", 0, new InterredPerson(), new Person(), "11", "11", "1111", "12", "12", "2222", false, false, false, false, new BigDecimal(0), "", "");
         p.setBurialDateDay("12");
         assertEquals("burialDay should be '12', but is: " + p.getBurialDateDay(), p.getBurialDateDay(), "12");
     }
@@ -115,7 +115,7 @@ public class PlotTest {
      */
     @Test
     public void testGetBurialDateYear(){
-        p = new Plot("A", 0, new InterredPerson(), new Person(), "11", "11", "1111", "12", "12", "2222", false, false, new BigDecimal(0), "", "");
+        p = new Plot("A", 0, new InterredPerson(), new Person(), "11", "11", "1111", "12", "12", "2222", false, false, false, false, new BigDecimal(0), "", "");
         assertEquals("getBurialDateYear must return '1111', but returned: " + p.getBurialDateYear(), p.getBurialDateYear(), "1111");
     }
 
@@ -124,7 +124,7 @@ public class PlotTest {
      */
     @Test
     public void testSetBurialDateYear(){
-        p = new Plot("A", 0, new InterredPerson(), new Person(), "11", "11", "1111", "12", "12", "2222", false, false, new BigDecimal(0), "", "");
+        p = new Plot("A", 0, new InterredPerson(), new Person(), "11", "11", "1111", "12", "12", "2222", false, false, false, false, new BigDecimal(0), "", "");
         p.setBurialDateYear("2222");
         assertEquals("burialDay should be '2222', but is: " + p.getBurialDateYear(), p.getBurialDateYear(), "2222");
     }
@@ -134,7 +134,7 @@ public class PlotTest {
      */
     @Test
     public void testGetPurchasedDateMonth(){
-        p = new Plot("A", 0, new InterredPerson(), new Person(), "11", "11", "1111", "12", "12", "2222", false, false, new BigDecimal(0), "", "");
+        p = new Plot("A", 0, new InterredPerson(), new Person(), "11", "11", "1111", "12", "12", "2222", false, false, false, false, new BigDecimal(0), "", "");
         assertEquals("getPurchasedDateMonth must return '12' but returned: " + p.getPurchasedDateMonth(), p.getPurchasedDateMonth(), "12");
     }
 
@@ -143,7 +143,7 @@ public class PlotTest {
      */
     @Test
     public void testSetPurchasedDateMonth(){
-        p = new Plot("A", 0, new InterredPerson(), new Person(), "11", "11", "1111", "12", "12", "2222", false, false, new BigDecimal(0), "", "");
+        p = new Plot("A", 0, new InterredPerson(), new Person(), "11", "11", "1111", "12", "12", "2222", false, false, false, false, new BigDecimal(0), "", "");
         p.setPurchasedDateMonth("11");
         assertEquals("PurchasedMonth should be '11', but is: " + p.getPurchasedDateMonth(), p.getPurchasedDateMonth(), "11");
     }
@@ -153,7 +153,7 @@ public class PlotTest {
      */
     @Test
     public void testGetPurchasedDateDay(){
-        p = new Plot("A", 0, new InterredPerson(), new Person(), "11", "11", "1111", "12", "12", "2222", false, false, new BigDecimal(0), "", "");
+        p = new Plot("A", 0, new InterredPerson(), new Person(), "11", "11", "1111", "12", "12", "2222", false, false, false, false, new BigDecimal(0), "", "");
         assertEquals("getPurchasedDateDay must return '12', but returned: " + p.getPurchasedDateDay(), p.getPurchasedDateDay(), "12");
     }
 
@@ -162,7 +162,7 @@ public class PlotTest {
      */
     @Test
     public void testSetPurchasedDateDay(){
-        p = new Plot("A", 0, new InterredPerson(), new Person(), "11", "11", "1111", "12", "12", "2222", false, false, new BigDecimal(0), "", "");
+        p = new Plot("A", 0, new InterredPerson(), new Person(), "11", "11", "1111", "12", "12", "2222", false, false, false, false, new BigDecimal(0), "", "");
         p.setPurchasedDateDay("11");
         assertEquals("PurchasedDay should be '11', but is: " + p.getPurchasedDateDay(), p.getPurchasedDateDay(), "11");
     }
@@ -172,7 +172,7 @@ public class PlotTest {
      */
     @Test
     public void testGetPurchasedDateYear(){
-        p = new Plot("A", 0, new InterredPerson(), new Person(), "11", "11", "1111", "12", "12", "2222", false, false, new BigDecimal(0), "", "");
+        p = new Plot("A", 0, new InterredPerson(), new Person(), "11", "11", "1111", "12", "12", "2222", false, false, false, false, new BigDecimal(0), "", "");
         assertEquals("getPurchasedDateYear must return '2222', but returned: " + p.getPurchasedDateYear(), p.getPurchasedDateYear(), "2222");
     }
 
@@ -181,7 +181,7 @@ public class PlotTest {
      */
     @Test
     public void testSetPurchasedDateYear(){
-        p = new Plot("A", 0, new InterredPerson(), new Person(), "11", "11", "1111", "12", "12", "2222", false, false, new BigDecimal(0), "", "");
+        p = new Plot("A", 0, new InterredPerson(), new Person(), "11", "11", "1111", "12", "12", "2222", false, false, false, false, new BigDecimal(0), "", "");
         p.setPurchasedDateYear("1111");
         assertEquals("PurchasedDay should be '1111', but is: " + p.getPurchasedDateYear(), p.getPurchasedDateYear(), "1111");
     }
@@ -298,7 +298,7 @@ public class PlotTest {
      * Tests that the Plot.toString() method is working correctly.
      */
     public void testToString(){
-        p = new Plot("A", 0, null, null, "11", "11", "1111", "12", "12", "2222", false, false, new BigDecimal(0), "", "");
+        p = new Plot("A", 0, null, null, "11", "11", "1111", "12", "12", "2222", false, false, false, false, new BigDecimal(0), "", "");
         String testStr = "<PLOT>\n"
                 + 0
                 + "<INTERREDPERSON>\nnull\n</INTERREDPERSON\n"
@@ -309,6 +309,8 @@ public class PlotTest {
                 + "12\n"
                 + "12\n"
                 + "2222\n"
+                + false + "\n"
+                + false + "\n"
                 + false + "\n"
                 + false + "\n"
                 + "$0.00\n"

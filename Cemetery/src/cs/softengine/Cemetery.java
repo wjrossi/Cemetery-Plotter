@@ -148,6 +148,8 @@ public class Cemetery {
         String purchasedMonth, purchasedDay, purchasedYear; // purchase date
         boolean vacant; // is the plot vacant/not vacant
         boolean ready; // is the plot ready for use or not ready
+        boolean veteran;
+        boolean cremated;
         BigDecimal moneyDue; // if not 0, person owes this much IN CENTS (for accuracy)
         String notes;
         String mapLocation;
@@ -172,6 +174,8 @@ public class Cemetery {
 
         vacant = Boolean.parseBoolean(buffer.readLine().trim());
         ready = Boolean.parseBoolean(buffer.readLine().trim());
+        veteran = Boolean.parseBoolean(buffer.readLine().trim());
+        cremated = Boolean.parseBoolean(buffer.readLine().trim());
 
         moneyDue = new BigDecimal(buffer.readLine().trim());
 
@@ -185,7 +189,7 @@ public class Cemetery {
         mapLocation = buffer.readLine().trim();
 
         plot = new Plot(sectionName, id, interred, contact, burialMonth, burialDay, burialYear,
-                purchasedMonth, purchasedDay, purchasedYear, vacant, ready, moneyDue, notes, mapLocation);
+                purchasedMonth, purchasedDay, purchasedYear, vacant, ready, veteran, cremated, moneyDue, notes, mapLocation);
 
         plots.add(plot);
         section.add(plot);
