@@ -328,6 +328,9 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
             readyCheckBox.setSelected(plot.isReady());
             notesTextArea.setText(plot.getNotes());
             mapLocationField.setText(plot.getMapLocation());
+
+            if (!plot.getMapLocation().isEmpty())
+                cemeteryPlotterFrame.cemeteryPlotterMap.setView(plot.getMapLocation());
         } else { // setting up a new plot
             plotIDField.setText(Integer.toString(cemetery.getNextPlotID()));
         }

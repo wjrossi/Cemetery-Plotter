@@ -14,6 +14,7 @@ import java.net.URL;
 public class CemeteryPlotterMap extends CemeteryPlotter implements ActionListener {
     private JPanel mapPanel;
     private JEditorPane mapPane;
+    private JScrollPane mapScrollPane;
 
     /**
      * Constructs a content pane for map
@@ -48,7 +49,7 @@ public class CemeteryPlotterMap extends CemeteryPlotter implements ActionListene
         // create map pane
         mapPane = new JEditorPane();
         mapPane.setEditable(false);
-        JScrollPane mapScrollPane = new JScrollPane(mapPane);
+        mapScrollPane = new JScrollPane(mapPane);
         mapScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
         mapPane.addMouseListener(new MouseListener() {
@@ -82,6 +83,13 @@ public class CemeteryPlotterMap extends CemeteryPlotter implements ActionListene
         panel.add(mapControls, BorderLayout.PAGE_END);
 
         return panel;
+    }
+
+    public void setView(String mapLocation) {
+        int x = Integer.parseInt(mapLocation.substring(1, mapLocation.indexOf(',')));
+        int y = Integer.parseInt(mapLocation.substring(mapLocation.indexOf(", ") + 2, mapLocation.length() - 1));
+        Point point = new Point(x, y);
+        mapScrollPane.getViewport().setViewPosition(point);
     }
 
     /**
