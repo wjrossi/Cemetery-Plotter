@@ -17,9 +17,6 @@ import java.util.Collections;
 public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionListener {
     private JPanel peoplePanel;
     private JTextField filterField;
-    private JComboBox<String> filterByBox;
-    private DefaultComboBoxModel<String> filterByBoxListModel;
-    private String[] filterByBoxList;
     private JRadioButton bothRadioButton;
     private JRadioButton interredPeopleRadioButton;
     private JRadioButton contactsRadioButton;
@@ -62,17 +59,6 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
         // create filter text field
         filterField = new JTextField(); // TODO add listener that searches as you type
 
-        // create filter by combo box
-        filterByBoxList = new String[] { "Last Name, First Name" };
-        filterByBoxListModel = new DefaultComboBoxModel<>(filterByBoxList);
-        filterByBox = new JComboBox<>(filterByBoxListModel);
-        filterByBox.setEditable(false);
-
-        // add filter by combo box to filterCenter panel
-        JPanel filterCenter = new JPanel();
-        filterCenter.setLayout(new BoxLayout(filterCenter, BoxLayout.LINE_AXIS));
-        filterCenter.add(filterByBox);
-
         // create filter radio buttons
         interredPeopleRadioButton = new JRadioButton("Interred", false);
         interredPeopleRadioButton.setActionCommand("interred");
@@ -102,7 +88,6 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
         // add filter field, filterCenter panel and filter radio button panel to overall filter panel
         JPanel filterPanel = new JPanel(new BorderLayout());
         filterPanel.add(filterField, BorderLayout.PAGE_START);
-        filterPanel.add(filterCenter, BorderLayout.CENTER);
         filterPanel.add(filterRadioButtonPanel, BorderLayout.PAGE_END);
 
         // add filter panel to main panel
@@ -117,10 +102,11 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
 
         peopleListScrollPane = new JScrollPane(peopleList);
         peopleListScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        peopleListScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 
         peopleList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         peopleList.setLayoutOrientation(JList.VERTICAL);
-        peopleList.setPrototypeCellValue("Lastname, Firstname [Plot #: 12345]");
+        peopleList.setPrototypeCellValue("Lastname, Firstname Middle (PlotID: 12345)");
 
         // add list to main panel
         panel.add(peopleListScrollPane, BorderLayout.CENTER);
@@ -137,38 +123,18 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
 
         switch (action) {
             case "interred": // refresh people list on any of these actions
-                // change filterBy list to reflect the type or people being viewed
-                filterByBoxListModel.removeAllElements();
-                filterByBoxList = new String[] { "InterredID", "Last Name, First Name",
-                        "Date of Burial", "Date of Purchase" };
-                filterByBoxListModel = new DefaultComboBoxModel<>(filterByBoxList);
-                filterByBox.setModel(filterByBoxListModel);
-
                 // clear the people list
                 peopleListModel.clear();
                 // get the people data for each selected section
                 getPeopleData(cemeteryPlotterFrame.cemeteryPlotterSections.getSelectedSections());
                 break;
             case "contacts":
-                // change filterBy list to reflect the type or people being viewed
-                filterByBoxListModel.removeAllElements();
-                filterByBoxList = new String[] { "ContactID", "Last Name, First Name", "Phone",
-                        "Date of Birth", "Date of Death", "Address", "City", "State", "Zip" };
-                filterByBoxListModel = new DefaultComboBoxModel<>(filterByBoxList);
-                filterByBox.setModel(filterByBoxListModel);
-
                 // clear the people list
                 peopleListModel.clear();
                 // get the people data for each selected section
                 getPeopleData(cemeteryPlotterFrame.cemeteryPlotterSections.getSelectedSections());
                 break;
             case "both":
-                // change filterBy list to reflect the type or people being viewed
-                filterByBoxListModel.removeAllElements();
-                filterByBoxList = new String[] { "Last Name, First Name" };
-                filterByBoxListModel = new DefaultComboBoxModel<>(filterByBoxList);
-                filterByBox.setModel(filterByBoxListModel);
-
                 // clear the people list
                 peopleListModel.clear();
                 // get the people data for each selected section
@@ -216,10 +182,8 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
 
         for (Plot p : s.getPlots()) {
             InterredPerson ip = p.getInterred();
-            if (ip != null) {
-                // TODO switch based on filterByBox (to show burial date instead of name for example)
-                results.add(ip.getLastName() + ", " + ip.getFirstName() + " [Plot #" + ip.getPlotID() + "]");
-            }
+            if (ip != null)
+                results.add(ip.getLastName() + ", " + ip.getFirstName() + " (PlotID: " + ip.getPlotID() + ")");
         }
 
         return results;
@@ -236,10 +200,8 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
 
         for (Plot plot : s.getPlots()) {
             Person p = plot.getContact();
-            if (p != null) {
-                // TODO switch based on filterByBox (to show ID instead of name for example)
+            if (p != null)
                 results.add(p.getLastName() + ", " + p.getFirstName());
-            }
         }
 
         return results;
@@ -311,8 +273,8 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
                     int index = lsm.getMinSelectionIndex();
                     String selection = peopleListModel.get(index);
                     String id = "";
-                    if (selection.indexOf("[Plot #") > 0) {
-                        id = selection.substring(selection.lastIndexOf("[Plot #") + 7, selection.lastIndexOf("]"));
+                    if (selection.indexOf("(PlotID: ") > 0) {
+                        id = selection.substring(selection.lastIndexOf("(PlotID: ") + 9, selection.lastIndexOf(")"));
                         if (!id.isEmpty()) {
                             int plotsIndex = cemeteryPlotterFrame.cemeteryPlotterPlots.getPlotsListModel().indexOf(Integer.parseInt(id));
                             cemeteryPlotterFrame.cemeteryPlotterPlots.setSelectedPlot(plotsIndex);

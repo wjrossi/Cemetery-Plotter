@@ -86,8 +86,8 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
         purchasedDateDayField = new JTextField(2);
         purchasedDateYearField = new JTextField(4);
         moneyDueField = new JTextField(8);
-        notesTextArea = new JTextArea(8, 60);
-        mapLocationField = new JTextField(12);
+        notesTextArea = new JTextArea(8, 16);
+        mapLocationField = new JTextField(8);
 
         plotIDField.setEnabled(false);
         mapLocationField.setEnabled(false);
