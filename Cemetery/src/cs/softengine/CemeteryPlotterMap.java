@@ -11,7 +11,7 @@ import java.net.URL;
 /**
  * Content pane for plot info
  */
-public class CemeteryPlotterMap extends CemeteryPlotter implements ActionListener {
+public class CemeteryPlotterMap extends CemeteryPlotter {
     private JPanel mapPanel;
     private JEditorPane mapPane;
     private JScrollPane mapScrollPane;
@@ -97,19 +97,11 @@ public class CemeteryPlotterMap extends CemeteryPlotter implements ActionListene
      */
     public void getMapData() {
         String mapURL;
-        try { // TODO what do we put in the map and how
-            mapURL = new File("resources/map.html").toURL().toString(); // super temporary!! may want to do this after loading gui!!
+        try {
+            mapURL = new File("resources/map.html").toURI().toURL().toString();
             mapPane.setPage(mapURL);
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    /**
-     * Action listener for plot info content pane
-     * @param e action event
-     */
-    public void actionPerformed(ActionEvent e) {
-        //
     }
 }
