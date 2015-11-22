@@ -23,6 +23,7 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
     private JCheckBox vacantCheckBox;
     private JCheckBox readyCheckBox;
     private JTextArea notesTextArea;
+    private JTextField mapLocationField;
     private JButton editButton;
     private JButton cancelButton;
     private JButton updateButton;
@@ -68,10 +69,12 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
         JLabel dateDividerLabel3 = new JLabel("/");
         JLabel dateDividerLabel4 = new JLabel("/");
         JLabel notesLabel = new JLabel("Notes:");
+        JLabel mapLocationLabel = new JLabel("Map Location:");
 
         burialDateLabel.setToolTipText("MM/DD/YYYY");
         purchasedDateLabel.setToolTipText("MM/DD/YYYY");
         moneyDueLabel.setToolTipText("e.g., $1234.56 or $7890");
+        mapLocationLabel.setToolTipText("Select any location on the map to set the coordinates while in edit mode.");
 
         // create text fields
         sectionField = new JTextField(6);
@@ -84,8 +87,10 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
         purchasedDateYearField = new JTextField(4);
         moneyDueField = new JTextField(8);
         notesTextArea = new JTextArea(8, 60);
+        mapLocationField = new JTextField(12);
 
         plotIDField.setEnabled(false);
+        mapLocationField.setEnabled(false);
 
         burialDateMonthField.setToolTipText("MM");
         burialDateDayField.setToolTipText("DD");
@@ -94,6 +99,7 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
         purchasedDateDayField.setToolTipText("DD");
         purchasedDateYearField.setToolTipText("YYYY");
         moneyDueField.setToolTipText("e.g., $1234.56 or $7890");
+        mapLocationField.setToolTipText("Select any location on the map to set the coordinates while in edit mode.");
 
         // set labels to text fields
         sectionLabel.setLabelFor(sectionField);
@@ -127,6 +133,7 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
         JPanel moneyDuePanel = new JPanel();
         JPanel checkBoxPanel = new JPanel();
         JPanel notesPanel = new JPanel();
+        JPanel mapLocationPanel = new JPanel();
         JPanel editPanel = new JPanel();
 
         idPanel.setLayout(new BoxLayout(idPanel, BoxLayout.LINE_AXIS));
@@ -135,6 +142,7 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
         moneyDuePanel.setLayout(new BoxLayout(moneyDuePanel, BoxLayout.LINE_AXIS));
         checkBoxPanel.setLayout(new BoxLayout(checkBoxPanel, BoxLayout.LINE_AXIS));
         notesPanel.setLayout(new BoxLayout(notesPanel, BoxLayout.LINE_AXIS));
+        mapLocationPanel.setLayout(new BoxLayout(mapLocationPanel, BoxLayout.LINE_AXIS));
         editPanel.setLayout(new BoxLayout(editPanel, BoxLayout.LINE_AXIS));
 
         // add items to sub-panels
@@ -166,6 +174,9 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
         notesPanel.add(notesLabel);
         notesPanel.add(notesTextArea);
 
+        mapLocationPanel.add(mapLocationLabel);
+        mapLocationPanel.add(mapLocationField);
+
         editPanel.add(editButton);
         editPanel.add(cancelButton);
         editPanel.add(updateButton);
@@ -178,6 +189,7 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
         fieldsPanel.add(purchasedDatePanel);
         fieldsPanel.add(moneyDuePanel);
         fieldsPanel.add(checkBoxPanel);
+        fieldsPanel.add(mapLocationPanel);
         panel.add(notesPanel);
 
         panel.add(fieldsPanel, BorderLayout.PAGE_START);
@@ -213,6 +225,14 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
         for (JComponent c : editable) {
             c.setEnabled(value);
         }
+    }
+
+    /**
+     * The edit status of the plot
+     * @return true if editable, false if not
+     */
+    public boolean isEditable() {
+        return updateButton.isEnabled();
     }
 
     /**
@@ -280,6 +300,14 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
     }
 
     /**
+     * Set the map location field with a point
+     * @param point of map location
+     */
+    public void setMapLocationField(Point point) {
+        mapLocationField.setText("(" + ((int) point.getX()) + ", " + ((int) point.getY()) + ")");
+    }
+
+    /**
      * Get the data from cemetery about a plot and load it into the appropriate GUI elements
      */
     public void getPlotData(Plot plot) {
@@ -299,6 +327,10 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
             vacantCheckBox.setSelected(plot.isVacant());
             readyCheckBox.setSelected(plot.isReady());
             notesTextArea.setText(plot.getNotes());
+            mapLocationField.setText(plot.getMapLocation());
+
+            if (!plot.getMapLocation().isEmpty())
+                cemeteryPlotterFrame.cemeteryPlotterMap.setView(plot.getMapLocation());
         } else { // setting up a new plot
             plotIDField.setText(Integer.toString(cemetery.getNextPlotID()));
         }
@@ -335,6 +367,7 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
         plot.setVacant(vacantCheckBox.isSelected());
         plot.setReady(readyCheckBox.isSelected());
         plot.setNotes(notesTextArea.getText());
+        plot.setMapLocation(mapLocationField.getText());
     }
 
     /**
@@ -352,6 +385,7 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
         purchasedDateYearField.setText("");
         moneyDueField.setText("");
         notesTextArea.setText("");
+        mapLocationField.setText("");
         vacantCheckBox.setSelected(false);
         readyCheckBox.setSelected(false);
     }

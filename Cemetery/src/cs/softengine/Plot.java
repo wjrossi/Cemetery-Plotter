@@ -25,6 +25,7 @@ public class Plot implements Comparable<Plot> {
     private boolean ready; // is the plot ready for use or not ready
     private String notes;
     private BigDecimal moneyDue; // person owes this much in DOLLARS and CENTS
+    private String mapLocation;
     private SimpleDateFormat sdfMonth; // month date format
     private SimpleDateFormat sdfDay; // day date format
     private SimpleDateFormat sdfYear; // year date format
@@ -34,7 +35,7 @@ public class Plot implements Comparable<Plot> {
      * Constructs an empty plot
      */
     public Plot() {
-        this("", -1, null, null, "", "", "", "", "", "", true, false, new BigDecimal(0), "");
+        this("", -1, null, null, "", "", "", "", "", "", true, false, new BigDecimal(0), "", "");
     }
 
     /**
@@ -43,7 +44,7 @@ public class Plot implements Comparable<Plot> {
      * @param id number
      */
     public Plot(String section, int id) {
-        this(section, id, null, null, "", "", "", "", "", "", true, false, new BigDecimal(0), "");
+        this(section, id, null, null, "", "", "", "", "", "", true, false, new BigDecimal(0), "", "");
     }
 
     /**
@@ -62,11 +63,12 @@ public class Plot implements Comparable<Plot> {
      * @param ready boolean
      * @param moneyDue BigDecimal
      * @param notes String
+     * @paran mapLocation String
      */
     public Plot(String section, int id, InterredPerson interred, Person contact,
                 String burialMonth, String burialDay, String burialYear,
                 String purchasedMonth, String purchasedDay, String purchasedYear,
-                boolean vacant, boolean ready, BigDecimal moneyDue, String notes) {
+                boolean vacant, boolean ready, BigDecimal moneyDue, String notes, String mapLocation) {
         sdfMonth = new SimpleDateFormat("MM");
         sdfDay = new SimpleDateFormat("dd");
         sdfYear = new SimpleDateFormat("yyyy");
@@ -88,6 +90,7 @@ public class Plot implements Comparable<Plot> {
         this.ready = ready;
         this.moneyDue = moneyDue;
         this.notes = notes;
+        this.mapLocation = mapLocation;
     }
 
     /**
@@ -396,6 +399,22 @@ public class Plot implements Comparable<Plot> {
     }
 
     /**
+     * Get map location
+     * @return mapLocation -- "(x, y)"
+     */
+    public String getMapLocation() {
+        return mapLocation;
+    }
+
+    /**
+     * Set map location
+     * @param m map location -- "(x, y)"
+     */
+    public void setMapLocation(String m) {
+        mapLocation = m;
+    }
+
+    /**
      * Compare a plot to another plot
      * @param p a plot
      * @return  < 0 if p is less than this plot
@@ -460,6 +479,7 @@ public class Plot implements Comparable<Plot> {
                 + "<NOTES>\n"
                 + notes + "\n"
                 + "</NOTES>\n"
+                + mapLocation + "\n"
                 + "</PLOT>\n";
 
         return result;

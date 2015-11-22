@@ -4,15 +4,17 @@ import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
 /**
  * Content pane for plot info
  */
-public class CemeteryPlotterMap extends CemeteryPlotter implements ActionListener {
+public class CemeteryPlotterMap extends CemeteryPlotter {
     private JPanel mapPanel;
     private JEditorPane mapPane;
+    private JScrollPane mapScrollPane;
 
     /**
      * Constructs a content pane for map
@@ -47,9 +49,25 @@ public class CemeteryPlotterMap extends CemeteryPlotter implements ActionListene
         // create map pane
         mapPane = new JEditorPane();
         mapPane.setEditable(false);
-        JScrollPane mapScrollPane = new JScrollPane(mapPane);
+        mapScrollPane = new JScrollPane(mapPane);
         mapScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        //mapScrollPane.setPreferredSize(new Dimension(320, 240));
+
+        mapPane.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (cemeteryPlotterFrame.cemeteryPlotterPlot.isEditable())
+                    cemeteryPlotterFrame.cemeteryPlotterPlot.setMapLocationField(e.getPoint());
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) { }
+            @Override
+            public void mouseReleased(MouseEvent e) { }
+            @Override
+            public void mouseEntered(MouseEvent e) { }
+            @Override
+            public void mouseExited(MouseEvent e) { }
+        });
 
         // add map scroll pane to main panel
         panel.add(mapScrollPane, BorderLayout.CENTER);
@@ -67,24 +85,23 @@ public class CemeteryPlotterMap extends CemeteryPlotter implements ActionListene
         return panel;
     }
 
+    public void setView(String mapLocation) {
+        int x = Integer.parseInt(mapLocation.substring(1, mapLocation.indexOf(',')));
+        int y = Integer.parseInt(mapLocation.substring(mapLocation.indexOf(", ") + 2, mapLocation.length() - 1));
+        Point point = new Point(x, y);
+        mapScrollPane.getViewport().setViewPosition(point);
+    }
+
     /**
      * Load URL in map pane after other GUI elements
      */
     public void getMapData() {
-        URL mapURL;
-        try { // TODO what do we put in the map and how
-            mapURL = new URL(""); // super temporary!! may want to do this after loading gui!!
+        String mapURL;
+        try {
+            mapURL = new File("resources/map.html").toURI().toURL().toString();
             mapPane.setPage(mapURL);
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    /**
-     * Action listener for plot info content pane
-     * @param e action event
-     */
-    public void actionPerformed(ActionEvent e) {
-        //
     }
 }

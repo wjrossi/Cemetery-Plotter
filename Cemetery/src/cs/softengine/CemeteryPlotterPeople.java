@@ -120,7 +120,7 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
 
         peopleList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         peopleList.setLayoutOrientation(JList.VERTICAL);
-        peopleList.setPrototypeCellValue("Firstname Lastname");
+        peopleList.setPrototypeCellValue("Lastname, Firstname [Plot #: 12345]");
 
         // add list to main panel
         panel.add(peopleListScrollPane, BorderLayout.CENTER);
@@ -314,7 +314,7 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
                     if (selection.indexOf("[Plot #") > 0) {
                         id = selection.substring(selection.lastIndexOf("[Plot #") + 7, selection.lastIndexOf("]"));
                         if (!id.isEmpty()) {
-                            int plotsIndex = cemeteryPlotterFrame.cemeteryPlotterPlots.getPlotsListModel().indexOf(id);
+                            int plotsIndex = cemeteryPlotterFrame.cemeteryPlotterPlots.getPlotsListModel().indexOf(Integer.parseInt(id));
                             cemeteryPlotterFrame.cemeteryPlotterPlots.setSelectedPlot(plotsIndex);
                         }
                     }
