@@ -73,7 +73,7 @@ public class CemeteryPlotterMap extends CemeteryPlotter implements ActionListene
     public void getMapData() {
         URL mapURL;
         try { // TODO what do we put in the map and how
-            mapURL = new URL("http://bethshalompgh.org/"); // super temporary!! may want to do this after loading gui!!
+            mapURL = new URL(""); // super temporary!! may want to do this after loading gui!!
             mapPane.setPage(mapURL);
         } catch (IOException e) {
             e.printStackTrace();

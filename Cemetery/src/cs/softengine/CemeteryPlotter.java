@@ -25,7 +25,7 @@ public class CemeteryPlotter {
 
         defaultFile = new File("cemetery.db"); // the default file for saving and loading cemetery data
         workingFile = defaultFile; // set working file to default file
-        cemetery = new Cemetery(workingFile); // initialize cemetery with default file
+        cemetery = new Cemetery(); // initialize cemetery with no file
         cemeteryPlotterFrame = new CemeteryPlotterFrame(); // create and initialize GUI
     }
 }

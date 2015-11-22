@@ -105,7 +105,8 @@ public class CemeteryPlotterFrame extends CemeteryPlotter {
 
         // get data from cemetery and populate GUI with it
         cemeteryPlotterSections.getSectionsData();
-        //cemeteryPlotterMap.getMapData(); // disabled till we have something to put there
+        // disabled till we have something to put there
+        //SwingUtilities.invokeLater(() -> cemeteryPlotterMap.getMapData());
     }
 
     /**

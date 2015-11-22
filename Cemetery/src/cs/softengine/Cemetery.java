@@ -6,6 +6,8 @@ import java.io.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.zip.DeflaterOutputStream;
+import java.util.zip.InflaterInputStream;
 
 /**
  * A cemetery
@@ -47,7 +49,7 @@ public class Cemetery {
 
         try {
             load(file); // load the plain-text file
-        } catch (IOException e) { // TODO show error dialogs
+        } catch (IOException e) {
             System.err.println("Unable to read input file. Exiting.");
             e.printStackTrace();
             System.exit(1);
@@ -60,7 +62,13 @@ public class Cemetery {
      * @throws IOException
      */
     public void load(File file) throws IOException {
-        // TODO decompress file, then decrypt file
+        File oldFile = file;
+        File decompressedFile = decompress(file);
+
+        if (decompressedFile.exists()) {
+            oldFile.delete();
+            decompressedFile.renameTo(file);
+        }
 
         BufferedReader buffer;
         String temp;
@@ -294,13 +302,12 @@ public class Cemetery {
      * Save cemetery data
      */
     public void save(File file) throws IOException {
-        if (file == null) throw new IOException("No file open to save");
+        if (file == null)
+            throw new IOException("No file open to save");
 
         PrintWriter buffer;
-        File oldFile, newFile;
-
-        oldFile = file;
-        newFile = new File(file.getName() + ".new");
+        File oldFile = file;
+        File newFile = new File(oldFile.getName() + ".new");
 
         Collections.sort(sections);
         Collections.sort(plots);
@@ -320,12 +327,65 @@ public class Cemetery {
 
         buffer.close();
 
-        // TODO encrypt newFile, then compress newFile
+        File compressedFile = compress(newFile);
 
-        if (newFile.exists()) { // delete temporary file if overwriting and rename it to original file name
+        if (compressedFile.exists()) { // delete temporary file if overwriting and rename it to original file name
             oldFile.delete();
-            newFile.renameTo(file);
+            newFile.delete();
+            compressedFile.renameTo(file);
         }
+    }
+
+    /**
+     * Compress save file
+     * @param file save file
+     * @return compressed save file
+     */
+    private File compress(File file) {
+        File fileOut = new File(file.getName() + "x");
+
+        try {
+            FileInputStream fileRead = new FileInputStream(file);
+            DeflaterOutputStream fileWrite = new DeflaterOutputStream(new FileOutputStream(fileOut));
+
+            int i;
+            while((i = fileRead.read()) >= 0) {
+                fileWrite.write((byte) i);
+                fileWrite.flush();
+            }
+
+            fileRead.close();
+            fileWrite.close();
+        } catch (Exception e) { // unable to compress
+            System.out.println("Unable to compress " + file + " into " + fileOut);
+            e.printStackTrace();
+            return file;
+        }
+
+        return fileOut;
+    }
+
+    private File decompress(File file) {
+        File fileOut = new File(file.getName() + "x");
+
+        try {
+            InflaterInputStream fileRead = new InflaterInputStream(new FileInputStream(file));
+            FileOutputStream fileWrite = new FileOutputStream(fileOut);
+
+            int i;
+            while ((i = fileRead.read()) >= 0) {
+                fileWrite.write((byte) i);
+                fileWrite.flush();
+            }
+
+            fileRead.close();
+            fileWrite.close();
+        } catch (Exception e) {
+            System.out.println("Unable to decompress " + file + " into " + fileOut);
+            return file;
+        }
+
+        return fileOut;
     }
 
     /**

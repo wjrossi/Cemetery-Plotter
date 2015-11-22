@@ -257,7 +257,10 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
         String interredID = interredIDField.getText().toUpperCase();
         int interredIndex = cemetery.getInterred().indexOf(new InterredPerson(Integer.parseInt(interredID)));
 
-        if (interredIndex >= 0) { // interredID already exists
+        if (interredIndex >= 0 &&
+                Integer.parseInt(interredID) !=
+                        cemeteryPlotterFrame.cemeteryPlotterPlots.getSelectedPlot().getInterred().getInterredID())
+        { // interredID already exists
             JOptionPane.showMessageDialog(cemeteryPlotterFrame.getFrame(),
                     "Interred person with interredID \"" + interredID + "\" already exists\n"
                             + "in plot with plotID \"" + cemetery.getInterred().get(interredIndex).getPlotID() + "\".",
