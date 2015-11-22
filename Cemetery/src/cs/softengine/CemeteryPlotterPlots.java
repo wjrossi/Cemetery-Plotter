@@ -16,9 +16,9 @@ import java.util.Collections;
 public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListener {
     private JPanel plotsPanel;
     private JTextField searchField;
-    private DefaultListModel<String> plotsListModel;
+    private DefaultListModel<Integer> plotsListModel;
     private DefaultListSelectionModel plotsListSelectionModel;
-    private JList<String> plotsList;
+    private JList<Integer> plotsList;
     private JScrollPane plotsListScrollPane;
     private JButton newPlotButton;
     private JButton deletePlotButton;
@@ -79,7 +79,7 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
 
         plotsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         plotsList.setLayoutOrientation(JList.VERTICAL);
-        plotsList.setPrototypeCellValue("999999");
+        plotsList.setPrototypeCellValue(999999);
         plotsList.setToolTipText("Select the plot you wish to view or edit.");
 
         // create new and delete buttons
@@ -144,14 +144,14 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
      * @param sections list of selected sections in CemeteryPlotterSections
      */
     public void getPlotsData(Collection<String> sections) {
-        ArrayList<String> plots = new ArrayList<>();
+        ArrayList<Integer> plots = new ArrayList<>();
 
         for (String section : sections) {
             // figure out which plots to put in the list (based on which sections are selected in CemeteryPlotterSections)
             Section s = cemetery.get(new Section(section));
 
             for (Plot p : s.getPlots()) {
-                plots.add(Integer.toString(p.getID()));
+                plots.add(p.getID());
             }
         }
 
@@ -159,7 +159,7 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
         Collections.sort(plots);
 
         // add each person to the people list
-        for (String plotID : plots) {
+        for (int plotID : plots) {
             plotsListModel.addElement(plotID);
         }
     }
@@ -212,7 +212,7 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
      * Get the plots list
      * @return plotsListModel
      */
-    public DefaultListModel<String> getPlotsListModel() {
+    public DefaultListModel<Integer> getPlotsListModel() {
         return plotsListModel;
     }
 
@@ -243,8 +243,7 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
      */
     public Plot getSelectedPlot() {
         // figure out what plot data to get and fill in based on selected plot from CemeteryPlotterPlots
-        int plotID = Integer.parseInt(plotsList.getSelectedValue());
-        Plot plot = new Plot("", plotID);
+        Plot plot = new Plot("", plotsList.getSelectedValue());
 
         return cemetery.getPlots().get(cemetery.getPlots().indexOf(plot));
     }
@@ -285,10 +284,8 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
                 if (lsm.isSelectionEmpty()) { // no selection
                     cemeteryPlotterFrame.clearData();
                 } else { // show the selected plot
-                    // TODO must interact nicely with people list selections
                     int index = lsm.getMinSelectionIndex();
-                    int plotID = Integer.parseInt(plotsListModel.get(index));
-                    Plot plot = new Plot("", plotID);
+                    Plot plot = new Plot("", plotsListModel.get(index));
 
                     cemeteryPlotterFrame.cemeteryPlotterPeople.getPeopleList().clearSelection();
                     cemeteryPlotterFrame.clearData();

@@ -314,7 +314,7 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
                     if (selection.indexOf("[Plot #") > 0) {
                         id = selection.substring(selection.lastIndexOf("[Plot #") + 7, selection.lastIndexOf("]"));
                         if (!id.isEmpty()) {
-                            int plotsIndex = cemeteryPlotterFrame.cemeteryPlotterPlots.getPlotsListModel().indexOf(id);
+                            int plotsIndex = cemeteryPlotterFrame.cemeteryPlotterPlots.getPlotsListModel().indexOf(Integer.parseInt(id));
                             cemeteryPlotterFrame.cemeteryPlotterPlots.setSelectedPlot(plotsIndex);
                         }
                     }
