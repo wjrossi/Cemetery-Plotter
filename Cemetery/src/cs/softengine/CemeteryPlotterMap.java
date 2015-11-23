@@ -5,7 +5,9 @@ import javax.swing.border.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URL;
 
 /**
@@ -43,8 +45,6 @@ public class CemeteryPlotterMap extends CemeteryPlotter {
         TitledBorder titledBorder = BorderFactory.createTitledBorder(etchedBorder, "Map");
         titledBorder.setTitleJustification(TitledBorder.LEFT);
         panel.setBorder(titledBorder);
-
-        // add things to panel
 
         // create map pane
         mapPane = new JEditorPane();
@@ -89,6 +89,7 @@ public class CemeteryPlotterMap extends CemeteryPlotter {
         int x = Integer.parseInt(mapLocation.substring(1, mapLocation.indexOf(',')));
         int y = Integer.parseInt(mapLocation.substring(mapLocation.indexOf(", ") + 2, mapLocation.length() - 1));
         Point point = new Point(x - 100, y - 100);
+        writeHtml(true, x, y);
         mapScrollPane.getViewport().setViewPosition(point);
     }
 
@@ -96,11 +97,32 @@ public class CemeteryPlotterMap extends CemeteryPlotter {
      * Load URL in map pane after other GUI elements
      */
     public void getMapData() {
-        String mapURL;
+        writeHtml(false, 0, 0);
         try {
-            mapURL = new File("resources/map.html").toURI().toURL().toString();
+            String mapURL = new File("resources/map.html").toURI().toURL().toString();
             mapPane.setPage(mapURL);
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void writeHtml(boolean visible, int x, int y) {
+        String html = "<!DOCTYPE html><html><div style=\"position:relative;\"><img src=\"file:map.png\">" +
+                "<div style=\"color:#00ff00; font-size:200%; position:absolute; top:" + y + "px; left:" + x + "px;\">";
+
+        if (visible)
+            html += "o";
+
+        html += "</div></div></html>";
+
+        File mapHtml = new File("resources/map.html");
+
+        try {
+            PrintWriter buffer = new PrintWriter(new FileWriter(mapHtml));
+            buffer.write(html);
+            buffer.close();
+        } catch (IOException e) {
+            System.out.println("Error writing HTML");
             e.printStackTrace();
         }
     }
