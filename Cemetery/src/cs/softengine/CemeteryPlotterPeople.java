@@ -2,6 +2,8 @@ package cs.softengine;
 
 import javax.swing.*;
 import javax.swing.border.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
@@ -57,7 +59,37 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
         // add things to panel
 
         // create filter text field
-        filterField = new JTextField(); // TODO add listener that searches as you type
+        filterField = new JTextField(12);
+
+        filterField.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                changedUpdate(e);
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                changedUpdate(e);
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                if (filterField.getText().isEmpty()) {
+                    peopleListModel.clear();
+                    getPeopleData(cemeteryPlotterFrame.cemeteryPlotterSections.getSelectedSections());
+                } else {
+                    DefaultListModel<String> newListModel = new DefaultListModel<>();
+                    for (int index = 0; index < peopleListModel.size(); index++) {
+                        if (peopleListModel.get(index).toLowerCase().contains(filterField.getText().toLowerCase()))
+                            newListModel.addElement(peopleListModel.get(index));
+                    }
+                    peopleList.setModel(newListModel);
+                    if (newListModel.size() == 1) {
+                        setSelectedPerson(0);
+                    }
+                }
+            }
+        });
 
         // create filter radio buttons
         interredPeopleRadioButton = new JRadioButton("Interred", false);
@@ -169,6 +201,8 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
         for (String p : people) {
             peopleListModel.addElement(p);
         }
+
+        peopleList.setModel(peopleListModel);
     }
 
     /**

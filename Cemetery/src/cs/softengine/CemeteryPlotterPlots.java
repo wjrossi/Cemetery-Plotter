@@ -75,19 +75,20 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-                /*
-                if (searchField.getText().length() == 0) {
+                if (searchField.getText().isEmpty()) {
+                    plotsListModel.clear();
                     getPlotsData(cemeteryPlotterFrame.cemeteryPlotterSections.getSelectedSections());
                 } else {
-                    int index = 0;
                     DefaultListModel<Integer> newListModel = new DefaultListModel<>();
-                    while ((index = plotsList.getNextMatch(searchField.getText(), 0, Position.Bias.Forward)) > 0) {
-                        newListModel.addElement(plotsListModel.get(index));
-                        System.out.println(index + ", " + plotsListModel.get(index));
+                    for (int index = 0; index < plotsListModel.size(); index++) {
+                        if (plotsListModel.get(index).toString().startsWith(searchField.getText()))
+                            newListModel.addElement(plotsListModel.get(index));
                     }
                     plotsList.setModel(newListModel);
+                    if (newListModel.size() == 1) {
+                        setSelectedPlot(0);
+                    }
                 }
-                */
             }
         });
 
@@ -194,6 +195,8 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
         for (int plotID : plots) {
             plotsListModel.addElement(plotID);
         }
+
+        plotsList.setModel(plotsListModel);
     }
 
     /**
