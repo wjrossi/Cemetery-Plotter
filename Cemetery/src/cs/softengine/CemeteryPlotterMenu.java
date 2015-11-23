@@ -35,7 +35,7 @@ public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListen
     private JMenuBar createMenuBar() {
         JMenuBar menuBar;
         JMenu menuFile;
-        JMenuItem fileOpen, fileSave, fileSaveAs, fileQuit, fileSaveInCloud, fileOpenFromCloud;
+        JMenuItem fileNew, fileOpen, fileSave, fileSaveAs, fileQuit, fileSaveInCloud, fileOpenFromCloud;
 
         // create the entire menu bar
         menuBar = new JMenuBar();
@@ -46,6 +46,16 @@ public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListen
         menuBar.add(menuFile);
 
         // add items to the file menu
+        // new (meta+n)
+        fileNew = new JMenuItem("New");
+        fileNew.setMnemonic(KeyEvent.VK_N);
+        fileNew.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.META_MASK));
+        fileNew.addActionListener(this);
+        menuFile.add(fileNew);
+
+        menuFile.addSeparator();
+
+
         // open (meta+o)
         fileOpen = new JMenuItem("Open");
         fileOpen.setMnemonic(KeyEvent.VK_O);
@@ -53,7 +63,7 @@ public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListen
         fileOpen.addActionListener(this);
         menuFile.add(fileOpen);
 
-        // open  in cloud
+        // open in cloud
         fileOpenFromCloud = new JMenuItem("Open From Cloud");
         fileOpenFromCloud.addActionListener(this);
         menuFile.add(fileOpenFromCloud);
@@ -104,6 +114,9 @@ public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListen
         choice = source.getText().toLowerCase();
 
         switch (choice) {
+            case "new": // new file
+                newFile();
+                break;
             case "open": // open a file
                 open();
                 break;
@@ -127,12 +140,40 @@ public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListen
     }
 
     /**
+     * Start a new file
+     */
+    public void newFile() {
+        if (cemetery.isModified()) { // unsaved changes?
+            int newQuestion = JOptionPane.showOptionDialog(cemeteryPlotterFrame.getFrame(),
+                    "You have changes that are not saved.\nAre you sure you want to open a new file?",
+                    "Open?",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.WARNING_MESSAGE,
+                    null,
+                    null,
+                    null);
+
+            if (newQuestion == JOptionPane.NO_OPTION) {
+                return;
+            }
+        }
+
+        workingFile = null; // set the working file to the selected file
+        cemetery = new Cemetery();
+
+        // reload gui elements
+        cemeteryPlotterFrame.getFrame().setTitle("Cemetery Plotter (new file)");
+        cemeteryPlotterFrame.clearData();
+        cemeteryPlotterFrame.cemeteryPlotterSections.getSectionsData();
+    }
+
+    /**
      * Open a new file
      */
     public void open() {
         if (cemetery.isModified()) { // unsaved changes?
             int open = JOptionPane.showOptionDialog(cemeteryPlotterFrame.getFrame(),
-                    "You have changes that are not saved.\nAre you sure you want to open a new file?",
+                    "You have changes that are not saved.\nAre you sure you want to open a different file?",
                     "Open?",
                     JOptionPane.YES_NO_OPTION,
                     JOptionPane.WARNING_MESSAGE,
@@ -170,6 +211,11 @@ public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListen
      * Save to current file
      */
     public void save() {
+        if (workingFile == null) { // trying to save a new unnamed file
+            saveAs();
+            return;
+        }
+
         if (cemetery.isModified()) { // unsaved changes?
             int save = JOptionPane.showOptionDialog(cemeteryPlotterFrame.getFrame(),
                     "You are about to overwrite \"" + workingFile.getName() + "\" with new changes.\nAre you sure you want to save?",
@@ -251,14 +297,19 @@ public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListen
 
         file = null;
 
-        fileChooser = new JFileChooser(workingFile);
-        fileFilter = new FileNameExtensionFilter("Cemetery DB Files", "db");
+        fileChooser = new JFileChooser(new File(".").getAbsolutePath());
+        fileFilter = new FileNameExtensionFilter("Cemetery DB Files (*.db)", "db");
+        fileChooser.addChoosableFileFilter(fileFilter);
         fileChooser.setFileFilter(fileFilter);
+        fileChooser.setAcceptAllFileFilterUsed(false);
 
         result = fileChooser.showOpenDialog(menu.getParent());
 
         if (result == JFileChooser.APPROVE_OPTION) {
             file = fileChooser.getSelectedFile();
+
+            if (!fileFilter.accept(file))
+                file = null;
         }
 
         return file;
@@ -276,14 +327,19 @@ public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListen
 
         file = null;
 
-        fileChooser = new JFileChooser(workingFile);
-        fileFilter = new FileNameExtensionFilter("Cemetery DB Files", "db");
+        fileChooser = new JFileChooser(new File(".").getAbsolutePath());
+        fileFilter = new FileNameExtensionFilter("Cemetery DB Files (*.db)", "db");
+        fileChooser.addChoosableFileFilter(fileFilter);
         fileChooser.setFileFilter(fileFilter);
+        fileChooser.setAcceptAllFileFilterUsed(false);
 
         result = fileChooser.showSaveDialog(menu.getParent());
 
         if (result == JFileChooser.APPROVE_OPTION) {
             file = fileChooser.getSelectedFile();
+
+            if (!fileFilter.accept(file))
+                file = null;
         }
 
         return file;

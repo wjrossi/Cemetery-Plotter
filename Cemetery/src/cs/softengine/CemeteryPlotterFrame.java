@@ -46,6 +46,8 @@ public class CemeteryPlotterFrame extends CemeteryPlotter {
 
         if (workingFile != null)
             frameTitle += " (" + workingFile.getName() + ")";
+        else
+            frameTitle += " (new file)";
 
         frame = new JFrame(frameTitle);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -130,7 +132,7 @@ public class CemeteryPlotterFrame extends CemeteryPlotter {
     }
 
     /**
-     * Clear all plot, interred person, and contact data from the GUI
+     * Clear all plot, interred person, contact, and map data from the GUI
      */
     public void clearData() {
         cemeteryPlotterPlot.clearPlotData();
