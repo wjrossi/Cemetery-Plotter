@@ -72,16 +72,6 @@ public class CemeteryPlotterMap extends CemeteryPlotter {
         // add map scroll pane to main panel
         panel.add(mapScrollPane, BorderLayout.CENTER);
 
-        // create map controls panel
-        JPanel mapControls = new JPanel();
-        mapControls.setLayout(new BoxLayout(mapControls, BoxLayout.LINE_AXIS));
-
-        // add buttons to map control panel
-        // TODO
-
-        //add map controls to main panel
-        panel.add(mapControls, BorderLayout.PAGE_END);
-
         return panel;
     }
 
@@ -89,7 +79,6 @@ public class CemeteryPlotterMap extends CemeteryPlotter {
         int x = Integer.parseInt(mapLocation.substring(1, mapLocation.indexOf(',')));
         int y = Integer.parseInt(mapLocation.substring(mapLocation.indexOf(", ") + 2, mapLocation.length() - 1));
         Point point = new Point(x - 100, y - 100);
-        writeHtml(true, x, y);
         mapScrollPane.getViewport().setViewPosition(point);
     }
 
@@ -97,32 +86,10 @@ public class CemeteryPlotterMap extends CemeteryPlotter {
      * Load URL in map pane after other GUI elements
      */
     public void getMapData() {
-        writeHtml(false, 0, 0);
         try {
             String mapURL = new File("resources/map.html").toURI().toURL().toString();
             mapPane.setPage(mapURL);
         } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void writeHtml(boolean visible, int x, int y) {
-        String html = "<!DOCTYPE html><html><div style=\"position:relative;\"><img src=\"file:map.png\">" +
-                "<div style=\"color:#00ff00; font-size:200%; position:absolute; top:" + y + "px; left:" + x + "px;\">";
-
-        if (visible)
-            html += "o";
-
-        html += "</div></div></html>";
-
-        File mapHtml = new File("resources/map.html");
-
-        try {
-            PrintWriter buffer = new PrintWriter(new FileWriter(mapHtml));
-            buffer.write(html);
-            buffer.close();
-        } catch (IOException e) {
-            System.out.println("Error writing HTML");
             e.printStackTrace();
         }
     }
