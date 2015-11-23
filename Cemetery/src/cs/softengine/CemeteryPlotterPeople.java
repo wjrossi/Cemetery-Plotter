@@ -69,6 +69,8 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
 
             @Override
             public void removeUpdate(DocumentEvent e) {
+                peopleListModel.clear();
+                getPeopleData(cemeteryPlotterFrame.cemeteryPlotterSections.getSelectedSections());
                 changedUpdate(e);
             }
 
@@ -79,12 +81,16 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
                     getPeopleData(cemeteryPlotterFrame.cemeteryPlotterSections.getSelectedSections());
                 } else {
                     DefaultListModel<String> newListModel = new DefaultListModel<>();
+
                     for (int index = 0; index < peopleListModel.size(); index++) {
                         if (peopleListModel.get(index).toLowerCase().replace(",", "").contains(filterField.getText().toLowerCase()))
                             newListModel.addElement(peopleListModel.get(index));
                     }
-                    peopleList.setModel(newListModel);
-                    if (newListModel.size() == 1)
+
+                    peopleListModel = newListModel;
+                    peopleList.setModel(peopleListModel);
+
+                    if (peopleListModel.size() == 1)
                         setSelectedPerson(0);
                 }
             }
@@ -197,9 +203,8 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
         Collections.sort(people);
 
         // add each person to the people list
-        for (String p : people) {
+        for (String p : people)
             peopleListModel.addElement(p);
-        }
 
         peopleList.setModel(peopleListModel);
     }
@@ -244,6 +249,7 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
      * Clear the people list
      */
     public void clearPeopleList() {
+        filterField.setText("");
         peopleListModel.clear();
     }
 
@@ -309,7 +315,6 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
                     String id = "";
                     if (selection.indexOf("(PlotID: ") > 0) {
                         id = selection.substring(selection.lastIndexOf("(PlotID: ") + 9, selection.lastIndexOf(")"));
-                        System.out.println(id);
                         if (!id.isEmpty()) {
                             int plotsIndex = cemeteryPlotterFrame.cemeteryPlotterPlots.getPlotsListModel().indexOf(Integer.parseInt(id));
                             cemeteryPlotterFrame.cemeteryPlotterPlots.setSelectedPlot(plotsIndex);

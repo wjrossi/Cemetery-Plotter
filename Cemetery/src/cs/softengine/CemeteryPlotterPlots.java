@@ -68,6 +68,8 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
 
             @Override
             public void removeUpdate(DocumentEvent e) {
+                plotsListModel.clear();
+                getPlotsData(cemeteryPlotterFrame.cemeteryPlotterSections.getSelectedSections());
                 changedUpdate(e);
             }
 
@@ -82,10 +84,12 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
                         if (plotsListModel.get(index).toString().startsWith(searchField.getText()))
                             newListModel.addElement(plotsListModel.get(index));
                     }
-                    plotsList.setModel(newListModel);
-                    if (newListModel.size() == 1) {
+
+                    plotsListModel = newListModel;
+                    plotsList.setModel(plotsListModel);
+
+                    if (plotsListModel.size() == 1)
                         setSelectedPlot(0);
-                    }
                 }
             }
         });
@@ -173,9 +177,8 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
         Collections.sort(plots);
 
         // add each person to the people list
-        for (int plotID : plots) {
+        for (int plotID : plots)
             plotsListModel.addElement(plotID);
-        }
 
         plotsList.setModel(plotsListModel);
     }
@@ -203,6 +206,7 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
             cemetery.get(new Section(section)).add(plot);
             cemetery.getPlots().add(plot);
         }
+
         refreshPlotsList();
         cemetery.setModified(true);
     }
