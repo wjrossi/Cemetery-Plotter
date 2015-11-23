@@ -155,9 +155,8 @@ public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListen
                     null,
                     null);
 
-            if (newQuestion == JOptionPane.NO_OPTION) {
+            if (newQuestion == JOptionPane.NO_OPTION)
                 return;
-            }
         }
 
         workingFile = null; // set the working file to the selected file
@@ -183,9 +182,8 @@ public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListen
                     null,
                     null);
 
-            if (open == JOptionPane.NO_OPTION) {
+            if (open == JOptionPane.NO_OPTION)
                 return;
-            }
         }
 
         File file = openFile();
@@ -228,9 +226,8 @@ public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListen
                     null,
                     null);
 
-            if (save == JOptionPane.NO_OPTION) {
+            if (save == JOptionPane.NO_OPTION)
                 return;
-            }
         }
 
         try {
@@ -310,9 +307,8 @@ public class CemeteryPlotterMenu extends CemeteryPlotter implements ActionListen
                     null,
                     null);
 
-            if (open == JOptionPane.NO_OPTION) {
+            if (open == JOptionPane.NO_OPTION)
                 return;
-            }
         }
 
         File file = pc.getFile();

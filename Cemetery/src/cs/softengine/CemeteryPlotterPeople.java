@@ -84,9 +84,8 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
                             newListModel.addElement(peopleListModel.get(index));
                     }
                     peopleList.setModel(newListModel);
-                    if (newListModel.size() == 1) {
+                    if (newListModel.size() == 1)
                         setSelectedPerson(0);
-                    }
                 }
             }
         });
@@ -253,7 +252,7 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
      */
     public void refreshPeopleList() {
         int index = peopleList.getSelectedIndex();
-        clearPeopleList();
+        peopleListModel.clear();
         getPeopleData(cemeteryPlotterFrame.cemeteryPlotterSections.getSelectedSections());
 
         if (index >= 0) {
@@ -283,6 +282,7 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
      */
     public void setSelectedPerson(int index) {
         peopleList.setSelectedIndex(index);
+        peopleList.ensureIndexIsVisible(index);
     }
 
 
@@ -309,6 +309,7 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
                     String id = "";
                     if (selection.indexOf("(PlotID: ") > 0) {
                         id = selection.substring(selection.lastIndexOf("(PlotID: ") + 9, selection.lastIndexOf(")"));
+                        System.out.println(id);
                         if (!id.isEmpty()) {
                             int plotsIndex = cemeteryPlotterFrame.cemeteryPlotterPlots.getPlotsListModel().indexOf(Integer.parseInt(id));
                             cemeteryPlotterFrame.cemeteryPlotterPlots.setSelectedPlot(plotsIndex);

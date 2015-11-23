@@ -25,13 +25,11 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
     private JScrollPane plotsListScrollPane;
     private JButton newPlotButton;
     private JButton deletePlotButton;
-    private ArrayList<JComponent> editable;
 
     /**
      * Constructs a content pane for listing of plots belonging to selected section(s)
      */
     public CemeteryPlotterPlots() {
-        editable = new ArrayList<>();
         plotsPanel = createPlotsPanel();
     }
 
@@ -135,24 +133,7 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
         panel.add(plotsListScrollPane, BorderLayout.CENTER);
         panel.add(plotsButtonsPanel, BorderLayout.PAGE_END);
 
-        // add editable components to list for easy enable/disable
-        editable.add(newPlotButton);
-        editable.add(deletePlotButton);
-
-        // disable editable fields until a single section is selected
-        setPlotsEditable(false);
-
         return panel;
-    }
-
-    /**
-     * Enable or disable fields belonging to editable list
-     * @param value enabled/disabled
-     */
-    public void setPlotsEditable(boolean value) {
-        for (JComponent c : editable) {
-            c.setEnabled(value);
-        }
     }
 
     /**
@@ -205,7 +186,17 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
     public void newPlot() {
         Plot plot = new Plot();
 
-        for (String section : cemeteryPlotterFrame.cemeteryPlotterSections.getSelectedSections()) {
+        Collection<String> sections = cemeteryPlotterFrame.cemeteryPlotterSections.getSelectedSections();
+
+        if (sections.size() <= 0) {
+            JOptionPane.showMessageDialog(cemeteryPlotterFrame.getFrame(),
+                    "Select a single section to add a new plot.",
+                    "Error",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        for (String section : sections) {
             plot.setSection(section);
             plot.setID(cemetery.getNextPlotID());
             cemetery.setNextPlotID();
@@ -220,7 +211,18 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
      * Delete the selected plot permanently
      */
     public void deletePlot() {
+        if (plotsListModel.size() <= 0) {
+            JOptionPane.showMessageDialog(cemeteryPlotterFrame.getFrame(),
+                    "Select a plot to delete.",
+                    "Error",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
         Plot plot = getSelectedPlot();
+
+        if (plot == null)
+            return;
 
         int remove = JOptionPane.showOptionDialog(cemeteryPlotterFrame.getFrame(),
                 "Are you sure you want to delete the plot with plotID \"" + plot.getID() + "\"?\n" +
@@ -267,9 +269,8 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
         clearPlotsList();
         getPlotsData(cemeteryPlotterFrame.cemeteryPlotterSections.getSelectedSections());
 
-        if (index >= 0) {
+        if (index >= 0)
             plotsList.setSelectedIndex(index);
-        }
     }
 
     /**
@@ -278,9 +279,16 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
      */
     public Plot getSelectedPlot() {
         // figure out what plot data to get and fill in based on selected plot from CemeteryPlotterPlots
-        Plot plot = new Plot("", plotsList.getSelectedValue());
+        if (plotsList.getSelectedValue() < 0)
+            return null;
 
-        return cemetery.getPlots().get(cemetery.getPlots().indexOf(plot));
+        Plot plot = new Plot("", plotsList.getSelectedValue());
+        int plotIndex = cemetery.getPlots().indexOf(plot);
+
+        if (plotIndex < 0)
+            return null;
+
+        return cemetery.getPlots().get(plotIndex);
     }
 
     /**

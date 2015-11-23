@@ -160,6 +160,17 @@ public class CemeteryPlotterSections extends CemeteryPlotter implements ActionLi
         boolean plotsExist = false;
         int delete;
 
+        Collection<String> sections = getSelectedSections();
+
+        if (sections.size() != 1) {
+            JOptionPane.showMessageDialog(cemeteryPlotterFrame.getFrame(),
+                    "Select a single section to delete.",
+                    "Error",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+
         for (String section : getSelectedSections()) {
             plotsExist = cemetery.get(new Section(section)).getSize() > 0;
         }
@@ -262,22 +273,12 @@ public class CemeteryPlotterSections extends CemeteryPlotter implements ActionLi
                 cemeteryPlotterFrame.cemeteryPlotterInterredPerson.setInterredEditable(false);
                 cemeteryPlotterFrame.cemeteryPlotterContact.clearContactData();
                 cemeteryPlotterFrame.cemeteryPlotterContact.setContactEditable(false);
-
                 cemeteryPlotterFrame.cemeteryPlotterPlots.clearPlotsList();
                 cemeteryPlotterFrame.cemeteryPlotterPeople.clearPeopleList();
 
                 if (!lsm.isSelectionEmpty()) { // find out which indexes are selected.
                     cemeteryPlotterFrame.cemeteryPlotterPlots.getPlotsData(sectionsList.getSelectedValuesList());
                     cemeteryPlotterFrame.cemeteryPlotterPeople.getPeopleData(sectionsList.getSelectedValuesList());
-
-                    // a single selection only
-                    if (sectionsList.getMinSelectionIndex() == sectionsList.getMaxSelectionIndex()) {
-                        cemeteryPlotterFrame.cemeteryPlotterPlots.setPlotsEditable(true);
-                    } else { // multiple selections
-                        cemeteryPlotterFrame.cemeteryPlotterPlots.setPlotsEditable(false);
-                    }
-                } else { // no selection
-                    cemeteryPlotterFrame.cemeteryPlotterPlots.setPlotsEditable(false);
                 }
             }
         }

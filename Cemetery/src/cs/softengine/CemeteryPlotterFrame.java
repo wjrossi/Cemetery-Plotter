@@ -85,6 +85,7 @@ public class CemeteryPlotterFrame extends CemeteryPlotter {
         centerTopPanel.add(cemeteryPlotterPlot.getPlotPanel());
         centerTopPanel.add(cemeteryPlotterInterredPerson.getInterredPanel());
         centerTopPanel.add(cemeteryPlotterContact.getContactPanel());
+        centerTopPanel.setMinimumSize(new Dimension(0, 360));
 
         // center bottom panel
         centerBottomPanel.add(cemeteryPlotterMap.getMapPanel(), BorderLayout.CENTER);
@@ -107,8 +108,6 @@ public class CemeteryPlotterFrame extends CemeteryPlotter {
 
         // get data from cemetery and populate GUI with it
         cemeteryPlotterSections.getSectionsData();
-        // disabled till we have something to put there
-        //SwingUtilities.invokeLater(() -> cemeteryPlotterMap.getMapData());
     }
 
     /**
