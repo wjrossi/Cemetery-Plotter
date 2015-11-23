@@ -49,6 +49,10 @@ public class CemeteryPlotterMap extends CemeteryPlotter {
         mapScrollPane.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
 
         map.addMouseListener(new MouseListener() {
+            /**
+             * Get the coordinates of a mouse click event
+             * @param e MouseEvent
+             */
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (cemeteryPlotterFrame.cemeteryPlotterPlot.isEditable())
@@ -71,6 +75,10 @@ public class CemeteryPlotterMap extends CemeteryPlotter {
         return panel;
     }
 
+    /**
+     * Set the view of the scrollable picture to show the map location
+     * @param mapLocation "(x, y)"
+     */
     public void setView(String mapLocation) {
         int x = Integer.parseInt(mapLocation.substring(1, mapLocation.indexOf(',')));
         int y = Integer.parseInt(mapLocation.substring(mapLocation.indexOf(", ") + 2, mapLocation.length() - 1));
@@ -79,13 +87,28 @@ public class CemeteryPlotterMap extends CemeteryPlotter {
         mapScrollPane.getViewport().setViewPosition(point);
     }
 
-    public class ScrollablePicture extends JLabel implements Scrollable, MouseMotionListener {
+    /**
+     * Clear map data by hiding the location indicator
+     */
+    public void clearMapData() {
+        map.showLocation(false, 0, 0);
+    }
+
+    /**
+     * A scrollable picture
+     */
+    private class ScrollablePicture extends JLabel implements Scrollable, MouseMotionListener {
         private int maxUnitIncrement = 1;
         private boolean missingPicture = false;
         private boolean visible = false;
         private int x = 0;
         private int y = 0;
 
+        /**
+         * Default constructor
+         * @param i image icon
+         * @param m increment
+         */
         public ScrollablePicture(ImageIcon i, int m) {
             super(i);
 
@@ -159,6 +182,12 @@ public class CemeteryPlotterMap extends CemeteryPlotter {
             maxUnitIncrement = pixels;
         }
 
+        /**
+         * Show the location indicator on the image
+         * @param visible boolean
+         * @param x int
+         * @param y int
+         */
         public void showLocation(boolean visible, int x, int y) {
             this.visible = visible;
             this.x = x;
@@ -166,6 +195,10 @@ public class CemeteryPlotterMap extends CemeteryPlotter {
             super.repaint();
         }
 
+        /**
+         * Paint the component and draw the location indicator if visible is set to true
+         * @param g graphics
+         */
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);

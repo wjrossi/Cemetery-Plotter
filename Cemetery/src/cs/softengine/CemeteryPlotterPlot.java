@@ -349,7 +349,7 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
     /**
      * Set the data from the GUI into the plot in the cemetery
      */
-    public void setPlotData(Plot plot) { // TODO BAD INPUT ERROR CHECKING
+    public void setPlotData(Plot plot) {
         cemetery.setModified(true);
 
         if (plot == null) {

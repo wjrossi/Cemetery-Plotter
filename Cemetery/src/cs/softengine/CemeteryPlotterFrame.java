@@ -136,6 +136,7 @@ public class CemeteryPlotterFrame extends CemeteryPlotter {
         cemeteryPlotterPlot.clearPlotData();
         cemeteryPlotterInterredPerson.clearInterredData();
         cemeteryPlotterContact.clearContactData();
+        cemeteryPlotterMap.clearMapData();
     }
 
     /**

@@ -441,7 +441,7 @@ public class CemeteryPlotterContact extends CemeteryPlotter implements ActionLis
     /**
      * Set the data from the GUI into the contact Person in the cemetery
      */
-    public void setContactData(Plot plot) { // TODO BAD INPUT ERROR CHECKING
+    public void setContactData(Plot plot) {
         cemetery.setModified(true);
 
         // write the contact data from the GUI fields into the right place in the data layer
