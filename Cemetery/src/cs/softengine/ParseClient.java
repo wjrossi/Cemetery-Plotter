@@ -1,4 +1,5 @@
 package cs.softengine;
+
 import org.parse4j.*;
 import org.parse4j.callback.*;
 import java.io.File;
@@ -6,9 +7,6 @@ import java.io.FileNotFoundException;
 import java.nio.charset.*;
 import java.util.Scanner;
 
-/**
- * Created by DanielKindler on 11/8/15.
- */
 public class ParseClient {
     private static String FILE_OBJ_ID = "cSRdwJXtdV";
     private static ParseObject saveObject = ParseObject.createWithoutData("Save", FILE_OBJ_ID);
@@ -19,7 +17,6 @@ public class ParseClient {
         Parse.initialize(APP_ID, APP_REST_ID);
     }
 
-
     /**
      * Retrieve file with name from server
      * @return boolean if user logged in successfully or not
@@ -27,6 +24,7 @@ public class ParseClient {
     public static File getFile() {
         ParseFile file = (ParseFile) saveObject.get("file");
         File f = null;
+
         file.getDataInBackground(new GetDataCallback() {
             public void done(byte[] data, ParseException e) {
                 if (e == null) {
@@ -48,11 +46,16 @@ public class ParseClient {
      */
     public boolean saveFile(File inFile) throws ParseException, FileNotFoundException {
         String str = new Scanner(inFile).useDelimiter("\\Z").next();
+
         byte[] data = str.getBytes();
+
         ParseFile file = new ParseFile(inFile.getName(), data);
+
         file.save();
+
         saveObject.put("file", file);
         saveObject.saveInBackground();
+
         return true;
     }
 }
