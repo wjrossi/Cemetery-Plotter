@@ -2,8 +2,11 @@ package cs.softengine;
 
 import javax.swing.*;
 import javax.swing.border.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.text.Position;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
@@ -58,6 +61,35 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
         // create search text field and button
         searchField = new JTextField(8);
         searchField.setToolTipText("View or edit the specified plot.");
+
+        searchField.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                changedUpdate(e);
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                changedUpdate(e);
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                /*
+                if (searchField.getText().length() == 0) {
+                    getPlotsData(cemeteryPlotterFrame.cemeteryPlotterSections.getSelectedSections());
+                } else {
+                    int index = 0;
+                    DefaultListModel<Integer> newListModel = new DefaultListModel<>();
+                    while ((index = plotsList.getNextMatch(searchField.getText(), 0, Position.Bias.Forward)) > 0) {
+                        newListModel.addElement(plotsListModel.get(index));
+                        System.out.println(index + ", " + plotsListModel.get(index));
+                    }
+                    plotsList.setModel(newListModel);
+                }
+                */
+            }
+        });
 
         // add search text field and button to search panel
         JPanel searchPanel = new JPanel();

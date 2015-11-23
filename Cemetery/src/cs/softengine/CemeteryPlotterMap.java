@@ -88,7 +88,7 @@ public class CemeteryPlotterMap extends CemeteryPlotter {
     public void setView(String mapLocation) {
         int x = Integer.parseInt(mapLocation.substring(1, mapLocation.indexOf(',')));
         int y = Integer.parseInt(mapLocation.substring(mapLocation.indexOf(", ") + 2, mapLocation.length() - 1));
-        Point point = new Point(x, y);
+        Point point = new Point(x - 100, y - 100);
         mapScrollPane.getViewport().setViewPosition(point);
     }
 
