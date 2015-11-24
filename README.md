@@ -94,3 +94,12 @@ To edit any plot, interred person, or contact record:
 - The associated PlotID is automatically added to the list of associated/owned plots when the contact record is created.
 - Add a plot by clicking Add Plot and chosing an existing PlotID in the prompt.
 - Remove a plot by selecting the plot in the associated/owned plots list and click Remove Plot.
+
+## Saving
+To save any changes you made to the cemetery click:
+- File->Save to overwrite the current file
+- File->Save As to save the cemetery as a new file.  Make sure it uses the file extension ".db".
+
+To save the cemetery file to the cloud:
+- Save the file to your computer using one of the two methods above.
+- Then clicl File->Save to Cloud, and your file will be automatically sent to the cloud.
