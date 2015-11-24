@@ -6,7 +6,7 @@ import java.io.*;
 
 public class ParseClient {
     private static String FILE_OBJ_ID = "cSRdwJXtdV";
-    private static ParseObject saveObject;// = ParseObject.createWithoutData("Save", FILE_OBJ_ID);
+    private static ParseObject saveObject = ParseObject.createWithoutData("Save", FILE_OBJ_ID);
     private static String APP_ID = "PMjsWvJ0jF5SvX70J7n19JaJ40SwsRSDbSz2wedp";
     private static String APP_REST_ID = "eZZDX9qchn88zkLhh02Q8xRToOTzlfrSVBEzs7qM";
     private static File file = null;
