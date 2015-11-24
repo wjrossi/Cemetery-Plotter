@@ -65,7 +65,9 @@ public class ParseClient {
             try {
                 Thread.sleep(50);
             } catch (InterruptedException ie) {
+
                 // do nothing
+
             }
         }
 
