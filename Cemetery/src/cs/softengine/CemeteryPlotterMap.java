@@ -46,7 +46,6 @@ public class CemeteryPlotterMap extends CemeteryPlotter {
         mapScrollPane = new JScrollPane(map);
         mapScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         mapScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        mapScrollPane.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
 
         map.addMouseListener(new MouseListener() {
             /**
@@ -63,8 +62,13 @@ public class CemeteryPlotterMap extends CemeteryPlotter {
             public void mousePressed(MouseEvent e) { }
             @Override
             public void mouseReleased(MouseEvent e) { }
+
             @Override
-            public void mouseEntered(MouseEvent e) { }
+            public void mouseEntered(MouseEvent e) {
+                if (cemeteryPlotterFrame.cemeteryPlotterPlot.isEditable())
+                    mapScrollPane.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
+            }
+
             @Override
             public void mouseExited(MouseEvent e) { }
         });

@@ -163,10 +163,12 @@ public class CemeteryPlotterFrame extends CemeteryPlotter {
                         null,
                         null);
             } else { // quit
-                File tempFile = new File(workingFile.getName() + ".tmp");
+                if (workingFile != null) {
+                    File tempFile = new File(workingFile.getName() + ".tmp");
 
-                if (tempFile.exists()) // clean up uncompressed temporary file
-                    tempFile.deleteOnExit();
+                    if (tempFile.exists()) // clean up uncompressed temporary file
+                        tempFile.deleteOnExit();
+                }
 
                 System.exit(0);
             }
