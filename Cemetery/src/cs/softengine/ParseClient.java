@@ -2,16 +2,14 @@ package cs.softengine;
 
 import org.parse4j.*;
 import org.parse4j.callback.*;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.nio.charset.*;
-import java.util.Scanner;
+import java.io.*;
 
 public class ParseClient {
     private static String FILE_OBJ_ID = "cSRdwJXtdV";
     private static ParseObject saveObject = ParseObject.createWithoutData("Save", FILE_OBJ_ID);
     private static String APP_ID = "PMjsWvJ0jF5SvX70J7n19JaJ40SwsRSDbSz2wedp";
     private static String APP_REST_ID = "eZZDX9qchn88zkLhh02Q8xRToOTzlfrSVBEzs7qM";
+    private static File file;
 
     public ParseClient() {
         Parse.initialize(APP_ID, APP_REST_ID);
@@ -22,39 +20,67 @@ public class ParseClient {
      * @return boolean if user logged in successfully or not
      */
     public static File getFile() {
-        ParseFile file = (ParseFile) saveObject.get("file");
-        File f = null;
+        ParseFile parseFile = (ParseFile) saveObject.get("file");
 
-        file.getDataInBackground(new GetDataCallback() {
+        parseFile.getDataInBackground(new GetDataCallback() {
             public void done(byte[] data, ParseException e) {
                 if (e == null) {
-                    String str = new String(data, StandardCharsets.UTF_8);
-                    // do
+                    // data has the bytes for the file
+                    try {
+                        File file = new File("cemetery.cloud.db.tmp");
+                        FileOutputStream fileWrite = new FileOutputStream(file);
+
+                        for (byte b : data) {
+                            fileWrite.write(b);
+                            fileWrite.flush();
+                        }
+
+                        fileWrite.close();
+
+                        if (file.exists()) {
+                            file.renameTo(new File("cemetery.cloud.db"));
+                        } else {
+                            file = null;
+                        }
+
+                        setFile(file);
+                    } catch (IOException io) {
+                        io.printStackTrace();
+                    }
                 } else {
-                    // do
+                    // something went wrong
                 }
             }
         });
 
-        return f;
+        return file;
+    }
+
+    public static void setFile(File newFile) {
+        file = newFile;
     }
 
     /**
      * Save file with to server
-     * @param inFile the file to be saved
+     * @param file the file to be saved
      * @return boolean if file saved successfully or not
      */
-    public boolean saveFile(File inFile) throws ParseException, FileNotFoundException {
-        String str = new Scanner(inFile).useDelimiter("\\Z").next();
+    public boolean saveFile(File file) throws ParseException, FileNotFoundException {
+        byte[] data = new byte[(int) file.length()];
 
-        byte[] data = str.getBytes();
+        try {
+            FileInputStream fileRead = new FileInputStream(file);
+            fileRead.read(data);
+            fileRead.close();
+        } catch (Exception e) { // unable to compress
+            e.printStackTrace();
+        }
 
-        ParseFile file = new ParseFile(inFile.getName(), data);
+        ParseFile parseFile = new ParseFile(file.getName(), data);
+        parseFile.save();
 
-        file.save();
-
-        saveObject.put("file", file);
-        saveObject.saveInBackground();
+        saveObject.put("file", parseFile);
+        saveObject.save();
 
         return true;
     }

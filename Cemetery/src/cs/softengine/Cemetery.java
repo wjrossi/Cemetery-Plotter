@@ -350,7 +350,7 @@ public class Cemetery {
             DeflaterOutputStream fileWrite = new DeflaterOutputStream(new FileOutputStream(fileOut));
 
             int i;
-            while((i = fileRead.read()) >= 0) {
+            while ((i = fileRead.read()) >= 0) {
                 fileWrite.write((byte) i);
                 fileWrite.flush();
             }
