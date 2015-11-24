@@ -162,11 +162,13 @@ public class CemeteryPlotterFrame extends CemeteryPlotter {
                         null,
                         null);
             } else { // quit
-                cemeteryPlotterFrame.getFrame().dispose();
+                System.exit(0);
+                //cemeteryPlotterFrame.getFrame()();
             }
 
             if (exit == JOptionPane.YES_OPTION) { // quit
                 cemeteryPlotterFrame.getFrame().dispose();
+                System.exit(0);
             } // else, do nothing
         }
     }

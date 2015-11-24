@@ -6,10 +6,10 @@ import java.io.*;
 
 public class ParseClient {
     private static String FILE_OBJ_ID = "cSRdwJXtdV";
-    private static ParseObject saveObject = ParseObject.createWithoutData("Save", FILE_OBJ_ID);
+    private static ParseObject saveObject;// = ParseObject.createWithoutData("Save", FILE_OBJ_ID);
     private static String APP_ID = "PMjsWvJ0jF5SvX70J7n19JaJ40SwsRSDbSz2wedp";
     private static String APP_REST_ID = "eZZDX9qchn88zkLhh02Q8xRToOTzlfrSVBEzs7qM";
-    private static File file;
+    private static File file = null;
 
     public ParseClient() {
         Parse.initialize(APP_ID, APP_REST_ID);
@@ -20,44 +20,43 @@ public class ParseClient {
      * @return boolean if user logged in successfully or not
      */
     public static File getFile() {
-        while (saveObject == null) {
-            try {
-                Thread.sleep(50);
-            } catch (InterruptedException ie) {
-                // do nothing
-            }
-        }
-
-        ParseFile parseFile = (ParseFile) saveObject.get("file");
-
-        while (parseFile == null) {
-            try {
-                Thread.sleep(50);
-            } catch (InterruptedException ie) {
-                // do nothing
-            }
-        }
-
-        parseFile.getDataInBackground(new GetDataCallback() {
-            public void done(byte[] data, ParseException e) {
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Save");
+        query.getInBackground(FILE_OBJ_ID, new GetCallback<ParseObject>() {
+            public void done(ParseObject object, ParseException e) {
                 if (e == null) {
-                    // data has the bytes for the file
-                    try {
-                        File file = new File("cemetery.cloud.db");
-                        FileOutputStream fileWrite = new FileOutputStream(file);
+                    // object will be your game score
+                    saveObject = object;
+                    ParseFile parseFile = saveObject.getParseFile("file");
 
-                        for (byte b : data) {
-                            fileWrite.write(b);
-                            fileWrite.flush();
+                    while (parseFile == null) {
+                        try {
+                            Thread.sleep(50);
+                        } catch (InterruptedException ie) {
+                            // do nothing
                         }
-
-                        fileWrite.close();
-                        setFile(file);
-                    } catch (IOException io) {
-                        io.printStackTrace();
                     }
-                } else {
-                    // something went wrong
+
+                    parseFile.getDataInBackground(new GetDataCallback() {
+                        public void done(byte[] data, ParseException e) {
+                            if (e == null && data != null) {
+                                // data has the bytes for the file
+                                try {
+                                    File file = new File("cemetery.cloud.db");
+                                    FileOutputStream fileWrite = new FileOutputStream(file);
+
+                                    for (byte b : data) {
+                                        fileWrite.write(b);
+                                        fileWrite.flush();
+                                    }
+
+                                    fileWrite.close();
+                                    setFile(file);
+                                } catch (IOException io) {
+                                    io.printStackTrace();
+                                }
+                            }
+                        }
+                    });
                 }
             }
         });
