@@ -49,7 +49,7 @@ To find quickly find a plot in the plots list:
 ### People
 The people list is based on the currently selected sections.
 - It can be filtered to show only the interred people, contacts, or both groups.
-- If the person is interred, with an associated PlotID selecting their name in the people list will select the corresponding PlotID from the plots list and allow you to edit their associated information.
+- If the person is interred, with an associated PlotID selecting their name in the people list will select the corresponding PlotID from the plots list and allow you to edit their associated records.
 - Searching the people list can be done with a partial name or PlotID, if one exists.
 	- Search by:
 		- Lastname Firstname -- commas are ignored
@@ -57,4 +57,40 @@ The people list is based on the currently selected sections.
 		- Firstname
 
 ## Viewing & Manipulating Records
+To view the records associated with a plot or a person:
+- select the desired section(s) containing the plot(s)
+- select the PlotID in the plot list or the interred person in the people list.
 
+This will load the: 
+- associated plot, interred person, and contact records in the center panels.
+- If a map location is set for the chosen plot, it will be highlighted in the map panel.
+
+To edit any plot, interred person, or contact record:
+- Click the respective Edit button
+- All fields will be unlocked and the edit button will be disabled until you click:
+	- Cancel -- reverts any changes you made to the record
+	- Delete -- deletes the record
+		- This action cannot be undone, except by exiting the program WITHOUT saving OR by opening the file again
+	- Update -- update the record with any changes made
+		- To make these changes permanent, the cemetery file must be saved.
+
+### Plot
+- The Section is automatically set to the section the plot was created in, but may be changed to any existing section.
+- The PlotID is automatically generated and not editable.
+- All other fields are optional
+- To set a Map Location, click Edit on the Plot panel
+	- Click the correspond location on the map.  The Map Location field will be filled in automatically.
+		- You can click as many times as you want. 
+
+### Interred
+- An interred record is not automatically created when a plot is created.
+	- While viewing a plot, click Edit on the Interred panel to start a record for an associated interred person.
+	- The InterredID is automatically generated, but can be changed to any non-existing InterredID number.
+	- The PlotID is automatically associated with the currently selected plot.
+- All other fields are optional
+
+### Contact
+- A contact record is not automatically created when a plot is created.
+- The associated PlotID is automatically added to the list of associated/owned plots when the contact record is created.
+- Add a plot by clicking Add Plot and chosing an existing PlotID in the prompt.
+- Remove a plot by selecting the plot in the associated/owned plots list and click Remove Plot.

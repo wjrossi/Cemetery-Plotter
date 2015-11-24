@@ -220,8 +220,12 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
 
         for (Plot p : s.getPlots()) {
             InterredPerson ip = p.getInterred();
-            if (ip != null)
-                results.add(ip.getLastName() + ", " + ip.getFirstName() + " (PlotID: " + ip.getPlotID() + ")");
+            if (ip != null) {
+                if (ip.getFirstName() == null || ip.getFirstName().isEmpty())
+                    results.add(ip.getLastName() + " (PlotID: " + ip.getPlotID() + ")");
+                else
+                    results.add(ip.getLastName() + ", " + ip.getFirstName() + " (PlotID: " + ip.getPlotID() + ")");
+            }
         }
 
         return results;
@@ -238,8 +242,12 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
 
         for (Plot plot : s.getPlots()) {
             Person p = plot.getContact();
-            if (p != null)
-                results.add(p.getLastName() + ", " + p.getFirstName());
+            if (p != null) {
+                if (p.getFirstName() == null || p.getFirstName().isEmpty())
+                    results.add(p.getLastName());
+                else
+                    results.add(p.getLastName() + ", " + p.getFirstName());
+            }
         }
 
         return results;
