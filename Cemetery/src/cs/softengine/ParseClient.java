@@ -20,14 +20,30 @@ public class ParseClient {
      * @return boolean if user logged in successfully or not
      */
     public static File getFile() {
+        while (saveObject == null) {
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException ie) {
+                // do nothing
+            }
+        }
+
         ParseFile parseFile = (ParseFile) saveObject.get("file");
+
+        while (parseFile == null) {
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException ie) {
+                // do nothing
+            }
+        }
 
         parseFile.getDataInBackground(new GetDataCallback() {
             public void done(byte[] data, ParseException e) {
                 if (e == null) {
                     // data has the bytes for the file
                     try {
-                        File file = new File("cemetery.cloud.db.tmp");
+                        File file = new File("cemetery.cloud.db");
                         FileOutputStream fileWrite = new FileOutputStream(file);
 
                         for (byte b : data) {
@@ -36,13 +52,6 @@ public class ParseClient {
                         }
 
                         fileWrite.close();
-
-                        if (file.exists()) {
-                            file.renameTo(new File("cemetery.cloud.db"));
-                        } else {
-                            file = null;
-                        }
-
                         setFile(file);
                     } catch (IOException io) {
                         io.printStackTrace();
@@ -52,6 +61,14 @@ public class ParseClient {
                 }
             }
         });
+
+        while (file == null) {
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException ie) {
+                // do nothing
+            }
+        }
 
         return file;
     }
