@@ -319,7 +319,7 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
     /**
      * Set the data from the GUI into the interred person in the cemetery
      */
-    public void setInterredData(Plot plot) { // TODO bad input error checking
+    public void setInterredData(Plot plot) {
         cemetery.setModified(true);
 
         // write the contact data from the GUI fields into the right place in the data layer

@@ -25,9 +25,9 @@ public class CemeteryTest {
      */
     @Test
     public void testSave() throws IOException{
-        //todo
+
         File f = new File("testFile.txt");
-        // File file = Mockito.mock(File.class);
+
         c = new Cemetery();
         c.save(f);
     }
