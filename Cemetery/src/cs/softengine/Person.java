@@ -302,9 +302,8 @@ public class Person implements Comparable<Person> {
         if (plots == null || plots.size() == 0) {
             result += "null\n";
         } else {
-            for (Integer plotID : plots) {
+            for (Integer plotID : plots)
                 result += Integer.toString(plotID) + "\n";
-            }
         }
 
         result += "</OWNEDPLOTS>\n"

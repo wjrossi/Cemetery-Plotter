@@ -1,6 +1,6 @@
 package cs.softengine;
-import org.parse4j.ParseException;
 
+import org.parse4j.ParseException;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.*;

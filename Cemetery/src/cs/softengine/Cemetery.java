@@ -52,7 +52,6 @@ public class Cemetery {
         } catch (IOException e) {
             System.err.println("Unable to read input file. Exiting.");
             e.printStackTrace();
-            System.exit(1);
         }
     }
 
@@ -85,9 +84,8 @@ public class Cemetery {
 
         buffer.close();
 
-        for (Section s : sections) {
+        for (Section s : sections)
             Collections.sort(s.getPlots());
-        }
     }
 
     /**
@@ -342,7 +340,7 @@ public class Cemetery {
      * @param file save file
      * @return compressed save file
      */
-    private File compress(File file) {
+    private File compress(File file) throws IOException {
         File fileOut = new File(file.getName() + ".tmp");
 
         try {
@@ -358,15 +356,13 @@ public class Cemetery {
             fileRead.close();
             fileWrite.close();
         } catch (Exception e) { // unable to compress
-            System.out.println("Unable to compress " + file + " into " + fileOut);
-            e.printStackTrace();
-            return file;
+            throw new IOException("Unable to compress " + file + " into " + fileOut);
         }
 
         return fileOut;
     }
 
-    private File decompress(File file) {
+    private File decompress(File file) throws IOException {
         File fileOut = new File(file.getName() + ".tmp");
 
         try {
@@ -382,8 +378,7 @@ public class Cemetery {
             fileRead.close();
             fileWrite.close();
         } catch (Exception e) {
-            System.out.println("Unable to decompress " + file + " into " + fileOut);
-            return file;
+            throw new IOException("Unable to decompress " + file + " into " + fileOut);
         }
 
         return fileOut;
@@ -401,7 +396,7 @@ public class Cemetery {
     /**
      * Remove a section from the cemetery
      * @param s the old section
-     * @return succes/failure
+     * @return success/failure
      */
     public boolean remove(Section s) {
         return s != null && sections.remove(s);

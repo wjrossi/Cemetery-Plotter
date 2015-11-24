@@ -162,18 +162,16 @@ public class CemeteryPlotterSections extends CemeteryPlotter implements ActionLi
 
         Collection<String> sections = getSelectedSections();
 
-        if (sections.size() != 1) {
+        if (sections.size() < 1) {
             JOptionPane.showMessageDialog(cemeteryPlotterFrame.getFrame(),
-                    "Select a single section to delete.",
+                    "Select at least one section to delete.",
                     "Error",
                     JOptionPane.WARNING_MESSAGE);
             return;
         }
 
-
-        for (String section : getSelectedSections()) {
+        for (String section : getSelectedSections())
             plotsExist = cemetery.get(new Section(section)).getSize() > 0;
-        }
 
         // if there are plots in any of the selected sections display a warning
         if (plotsExist) {
@@ -220,9 +218,8 @@ public class CemeteryPlotterSections extends CemeteryPlotter implements ActionLi
     public void getSectionsData() {
         ArrayList<String> sections = new ArrayList<>();
 
-        for (Section section : cemetery.getSections()) {
+        for (Section section : cemetery.getSections())
             sections.add(section.getName());
-        }
 
         sectionsListModel.clear();
 
@@ -230,9 +227,8 @@ public class CemeteryPlotterSections extends CemeteryPlotter implements ActionLi
         Collections.sort(sections);
 
         // add each person to the people list
-        for (String section : sections) {
+        for (String section : sections)
             sectionsListModel.addElement(section);
-        }
     }
 
     /**

@@ -6,7 +6,6 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.text.Position;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
@@ -168,9 +167,8 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
             // figure out which plots to put in the list (based on which sections are selected in CemeteryPlotterSections)
             Section s = cemetery.get(new Section(section));
 
-            for (Plot p : s.getPlots()) {
+            for (Plot p : s.getPlots())
                 plots.add(p.getID());
-            }
         }
 
         // sort the list of people using default String comparator

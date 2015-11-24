@@ -173,7 +173,6 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
 
         // add editable components to list for easy enable/disable
         editable.add(interredIDField);
-        //editable.add(plotIDField); // not editable
         editable.add(fnameField);
         editable.add(lnameField);
         editable.add(bornDateMonthField);
@@ -198,9 +197,8 @@ public class CemeteryPlotterInterredPerson extends CemeteryPlotter implements Ac
      * @param value enabled/disabled
      */
     public void setInterredEditable(boolean value) {
-        for (JComponent c : editable) {
+        for (JComponent c : editable)
             c.setEnabled(value);
-        }
     }
 
     /**

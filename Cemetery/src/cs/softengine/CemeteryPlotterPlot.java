@@ -230,9 +230,8 @@ public class CemeteryPlotterPlot extends CemeteryPlotter implements ActionListen
      * @param value enabled/disabled
      */
     public void setPlotEditable(boolean value) {
-        for (JComponent c : editable) {
+        for (JComponent c : editable)
             c.setEnabled(value);
-        }
     }
 
     /**

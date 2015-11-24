@@ -261,9 +261,8 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
         peopleListModel.clear();
         getPeopleData(cemeteryPlotterFrame.cemeteryPlotterSections.getSelectedSections());
 
-        if (index >= 0) {
+        if (index >= 0)
             peopleList.setSelectedIndex(index);
-        }
     }
 
     /**
@@ -290,7 +289,6 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
         peopleList.setSelectedIndex(index);
         peopleList.ensureIndexIsVisible(index);
     }
-
 
     /**
      * Implementation of ListSelectionListener that is invoked when selections are made on the people list
