@@ -102,4 +102,4 @@ To save any changes you made to the cemetery click:
 
 To save the cemetery file to the cloud:
 - Save the file to your computer using one of the two methods above.
-- Then clicl File->Save to Cloud, and your file will be automatically sent to the cloud.
+- Then click File->Save to Cloud, and your file will be automatically sent to the cloud.
