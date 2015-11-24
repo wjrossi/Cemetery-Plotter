@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
 
 /**
  * Content pane for plot info
@@ -42,7 +43,7 @@ public class CemeteryPlotterMap extends CemeteryPlotter {
         panel.setBorder(titledBorder);
 
         // load image
-        map = new ScrollablePicture(new ImageIcon("resources/map.png"), 10);
+        map = new ScrollablePicture(new ImageIcon(new File(".").getAbsolutePath() + "/resources/map.png"), 10);
         mapScrollPane = new JScrollPane(map);
         mapScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         mapScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
