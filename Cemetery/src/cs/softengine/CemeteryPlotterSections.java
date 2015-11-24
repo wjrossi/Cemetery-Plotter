@@ -147,9 +147,18 @@ public class CemeteryPlotterSections extends CemeteryPlotter implements ActionLi
 
         if (name != null && !name.isEmpty()) {
             section = new Section(name.toUpperCase());
-            cemetery.add(section);
-            refreshSectionsList();
-            cemetery.setModified(true);
+
+            if (cemetery.getSections().indexOf(section) >= 0) {
+                JOptionPane.showMessageDialog(cemeteryPlotterFrame.getFrame(),
+                        "Section \"" + name + "\" cannot be added to the cemetery!\n"
+                                + "A section with that name already exists.",
+                        "Error",
+                        JOptionPane.WARNING_MESSAGE);
+            } else {
+                cemetery.add(section);
+                refreshSectionsList();
+                cemetery.setModified(true);
+            }
         }
     }
 

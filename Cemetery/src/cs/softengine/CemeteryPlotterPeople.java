@@ -83,7 +83,7 @@ public class CemeteryPlotterPeople extends CemeteryPlotter implements ActionList
                     DefaultListModel<String> newListModel = new DefaultListModel<>();
 
                     for (int index = 0; index < peopleListModel.size(); index++) {
-                        if (peopleListModel.get(index).toLowerCase().replace(",", "").contains(filterField.getText().toLowerCase()))
+                        if (peopleListModel.get(index).toLowerCase().replace(",", "").contains(filterField.getText().toLowerCase().replace(",", "")))
                             newListModel.addElement(peopleListModel.get(index));
                     }
 
