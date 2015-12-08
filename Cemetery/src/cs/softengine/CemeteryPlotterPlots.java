@@ -189,7 +189,7 @@ public class CemeteryPlotterPlots extends CemeteryPlotter implements ActionListe
 
         Collection<String> sections = cemeteryPlotterFrame.cemeteryPlotterSections.getSelectedSections();
 
-        if (sections.size() <= 0) {
+        if (sections.size() != 1) {
             JOptionPane.showMessageDialog(cemeteryPlotterFrame.getFrame(),
                     "Select a single section to add a new plot.",
                     "Error",
